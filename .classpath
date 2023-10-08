@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/AIWolfServer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AIWolfCommon"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AIWolfClient"/>
+	<classpathentry kind="lib" path="lib/commons-math3-3.6.1.jar" sourcepath="C:/Users/tminowa/AppData/Local/Temp/decompiler/source/commons-math3-3.6.1-sources.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections4-4.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Tools"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AIWolfAgents"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/KanolabCommon"/>
+	<classpathentry kind="lib" path="/KanolabCommon/lib/ext/guava-14.0.1.jar"/>
+	<classpathentry kind="lib" path="/AIWolfServer/lib/jsonic-1.3.2.jar"/>
+	<classpathentry kind="lib" path="/KanolabCommon/lib/kuromoji.jar"/>
+	<classpathentry kind="lib" path="/KanolabCommon/lib/ext/log4j-1.2.16.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
