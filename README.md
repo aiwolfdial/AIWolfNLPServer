@@ -4,7 +4,9 @@
 ## 設定
 `res/NLPAIWolfServer_Client.ini`に接続先の情報を記載してください。
 ```
+
 (省略)
+
 PlayerHost1=133.70.176.76	; 1人目の待ち受けIP
 PlayerPort1=9995			; 1人目の待ち受けポート
 PlayerHost2=133.70.176.76	; 2人目の待ち受けIP
