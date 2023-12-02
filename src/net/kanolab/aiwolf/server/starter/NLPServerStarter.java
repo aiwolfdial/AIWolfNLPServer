@@ -506,10 +506,10 @@ public class NLPServerStarter extends ServerStarter {
 		gameStarter.start();
 
 		// サーバとして待ち受け
-		acceptClients();
+		// acceptClients();
 
 		// プレイヤーサーバに接続
-		// connectToPlayerServer();
+		connectToPlayerServer();
 
 		System.err.println("server was dead.");
 	}
