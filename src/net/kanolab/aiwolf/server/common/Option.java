@@ -169,6 +169,22 @@ public enum Option{
 	//HUMAN("containsHuman","false", Boolean.class),
 
 	/**
+	 * ゲーム提供をサーバとして行うか、クライアントとして行うか。
+	 * True: server False: client
+	 * boolean型<br>
+	 * 初期値：false
+	 */
+	IS_SERVER_FLAG("IsServerFlag","true",Boolean.class),
+
+	/**
+	 * IsServerFlag = false の時、相手方のポートを.iniファイルに書いてある物に接続するか、ポートを聞く通信を開き、待つか
+	 * True: どのポートにアクセスするか聞くための通信をしてからゲーム開始 False: .ini設定に書いてあるポートにそのまま接続に行く。
+	 * boolean型<br>
+	 * 初期値：false
+	 */
+	IS_PORT_LISTENING_FLAG("ISPortListeningFlag","ture",Boolean.class),
+
+	/**
 	 * プレイヤー側がサーバとして振る舞うときの1人目の接続先アドレス<br>
 	 * String型<br>
 	 * 初期値 : 127.0.0.1 (localhost)

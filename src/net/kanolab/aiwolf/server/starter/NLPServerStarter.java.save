@@ -1,8 +1,6 @@
 package net.kanolab.aiwolf.server.starter;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.InputStreamReader;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -193,10 +191,8 @@ public class NLPServerStarter extends ServerStarter {
 	 * @throws NoRouteToHostException
 	 * @throws IOException
 	 */
-	private Socket getServerSocket(int index, String line) throws UnknownHostException,ConnectException,NoRouteToHostException,IOException{
+	private Socket getServerSocket(int index) throws UnknownHostException,ConnectException,NoRouteToHostException,IOException{
 		Map<String, Object> serverInfo = new HashMap<String, Object>();
-
-		System.out.println(index);
 
 		switch(index){
 			case 1:
@@ -218,15 +214,6 @@ public class NLPServerStarter extends ServerStarter {
 			case 5:
 				serverInfo.put("HOST",config.get(Option.PLAYER_HOST5));
 				serverInfo.put("PORT",config.get(Option.PLAYER_PORT5));
-				break;
-			case 10000:
-			case 10001:
-			case 10002:
-			case 10003:
-			case 10004:
-				String[] portList = line.split("\s");
-				serverInfo.put("HOST","133.167.32.100");
-				serverInfo.put("PORT",Integer.parseInt(portList[index%10000]));
 				break;
 		}
 
@@ -266,22 +253,13 @@ public class NLPServerStarter extends ServerStarter {
 		// System.out.println("onlyConnection = " + onlyConnection + " " + Thread.currentThread().getStackTrace()[1]);
 		this.isActive = true;
 		int index = 1;
-		String line = "";
 
 		try{
-
-			if(config.get(Option.IS_PORT_LISTENING_FLAG)){
-				//接続先のポートを聞く。
-				ServerSocket serverSocket = new ServerSocket(config.get(Option.PORT_NUM));
-				Socket socket = serverSocket.accept();
-				line = getHostNameAndPort(socket);
-				index = 10000;
-			}		
 
 			Map<String,List<Pair<Long, Socket>>> entrySocketMap = new HashMap<>();	// key:ip value: list[pair(entrytime, socket)]
 			for(int i=0; i<connectAgentNum; i++){
 
-				Socket socket = getServerSocket(index,line);
+				Socket socket = getServerSocket(index);
 
 				//Socketの追加
 				Pair<Long, Socket> pair = new Pair<>(System.currentTimeMillis() / 3600000, socket);
@@ -329,7 +307,7 @@ public class NLPServerStarter extends ServerStarter {
 		catch (NoRouteToHostException e) {
 			// The connect attempt timed out.  Try connecting through a proxy
 			System.out.println("Player" + index + "time out.");
-			return;
+			return;5
 		} 
 		catch (IOException e) {
 			// another error occurred
@@ -337,8 +315,9 @@ public class NLPServerStarter extends ServerStarter {
 			return;
 		}
 
-
-		waitGame();
+		// とりあえず人狼ゲームサーバをクライアントとして使用するのは本戦のみを想定しているので、acceptClientsのように同時実行するゲームの受け付けはしない。(1ゲームのみの実行)
+		waitGame(); // 何ゲームか繰り返しやる場合この実装方法だとまずい気がするけど、どうするか検討しないといけない。(1ゲームの終了をどのように把握するか分からないといけない。)
+		// ↑ でも何ゲームか繰り返しやる場合ソケットを使いまわしているはずだからこの実装で良いのでは？
 
 	}
 
@@ -372,20 +351,6 @@ public class NLPServerStarter extends ServerStarter {
 			throw task.getIOException();
 		}
 		return (line == null || line.isEmpty() ) ? null : line;
-	}
-
-	private String getHostNameAndPort(Socket socket) throws IOException{
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader
-				(socket.getInputStream()));
-		
-		String line = reader.readLine();
-
-		// 通信の終了
-		socket.close();
-		reader.close();
-
-		return line;
 	}
 
 	/**
@@ -540,13 +505,11 @@ public class NLPServerStarter extends ServerStarter {
 		gameStarter = new GameStarter(socketQue, config);
 		gameStarter.start();
 
-		if(config.get(Option.IS_SERVER_FLAG)){
-			// サーバとして待ち受け
-			acceptClients();
-		}
-		else{
-			connectToPlayerServer();
-		}
+		// サーバとして待ち受け
+		acceptClients();
+
+		// プレイヤーサーバに接続
+		// connectToPlayerServer();
 
 		System.err.println("server was dead.");
 	}
