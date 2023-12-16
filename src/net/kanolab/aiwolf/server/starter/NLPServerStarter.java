@@ -196,7 +196,7 @@ public class NLPServerStarter extends ServerStarter {
 	private Socket getServerSocket(int index, String line) throws UnknownHostException,ConnectException,NoRouteToHostException,IOException{
 		Map<String, Object> serverInfo = new HashMap<String, Object>();
 
-		System.out.println("index" + str(index));
+		System.out.println("index" + Integer.toString(index));
 
 		switch(index){
 			case 1:
