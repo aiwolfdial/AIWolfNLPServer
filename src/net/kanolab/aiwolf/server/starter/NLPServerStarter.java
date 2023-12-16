@@ -224,7 +224,7 @@ public class NLPServerStarter extends ServerStarter {
 			case 10002:
 			case 10003:
 			case 10004:
-				String[] portList = line.split("\s");
+				String[] portList = line.split("\\s");
 				serverInfo.put("HOST","133.167.32.100");
 				serverInfo.put("PORT",Integer.parseInt(portList[index%10000]));
 				break;
