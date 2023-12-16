@@ -225,7 +225,8 @@ public class NLPServerStarter extends ServerStarter {
 			case 10003:
 			case 10004:
 				String[] portList = line.split("\\s");
-				serverInfo.put("HOST","133.167.32.100");
+				// serverInfo.put("HOST","133.167.32.100");
+				serverInfo.put("HOST","localhost");
 				serverInfo.put("PORT",Integer.parseInt(portList[index%10000]));
 				break;
 		}
@@ -274,7 +275,7 @@ public class NLPServerStarter extends ServerStarter {
 				//接続先のポートを聞く。
 				ServerSocket serverSocket = new ServerSocket(config.get(Option.PORT_NUM));
 				Socket socket = serverSocket.accept();
-				line = getHostNameAndPort(socket);
+				String line = getHostNameAndPort(socket);
 				index = 10000;
 			}		
 
