@@ -275,7 +275,7 @@ public class NLPServerStarter extends ServerStarter {
 				//接続先のポートを聞く。
 				ServerSocket serverSocket = new ServerSocket(config.get(Option.PORT_NUM));
 				Socket socket = serverSocket.accept();
-				String line = getHostNameAndPort(socket);
+				line = getHostNameAndPort(socket);
 				index = 10000;
 			}		
 
