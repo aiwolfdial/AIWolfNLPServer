@@ -382,6 +382,7 @@ public class NLPServerStarter extends ServerStarter {
 		
 		String line = reader.readLine();
 
+		System.out.println("--------------------");
 		System.out.println(line);
 
 		// 通信の終了
