@@ -387,12 +387,6 @@ public class NLPServerStarter extends ServerStarter {
 		socket.close();
 		reader.close();
 
-		try{
-			Thread.sleep(1000);
-		}catch(InterruptedException e){
-			System.out.println("sleep Error!!!!");
-		}
-
 		return line;
 	}
 
