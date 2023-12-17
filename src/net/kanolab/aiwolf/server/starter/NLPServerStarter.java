@@ -387,6 +387,8 @@ public class NLPServerStarter extends ServerStarter {
 		socket.close();
 		reader.close();
 
+		Thread.sleep(1000);
+
 		return line;
 	}
 
