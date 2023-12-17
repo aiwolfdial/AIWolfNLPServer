@@ -390,7 +390,7 @@ public class NLPServerStarter extends ServerStarter {
 		try{
 			Thread.sleep(1000);
 		}catch(InterruptedException e){
-			throw new InterruptedException(e);
+			System.out.println("sleep Error!!!!");
 		}
 
 		return line;
