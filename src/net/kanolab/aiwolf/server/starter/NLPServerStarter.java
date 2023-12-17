@@ -273,7 +273,7 @@ public class NLPServerStarter extends ServerStarter {
 
 			if(config.get(Option.IS_PORT_LISTENING_FLAG)){
 				//接続先のポートを聞く。
-				System.out.println("Port Listening...")
+				System.out.println("Port Listening...");
 				ServerSocket serverSocket = new ServerSocket(config.get(Option.PORT_NUM));
 				Socket socket = serverSocket.accept();
 				line = getHostNameAndPort(socket);
