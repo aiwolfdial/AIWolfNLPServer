@@ -545,8 +545,13 @@ public class NLPServerStarter extends ServerStarter {
 			// サーバとして待ち受け
 			acceptClients();
 		}
-		else{
+		else if(!config.get(Option.IS_PORT_LISTENING_FLAG)){
 			connectToPlayerServer();
+		}
+		else{
+			while(true){
+				connectToPlayerServer();
+			}
 		}
 
 		System.err.println("server was dead.");
