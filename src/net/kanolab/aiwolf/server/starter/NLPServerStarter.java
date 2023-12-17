@@ -338,9 +338,6 @@ public class NLPServerStarter extends ServerStarter {
 			return;
 		}
 
-
-		waitGame();
-
 	}
 
 	/**
