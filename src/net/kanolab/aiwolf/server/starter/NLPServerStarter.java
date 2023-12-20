@@ -61,8 +61,7 @@ import java.io.IOException;
  * @author nwatanabe
  */
 public class NLPServerStarter extends ServerStarter {
-	// private static final String DEFAULT_INI_PATH = "../NLPServer/res/NLPAIWolfServerGUITest.ini";
-	private static final String DEFAULT_INI_PATH  = "../res/NLPAIWolfServer_Client.ini";
+	private static final String DEFAULT_INI_PATH  = "../res/AIWolfGameServer.ini";
 
 	public static void main(String[] args){
 		String initFileName = DEFAULT_INI_PATH;
