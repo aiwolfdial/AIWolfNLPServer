@@ -9,7 +9,7 @@ import net.kanolab.aiwolf.server.starter.NLPServerStarter;
 public class AutoGameStarter {
 	public static void main(String[] args){
 		
-		String configIniPath = "../res/AIWolfGameServer.ini";
+		String configIniPath = "./res/AIWolfGameServer.ini";
 
 		if (args.length > 0) configIniPath = args[0];
 		AutomaticStarterConfiguration config = new AutomaticStarterConfiguration(configIniPath);

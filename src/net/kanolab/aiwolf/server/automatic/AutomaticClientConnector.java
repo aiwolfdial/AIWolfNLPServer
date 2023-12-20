@@ -8,7 +8,7 @@ import net.kanolab.aiwolf.server.client.NLPTcpipClient;
 
 public class AutomaticClientConnector {
 
-	private static final String DEFAULT_PATH = "../NLPServer/res/FourClientsConfiguration.ini";
+	private static final String DEFAULT_PATH = "./res/AIWolfGameServer.ini";
 	private AutomaticStarterConfiguration config;
 
 	public static void main(String[] args){
