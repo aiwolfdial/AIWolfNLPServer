@@ -67,7 +67,7 @@ build-starter:
 clear-starter:
 	@rm ./src/net/kanolab/aiwolf/server/starter/*.class
 
-# ng(starter,client,aiwolf.agent)
+# (starter,client,aiwolf.agent)
 build-automatic:
 	@javac ./src/net/kanolab/aiwolf/server/automatic/*.java \
 	-classpath './lib/*':./src/ \
