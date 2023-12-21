@@ -77,5 +77,8 @@ build-automatic:
 clear-automatic:
 	@rm ./src/net/kanolab/aiwolf/server/automatic/*.class
 
+clear-log:
+	@rm ./log/*.log
+
 run:
 	java --class-path ./src/:'./lib/*' net/kanolab/aiwolf/server/automatic/AutoGameStarter
