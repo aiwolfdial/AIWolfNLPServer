@@ -1,7 +1,3 @@
-MAKEFILE_DIR := $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
-# 一つ上のディレクトリ
-PARENT_DIR := $(shell dirname ${MAKEFILE_DIR})
-
 build:
 	@make build-gui
 	@make build-game
@@ -21,65 +17,65 @@ clear:
 	@make clear-automatic
 
 build-gui:
-	@javac $(MAKEFILE_DIR)net/kanolab/aiwolf/server/gui/*.java \
-	-classpath '$(PARENT_DIR)/lib/*'
-	@chmod 775 $(MAKEFILE_DIR)net/kanolab/aiwolf/server/gui/*.class
+	@javac ./src/net/kanolab/aiwolf/server/gui/*.java \
+	-classpath './lib/*':./src/
+	@chmod 775 ./src/net/kanolab/aiwolf/server/gui/*.class
 
 clear-gui:
-	@rm $(MAKEFILE_DIR)net/kanolab/aiwolf/server/gui/*.class
+	@rm ./src/net/kanolab/aiwolf/server/gui/*.class
 
 build-game:
-	@javac $(MAKEFILE_DIR)net/kanolab/aiwolf/server/game/*.java \
-	-classpath '$(PARENT_DIR)/lib/*'
-	@chmod 775 $(MAKEFILE_DIR)net/kanolab/aiwolf/server/game/*.class
+	@javac ./src/net/kanolab/aiwolf/server/game/*.java \
+	-classpath './lib/*':./src/
+	@chmod 775 ./src/net/kanolab/aiwolf/server/game/*.class
 
 clear-game:
-	@rm $(MAKEFILE_DIR)net/kanolab/aiwolf/server/game/*.class
+	@rm ./src/net/kanolab/aiwolf/server/game/*.class
 
 build-client:
-	@javac $(MAKEFILE_DIR)net/kanolab/aiwolf/server/client/*.java \
-	-classpath '$(PARENT_DIR)/lib/*'
-	@chmod 775 $(MAKEFILE_DIR)net/kanolab/aiwolf/server/client/*.class
+	@javac ./src/net/kanolab/aiwolf/server/client/*.java \
+	-classpath './lib/*':./src/
+	@chmod 775 ./src/net/kanolab/aiwolf/server/client/*.class
 
 clear-client:
-	@rm  $(MAKEFILE_DIR)net/kanolab/aiwolf/server/client/*.class
+	@rm  ./src/net/kanolab/aiwolf/server/client/*.class
 
 build-common:
-	@javac $(MAKEFILE_DIR)net/kanolab/aiwolf/server/common/*.java \
-	-classpath '$(PARENT_DIR)/lib/*'
-	@chmod 775 $(MAKEFILE_DIR)net/kanolab/aiwolf/server/common/*.class
+	@javac ./src/net/kanolab/aiwolf/server/common/*.java \
+	-classpath './lib/*':./src/
+	@chmod 775 ./src/net/kanolab/aiwolf/server/common/*.class
 
 clear-common:
-	@rm  $(MAKEFILE_DIR)net/kanolab/aiwolf/server/common/*.class
+	@rm  ./src/net/kanolab/aiwolf/server/common/*.class
 
 # (common,gui)
 build-server:
-	@javac $(MAKEFILE_DIR)net/kanolab/aiwolf/server/server/*.java \
-	-classpath '$(PARENT_DIR)/lib/*':'$(PARENT_DIR)/src'
-	@chmod 775 $(MAKEFILE_DIR)net/kanolab/aiwolf/server/server/*.class
+	@javac ./src/net/kanolab/aiwolf/server/server/*.java \
+	-classpath './lib/*':./src/
+	@chmod 775 ./src/net/kanolab/aiwolf/server/server/*.class
 
 clear-server:
-	@rm $(MAKEFILE_DIR)net/kanolab/aiwolf/server/server/*.class
+	@rm ./src/net/kanolab/aiwolf/server/server/*.class
 
 # (server,common,client)
 build-starter:
-	@javac $(MAKEFILE_DIR)net/kanolab/aiwolf/server/starter/*.java \
-	-classpath '$(PARENT_DIR)/lib/*':'$(PARENT_DIR)/src' \
+	@javac ./src/net/kanolab/aiwolf/server/starter/*.java \
+	-classpath './lib/*':./src/ \
 	-Xlint:none
-	@chmod 775 $(MAKEFILE_DIR)net/kanolab/aiwolf/server/starter/*.class
+	@chmod 775 ./src/net/kanolab/aiwolf/server/starter/*.class
 
 clear-starter:
-	@rm $(MAKEFILE_DIR)net/kanolab/aiwolf/server/starter/*.class
+	@rm ./src/net/kanolab/aiwolf/server/starter/*.class
 
 # ng(starter,client,aiwolf.agent)
 build-automatic:
-	@javac $(MAKEFILE_DIR)net/kanolab/aiwolf/server/automatic/*.java \
-	-classpath '$(PARENT_DIR)/lib/*':'$(PARENT_DIR)/src' \
+	@javac ./src/net/kanolab/aiwolf/server/automatic/*.java \
+	-classpath './lib/*':./src/ \
 	-Xlint:none
-	@chmod 775 $(MAKEFILE_DIR)net/kanolab/aiwolf/server/automatic/*.class
+	@chmod 775 ./src/net/kanolab/aiwolf/server/automatic/*.class
 
 clear-automatic:
-	@rm $(MAKEFILE_DIR)net/kanolab/aiwolf/server/automatic/*.class
+	@rm ./src/net/kanolab/aiwolf/server/automatic/*.class
 
 run:
 	java --class-path ./src/:'./lib/*' net/kanolab/aiwolf/server/automatic/AutoGameStarter
