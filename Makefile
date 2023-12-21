@@ -82,8 +82,4 @@ clear-automatic:
 	@rm $(MAKEFILE_DIR)net/kanolab/aiwolf/server/automatic/*.class
 
 run:
-	java --class-path ./src/:'/lib/*.jar' net/kanolab/aiwolf/server/automatic/AutoGameStarter
-
-# -classpathについて
-# https://kiririmode.hatenablog.jp/entry/20150121/1421766000
-# https://qiita.com/maple_syrup/items/f5e17eaf5483d0f4a9a8
+	java --class-path ./src/:'./lib/*' net/kanolab/aiwolf/server/automatic/AutoGameStarter
