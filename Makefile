@@ -7,7 +7,7 @@ build:
 	@make build-starter
 	@make build-automatic
 
-clear:
+clear clean:
 	@make clear-gui
 	@make clear-game
 	@make clear-client
@@ -21,7 +21,7 @@ build-gui:
 	-classpath './lib/*':./src/
 	@chmod 775 ./src/net/kanolab/aiwolf/server/gui/*.class
 
-clear-gui:
+clear-gui clean-gui:
 	@rm ./src/net/kanolab/aiwolf/server/gui/*.class
 
 build-game:
@@ -29,7 +29,7 @@ build-game:
 	-classpath './lib/*':./src/
 	@chmod 775 ./src/net/kanolab/aiwolf/server/game/*.class
 
-clear-game:
+clear-game clean-game:
 	@rm ./src/net/kanolab/aiwolf/server/game/*.class
 
 build-client:
@@ -37,7 +37,7 @@ build-client:
 	-classpath './lib/*':./src/
 	@chmod 775 ./src/net/kanolab/aiwolf/server/client/*.class
 
-clear-client:
+clear-client clean-client:
 	@rm  ./src/net/kanolab/aiwolf/server/client/*.class
 
 build-common:
@@ -45,7 +45,7 @@ build-common:
 	-classpath './lib/*':./src/
 	@chmod 775 ./src/net/kanolab/aiwolf/server/common/*.class
 
-clear-common:
+clear-common clean-common:
 	@rm  ./src/net/kanolab/aiwolf/server/common/*.class
 
 # (common,gui)
@@ -54,7 +54,7 @@ build-server:
 	-classpath './lib/*':./src/
 	@chmod 775 ./src/net/kanolab/aiwolf/server/server/*.class
 
-clear-server:
+clear-server clean-server:
 	@rm ./src/net/kanolab/aiwolf/server/server/*.class
 
 # (server,common,client)
@@ -64,7 +64,7 @@ build-starter:
 	-Xlint:none
 	@chmod 775 ./src/net/kanolab/aiwolf/server/starter/*.class
 
-clear-starter:
+clear-starter clean-starter:
 	@rm ./src/net/kanolab/aiwolf/server/starter/*.class
 
 # (starter,client,aiwolf.agent)
@@ -74,10 +74,10 @@ build-automatic:
 	-Xlint:none
 	@chmod 775 ./src/net/kanolab/aiwolf/server/automatic/*.class
 
-clear-automatic:
+clear-automatic clean-automatic:
 	@rm ./src/net/kanolab/aiwolf/server/automatic/*.class
 
-clear-log:
+clear-log clean-log delete-log:
 	@rm ./log/*.log
 
 run:
