@@ -200,6 +200,13 @@ public enum Option{
 	ROLE_COMBINATIONS_SAVE_PATH("RoleCombinationsSavePath", "./log/", String.class),
 
 	/**
+	 * IsSaveRoleCombinations = trueの時に保存するファイル名
+	 * String型<br>
+	 * 初期値 : DoneCombinations
+	 */
+	ROLE_COMBINATIONS_SAVE_FILE_NAME("RoleCombinationsSaveFileName", "DoneCombinations", String.class),
+
+	/**
 	 * IsSaveRoleCombinations = trueの時、何人のゲームを割り振るか
 	 * int型<br>
 	 * 初期値：6
