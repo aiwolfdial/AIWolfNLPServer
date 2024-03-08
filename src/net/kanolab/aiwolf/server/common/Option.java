@@ -190,7 +190,14 @@ public enum Option{
 	 * boolean型<br>
 	 * 初期値：false
 	 */
-	IS_SAVE_Role_Combinations("IsSaveRoleCombinations","false",Boolean.class),
+	IS_SAVE_ROLE_COMBINATIONS("IsSaveRoleCombinations","false",Boolean.class),
+
+	/**
+	 * IsSaveRoleCombinations = trueの時に何処にその役職のログを保存するか
+	 * String型<br>
+	 * 初期値 : ./log/
+	 */
+	ROLE_COMBINATIONS_SAVE_PATH("RoleCombinationsSavePath", "./log/", String.class),
 
 	/**
 	 * IsSaveRoleCombinations = trueの時、何人のゲームを割り振るか
