@@ -182,7 +182,22 @@ public enum Option{
 	 * boolean型<br>
 	 * 初期値：false
 	 */
-	IS_PORT_LISTENING_FLAG("ISPortListeningFlag","ture",Boolean.class),
+	IS_PORT_LISTENING_FLAG("ISPortListeningFlag","true",Boolean.class),
+
+	/**
+	 * IsPortListeningFlag = falseの時かつ、本戦で5人より参加者が多いときに均等にゲームを割り振るためのフラグ
+	 * True: 誰がどの役職をプレイしたかログに残し、それを参考に重複が無いように役職を割り振る 	False:ランダム
+	 * boolean型<br>
+	 * 初期値：false
+	 */
+	IS_SAVE_Role_Combinations("IsSaveRoleCombinations","false",Boolean.class),
+
+	/**
+	 * IsSaveRoleCombinations = trueの時、何人のゲームを割り振るか
+	 * int型<br>
+	 * 初期値：6
+	 */
+	ALL_PARTICIPANT_NUM("AllParticipantNum","6",Integer.class),
 
 	/**
 	 * プレイヤー側がサーバとして振る舞うときの1人目の接続先アドレス<br>
@@ -196,6 +211,7 @@ public enum Option{
 	 * 初期値 : 10000
 	 */
 	PLAYER_PORT1("PlayerPort1", "10000", Integer.class),
+
 	/**
 	 * プレイヤー側がサーバとして振る舞うときの2人目の接続先アドレス<br>
 	 * String型<br>
@@ -208,6 +224,7 @@ public enum Option{
 	 * 初期値 : 10000
 	 */
 	PLAYER_PORT2("PlayerPort2", "10000", Integer.class),
+
 	/**
 	 * プレイヤー側がサーバとして振る舞うときの3人目の接続先アドレス<br>
 	 * String型<br>
@@ -220,6 +237,7 @@ public enum Option{
 	 * 初期値 : 10000
 	 */
 	PLAYER_PORT3("PlayerPort3", "10000", Integer.class),
+
 	/**
 	 * プレイヤー側がサーバとして振る舞うときの4人目の接続先アドレス<br>
 	 * String型<br>
@@ -232,6 +250,7 @@ public enum Option{
 	 * 初期値 : 10000
 	 */
 	PLAYER_PORT4("PlayerPort4", "10000", Integer.class),
+
 	/**
 	 * プレイヤー側がサーバとして振る舞うときの5人目の接続先アドレス<br>
 	 * String型<br>
@@ -244,6 +263,71 @@ public enum Option{
 	 * 初期値 : 10000
 	 */
 	PLAYER_PORT5("PlayerPort5", "10000", Integer.class),
+
+	/**
+	 * プレイヤー側がサーバとして振る舞うときの6人目の接続先アドレス<br>
+	 * String型<br>
+	 * 初期値 : 127.0.0.1 (localhost)
+	 */
+	PLAYER_HOST6("PlayerHost6", "127.0.0.1", String.class),
+	/**
+	 * プレイヤー側がサーバとして振る舞うときの6目の接続先ポート<br>
+	 * int型<br>
+	 * 初期値 : 10000
+	 */
+	PLAYER_PORT6("PlayerPort6", "10000", Integer.class),
+	
+	/**
+	 * プレイヤー側がサーバとして振る舞うときの7人目の接続先アドレス<br>
+	 * String型<br>
+	 * 初期値 : 127.0.0.1 (localhost)
+	 */
+	PLAYER_HOST7("PlayerHost7", "127.0.0.1", String.class),
+	/**
+	 * プレイヤー側がサーバとして振る舞うときの7人目の接続先ポート<br>
+	 * int型<br>
+	 * 初期値 : 10000
+	 */
+	PLAYER_PORT7("PlayerPort7", "10000", Integer.class),
+
+	/**
+	 * プレイヤー側がサーバとして振る舞うときの8人目の接続先アドレス<br>
+	 * String型<br>
+	 * 初期値 : 127.0.0.1 (localhost)
+	 */
+	PLAYER_HOST8("PlayerHost8", "127.0.0.1", String.class),
+	/**
+	 * プレイヤー側がサーバとして振る舞うときの8人目の接続先ポート<br>
+	 * int型<br>
+	 * 初期値 : 10000
+	 */
+	PLAYER_PORT8("PlayerPort8", "10000", Integer.class),
+
+	/**
+	 * プレイヤー側がサーバとして振る舞うときの9人目の接続先アドレス<br>
+	 * String型<br>
+	 * 初期値 : 127.0.0.1 (localhost)
+	 */
+	PLAYER_HOST9("PlayerHost9", "127.0.0.1", String.class),
+	/**
+	 * プレイヤー側がサーバとして振る舞うときの9人目の接続先ポート<br>
+	 * int型<br>
+	 * 初期値 : 10000
+	 */
+	PLAYER_PORT9("PlayerPort9", "10000", Integer.class),
+
+	/**
+	 * プレイヤー側がサーバとして振る舞うときの10人目の接続先アドレス<br>
+	 * String型<br>
+	 * 初期値 : 127.0.0.1 (localhost)
+	 */
+	PLAYER_HOST10("PlayerHost10", "127.0.0.1", String.class),
+	/**
+	 * プレイヤー側がサーバとして振る舞うときの10人目の接続先ポート<br>
+	 * int型<br>
+	 * 初期値 : 10000
+	 */
+	PLAYER_PORT10("PlayerPort10", "10000", Integer.class),
 	;
 
 
