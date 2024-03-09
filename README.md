@@ -2,7 +2,7 @@
 人狼知能本戦で運営から参加者に接続をする形に変えたので、それに対応したプログラムです。
 
 ## 設定
-`res/NLPAIWolfServer_Client.ini`に接続先の情報を記載してください。
+`res/AIWolfGameServer.ini`に接続先の情報を記載してください。
 ```
 
 (省略)
