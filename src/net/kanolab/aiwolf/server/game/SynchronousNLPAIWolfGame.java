@@ -103,7 +103,8 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame{
 	/**
 	 * 毎ゲーム開始時の初期化
 	 * 
-	 * ・追記 2024/03/09 nwatanabe
+	 * ・追記 2024/03/09 
+	 * 	@author nwatanabe
 	 * 	isWriteRoleCombinations = true なら重複が無いか確認する
 	 */
 	protected void init(){
@@ -118,17 +119,6 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame{
 			gameServer.init(agent);
 			String requestName = gameServer.requestName(agent);
 			agentNameMap.put(agent, requestName);
-		}
-
-		// check same pattern exist or not
-		GameConfiguration config = new GameConfiguration(DEFAULT_INI_PATH);
-		if(isWriteRoleCombinations(config)){
-			String currentText = makeRoleCombinationsText();
-
-			if(isDoneCombinations(config,currentText)){
-				super.finish();
-			}
-
 		}
 
 	}
@@ -170,6 +160,20 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame{
 
 	public void start(GameData gameData){
 		setGameData(gameData);
+		init();
+
+		// check same pattern exist or not
+		GameConfiguration config = new GameConfiguration(DEFAULT_INI_PATH);
+		if(isWriteRoleCombinations(config)){
+			String currentText = makeRoleCombinationsText();
+			
+			if(isDoneCombinations(config,currentText)){
+				super.finish();
+				return;
+			}
+
+		}
+		
 		super.start();
 	}
 
