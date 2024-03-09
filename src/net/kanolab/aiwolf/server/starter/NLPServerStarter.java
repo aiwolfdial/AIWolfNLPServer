@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -192,8 +193,23 @@ public class NLPServerStarter extends ServerStarter {
 	 * @throws NoRouteToHostException
 	 * @throws IOException
 	 */
-	private Socket getServerSocket(int index, String line) throws UnknownHostException,ConnectException,NoRouteToHostException,IOException{
+	private Socket getServerSocket(int index, String line, Set<Integer> entryAgentIndex) throws UnknownHostException,ConnectException,NoRouteToHostException,IOException{
 		Map<String, Object> serverInfo = new HashMap<String, Object>();
+
+		if(config.getBoolean(Option.IS_CONTINUE_BY_OTHER_COMBINATIONS)){
+
+			while(true){
+				Random rand = new Random();
+				index = rand.nextInt((Integer)config.get(Option.ALL_PARTICIPANT_NUM)) + 1;
+
+				if(!entryAgentIndex.contains(index)){
+					entryAgentIndex.add(index);
+					break;
+				}
+
+			}
+
+		}
 
 		System.out.println("index" + Integer.toString(index));
 
@@ -217,6 +233,26 @@ public class NLPServerStarter extends ServerStarter {
 			case 5:
 				serverInfo.put("HOST",config.get(Option.PLAYER_HOST5));
 				serverInfo.put("PORT",config.get(Option.PLAYER_PORT5));
+				break;
+			case 6:
+				serverInfo.put("HOST",config.get(Option.PLAYER_HOST6));
+				serverInfo.put("PORT",config.get(Option.PLAYER_PORT6));
+				break;
+			case 7:
+				serverInfo.put("HOST",config.get(Option.PLAYER_HOST7));
+				serverInfo.put("PORT",config.get(Option.PLAYER_PORT7));
+				break;
+			case 8:
+				serverInfo.put("HOST",config.get(Option.PLAYER_HOST8));
+				serverInfo.put("PORT",config.get(Option.PLAYER_PORT8));
+				break;
+			case 9:
+				serverInfo.put("HOST",config.get(Option.PLAYER_HOST9));
+				serverInfo.put("PORT",config.get(Option.PLAYER_PORT9));
+				break;
+			case 10:
+				serverInfo.put("HOST",config.get(Option.PLAYER_HOST10));
+				serverInfo.put("PORT",config.get(Option.PLAYER_PORT10));
 				break;
 			case 10000:
 			case 10001:
@@ -280,9 +316,10 @@ public class NLPServerStarter extends ServerStarter {
 			}		
 
 			Map<String,List<Pair<Long, Socket>>> entrySocketMap = new HashMap<>();	// key:ip value: list[pair(entrytime, socket)]
+			Set<Integer> entryAgentIndex = new HashSet<>();
 			for(int i=0; i<connectAgentNum; i++){
 
-				Socket socket = getServerSocket(index,line);
+				Socket socket = getServerSocket(index,line,entryAgentIndex);
 
 				//Socketの追加
 				Pair<Long, Socket> pair = new Pair<>(System.currentTimeMillis() / 3600000, socket);
@@ -547,6 +584,13 @@ public class NLPServerStarter extends ServerStarter {
 		}
 		else if(!config.getBoolean(Option.IS_PORT_LISTENING_FLAG)){
 			connectToPlayerServer();
+		}
+		else if(!config.getBoolean(Option.IS_CONTINUE_BY_OTHER_COMBINATIONS)){
+
+			for(int i=0; i<(Integer)config.get(Option.CONNECT_AGENT_NUM); i++){
+				connectToPlayerServer();
+			}
+
 		}
 		else{
 			while(true){
