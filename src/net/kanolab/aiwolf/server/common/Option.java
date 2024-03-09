@@ -214,6 +214,21 @@ public enum Option{
 	ALL_PARTICIPANT_NUM("AllParticipantNum","6",Integer.class),
 
 	/**
+	 * IsSaveRoleCombinations = trueの時、ameNum分のゲーム終了後別のプレイヤーの組み合わせにし実行するか
+	 * True: 実行する 	False:しない
+	 * boolean型<br>
+	 * 初期値：false
+	 */
+	IS_CONTINUE_BY_OTHER_COMBINATIONS("IsContinueByOtherCombinations","false",Boolean.class),
+
+	/**
+	 * IsContinueByOtherCombinations=trueの時、何通りのプレイヤーの組み合わせを試すか
+	 * int型<br>
+	 * 初期値：3
+	 */
+	CONTINUE_COMBINATIONS_NUM("ContinueCombinationsNum","3",Integer.class),
+
+	/**
 	 * プレイヤー側がサーバとして振る舞うときの1人目の接続先アドレス<br>
 	 * String型<br>
 	 * 初期値 : 127.0.0.1 (localhost)
