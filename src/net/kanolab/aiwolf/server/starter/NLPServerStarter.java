@@ -398,6 +398,8 @@ public class NLPServerStarter extends ServerStarter {
 		bw.append("\n");
 		bw.flush();
 
+		System.out.println("Send getName");
+
 		//結果の受け取りとタイムアウト
 		BRCallable task = new BRCallable(connection.getBufferedReader());
 		Future<String> future = pool.submit(task);
