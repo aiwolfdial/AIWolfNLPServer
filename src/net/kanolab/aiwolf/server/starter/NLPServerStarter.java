@@ -584,7 +584,7 @@ public class NLPServerStarter extends ServerStarter {
 		}
 		else if(config.getBoolean(Option.IS_CONTINUE_BY_OTHER_COMBINATIONS)){
 
-			for(int i=0; i<(Integer)config.get(Option.ContinueCombinationsNum); i++){
+			for(int i=0; i<(Integer)config.get(Option.CONTINUE_COMBINATIONS_NUM); i++){
 				connectToPlayerServer();
 			}
 
