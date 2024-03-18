@@ -526,7 +526,7 @@ public class NLPServerStarter extends ServerStarter {
 	 * @return
 	 */
 	private boolean sendConnectionQueue(int connectAgentNum, boolean onlyConnection, Set<Socket> essentialSocketSet) {
-//		System.out.println("connectAgentNum = " + connectAgentNum + " " + Thread.currentThread().getStackTrace()[1]);
+		//		System.out.println("connectAgentNum = " + connectAgentNum + " " + Thread.currentThread().getStackTrace()[1]);
 		//人数が揃っていればセット開始待機リストに追加
 		boolean send = false;
 		List<String> removeList = new ArrayList<>();
@@ -535,7 +535,7 @@ public class NLPServerStarter extends ServerStarter {
 		Set<Socket> set = new HashSet<>(essentialSocketSet);
 		while(iterator.hasNext()){
 			Entry<String, Map<String, List<Pair<Long, Socket>>>> entry = iterator.next();
-//			Set<Socket> set = new HashSet<>(essentialSocketSet);
+		//			Set<Socket> set = new HashSet<>(essentialSocketSet);
 			boolean canStartGame = false;
 			for(Entry<String, List<Pair<Long, Socket>>> socketEntry : entry.getValue().entrySet()){
 				Pair<String, String> keyPair = new Pair<>(entry.getKey(), socketEntry.getKey());
@@ -584,7 +584,7 @@ public class NLPServerStarter extends ServerStarter {
 		}
 		else if(config.getBoolean(Option.IS_CONTINUE_BY_OTHER_COMBINATIONS)){
 
-			for(int i=0; i<(Integer)config.get(Option.CONNECT_AGENT_NUM); i++){
+			for(int i=0; i<(Integer)config.get(Option.ContinueCombinationsNum); i++){
 				connectToPlayerServer();
 			}
 
