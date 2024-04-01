@@ -626,11 +626,13 @@ public class NLPServerStarter extends ServerStarter {
 
 		}
 		else if(!config.getBoolean(Option.IS_PORT_LISTENING_FLAG)){
+			System.out.println("check is port listteing flag=======================================@@@");
 			connectToPlayerServer();
 		}
 		else{
 			// port listening
 			while(true){
+				System.out.println("check while true=======================================@@@");
 				connectToPlayerServer();
 			}
 		}
