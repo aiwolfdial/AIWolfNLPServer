@@ -216,8 +216,6 @@ public class NLPGameBuilder extends Thread{
 		boolean isPriorCombinations = config.get(Option.PRIORITY_COMBINATION);
 		int limit = isPriorCombinations ? agentRoleMapList.size() : config.get(Option.GAME_NUM);
 
-		System.out.println("check limit:" + limit);
-
 		//人間対戦時
 		Agent human = null;
 		if(config.getBoolean(Option.PLAY_HUMAN)){

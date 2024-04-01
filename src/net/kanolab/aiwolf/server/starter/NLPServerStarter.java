@@ -588,15 +588,11 @@ public class NLPServerStarter extends ServerStarter {
 
 			for(int i=0; i<(Integer)config.get(Option.CONTINUE_COMBINATIONS_NUM); i++){
 
-				System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
 				while(gameStarter.isGameRunning() || gameStarter.isWaitingGame()){
-					System.out.println("Waiting!!!!!!!!!!!!!!!!!");
 					continue;
 				}
 
 				// 2週目以降用
-				System.out.println("wait 2sec");
 				try{
 					Thread.sleep(2000);
 				}
@@ -607,7 +603,6 @@ public class NLPServerStarter extends ServerStarter {
 				connectToPlayerServer();
 
 				// connectToPlayerServerの追加待ち
-				System.out.println("@@@@@@@@@@after connectToPlayer wait 1sec");
 				try{
 					Thread.sleep(1000);
 				}
@@ -615,25 +610,15 @@ public class NLPServerStarter extends ServerStarter {
 					System.out.println(e);
 				}
 
-				System.out.println("@@@=======================================@@@");
-				System.out.println("@@@=======================================@@@");
-				System.out.println("@@@=======================================@@@");
-				System.out.println("@@@=======================================@@@");
-				System.out.println("@@@=======================================@@@");
-				System.out.println("isGameRunning:" + String.valueOf(gameStarter.isGameRunning()));
-				System.out.println("isWaitingGame:" + String.valueOf(gameStarter.isWaitingGame()));
-
 			}
 
 		}
 		else if(!config.getBoolean(Option.IS_PORT_LISTENING_FLAG)){
-			System.out.println("check is port listteing flag=======================================@@@");
 			connectToPlayerServer();
 		}
 		else{
 			// port listening
 			while(true){
-				System.out.println("check while true=======================================@@@");
 				connectToPlayerServer();
 			}
 		}
