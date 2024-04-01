@@ -621,6 +621,7 @@ public class NLPServerStarter extends ServerStarter {
 				System.out.println("@@@=======================================@@@");
 				System.out.println("@@@=======================================@@@");
 				System.out.println("isGameRunning:" + String.valueOf(gameStarter.isGameRunning()));
+				System.out.println("isWaitingGame:" + String.valueOf(gameStarter.isWaitingGame()));
 
 			}
 
