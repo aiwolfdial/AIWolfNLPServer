@@ -588,9 +588,8 @@ public class NLPServerStarter extends ServerStarter {
 
 			for(int i=0; i<(Integer)config.get(Option.CONTINUE_COMBINATIONS_NUM); i++){
 
-				System.out.println("=@@@check loop num:" + i);
-
 				while(gameStarter.isGameRunning() || gameStarter.isWaitingGame()){
+					// continue; のみとかだと何故か上手く動かない
 					try{
 					Thread.sleep(1000);
 					}
@@ -598,8 +597,6 @@ public class NLPServerStarter extends ServerStarter {
 						System.out.println(e);
 					}
 				}
-
-				System.out.println("=@@@after wait game loop");
 
 				// 2週目以降用
 				try{
