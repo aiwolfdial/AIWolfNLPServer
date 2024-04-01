@@ -591,7 +591,7 @@ public class NLPServerStarter extends ServerStarter {
 				System.out.println("=@@@check loop num:" + i);
 
 				while(gameStarter.isGameRunning() || gameStarter.isWaitingGame()){
-					continue;
+					;
 				}
 
 				System.out.println("=@@@after wait game loop");
