@@ -587,7 +587,41 @@ public class NLPServerStarter extends ServerStarter {
 		else if(config.getBoolean(Option.IS_CONTINUE_BY_OTHER_COMBINATIONS)){
 
 			for(int i=0; i<(Integer)config.get(Option.CONTINUE_COMBINATIONS_NUM); i++){
+
+				System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+				while(gameStarter.isGameRunning() || gameStarter.isWaitingGame()){
+					System.out.println("Waiting!!!!!!!!!!!!!!!!!");
+					continue;
+				}
+
+				// 2週目以降用
+				System.out.println("wait 2sec");
+				try{
+					Thread.sleep(2000);
+				}
+				catch(Exception e){
+					System.out.println(e);
+				}
+
 				connectToPlayerServer();
+
+				// connectToPlayerServerの追加待ち
+				System.out.println("@@@@@@@@@@after connectToPlayer wait 1sec");
+				try{
+					Thread.sleep(1000);
+				}
+				catch(Exception e){
+					System.out.println(e);
+				}
+
+				System.out.println("@@@=======================================@@@");
+				System.out.println("@@@=======================================@@@");
+				System.out.println("@@@=======================================@@@");
+				System.out.println("@@@=======================================@@@");
+				System.out.println("@@@=======================================@@@");
+				System.out.println("isGameRunning:" + String.valueOf(gameStarter.isGameRunning()));
+
 			}
 
 		}
@@ -595,6 +629,7 @@ public class NLPServerStarter extends ServerStarter {
 			connectToPlayerServer();
 		}
 		else{
+			// port listening
 			while(true){
 				connectToPlayerServer();
 			}

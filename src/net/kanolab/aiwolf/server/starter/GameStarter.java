@@ -13,6 +13,11 @@ import net.kanolab.aiwolf.server.common.Option;
  * 起動中のゲームの管理
  * 新規ゲームの起動
  * @author tminowa
+ * 
+ * 追記 2024/04/02
+ * isGameRunning
+ * 1ゲームずつ実行するように(本戦用)
+ * @author nwatanabe
  *
  */
 public class GameStarter extends Thread{
@@ -55,4 +60,13 @@ public class GameStarter extends Thread{
 			}
 		}
 	}
+
+	public boolean isWaitingGame(){
+		return socketQue.size() != 0;
+	}
+
+	public boolean isGameRunning(){
+		return gameList.size() != 0;
+	}
+
 }
