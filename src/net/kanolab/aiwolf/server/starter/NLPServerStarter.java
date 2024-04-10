@@ -211,7 +211,7 @@ public class NLPServerStarter extends ServerStarter {
 
 		}
 
-		System.out.println("index" + Integer.toString(index));
+		System.out.println("index:" + Integer.toString(index));
 
 		switch(index){
 			case 1:
@@ -600,8 +600,8 @@ public class NLPServerStarter extends ServerStarter {
 
 				// 2週目以降用
 				try{
-					System.out.println("prev connectToPlayerServer wait 10sec");
-					Thread.sleep(10000);
+					System.out.println("prev connectToPlayerServer wait 20sec");
+					Thread.sleep(20000);
 				}
 				catch(Exception e){
 					System.out.println(e);
@@ -611,8 +611,8 @@ public class NLPServerStarter extends ServerStarter {
 
 				// connectToPlayerServerの追加待ち
 				try{
-					System.out.println("after connectToPlayerServer wait 10sec");
-					Thread.sleep(10000);
+					System.out.println("after connectToPlayerServer wait 20sec");
+					Thread.sleep(20000);
 				}
 				catch(Exception e){
 					System.out.println(e);
