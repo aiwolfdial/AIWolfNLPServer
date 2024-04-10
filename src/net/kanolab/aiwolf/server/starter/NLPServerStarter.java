@@ -600,8 +600,8 @@ public class NLPServerStarter extends ServerStarter {
 
 				// 2週目以降用
 				try{
-					System.out.println("prev connectToPlayerServer wait 2sec");
-					Thread.sleep(2000);
+					System.out.println("prev connectToPlayerServer wait 10sec");
+					Thread.sleep(10000);
 				}
 				catch(Exception e){
 					System.out.println(e);
@@ -611,8 +611,8 @@ public class NLPServerStarter extends ServerStarter {
 
 				// connectToPlayerServerの追加待ち
 				try{
-					System.out.println("after connectToPlayerServer wait 2sec");
-					Thread.sleep(2000);
+					System.out.println("after connectToPlayerServer wait 10sec");
+					Thread.sleep(10000);
 				}
 				catch(Exception e){
 					System.out.println(e);
