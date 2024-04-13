@@ -38,7 +38,7 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame{
 	 * @author nwatanabe
 	 */
 	private boolean isWriteRoleCombinations(GameConfiguration config){
-		return config.getBoolean(Option.IS_SAVE_ROLE_COMBINATIONS) && (Integer)config.get(Option.ALL_PARTICIPANT_NUM) > (Integer)config.get(Option.BATTLE_AGENT_NUM);
+		return config.getBoolean(Option.IS_SAVE_ROLE_COMBINATIONS) && (Integer)config.get(Option.ALL_PARTICIPANT_NUM) >= (Integer)config.get(Option.BATTLE_AGENT_NUM);
 	}
 
 	/**
