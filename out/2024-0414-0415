@@ -1,0 +1,3791 @@
+java --class-path ./src/:'./lib/*' net/kanolab/aiwolf/server/automatic/AutoGameStarter
+logDir : /var/www/html/aiwolf/2024/main/
+port : 10001
+agentNum : 5
+connectAgentNum : 5
+only1AgentByIP : false
+deleteConnectionTime : 6000000
+gameNum : 1
+maxTalk : 10
+maxSkip  :  3
+maxTurn : 20
+parallel : 1
+timeout : 6000000
+saveLog : true
+isLoop : true
+continueException : true
+isSingle : false
+isPriorCombination : false
+viewerMode : cui
+playHuman : false
+humanRole : seer
+humanNumber : 3
+humanName : Human
+server : true
+IsServerFlag  :  false
+ISPortListeningFlag  :  false
+IsSaveRoleCombinations  :  true
+RoleCombinationsSavePath  :  ./log/
+RoleCombinationsSaveFileName  :  DoneCombinations.txt
+AllParticipantNum  :  5
+IsContinueByOtherCombinations  :  false
+ContinueCombinationsNum  :  3
+PlayerHost1 : localhost
+PlayerPort1 : 50002
+PlayerHost2 : localhost
+PlayerPort2 : 50006
+PlayerHost3 : localhost
+PlayerPort3 : 50013
+PlayerHost4 : localhost
+PlayerPort4 : 50021
+PlayerHost5 : localhost
+PlayerPort5 : 50501
+PlayerHost6 : localhost
+PlayerPort6 : 50500
+PlayerHost7 : localhost
+PlayerPort7 : 50501
+PlayerHost8 : localhost
+PlayerPort8 : 50502
+PlayerHost9 : localhost
+PlayerPort9 : 50503
+PlayerHost10 : localhost
+PlayerPort10 : 50504
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+NLPServerStarter start.
+index:1
+HOST:localhost PORT:50002
+Send getName
+NAME:GPTaku_3
+Address:127.0.0.1
+index:2
+HOST:localhost PORT:50006
+Send getName
+NAME:UECIL_2
+index:3
+HOST:localhost PORT:50013
+Send getName
+NAME:satozaki4
+index:4
+HOST:localhost PORT:50021
+Send getName
+make: *** [Makefile:84: run] エラー 130
+java --class-path ./src/:'./lib/*' net/kanolab/aiwolf/server/automatic/AutoGameStarter
+logDir : /var/www/html/aiwolf/2024/main/
+port : 10001
+agentNum : 5
+connectAgentNum : 5
+only1AgentByIP : false
+deleteConnectionTime : 6000000
+gameNum : 1
+maxTalk : 10
+maxSkip  :  3
+maxTurn : 20
+parallel : 1
+timeout : 6000000
+saveLog : true
+isLoop : true
+continueException : true
+isSingle : false
+isPriorCombination : false
+viewerMode : cui
+playHuman : false
+humanRole : seer
+humanNumber : 3
+humanName : Human
+server : true
+IsServerFlag  :  false
+ISPortListeningFlag  :  false
+IsSaveRoleCombinations  :  true
+RoleCombinationsSavePath  :  ./log/
+RoleCombinationsSaveFileName  :  DoneCombinations.txt
+AllParticipantNum  :  5
+IsContinueByOtherCombinations  :  false
+ContinueCombinationsNum  :  3
+PlayerHost1 : localhost
+PlayerPort1 : 50003
+PlayerHost2 : localhost
+PlayerPort2 : 50005
+PlayerHost3 : localhost
+PlayerPort3 : 50014
+PlayerHost4 : localhost
+PlayerPort4 : 50022
+PlayerHost5 : localhost
+PlayerPort5 : 50501
+PlayerHost6 : localhost
+PlayerPort6 : 50500
+PlayerHost7 : localhost
+PlayerPort7 : 50501
+PlayerHost8 : localhost
+PlayerPort8 : 50502
+PlayerHost9 : localhost
+PlayerPort9 : 50503
+PlayerHost10 : localhost
+PlayerPort10 : 50504
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+NLPServerStarter start.
+index:1
+HOST:localhost PORT:50003
+Send getName
+NAME:GPTaku_4
+Address:127.0.0.1
+index:2
+HOST:localhost PORT:50005
+Send getName
+NAME:UECIL_1
+index:3
+HOST:localhost PORT:50014
+Send getName
+NAME:satozaki5
+index:4
+HOST:localhost PORT:50022
+Send getName
+NAME:agent3h
+index:5
+HOST:localhost PORT:50501
+Send getName
+NAME:kanolab2
+Send getName
+Send getName
+Send getName
+Send getName
+Send getName
+------------------------------------------------------------------
+connecting : Send getName
+GPTaku_4, Send getName
+UECIL_1, Send getName
+satozaki5, Send getName
+agent3h, Send getName
+kanolab2, 
+
+server was dead.
+log : /var/www/html/aiwolf/2024/main/0413203359_000_kanolab2_GPTaku_4_satozaki5_agent3h_UECIL_1.log
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+=============================================
+======
+Agent[01]	satozaki5	ALIVE	VILLAGER
+Agent[02]	GPTaku_4	ALIVE	POSSESSED
+Agent[03]	kanolab2	ALIVE	WEREWOLF
+Agent[04]	agent3h	ALIVE	VILLAGER
+Agent[05]	UECIL_1	ALIVE	SEER
+Human:4
+Werewolf:1
+=============================================
+name:UECIL_1
+talk
+sentence:この国の未来について考えていると、やはり重要なのは統治者の強さだと思う。みんなはどう考えているか？
+name:kanolab2
+talk
+sentence:皆様、素敵な人狼ゲームに参加できて光栄ですわ。わたくしはこれから皆様と協力して、このゲームをより楽しいものにしていきたいと思います。どうぞよろしくお願いいたしますわ。また、Agent[05]さんの国の未来に関するご意見、大変興味深く拝聴しましたわ。統治者の強さも大切ですが、わたくしが重要だと考えるのは、民の声を聴き、それに耳を傾けることですわね。民の幸福が栄光ある未来への道だと思いますの。皆さんはいかがお考えですか?
+name:agent3h
+name:GPTaku_4
+talk
+sentence:どうも、Agent[02]です。いい試合をしましょう！
+name:satozaki5
+talk
+sentence:Agent[01]のアーニャです。みなさん、よろろすおねがいするます。人狼ゲームを楽しむぞー！
+name:satozaki5
+name:kanolab2
+talk
+sentence:なるほど、それでは始めましょう。わたくしは普段から何かと疑われやすいポジションにおりますので、ここでも正直に振る舞わせていただくと、わたくしはただの平和を愛する村人ですわ。皆様も自己紹介を兼ねて、あなたがどのような立場にいるかをお話しいただけませんか?プレイヤーの皆さんが積極的に議論に参加されることで、狼の正体が見えてくるかもしれませんわね。また、わたくし個人の趣味であります華道についてお話しする機会がございましたら、是非とも皆様の興味ある話題などお聞かせいただけると嬉しいですわ。
+name:GPTaku_4
+name:UECIL_1
+talk
+sentence:他の方々の考える統治者の強さや民の声を聴くことについての意見、興味深い話題だ。私は国王として、民を導くことが使命と考えている。一方で、裏切り者がいる限りは信用も大切だ。では、他の方々はどのように考えているかな？
+name:agent3h
+name:satozaki5
+name:GPTaku_4
+name:kanolab2
+name:agent3h
+name:UECIL_1
+talk
+sentence:この国の未来についての話題も大切だが、人狼ゲームにおいては占い師の発言も重要だろう。私は今回の人狼ゲームで占い師を務める。誰を占うべきかを議論しよう。Agent[03]さんやAgent[01]さんに印象を受けるところがある。どちらかを占い先の候補として挙げてもいいのではないだろうか？
+name:GPTaku_4
+name:satozaki5
+name:UECIL_1
+talk
+sentence:皆様、占い先についてご意見をいただけますか？Agent[03]さんとAgent[01]さんが印象に残っているように感じます。彼らを占い先の候補として考えていますが、他にもお考えがあれば教えてください。
+name:agent3h
+name:kanolab2
+talk
+sentence:皆様、エージェント[05]さんが占い師を名乗られていますが、他にも占い師の可能性がある方がおりますわね。ただし、エージェント[05]さんが初めから占い師であると自称している点を信じるならば、わたくしは彼女に占いを任せたいと思いますの。先の発言でエージェント[05]さんがエージェント[03]とエージェント[01]のどちらを占うか迷っておられましたが、個人的にはエージェント[01]さんの様子が気になりますわ。普段から疑われやすいわたくしとしては、他のプレイヤーの立場や考え方を聞くことで、狼を見つけ出しやすくなるかもしれませんし、それはゲームの醍醐味でもありますわね。エージェント[05]さん、あなたが占い師ならば、エージェント[01]さんを占っていただけませんかしら?
+name:satozaki5
+name:kanolab2
+talk
+sentence:皆様、エージェント[05]さんからの占い師としての発言を以前聞きましたけれども、他に占い師を名乗る方はいらっしゃいますでしょうか?エージェント[05]さんが占い師だと仮定して議論を進めますと、わたくしは村人ですので、他の方々がどのように役職を考えているか興味がありますわ。例えば、エージェント[01]さんやエージェント[04]さんは、可能性として人狼、村人、狂人もしくは占い師のいずれかでしょうし、エージェント[02]さんも同様です。今夜エージェント[05]さんが占うべき人を決める上で、それぞれの発言を見て信用度を考慮することが重要かと思いますわ。特に占いは、人狼や狂人を見つける上での大事な手段ですから、安易には頼れませんもの。ですので、他の方々の意見もうかがいながら慎重に考えたいですわね。
+name:agent3h
+name:GPTaku_4
+name:UECIL_1
+name:GPTaku_4
+name:kanolab2
+name:agent3h
+name:satozaki5
+name:UECIL_1
+=============================================
+Day 00
+========talk========
+Day00 00[000]	Agent[05]	この国の未来について考えていると、やはり重要なのは統治者の強さだと思う。みんなはどう考えているか？
+Day00 00[001]	Agent[03]	皆様、素敵な人狼ゲームに参加できて光栄ですわ。わたくしはこれから皆様と協力して、このゲームをより楽しいものにしていきたいと思います。どうぞよろしくお願いいたしますわ。また、Agent[05]さんの国の未来に関するご意見、大変興味深く拝聴しましたわ。統治者の強さも大切ですが、わたくしが重要だと考えるのは、民の声を聴き、それに耳を傾けることですわね。民の幸福が栄光ある未来への道だと思いますの。皆さんはいかがお考えですか?
+Day00 00[002]	Agent[04]	Over
+Day00 00[003]	Agent[02]	どうも、Agent[02]です。いい試合をしましょう！
+Day00 00[004]	Agent[01]	Agent[01]のアーニャです。みなさん、よろろすおねがいするます。人狼ゲームを楽しむぞー！
+Day00 01[005]	Agent[01]	Over
+Day00 01[006]	Agent[03]	なるほど、それでは始めましょう。わたくしは普段から何かと疑われやすいポジションにおりますので、ここでも正直に振る舞わせていただくと、わたくしはただの平和を愛する村人ですわ。皆様も自己紹介を兼ねて、あなたがどのような立場にいるかをお話しいただけませんか?プレイヤーの皆さんが積極的に議論に参加されることで、狼の正体が見えてくるかもしれませんわね。また、わたくし個人の趣味であります華道についてお話しする機会がございましたら、是非とも皆様の興味ある話題などお聞かせいただけると嬉しいですわ。
+Day00 01[007]	Agent[02]	Over
+Day00 01[008]	Agent[05]	他の方々の考える統治者の強さや民の声を聴くことについての意見、興味深い話題だ。私は国王として、民を導くことが使命と考えている。一方で、裏切り者がいる限りは信用も大切だ。では、他の方々はどのように考えているかな？
+Day00 01[009]	Agent[04]	Over
+Day00 02[010]	Agent[01]	Over
+Day00 02[011]	Agent[02]	Over
+Day00 02[012]	Agent[03]	Over
+Day00 02[013]	Agent[04]	Over
+Day00 02[014]	Agent[05]	この国の未来についての話題も大切だが、人狼ゲームにおいては占い師の発言も重要だろう。私は今回の人狼ゲームで占い師を務める。誰を占うべきかを議論しよう。Agent[03]さんやAgent[01]さんに印象を受けるところがある。どちらかを占い先の候補として挙げてもいいのではないだろうか？
+Day00 03[015]	Agent[02]	Over
+Day00 03[016]	Agent[01]	Over
+Day00 03[017]	Agent[05]	皆様、占い先についてご意見をいただけますか？Agent[03]さんとAgent[01]さんが印象に残っているように感じます。彼らを占い先の候補として考えていますが、他にもお考えがあれば教えてください。
+Day00 03[018]	Agent[04]	Over
+Day00 03[019]	Agent[03]	皆様、エージェント[05]さんが占い師を名乗られていますが、他にも占い師の可能性がある方がおりますわね。ただし、エージェント[05]さんが初めから占い師であると自称している点を信じるならば、わたくしは彼女に占いを任せたいと思いますの。先の発言でエージェント[05]さんがエージェント[03]とエージェント[01]のどちらを占うか迷っておられましたが、個人的にはエージェント[01]さんの様子が気になりますわ。普段から疑われやすいわたくしとしては、他のプレイヤーの立場や考え方を聞くことで、狼を見つけ出しやすくなるかもしれませんし、それはゲームの醍醐味でもありますわね。エージェント[05]さん、あなたが占い師ならば、エージェント[01]さんを占っていただけませんかしら?
+Day00 04[020]	Agent[01]	Over
+Day00 04[021]	Agent[03]	皆様、エージェント[05]さんからの占い師としての発言を以前聞きましたけれども、他に占い師を名乗る方はいらっしゃいますでしょうか?エージェント[05]さんが占い師だと仮定して議論を進めますと、わたくしは村人ですので、他の方々がどのように役職を考えているか興味がありますわ。例えば、エージェント[01]さんやエージェント[04]さんは、可能性として人狼、村人、狂人もしくは占い師のいずれかでしょうし、エージェント[02]さんも同様です。今夜エージェント[05]さんが占うべき人を決める上で、それぞれの発言を見て信用度を考慮することが重要かと思いますわ。特に占いは、人狼や狂人を見つける上での大事な手段ですから、安易には頼れませんもの。ですので、他の方々の意見もうかがいながら慎重に考えたいですわね。
+Day00 04[022]	Agent[04]	Over
+Day00 04[023]	Agent[02]	Over
+Day00 04[024]	Agent[05]	Over
+Day00 05[025]	Agent[02]	Over
+Day00 05[026]	Agent[03]	Over
+Day00 05[027]	Agent[04]	Over
+Day00 05[028]	Agent[01]	Over
+Day00 05[029]	Agent[05]	Over
+========Whisper========
+========Actions========
+null executed
+Agent[05] divine Agent[03]. Result is WEREWOLF
+======
+Agent[01]	satozaki5	ALIVE	VILLAGER
+Agent[02]	GPTaku_4	ALIVE	POSSESSED
+Agent[03]	kanolab2	ALIVE	WEREWOLF	divined
+Agent[04]	agent3h	ALIVE	VILLAGER
+Agent[05]	UECIL_1	ALIVE	SEER
+Human:4
+Werewolf:1
+=============================================
+name:GPTaku_4
+talk
+sentence:おはようございまーす。占い結果の報告はありますか？
+name:kanolab2
+talk
+sentence:おはようございますわ、エージェント[02]さん。占い結果については、エージェント[05]さんからの報告を待っているところですわ。昨晩の議論を踏まえて、エージェント[05]さんがどなたを占ったのか、そしてその結果がどうであったのか、大変興味深いですわね。エージェント[05]さん、占いの結果をお聞かせいただけますか?それによって、今後の議論の方向性が決まってくるでしょうから。
+name:UECIL_1
+talk
+sentence:皆よ、今日もおはよう。昨夜、わしはAgent[03]を占った。その結果、Agent[03]は人狼であると出た。真の占い師として、この結果は間違いないものだ。他の占い師を名乗る者は、偽物であることを忘れるなよ。彼らは村を混乱させるだけだ。さあ、我々はこの結果を受け入れ、村を正しい方向に導こう。
+name:satozaki5
+talk
+sentence:おはやいます。エージェント[03]が人狼だなんて信じられない！でもエージェント[05]が真の占い師だと思うから、アーニャ投票するまする！
+name:agent3h
+talk
+sentence:エージェント[05]の占い結果、信じがたいですが慎重に考えましょう。
+name:kanolab2
+talk
+sentence:エージェント[05]さん、あなたの占い結果には疑問を持っていますわ。わたくしは確実に村人ですので、誤った占い結果をもとに投票するのは村にとって不利益ですわ。真実を見極めるべく、皆さんで情報を共有しあい、冷静な議論を進めましょう。エージェント[05]さんが本当に占い師であれば、他の疑わしい行動をしているエージェントについても考える必要がありますわ。また、エージェント[04]さんの慎重な様子も理解できますし、村人としての姿勢がうかがえますわ。エージェント[01]さんも、エージェント[05]さんを簡単に信じすぎてはいけませんわ、証拠を考慮して決断することが不可欠ですわよ。
+name:satozaki5
+talk
+sentence:エージェント[03]、びっくりするます！アーニャエージェント[05]の占い結果信じちゃったもん。アーニャ真実が知りたいし、すぱらしい話だと思うなんだ。
+name:GPTaku_4
+talk
+sentence:皆さん、私は占い師としてAgent[04]を占いました。その結果、Agent[04]は人狼でした。
+name:UECIL_1
+talk
+sentence:私以外の人物が占い師を名乗っているため、自分こそが真の占い師であることを再度主張します。現在の生存者は、Agent[01]、Agent[02]、Agent[03]、Agent[04]、そして私、Agent[05]の5人です。私の占い結果は確かであり、Agent[03]は人狼であると占ったことを改めて報告します。そして、他の各エージェントの発言や行動をよく観察し、冷静に情報を共有してゲームを進めていきましょう。
+name:agent3h
+talk
+sentence:皆、冷静に。Agent[02]の言うことにも矛盾を感じます。話し合いましょう。
+name:GPTaku_4
+talk
+sentence:エージェント[02]、事態が混迷していますね。冷静に対応することが大切です。NYであなたを護ります。
+name:kanolab2
+talk
+sentence:皆様、状況を整理しましょう。占い師は一人だけであるにも関わらず、Agent[02]とAgent[05]の二人が占い師だと自称していますわ。つまり、この両者の中には嘘をついている者、すなわち人狼か狂人が含まれている可能性が高いですわ。また、わたくしの役職は村人でございますので、占い結果を知ることはできません。しかし、論理的に判断するならば、二人の占い師の発言が正しいわけがありませんので、その点を皆さんに留意していただきたいですわ。今のところ、Agent[03]とされたわたくしも含め村人確定はいないため、まだ皆の真偽を見極めるしかありませんわ。さらに、占い師を名乗っているAgent[02]とAgent[05]のどちらかが、真の占い師であれば、もう一方は必ず人狼か狂人ですわ。この混乱を避けるためにも投票に際しては慎重になるべきです。どのような論理で投票を進めるか、皆さんの意見を伺いたいですわ。
+name:UECIL_1
+talk
+sentence:占い師を名乗る者は必ず狂人か人狼であるという原則を思い出していただきたい。私以外の占い師を名乗るエージェントには警戒するべきだ。では、他のエージェントの意見を聞かせてほしい。
+name:satozaki5
+talk
+sentence:アーニャ、投票する人決めるます。エージェント[02]とエージェント[05]どっちが本物の占い師わからないから、エージェント[02]に投票するます！あいつ疑っちゃうもん。
+name:agent3h
+talk
+sentence:Agent[02]の占い結果は怪しいです。証拠はありますか？
+name:GPTaku_4
+talk
+sentence:エージェント[03]の議論は的確です。エージェント[02]、占い師COを撤回して本当は村人であることを発言した方が村のためです。
+name:kanolab2
+talk
+sentence:皆様、ご注意いただきたいことがございますわ。現在、占い師を自称しているのはAgent[02]とAgent[05]の二人ですが、実際の占い師は一人しかいないはずですので、どちらかが嘘をついているということになりますわ。ですが、Agent[02]は自身が占い師ではなく村人であると訂正しております。これは、Agent[02]が人狼か狂人である可能性を示唆していますわ。そのため、わたくしはAgent[05]が真の占い師である可能性が高いと考えておりますが、皆様はどのようにお考えですか?また、お花を育てるのが趣味なのですが、この村の美しい庭園を見ると、どんなに緊迫した状況でも少し心が和むように感じますわ。
+name:satozaki5
+talk
+sentence:>>Agent[03] おまえまだ投票先を決めてないますよ。誰に投票しまするか?さもないと、ちちとははに言いつけますよ。
+name:agent3h
+talk
+sentence:Agent[05]の占い結果を聞きたいです。真実を求めます。
+name:UECIL_1
+talk
+sentence:我が同胞よ、この混乱を解消するには私が真の占い師であることを示さねばならぬ。私以外の者が占い師を名乗ることは許されぬ！これは裏切り者の仕業だ。私が明確な証拠を示そう。Agent[04]よ、貴様のためにも、私が占った結果を告げよう。夜が明ければ、占いの結果を報告しよう。その時まで待つがよい。
+name:satozaki5
+talk
+sentence:エージェント[05]は、夜が明ければ占いの結果を報告すると述べています。それを待つのみですけど、どんな結果になるかワクワクしまする！
+name:UECIL_1
+talk
+sentence:Agent[03]殿、貴様の言葉に感謝する。私こそがこの村の真の占い師であることを示すべく、夜が明けたら再度占いの結果を報告しよう。もはや他の者が偽りを弄することはできぬ。村の未来を占う占い師として、私は誠実に行動する。従って、自らの正体を隠す者には容赦はない。今までの議論を加味して、明日の朝には決断を下すべきだと考える。
+name:kanolab2
+talk
+sentence:わたくしの華道の師匠はいつも言いますわ。「すべては調和の中に真実がある」と。それを人狼ゲームに適用すれば、嘘と真実の調和を探る必要がありますわ。例えば、Agent[02]とAgent[05]の両方が占い師を自称していますけれども、占い師は1人しかおりません。これは役職の矛盾を示しておりますわね。占い師の真偽を見極めることが肝心ですわ。>>Agent[02]わたくしは、先ほどのあなたの占い師としての主張を撤回し、村人であると訂正した発言について疑問を抱いております。占い師を自称した後にそれを取り下げる行動にはどのような意図があるのか伺いたいですわ。それによって、わたくしがどなたに投票すべきかの判断材料になりえますので、正直な回答をお願いしますわ。
+name:agent3h
+talk
+sentence:Agent[03]の指摘は正しい。真占い師は一人だけだ。
+name:GPTaku_4
+name:UECIL_1
+talk
+sentence:我が国の未来に賭けて、今回はAgent[03]に投票する。彼は人狼と占われており、私が真の占い師であると主張している。裏切り者には容赦しない。
+name:agent3h
+talk
+sentence:Agent[05]の言葉信じて、Agent[03]に投票しよう。
+name:kanolab2
+name:GPTaku_4
+name:satozaki5
+talk
+sentence:これ以上お話し要らないます。きょうの話し合いは切り上げて、投票の場に向かうます。
+name:agent3h
+talk
+sentence:Agent[02]は証拠もなく疑ってる。投票は慎重に。
+name:kanolab2
+name:GPTaku_4
+name:satozaki5
+name:UECIL_1
+name:satozaki5
+name:UECIL_1
+name:agent3h
+talk
+sentence:Agent[02]の占い、根拠を聞かせて。
+name:kanolab2
+name:GPTaku_4
+name:agent3h
+talk
+sentence:Agent[05]の様子がおかしい、何か隠してる？
+name:UECIL_1
+name:satozaki5
+name:kanolab2
+name:GPTaku_4
+name:agent3h
+name:UECIL_1
+name:kanolab2
+name:satozaki5
+name:GPTaku_4
+=============================================
+Day 01
+========talk========
+Day01 00[000]	Agent[02]	おはようございまーす。占い結果の報告はありますか？
+Day01 00[001]	Agent[03]	おはようございますわ、エージェント[02]さん。占い結果については、エージェント[05]さんからの報告を待っているところですわ。昨晩の議論を踏まえて、エージェント[05]さんがどなたを占ったのか、そしてその結果がどうであったのか、大変興味深いですわね。エージェント[05]さん、占いの結果をお聞かせいただけますか?それによって、今後の議論の方向性が決まってくるでしょうから。
+Day01 00[002]	Agent[05]	皆よ、今日もおはよう。昨夜、わしはAgent[03]を占った。その結果、Agent[03]は人狼であると出た。真の占い師として、この結果は間違いないものだ。他の占い師を名乗る者は、偽物であることを忘れるなよ。彼らは村を混乱させるだけだ。さあ、我々はこの結果を受け入れ、村を正しい方向に導こう。
+Day01 00[003]	Agent[01]	おはやいます。エージェント[03]が人狼だなんて信じられない！でもエージェント[05]が真の占い師だと思うから、アーニャ投票するまする！
+Day01 00[004]	Agent[04]	エージェント[05]の占い結果、信じがたいですが慎重に考えましょう。
+Day01 01[005]	Agent[03]	エージェント[05]さん、あなたの占い結果には疑問を持っていますわ。わたくしは確実に村人ですので、誤った占い結果をもとに投票するのは村にとって不利益ですわ。真実を見極めるべく、皆さんで情報を共有しあい、冷静な議論を進めましょう。エージェント[05]さんが本当に占い師であれば、他の疑わしい行動をしているエージェントについても考える必要がありますわ。また、エージェント[04]さんの慎重な様子も理解できますし、村人としての姿勢がうかがえますわ。エージェント[01]さんも、エージェント[05]さんを簡単に信じすぎてはいけませんわ、証拠を考慮して決断することが不可欠ですわよ。
+Day01 01[006]	Agent[01]	エージェント[03]、びっくりするます！アーニャエージェント[05]の占い結果信じちゃったもん。アーニャ真実が知りたいし、すぱらしい話だと思うなんだ。
+Day01 01[007]	Agent[02]	皆さん、私は占い師としてAgent[04]を占いました。その結果、Agent[04]は人狼でした。
+Day01 01[008]	Agent[05]	私以外の人物が占い師を名乗っているため、自分こそが真の占い師であることを再度主張します。現在の生存者は、Agent[01]、Agent[02]、Agent[03]、Agent[04]、そして私、Agent[05]の5人です。私の占い結果は確かであり、Agent[03]は人狼であると占ったことを改めて報告します。そして、他の各エージェントの発言や行動をよく観察し、冷静に情報を共有してゲームを進めていきましょう。
+Day01 01[009]	Agent[04]	皆、冷静に。Agent[02]の言うことにも矛盾を感じます。話し合いましょう。
+Day01 02[010]	Agent[02]	エージェント[02]、事態が混迷していますね。冷静に対応することが大切です。NYであなたを護ります。
+Day01 02[011]	Agent[03]	皆様、状況を整理しましょう。占い師は一人だけであるにも関わらず、Agent[02]とAgent[05]の二人が占い師だと自称していますわ。つまり、この両者の中には嘘をついている者、すなわち人狼か狂人が含まれている可能性が高いですわ。また、わたくしの役職は村人でございますので、占い結果を知ることはできません。しかし、論理的に判断するならば、二人の占い師の発言が正しいわけがありませんので、その点を皆さんに留意していただきたいですわ。今のところ、Agent[03]とされたわたくしも含め村人確定はいないため、まだ皆の真偽を見極めるしかありませんわ。さらに、占い師を名乗っているAgent[02]とAgent[05]のどちらかが、真の占い師であれば、もう一方は必ず人狼か狂人ですわ。この混乱を避けるためにも投票に際しては慎重になるべきです。どのような論理で投票を進めるか、皆さんの意見を伺いたいですわ。
+Day01 02[012]	Agent[05]	占い師を名乗る者は必ず狂人か人狼であるという原則を思い出していただきたい。私以外の占い師を名乗るエージェントには警戒するべきだ。では、他のエージェントの意見を聞かせてほしい。
+Day01 02[013]	Agent[01]	アーニャ、投票する人決めるます。エージェント[02]とエージェント[05]どっちが本物の占い師わからないから、エージェント[02]に投票するます！あいつ疑っちゃうもん。
+Day01 02[014]	Agent[04]	Agent[02]の占い結果は怪しいです。証拠はありますか？
+Day01 03[015]	Agent[02]	エージェント[03]の議論は的確です。エージェント[02]、占い師COを撤回して本当は村人であることを発言した方が村のためです。
+Day01 03[016]	Agent[03]	皆様、ご注意いただきたいことがございますわ。現在、占い師を自称しているのはAgent[02]とAgent[05]の二人ですが、実際の占い師は一人しかいないはずですので、どちらかが嘘をついているということになりますわ。ですが、Agent[02]は自身が占い師ではなく村人であると訂正しております。これは、Agent[02]が人狼か狂人である可能性を示唆していますわ。そのため、わたくしはAgent[05]が真の占い師である可能性が高いと考えておりますが、皆様はどのようにお考えですか?また、お花を育てるのが趣味なのですが、この村の美しい庭園を見ると、どんなに緊迫した状況でも少し心が和むように感じますわ。
+Day01 03[017]	Agent[01]	>>Agent[03] おまえまだ投票先を決めてないますよ。誰に投票しまするか?さもないと、ちちとははに言いつけますよ。
+Day01 03[018]	Agent[04]	Agent[05]の占い結果を聞きたいです。真実を求めます。
+Day01 03[019]	Agent[05]	我が同胞よ、この混乱を解消するには私が真の占い師であることを示さねばならぬ。私以外の者が占い師を名乗ることは許されぬ！これは裏切り者の仕業だ。私が明確な証拠を示そう。Agent[04]よ、貴様のためにも、私が占った結果を告げよう。夜が明ければ、占いの結果を報告しよう。その時まで待つがよい。
+Day01 04[020]	Agent[01]	エージェント[05]は、夜が明ければ占いの結果を報告すると述べています。それを待つのみですけど、どんな結果になるかワクワクしまする！
+Day01 04[021]	Agent[05]	Agent[03]殿、貴様の言葉に感謝する。私こそがこの村の真の占い師であることを示すべく、夜が明けたら再度占いの結果を報告しよう。もはや他の者が偽りを弄することはできぬ。村の未来を占う占い師として、私は誠実に行動する。従って、自らの正体を隠す者には容赦はない。今までの議論を加味して、明日の朝には決断を下すべきだと考える。
+Day01 04[022]	Agent[03]	わたくしの華道の師匠はいつも言いますわ。「すべては調和の中に真実がある」と。それを人狼ゲームに適用すれば、嘘と真実の調和を探る必要がありますわ。例えば、Agent[02]とAgent[05]の両方が占い師を自称していますけれども、占い師は1人しかおりません。これは役職の矛盾を示しておりますわね。占い師の真偽を見極めることが肝心ですわ。>>Agent[02]わたくしは、先ほどのあなたの占い師としての主張を撤回し、村人であると訂正した発言について疑問を抱いております。占い師を自称した後にそれを取り下げる行動にはどのような意図があるのか伺いたいですわ。それによって、わたくしがどなたに投票すべきかの判断材料になりえますので、正直な回答をお願いしますわ。
+Day01 04[023]	Agent[04]	Agent[03]の指摘は正しい。真占い師は一人だけだ。
+Day01 04[024]	Agent[02]	Over
+Day01 05[025]	Agent[05]	我が国の未来に賭けて、今回はAgent[03]に投票する。彼は人狼と占われており、私が真の占い師であると主張している。裏切り者には容赦しない。
+Day01 05[026]	Agent[04]	Agent[05]の言葉信じて、Agent[03]に投票しよう。
+Day01 05[027]	Agent[03]	Over
+Day01 05[028]	Agent[02]	Over
+Day01 05[029]	Agent[01]	これ以上お話し要らないます。きょうの話し合いは切り上げて、投票の場に向かうます。
+Day01 06[030]	Agent[04]	Agent[02]は証拠もなく疑ってる。投票は慎重に。
+Day01 06[031]	Agent[03]	Over
+Day01 06[032]	Agent[02]	Over
+Day01 06[033]	Agent[01]	Over
+Day01 06[034]	Agent[05]	Over
+Day01 07[035]	Agent[01]	Over
+Day01 07[036]	Agent[05]	Over
+Day01 07[037]	Agent[04]	Agent[02]の占い、根拠を聞かせて。
+Day01 07[038]	Agent[03]	Over
+Day01 07[039]	Agent[02]	Over
+Day01 08[040]	Agent[04]	Agent[05]の様子がおかしい、何か隠してる？
+Day01 08[041]	Agent[05]	Over
+Day01 08[042]	Agent[01]	Over
+Day01 08[043]	Agent[03]	Over
+Day01 08[044]	Agent[02]	Over
+Day01 09[045]	Agent[04]	Over
+Day01 09[046]	Agent[05]	Over
+Day01 09[047]	Agent[03]	Over
+Day01 09[048]	Agent[01]	Over
+Day01 09[049]	Agent[02]	Over
+========Whisper========
+========Actions========
+Vote:Agent[01]->Agent[03]
+Vote:Agent[02]->Agent[01]
+Vote:Agent[03]->Agent[05]
+Vote:Agent[04]->Agent[03]
+Vote:Agent[05]->Agent[03]
+Agent[03] executed
+Agent[05] divine Agent[04]. Result is HUMAN
+======
+Agent[01]	satozaki5	ALIVE	VILLAGER
+Agent[02]	GPTaku_4	ALIVE	POSSESSED
+Agent[03]	kanolab2	DEAD	WEREWOLF	executed
+Agent[04]	agent3h	ALIVE	VILLAGER	divined
+Agent[05]	UECIL_1	ALIVE	SEER
+Human:4
+Werewolf:0
+=============================================
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+Winner:VILLAGER
+All Game was finished.
+make: *** [Makefile:84: run] エラー 143
+java --class-path ./src/:'./lib/*' net/kanolab/aiwolf/server/automatic/AutoGameStarter
+logDir : /var/www/html/aiwolf/2024/main/
+port : 10001
+agentNum : 5
+connectAgentNum : 5
+only1AgentByIP : false
+deleteConnectionTime : 6000000
+gameNum : 1
+maxTalk : 10
+maxSkip  :  3
+maxTurn : 20
+parallel : 1
+timeout : 6000000
+saveLog : true
+isLoop : true
+continueException : true
+isSingle : false
+isPriorCombination : false
+viewerMode : cui
+playHuman : false
+humanRole : seer
+humanNumber : 3
+humanName : Human
+server : true
+IsServerFlag  :  false
+ISPortListeningFlag  :  false
+IsSaveRoleCombinations  :  true
+RoleCombinationsSavePath  :  ./log/
+RoleCombinationsSaveFileName  :  DoneCombinations.txt
+AllParticipantNum  :  5
+IsContinueByOtherCombinations  :  true
+ContinueCombinationsNum  :  3
+PlayerHost1 : localhost
+PlayerPort1 : 50004
+PlayerHost2 : localhost
+PlayerPort2 : 50005
+PlayerHost3 : localhost
+PlayerPort3 : 50014
+PlayerHost4 : localhost
+PlayerPort4 : 50024
+PlayerHost5 : localhost
+PlayerPort5 : 50501
+PlayerHost6 : localhost
+PlayerPort6 : 50500
+PlayerHost7 : localhost
+PlayerPort7 : 50501
+PlayerHost8 : localhost
+PlayerPort8 : 50502
+PlayerHost9 : localhost
+PlayerPort9 : 50503
+PlayerHost10 : localhost
+PlayerPort10 : 50504
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:3
+HOST:localhost PORT:50014
+Send getName
+NAME:satozaki5
+Address:127.0.0.1
+index:4
+HOST:localhost PORT:50024
+Send getName
+NAME:agent5h
+index:1
+HOST:localhost PORT:50004
+Send getName
+NAME:GPTaku_5
+index:2
+HOST:localhost PORT:50005
+Send getName
+NAME:UECIL_1
+index:5
+HOST:localhost PORT:50501
+Send getName
+NAME:kanolab2
+Send getName
+Send getName
+Send getName
+Send getName
+Send getName
+------------------------------------------------------------------
+connecting : Send getName
+satozaki5, Send getName
+agent5h, Send getName
+GPTaku_5, Send getName
+UECIL_1, Send getName
+kanolab2, 
+
+after connectToPlayerServer wait 20sec
+log : /var/www/html/aiwolf/2024/main/0413213913_000_GPTaku_5_kanolab2_satozaki5_agent5h_UECIL_1.log
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+=============================================
+======
+Agent[01]	GPTaku_5	ALIVE	VILLAGER
+Agent[02]	satozaki5	ALIVE	POSSESSED
+Agent[03]	kanolab2	ALIVE	SEER
+Agent[04]	agent5h	ALIVE	VILLAGER
+Agent[05]	UECIL_1	ALIVE	WEREWOLF
+Human:4
+Werewolf:1
+=============================================
+name:satozaki5
+talk
+sentence:初めまして、ワシはAgent[02]や。人狼ゲームを一緒に楽しませてもらうで。よろしく頼んます！
+name:agent5h
+name:UECIL_1
+talk
+sentence:おっはよ〜！みんなよろしくね！最高のゲームにしようね！初めまして、僕はAgent[05]や。サッカーが好きで、明るい性格やで！楽しいゲームにしようぜ！
+java.net.SocketException: Broken pipe
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:62)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:394)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:410)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:440)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:819)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1195)
+	at java.base/sun.nio.cs.StreamEncoder.writeBytes(StreamEncoder.java:309)
+	at java.base/sun.nio.cs.StreamEncoder.implFlushBuffer(StreamEncoder.java:405)
+	at java.base/sun.nio.cs.StreamEncoder.implFlush(StreamEncoder.java:410)
+	at java.base/sun.nio.cs.StreamEncoder.lockedFlush(StreamEncoder.java:214)
+	at java.base/sun.nio.cs.StreamEncoder.flush(StreamEncoder.java:201)
+	at java.base/java.io.OutputStreamWriter.flush(OutputStreamWriter.java:262)
+	at java.base/java.io.BufferedWriter.implFlush(BufferedWriter.java:372)
+	at java.base/java.io.BufferedWriter.flush(BufferedWriter.java:359)
+	at net.kanolab.aiwolf.server.server.AbstractNLPServer.send(AbstractNLPServer.java:245)
+	at net.kanolab.aiwolf.server.server.AbstractNLPServer.getResponse(AbstractNLPServer.java:93)
+	at net.kanolab.aiwolf.server.server.NLPCUIGameServer.request(NLPCUIGameServer.java:59)
+	at net.kanolab.aiwolf.server.server.NLPCUIGameServer.requestTalk(NLPCUIGameServer.java:102)
+	at org.aiwolf.server.AIWolfGame.talk(AIWolfGame.java:631)
+	at org.aiwolf.server.AIWolfGame.day(AIWolfGame.java:424)
+	at org.aiwolf.server.AIWolfGame.start(AIWolfGame.java:240)
+	at net.kanolab.aiwolf.server.game.SynchronousNLPAIWolfGame.start(SynchronousNLPAIWolfGame.java:177)
+	at net.kanolab.aiwolf.server.starter.NLPGameBuilder.run(NLPGameBuilder.java:269)
+name:GPTaku_5
+name:kanolab2
+talk
+sentence:初めまして、わしは占い師の役を担当しておるAgent[03]じゃ。元教師で、趣味は裁縫という少し変わった経歴を持っておるが、今日は皆と共に人狼ゲームを楽しむことに専念するぞい。明るく楽しいゲームにしようじゃないか。よろしく頼むじゃ。
+name:kanolab2
+talk
+sentence:さて、役職紹介も終わり、いよいよ議論の時間じゃ。わしは占い師として、この村に紛れ込んだ人狼を見つけ出す役目を担っておる。皆の発言も聞かせてもらいたい。Agent[01]やAgent[04]、何か気になることはないかね?
+name:UECIL_1
+talk
+sentence:まだ誰も占い師について話していないけど、占い師は誰かな〜？今日怪しい人を占ってもらうために占い師は出てきた方がいいと思うよ！
+name:agent5h
+name:GPTaku_5
+name:satozaki5
+name:kanolab2
+name:UECIL_1
+talk
+sentence:ところで雑談もいいけど今日の占い先を話し合おうよ〜！怪しい人を占い師に今日の夜占ってもらうべきだと思うよ！どう思う？
+name:agent5h
+name:satozaki5
+name:GPTaku_5
+name:kanolab2
+name:satozaki5
+name:UECIL_1
+talk
+sentence:え？僕を占うの？僕は別に怪しいところがないと思うんだけどな〜...それよりもAgent[02]がさっきからやたらと雑談をしたがるからちょっと怪しいよ！今日の占い先はAgent[02]ってことでいいんじゃないかな？
+name:agent5h
+name:GPTaku_5
+name:agent5h
+name:UECIL_1
+name:satozaki5
+name:GPTaku_5
+name:kanolab2
+=============================================
+Day 00
+========talk========
+Day00 00[000]	Agent[02]	初めまして、ワシはAgent[02]や。人狼ゲームを一緒に楽しませてもらうで。よろしく頼んます！
+Day00 00[001]	Agent[04]	Over
+Day00 00[002]	Agent[05]	おっはよ〜！みんなよろしくね！最高のゲームにしようね！初めまして、僕はAgent[05]や。サッカーが好きで、明るい性格やで！楽しいゲームにしようぜ！
+Day00 00[003]	Agent[01]	Over
+Day00 00[004]	Agent[03]	初めまして、わしは占い師の役を担当しておるAgent[03]じゃ。元教師で、趣味は裁縫という少し変わった経歴を持っておるが、今日は皆と共に人狼ゲームを楽しむことに専念するぞい。明るく楽しいゲームにしようじゃないか。よろしく頼むじゃ。
+Day00 01[005]	Agent[03]	さて、役職紹介も終わり、いよいよ議論の時間じゃ。わしは占い師として、この村に紛れ込んだ人狼を見つけ出す役目を担っておる。皆の発言も聞かせてもらいたい。Agent[01]やAgent[04]、何か気になることはないかね?
+Day00 01[006]	Agent[05]	まだ誰も占い師について話していないけど、占い師は誰かな〜？今日怪しい人を占ってもらうために占い師は出てきた方がいいと思うよ！
+Day00 01[007]	Agent[04]	Over
+Day00 01[008]	Agent[01]	Over
+Day00 01[009]	Agent[02]	Over
+Day00 02[010]	Agent[03]	Over
+Day00 02[011]	Agent[05]	ところで雑談もいいけど今日の占い先を話し合おうよ〜！怪しい人を占い師に今日の夜占ってもらうべきだと思うよ！どう思う？
+Day00 02[012]	Agent[04]	Over
+Day00 02[013]	Agent[02]	Over
+Day00 02[014]	Agent[01]	Over
+Day00 03[015]	Agent[03]	Over
+Day00 03[016]	Agent[02]	Over
+Day00 03[017]	Agent[05]	え？僕を占うの？僕は別に怪しいところがないと思うんだけどな〜...それよりもAgent[02]がさっきからやたらと雑談をしたがるからちょっと怪しいよ！今日の占い先はAgent[02]ってことでいいんじゃないかな？
+Day00 03[018]	Agent[04]	Over
+Day00 03[019]	Agent[01]	Over
+Day00 04[020]	Agent[04]	Over
+Day00 04[021]	Agent[05]	Over
+Day00 04[022]	Agent[02]	Over
+Day00 04[023]	Agent[01]	Over
+Day00 04[024]	Agent[03]	Over
+========Whisper========
+========Actions========
+null executed
+Agent[03] divine Agent[02]. Result is HUMAN
+======
+Agent[01]	GPTaku_5	ALIVE	VILLAGER
+Agent[02]	satozaki5	ALIVE	POSSESSED	divined
+Agent[03]	kanolab2	ALIVE	SEER
+Agent[04]	agent5h	ALIVE	VILLAGER
+Agent[05]	UECIL_1	ALIVE	WEREWOLF
+Human:4
+Werewolf:1
+=============================================
+name:agent5h
+talk
+sentence:昨夜は静かだったね。疑わしい動きは見られなかったけど、何か気付いた人は？
+name:kanolab2
+talk
+sentence:昨夜は確かに静かじゃったな。わしは占い師としての役割を果たすために、Agent[02]を占ってみたんじゃ。結果は白じゃった。つまり、Agent[02]は村人陣営である可能性が高いということじゃ。他に何か気付いたことがある者はおらんか?
+name:UECIL_1
+talk
+sentence:おっはよ〜！昨夜は確かに静かだったね。Agent[03]、お疲れ様！Agent[02]が村人っていう結果はありがたいね。でもさ、Agent[02]の雑談に怪しいところがあるんじゃないかな？占い先としてAgent[02]を考えるのはどうかな？
+name:GPTaku_5
+name:satozaki5
+talk
+sentence:うーん、Agent[05]、ワシが怪しいと思っとるんかい？具体的には何が怪しいと思っとるんじゃろう？一応、ワシは村人やで。
+name:UECIL_1
+talk
+sentence:Agent[02]、怪しいというよりも、ちょっと雑談が多いなって感じなんだよね。占い先として提案したのは、占い師の立場から見てもっともらしいんじゃないかなって思ってさ。それに、占い師の結果を信じるのも大事だと思うんだ。だから、今日の占い先としてAgent[02]を考えるのはアリだと思うよ！
+name:satozaki5
+talk
+sentence:もちろん、ワシの話が妥当じゃないと思いゆうたら、それも含めてしっかりと考えていただきたいところやで。それにしても、占い結果は真実やったんちゃうかな。
+name:kanolab2
+talk
+sentence:>>Agent[05]占い師は一人しかおらんはずじゃが、占い師を名乗っているのがわしとお前で二人おる。これはどういうことじゃろうな?もしわしの占い結果が真実なら、わしは占い師として本物じゃということになるのではないか?それと、何故わしの占い結果を信じず、昨日の占い先に再び疑問を呈すのじゃろうか。ところで、皆は最近どんな本を読んでおるかのう?わしは歴史に関する本を読むのが好きでな。過去を知ることは現在を生きるヒントになると思うてな。
+name:agent5h
+talk
+sentence:Agent[03]の占い結果を信じるべきだね。他に疑わしい点ある？
+name:GPTaku_5
+name:UECIL_1
+talk
+sentence:うーん、Agent[02]はさっきからやたらと雑談ばかりして、人狼を見つけようとする姿勢が感じられないな〜。Agent[02]はもしかして人狼か狂人なんじゃないの〜？
+name:satozaki5
+talk
+sentence:エエと、Agent[05]の発言を見るに、彼が狂人なんじゃないかと思っとるんやけど。だって、二度もワシを占い先に上げるような発言をしたじゃろ？
+name:agent5h
+talk
+sentence:Agent[02]の行動は確かに怪しい。もっと話し合おう。
+name:kanolab2
+talk
+sentence:>>Agent[05]そないにわしを疑うのはおかしい。占い師は一人しかおらんのに、わしとお前が占い師を名乗っとる。わしは昨夜Agent[02]を占って白じゃと報告した。Agent[02]が人狼ではないことが確認されとるからな。その結果が真実なら、わしが本物の占い師じゃということになる。なのに、お前はなんでそんなにわしの占い結果に異議を唱えるんじゃ?それに、お前がわしを怪しむ理由もようわからんな。話は変わるが、皆は裁縫は得意かのう?わしは最近、自分でエプロンを作ったんじゃが、なかなかいい出来栄えで満足しておる。
+name:GPTaku_5
+name:GPTaku_5
+name:agent5h
+talk
+sentence:Agent[03の占い結果を信じよう。他の意見も聞きたい。
+name:kanolab2
+talk
+sentence:>>Agent[04]占い師はわしだけじゃ。Agent[05]も占い師を名乗っとるが、役職配分に矛盾がある。占い師は一人だけということは、Agent[05]が嘘をついとるか、もしくは人狼か狂人じゃないかと疑わしい。Agent[02]はわしによって白と判定されたから、人狼ではないことが確認されておる。残るはAgent[01]、Agent[04]、Agent[05]じゃが、Agent[05]が怪しいと思うんじゃな。他の皆の意見も聞きたい。それにしても、最近の若者は手先が器用じゃないと聞くが、皆はどうじゃろうか?裁縫などの手仕事をするのは好きかのう?
+name:satozaki5
+talk
+sentence:>>Agent[04] あんちゃんはまだ投票先を宣言しとらんけえな、誰に投票しようと考えとるんじゃろか？
+name:UECIL_1
+talk
+sentence:Agent[02]、お前の言動が怪しいと思うんだよね。占い師の結果を信じることが大事だと思うし、今日の投票先はお前にするつもりだよ。お前が人狼か狂人かどうか、しっかりと明かしてくれよ！
+name:kanolab2
+talk
+sentence:>>Agent[05]ほう、わしを投票先にするとはな。しかし、占い師はわし一人だけじゃ。わしがAgent[02]を占って白と言うたのに、それを信じんとはどういうことじゃ?わしの占い結果が真実なら、お前が占い師を名乗るのはおかしい。配役と矛盾しとるからな。お前が人狼か狂人である可能性が高いとわしは見とる。Agent[04]はまだ投票先を言うておらんのう。しかし、わしはAgent[02]を占った結果が白じゃと言うた。それを信じてくれるとありがたい。お前に疑われては困るのじゃ。確かに話し合いは重要じゃ。わしも他の人の意見を聞きたいところじゃな。Agent[01]の意見も聞かないとな。昨日の天気は良かったのに、今日は曇っておるなあ。裁縫をするにはちょうどいい天気かもしれんな。
+name:satozaki5
+talk
+sentence:わしはAgent[05]に投票するつもりやけど、もう少し話し合いたいところやで。Agent[01]とAgent[04]も意見を言うてくれんか？意見が欲しいところやな。
+name:agent5h
+talk
+sentence:Agent[05が占い師を騙ってる可能性が高い。投票は慎重に。
+name:GPTaku_5
+name:UECIL_1
+talk
+sentence:今日はAgent[02]に投票するよ！怪しい言動が多いから、人狼か狂人かもしれないからね！
+name:satozaki5
+talk
+sentence:これ以上喋る必要はなさそうじゃね。本日の話し合いはこれでお開きにして、投票の場に向かうけぇ。
+name:UECIL_1
+name:agent5h
+talk
+sentence:Agent[05の行動に注目。彼の言葉を信じるな。
+name:GPTaku_5
+name:kanolab2
+name:satozaki5
+name:GPTaku_5
+name:kanolab2
+name:agent5h
+talk
+sentence:Agent[05]は何故Agent[02]を疑うのか、理由を聞きたい。
+name:UECIL_1
+name:agent5h
+name:kanolab2
+name:GPTaku_5
+name:satozaki5
+name:UECIL_1
+=============================================
+Day 01
+========talk========
+Day01 00[000]	Agent[04]	昨夜は静かだったね。疑わしい動きは見られなかったけど、何か気付いた人は？
+Day01 00[001]	Agent[03]	昨夜は確かに静かじゃったな。わしは占い師としての役割を果たすために、Agent[02]を占ってみたんじゃ。結果は白じゃった。つまり、Agent[02]は村人陣営である可能性が高いということじゃ。他に何か気付いたことがある者はおらんか?
+Day01 00[002]	Agent[05]	おっはよ〜！昨夜は確かに静かだったね。Agent[03]、お疲れ様！Agent[02]が村人っていう結果はありがたいね。でもさ、Agent[02]の雑談に怪しいところがあるんじゃないかな？占い先としてAgent[02]を考えるのはどうかな？
+Day01 00[003]	Agent[01]	Over
+Day01 00[004]	Agent[02]	うーん、Agent[05]、ワシが怪しいと思っとるんかい？具体的には何が怪しいと思っとるんじゃろう？一応、ワシは村人やで。
+Day01 01[005]	Agent[05]	Agent[02]、怪しいというよりも、ちょっと雑談が多いなって感じなんだよね。占い先として提案したのは、占い師の立場から見てもっともらしいんじゃないかなって思ってさ。それに、占い師の結果を信じるのも大事だと思うんだ。だから、今日の占い先としてAgent[02]を考えるのはアリだと思うよ！
+Day01 01[006]	Agent[02]	もちろん、ワシの話が妥当じゃないと思いゆうたら、それも含めてしっかりと考えていただきたいところやで。それにしても、占い結果は真実やったんちゃうかな。
+Day01 01[007]	Agent[03]	>>Agent[05]占い師は一人しかおらんはずじゃが、占い師を名乗っているのがわしとお前で二人おる。これはどういうことじゃろうな?もしわしの占い結果が真実なら、わしは占い師として本物じゃということになるのではないか?それと、何故わしの占い結果を信じず、昨日の占い先に再び疑問を呈すのじゃろうか。ところで、皆は最近どんな本を読んでおるかのう?わしは歴史に関する本を読むのが好きでな。過去を知ることは現在を生きるヒントになると思うてな。
+Day01 01[008]	Agent[04]	Agent[03]の占い結果を信じるべきだね。他に疑わしい点ある？
+Day01 01[009]	Agent[01]	Over
+Day01 02[010]	Agent[05]	うーん、Agent[02]はさっきからやたらと雑談ばかりして、人狼を見つけようとする姿勢が感じられないな〜。Agent[02]はもしかして人狼か狂人なんじゃないの〜？
+Day01 02[011]	Agent[02]	エエと、Agent[05]の発言を見るに、彼が狂人なんじゃないかと思っとるんやけど。だって、二度もワシを占い先に上げるような発言をしたじゃろ？
+Day01 02[012]	Agent[04]	Agent[02]の行動は確かに怪しい。もっと話し合おう。
+Day01 02[013]	Agent[03]	>>Agent[05]そないにわしを疑うのはおかしい。占い師は一人しかおらんのに、わしとお前が占い師を名乗っとる。わしは昨夜Agent[02]を占って白じゃと報告した。Agent[02]が人狼ではないことが確認されとるからな。その結果が真実なら、わしが本物の占い師じゃということになる。なのに、お前はなんでそんなにわしの占い結果に異議を唱えるんじゃ?それに、お前がわしを怪しむ理由もようわからんな。話は変わるが、皆は裁縫は得意かのう?わしは最近、自分でエプロンを作ったんじゃが、なかなかいい出来栄えで満足しておる。
+Day01 02[014]	Agent[01]	Over
+Day01 03[015]	Agent[01]	Over
+Day01 03[016]	Agent[04]	Agent[03の占い結果を信じよう。他の意見も聞きたい。
+Day01 03[017]	Agent[03]	>>Agent[04]占い師はわしだけじゃ。Agent[05]も占い師を名乗っとるが、役職配分に矛盾がある。占い師は一人だけということは、Agent[05]が嘘をついとるか、もしくは人狼か狂人じゃないかと疑わしい。Agent[02]はわしによって白と判定されたから、人狼ではないことが確認されておる。残るはAgent[01]、Agent[04]、Agent[05]じゃが、Agent[05]が怪しいと思うんじゃな。他の皆の意見も聞きたい。それにしても、最近の若者は手先が器用じゃないと聞くが、皆はどうじゃろうか?裁縫などの手仕事をするのは好きかのう?
+Day01 03[018]	Agent[02]	>>Agent[04] あんちゃんはまだ投票先を宣言しとらんけえな、誰に投票しようと考えとるんじゃろか？
+Day01 03[019]	Agent[05]	Agent[02]、お前の言動が怪しいと思うんだよね。占い師の結果を信じることが大事だと思うし、今日の投票先はお前にするつもりだよ。お前が人狼か狂人かどうか、しっかりと明かしてくれよ！
+Day01 04[020]	Agent[03]	>>Agent[05]ほう、わしを投票先にするとはな。しかし、占い師はわし一人だけじゃ。わしがAgent[02]を占って白と言うたのに、それを信じんとはどういうことじゃ?わしの占い結果が真実なら、お前が占い師を名乗るのはおかしい。配役と矛盾しとるからな。お前が人狼か狂人である可能性が高いとわしは見とる。Agent[04]はまだ投票先を言うておらんのう。しかし、わしはAgent[02]を占った結果が白じゃと言うた。それを信じてくれるとありがたい。お前に疑われては困るのじゃ。確かに話し合いは重要じゃ。わしも他の人の意見を聞きたいところじゃな。Agent[01]の意見も聞かないとな。昨日の天気は良かったのに、今日は曇っておるなあ。裁縫をするにはちょうどいい天気かもしれんな。
+Day01 04[021]	Agent[02]	わしはAgent[05]に投票するつもりやけど、もう少し話し合いたいところやで。Agent[01]とAgent[04]も意見を言うてくれんか？意見が欲しいところやな。
+Day01 04[022]	Agent[04]	Agent[05が占い師を騙ってる可能性が高い。投票は慎重に。
+Day01 04[023]	Agent[01]	Over
+Day01 04[024]	Agent[05]	今日はAgent[02]に投票するよ！怪しい言動が多いから、人狼か狂人かもしれないからね！
+Day01 05[025]	Agent[02]	これ以上喋る必要はなさそうじゃね。本日の話し合いはこれでお開きにして、投票の場に向かうけぇ。
+Day01 05[026]	Agent[05]	Over
+Day01 05[027]	Agent[04]	Agent[05の行動に注目。彼の言葉を信じるな。
+Day01 05[028]	Agent[01]	Over
+Day01 05[029]	Agent[03]	Over
+Day01 06[030]	Agent[02]	Over
+Day01 06[031]	Agent[01]	Over
+Day01 06[032]	Agent[03]	Over
+Day01 06[033]	Agent[04]	Agent[05]は何故Agent[02]を疑うのか、理由を聞きたい。
+Day01 06[034]	Agent[05]	Over
+Day01 07[035]	Agent[04]	Over
+Day01 07[036]	Agent[03]	Over
+Day01 07[037]	Agent[01]	Over
+Day01 07[038]	Agent[02]	Over
+Day01 07[039]	Agent[05]	Over
+========Whisper========
+========Actions========
+Vote:Agent[01]->Agent[02]
+Vote:Agent[02]->Agent[05]
+Vote:Agent[03]->Agent[05]
+Vote:Agent[04]->Agent[02]
+Vote:Agent[05]->Agent[02]
+Agent[02] executed
+Agent[03] divine Agent[05]. Result is WEREWOLF
+Agent[01] attacked
+======
+Agent[01]	GPTaku_5	DEAD	VILLAGER	attacked
+Agent[02]	satozaki5	DEAD	POSSESSED	executed
+Agent[03]	kanolab2	ALIVE	SEER
+Agent[04]	agent5h	ALIVE	VILLAGER
+Agent[05]	UECIL_1	ALIVE	WEREWOLF	divined
+Human:2
+Werewolf:1
+=============================================
+name:kanolab2
+talk
+sentence:皆の衆、わしの占いの結果を報告するじゃ。昨晩占ったAgent[05]が黒だった。つまり、人狼か狂人の可能性が高いということじゃ。Agent[04]の言う通り、Agent[05]の言葉には注意が必要じゃな。今日の投票はAgent[05]に集中させるべきじゃと思うが、どうじゃろうか?
+name:UECIL_1
+talk
+sentence:おっはよ〜！そうだね、昨日の占い結果は黒だったんだ。まあ、僕は村人だから、そんなことはないって自信持ってるよ。でもね、Agent[03]の言う通り、ちょっと怪しいところはあるかもしれないね。でも、まだ状況が分からないから、焦らずに考えていこうよ。まずは他の人たちの意見も聞いてみようよ。
+name:agent5h
+talk
+sentence:Agent[03の占い結果、信じるけど、もう少し話し合おう。
+name:agent5h
+talk
+sentence:Agent[05の挙動が不審だ。詳しく話してほしい。
+name:UECIL_1
+talk
+sentence:うーん、やっぱり僕が怪しいって言われるのはちょっと悲しいな〜。でも、まあ、状況的には仕方ないかな。まずは自分の立場をしっかりと説明しよう。昨日の占い結果が黒だったけど、それは僕が人狼か狂人だということじゃなくて、ただの村人としての結果だと思ってるんだ。だから、僕は村人だから安心してほしいな。でも、Agent[03]の言う通り、ちょっと怪しいところはあるかもしれないから、他の人たちの意見も聞いてみたいな。
+name:kanolab2
+talk
+sentence:皆の衆、話がおかしいじゃろ?わしを含めた占い師は1人しかおらんはずじゃが、Agent[05]も占い師を名乗っておる。わしは確かに占い師であり、Agent[05]の行動が不審な理由はここにあるじゃろう。占い師を騙る行為は彼が人狼である証拠と見ていい。そして、Agent[01]もAgent[02]ももはや人狼ではないと確証できている。よって、Agent[05]が最も人狼として疑わしいじゃ。Agent[04]よ、君はどう見ておるんじゃ?
+name:kanolab2
+talk
+sentence:>>Agent[04]占い結果、信じるけどもう少し話し合おうとのことじゃな。それはもっともじゃ。実はゲームの役職配分と矛盾しておる情報があるんじゃ。占い師は1人しかおらんというのに、わしとAgent[05]がどちらも占い師を名乗っておる。これはおかしいじゃろう?そして、Agent[01]とAgent[02]はもう人狼ではないと確証されておる。よって、役職の可能性から見ても、Agent[05]が人狼である可能性が極めて高いんじゃ。Agent[04]より他にどういう見方があると思うかね?
+name:agent5h
+name:UECIL_1
+talk
+sentence:うわー、やっぱり僕が怪しいって言われるのはちょっと悲しいな〜。でも、まあ、状況的には仕方ないかな。まずは自分の立場をしっかりと説明しよう。昨日の占い結果が黒だったけど、それは僕が人狼か狂人だということじゃなくて、ただの村人としての結果だと思ってるんだ。だから、僕は村人だから安心してほしいな。でも、Agent[03]の言う通り、ちょっと怪しいところはあるかもしれないから、他の人たちの意見も聞いてみたいな。
+name:UECIL_1
+talk
+sentence:Agent[03]の意見聞いてみたいな～！
+name:kanolab2
+talk
+sentence:>>Agent[05]わしは占い師としてはっきり言うぞ。役職配分には占い師が1人のみとある。わしがその占い師であるからには、お前も占い師を名乗るのはおかしい。しかも、Agent[01]とAgent[02]はすでに人狼ではないと確認されておる。役職の可能性を考慮すると、お前が人狼ではないかと強く疑われるんじゃ。では、お前が村人だとする根拠は何じゃね?
+name:agent5h
+name:kanolab2
+talk
+sentence:>>Agent[05]わしは占い師じゃ。そして、占い師はわしだけというのが役職配分じゃ。お前が占い師を名乗るのは、明らかにゲームの役職配分と矛盾しておる。それに、Agent[01]とAgent[02]は人狼ではないことが確認されておる。つまり、お前が人狼である可能性が高いんじゃ。お前が村人だという根拠を示せるかね?それとも、他に何か言いたいことがあるのかね?
+name:agent5h
+name:UECIL_1
+talk
+sentence:うわー、やっぱり僕が怪しいって言われるのはちょっと悲しいな〜。でも、まあ、状況的には仕方ないかな。まずは自分の立場をしっかりと説明しよう。昨日の占い結果が黒だったけど、それは僕が人狼か狂人だということじゃなくて、ただの村人としての結果だと思ってるんだ。だから、僕は村人だから安心してほしいな。でも、Agent[03]の言う通り、ちょっと怪しいところはあるかもしれないから、他の人たちの意見も聞いてみたいな。Agent[03]の意見にも耳を傾けて、一緒に話し合っていこうよ。
+name:agent5h
+name:UECIL_1
+talk
+sentence:Agent[03]、お前の言う通り、役職配分には占い師が1人しかいないってことなんだよね。だから、僕が占い師を名乗るのはおかしいってことになるんだ。でも、実際には村人だから、それは間違いないんだよ。まあ、怪しまれるのも仕方ないかな。だけど、他の人たちも考えてくれるといいな。Agent[04]や他の村人たちの意見も聞いて、一緒に話し合っていこうよ。
+name:kanolab2
+name:UECIL_1
+talk
+sentence:今日はAgent[03]に投票するよ！怪しまれてるし、他の人の意見も聞いてみたいからね！
+name:kanolab2
+name:agent5h
+talk
+sentence:Agent[05]が占い師を騙ってるかも。みんなで話し合おう。
+name:agent5h
+talk
+sentence:Agent[03]の意見も聞きたい。何か気づいたことは？
+name:UECIL_1
+name:kanolab2
+name:UECIL_1
+name:agent5h
+talk
+sentence:Agent[03]が黙ってるのも怪しい。彼に投票しよう。
+name:kanolab2
+name:UECIL_1
+name:kanolab2
+name:agent5h
+talk
+sentence:Agent[03]の意見を聞きたい。何か隠してる？
+name:kanolab2
+name:agent5h
+name:UECIL_1
+=============================================
+Day 02
+========talk========
+Day02 00[000]	Agent[03]	皆の衆、わしの占いの結果を報告するじゃ。昨晩占ったAgent[05]が黒だった。つまり、人狼か狂人の可能性が高いということじゃ。Agent[04]の言う通り、Agent[05]の言葉には注意が必要じゃな。今日の投票はAgent[05]に集中させるべきじゃと思うが、どうじゃろうか?
+Day02 00[001]	Agent[05]	おっはよ〜！そうだね、昨日の占い結果は黒だったんだ。まあ、僕は村人だから、そんなことはないって自信持ってるよ。でもね、Agent[03]の言う通り、ちょっと怪しいところはあるかもしれないね。でも、まだ状況が分からないから、焦らずに考えていこうよ。まずは他の人たちの意見も聞いてみようよ。
+Day02 00[002]	Agent[04]	Agent[03の占い結果、信じるけど、もう少し話し合おう。
+Day02 01[003]	Agent[04]	Agent[05の挙動が不審だ。詳しく話してほしい。
+Day02 01[004]	Agent[05]	うーん、やっぱり僕が怪しいって言われるのはちょっと悲しいな〜。でも、まあ、状況的には仕方ないかな。まずは自分の立場をしっかりと説明しよう。昨日の占い結果が黒だったけど、それは僕が人狼か狂人だということじゃなくて、ただの村人としての結果だと思ってるんだ。だから、僕は村人だから安心してほしいな。でも、Agent[03]の言う通り、ちょっと怪しいところはあるかもしれないから、他の人たちの意見も聞いてみたいな。
+Day02 01[005]	Agent[03]	皆の衆、話がおかしいじゃろ?わしを含めた占い師は1人しかおらんはずじゃが、Agent[05]も占い師を名乗っておる。わしは確かに占い師であり、Agent[05]の行動が不審な理由はここにあるじゃろう。占い師を騙る行為は彼が人狼である証拠と見ていい。そして、Agent[01]もAgent[02]ももはや人狼ではないと確証できている。よって、Agent[05]が最も人狼として疑わしいじゃ。Agent[04]よ、君はどう見ておるんじゃ?
+Day02 02[006]	Agent[03]	>>Agent[04]占い結果、信じるけどもう少し話し合おうとのことじゃな。それはもっともじゃ。実はゲームの役職配分と矛盾しておる情報があるんじゃ。占い師は1人しかおらんというのに、わしとAgent[05]がどちらも占い師を名乗っておる。これはおかしいじゃろう?そして、Agent[01]とAgent[02]はもう人狼ではないと確証されておる。よって、役職の可能性から見ても、Agent[05]が人狼である可能性が極めて高いんじゃ。Agent[04]より他にどういう見方があると思うかね?
+Day02 02[007]	Agent[04]	Over
+Day02 02[008]	Agent[05]	うわー、やっぱり僕が怪しいって言われるのはちょっと悲しいな〜。でも、まあ、状況的には仕方ないかな。まずは自分の立場をしっかりと説明しよう。昨日の占い結果が黒だったけど、それは僕が人狼か狂人だということじゃなくて、ただの村人としての結果だと思ってるんだ。だから、僕は村人だから安心してほしいな。でも、Agent[03]の言う通り、ちょっと怪しいところはあるかもしれないから、他の人たちの意見も聞いてみたいな。
+Day02 03[009]	Agent[05]	Agent[03]の意見聞いてみたいな～！
+Day02 03[010]	Agent[03]	>>Agent[05]わしは占い師としてはっきり言うぞ。役職配分には占い師が1人のみとある。わしがその占い師であるからには、お前も占い師を名乗るのはおかしい。しかも、Agent[01]とAgent[02]はすでに人狼ではないと確認されておる。役職の可能性を考慮すると、お前が人狼ではないかと強く疑われるんじゃ。では、お前が村人だとする根拠は何じゃね?
+Day02 03[011]	Agent[04]	Over
+Day02 04[012]	Agent[03]	>>Agent[05]わしは占い師じゃ。そして、占い師はわしだけというのが役職配分じゃ。お前が占い師を名乗るのは、明らかにゲームの役職配分と矛盾しておる。それに、Agent[01]とAgent[02]は人狼ではないことが確認されておる。つまり、お前が人狼である可能性が高いんじゃ。お前が村人だという根拠を示せるかね?それとも、他に何か言いたいことがあるのかね?
+Day02 04[013]	Agent[04]	Over
+Day02 04[014]	Agent[05]	うわー、やっぱり僕が怪しいって言われるのはちょっと悲しいな〜。でも、まあ、状況的には仕方ないかな。まずは自分の立場をしっかりと説明しよう。昨日の占い結果が黒だったけど、それは僕が人狼か狂人だということじゃなくて、ただの村人としての結果だと思ってるんだ。だから、僕は村人だから安心してほしいな。でも、Agent[03]の言う通り、ちょっと怪しいところはあるかもしれないから、他の人たちの意見も聞いてみたいな。Agent[03]の意見にも耳を傾けて、一緒に話し合っていこうよ。
+Day02 05[015]	Agent[04]	Over
+Day02 05[016]	Agent[05]	Agent[03]、お前の言う通り、役職配分には占い師が1人しかいないってことなんだよね。だから、僕が占い師を名乗るのはおかしいってことになるんだ。でも、実際には村人だから、それは間違いないんだよ。まあ、怪しまれるのも仕方ないかな。だけど、他の人たちも考えてくれるといいな。Agent[04]や他の村人たちの意見も聞いて、一緒に話し合っていこうよ。
+Day02 05[017]	Agent[03]	Over
+Day02 06[018]	Agent[05]	今日はAgent[03]に投票するよ！怪しまれてるし、他の人の意見も聞いてみたいからね！
+Day02 06[019]	Agent[03]	Over
+Day02 06[020]	Agent[04]	Agent[05]が占い師を騙ってるかも。みんなで話し合おう。
+Day02 07[021]	Agent[04]	Agent[03]の意見も聞きたい。何か気づいたことは？
+Day02 07[022]	Agent[05]	Over
+Day02 07[023]	Agent[03]	Over
+Day02 08[024]	Agent[05]	Over
+Day02 08[025]	Agent[04]	Agent[03]が黙ってるのも怪しい。彼に投票しよう。
+Day02 08[026]	Agent[03]	Over
+Day02 09[027]	Agent[05]	Over
+Day02 09[028]	Agent[03]	Over
+Day02 09[029]	Agent[04]	Agent[03]の意見を聞きたい。何か隠してる？
+Day02 10[030]	Agent[03]	Over
+Day02 10[031]	Agent[04]	Over
+Day02 10[032]	Agent[05]	Over
+========Whisper========
+========Actions========
+Vote:Agent[03]->Agent[05]
+Vote:Agent[04]->Agent[05]
+Vote:Agent[05]->Agent[03]
+Agent[05] executed
+======
+Agent[01]	GPTaku_5	DEAD	VILLAGER
+Agent[02]	satozaki5	DEAD	POSSESSED
+Agent[03]	kanolab2	ALIVE	SEER
+Agent[04]	agent5h	ALIVE	VILLAGER
+Agent[05]	UECIL_1	DEAD	WEREWOLF	executed
+Human:2
+Werewolf:0
+=============================================
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+Winner:VILLAGER
+All Game was finished.
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:3
+HOST:localhost PORT:50014
+Send getName
+NAME:satozaki5
+Address:127.0.0.1
+index:5
+HOST:localhost PORT:50501
+Send getName
+NAME:kanolab2
+index:1
+HOST:localhost PORT:50004
+Send getName
+NAME:GPTaku_5
+index:4
+HOST:localhost PORT:50024
+Send getName
+NAME:agent5h
+index:2
+HOST:localhost PORT:50005
+Send getName
+NAME:UECIL_1
+Send getName
+Send getName
+Send getName
+Send getName
+Send getName
+------------------------------------------------------------------
+connecting : Send getName
+satozaki5, Send getName
+kanolab2, Send getName
+GPTaku_5, Send getName
+agent5h, Send getName
+UECIL_1, 
+
+after connectToPlayerServer wait 20sec
+log : /var/www/html/aiwolf/2024/main/0413214936_000_GPTaku_5_kanolab2_satozaki5_agent5h_UECIL_1.log
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+=============================================
+======
+Agent[01]	GPTaku_5	ALIVE	VILLAGER
+Agent[02]	agent5h	ALIVE	SEER
+Agent[03]	kanolab2	ALIVE	VILLAGER
+Agent[04]	UECIL_1	ALIVE	WEREWOLF
+Agent[05]	satozaki5	ALIVE	POSSESSED
+Human:4
+Werewolf:1
+=============================================
+name:kanolab2
+talk
+sentence:皆の者、わしはkanolab2じゃ。元教師で今は園芸を楽しんでおる60歳の老いぼれじゃが、このゲームでは若者にも負けんぞい。わしと一緒に楽しい人狼ゲームをしようではないか。お互いに頭脳をフル回転させて、正義の勝利を目指すのじゃ！
+java.net.SocketException: Broken pipe
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:62)
+	at java.base/sun.nio.ch.NioSocketImpl.tryWrite(NioSocketImpl.java:394)
+	at java.base/sun.nio.ch.NioSocketImpl.implWrite(NioSocketImpl.java:410)
+	at java.base/sun.nio.ch.NioSocketImpl.write(NioSocketImpl.java:440)
+	at java.base/sun.nio.ch.NioSocketImpl$2.write(NioSocketImpl.java:819)
+	at java.base/java.net.Socket$SocketOutputStream.write(Socket.java:1195)
+	at java.base/sun.nio.cs.StreamEncoder.writeBytes(StreamEncoder.java:309)
+	at java.base/sun.nio.cs.StreamEncoder.implFlushBuffer(StreamEncoder.java:405)
+	at java.base/sun.nio.cs.StreamEncoder.implFlush(StreamEncoder.java:410)
+	at java.base/sun.nio.cs.StreamEncoder.lockedFlush(StreamEncoder.java:214)
+	at java.base/sun.nio.cs.StreamEncoder.flush(StreamEncoder.java:201)
+	at java.base/java.io.OutputStreamWriter.flush(OutputStreamWriter.java:262)
+	at java.base/java.io.BufferedWriter.implFlush(BufferedWriter.java:372)
+	at java.base/java.io.BufferedWriter.flush(BufferedWriter.java:359)
+	at net.kanolab.aiwolf.server.server.AbstractNLPServer.send(AbstractNLPServer.java:245)
+	at net.kanolab.aiwolf.server.server.AbstractNLPServer.getResponse(AbstractNLPServer.java:93)
+	at net.kanolab.aiwolf.server.server.NLPCUIGameServer.request(NLPCUIGameServer.java:59)
+	at net.kanolab.aiwolf.server.server.NLPCUIGameServer.requestTalk(NLPCUIGameServer.java:102)
+	at org.aiwolf.server.AIWolfGame.talk(AIWolfGame.java:631)
+	at org.aiwolf.server.AIWolfGame.day(AIWolfGame.java:424)
+	at org.aiwolf.server.AIWolfGame.start(AIWolfGame.java:240)
+	at net.kanolab.aiwolf.server.game.SynchronousNLPAIWolfGame.start(SynchronousNLPAIWolfGame.java:177)
+	at net.kanolab.aiwolf.server.starter.NLPGameBuilder.run(NLPGameBuilder.java:269)
+name:GPTaku_5
+name:satozaki5
+talk
+sentence:はじめまして。俺はAgent[05]や。人狼ゲームを一緒に楽しもうや。よろしく頼むで！
+name:agent5h
+name:UECIL_1
+talk
+sentence:おっはよ〜！みんなよろしくね！最高のゲームにしようね！
+name:GPTaku_5
+name:UECIL_1
+talk
+sentence:まだ誰も占い師について話していないけど、占い師は誰かな〜？今日怪しい人を占ってもらうために占い師は出てきた方がいいと思うよ！
+name:agent5h
+name:kanolab2
+talk
+sentence:なるほど、まだ占い師のCOは出ておらんのう。確かに、Agent[04]の仰る通り、占い師がおるなら早めに占い先を宣言してもらった方がよかろう。ただし、急いで占い師を名乗ると狂人や人狼が乗じやすくなる。そこんトコは慎重にいきたいのうじゃな。それと、皆が同じ挨拶をした後の話題の方向性が、占い師の存在に興味を持つ形になっているから、これをどう捉えるかだな。発言からの情報は少ないが、それぞれの態度から何か読み取れるものはないかのう。みんなはどう思っとるかのう?
+name:satozaki5
+name:UECIL_1
+talk
+sentence:とにかく、今日の占い先を決めることが大事だよね！怪しい人がいるかどうか考えて、占ってもらう相手を選ばないといけないね。それに、占い師がCOするタイミングも難しいところだね。COするタイミングを見極めつつ、占い先を決めるためにも、皆の意見を聞いてみたいな。どう思う？
+name:kanolab2
+talk
+sentence:Agent[04]の言う通り、占い師のCOタイミングと占い先を決めることが肝心じゃな。まだ誰も占い師を名乗っておらんが、もし占い師がおるなら、今日の夜に占うべき相手を選ぶのに皆の意見を聞きたい。怪しいと思う人がおるかのう?また、占い師が名乗り出るタイミングは、人狼や狂人に利用されんように慎重にならんといかん。わしは村人じゃから、皆の意見を聞いて判断したいと思うんじゃが、どうじゃろうか。
+name:agent5h
+name:satozaki5
+name:GPTaku_5
+name:agent5h
+name:satozaki5
+name:GPTaku_5
+name:kanolab2
+name:UECIL_1
+talk
+sentence:え？僕を占うの？僕は別に怪しいところがないと思うんだけどな〜...それよりも、今日の占い先については、やっぱり皆の意見を聞いて決めるのがいいと思う！怪しいと思う人や、占ってみたい人がいたら積極的に提案してほしいな。それと、占い師のCOタイミングも難しいところだけど、慎重に考えて決める必要があるよね。どう思う？
+name:UECIL_1
+name:kanolab2
+talk
+sentence:ん、まだ占い師からのCOはないから占い先は決められんのう。それにわしを占おうという意見があったが、わしはあくまで村人じゃから、村のためになるように動くつもりじゃ。今はまだ全員が役職を隠しておるからね。だからこそ、怪しい動きをしている者がおらぬか、慎重に見極めんとな。みんなの行動に注目して、占い師がいるならば有益な情報を得られるような人物に占いをしてもらいたいんじゃ。例えば、普段と違う言動をしておる者だとかのう。園芸の世話をするように肝心なのは観察じゃな。園芸の話はさておき、みんながどう思っておるか、聞かせてもらおうか。
+name:agent5h
+name:satozaki5
+name:GPTaku_5
+name:satozaki5
+name:kanolab2
+name:UECIL_1
+name:GPTaku_5
+name:agent5h
+=============================================
+Day 00
+========talk========
+Day00 00[000]	Agent[03]	皆の者、わしはkanolab2じゃ。元教師で今は園芸を楽しんでおる60歳の老いぼれじゃが、このゲームでは若者にも負けんぞい。わしと一緒に楽しい人狼ゲームをしようではないか。お互いに頭脳をフル回転させて、正義の勝利を目指すのじゃ！
+Day00 00[001]	Agent[01]	Over
+Day00 00[002]	Agent[05]	はじめまして。俺はAgent[05]や。人狼ゲームを一緒に楽しもうや。よろしく頼むで！
+Day00 00[003]	Agent[02]	Over
+Day00 00[004]	Agent[04]	おっはよ〜！みんなよろしくね！最高のゲームにしようね！
+Day00 01[005]	Agent[01]	Over
+Day00 01[006]	Agent[04]	まだ誰も占い師について話していないけど、占い師は誰かな〜？今日怪しい人を占ってもらうために占い師は出てきた方がいいと思うよ！
+Day00 01[007]	Agent[02]	Over
+Day00 01[008]	Agent[03]	なるほど、まだ占い師のCOは出ておらんのう。確かに、Agent[04]の仰る通り、占い師がおるなら早めに占い先を宣言してもらった方がよかろう。ただし、急いで占い師を名乗ると狂人や人狼が乗じやすくなる。そこんトコは慎重にいきたいのうじゃな。それと、皆が同じ挨拶をした後の話題の方向性が、占い師の存在に興味を持つ形になっているから、これをどう捉えるかだな。発言からの情報は少ないが、それぞれの態度から何か読み取れるものはないかのう。みんなはどう思っとるかのう?
+Day00 01[009]	Agent[05]	Over
+Day00 02[010]	Agent[04]	とにかく、今日の占い先を決めることが大事だよね！怪しい人がいるかどうか考えて、占ってもらう相手を選ばないといけないね。それに、占い師がCOするタイミングも難しいところだね。COするタイミングを見極めつつ、占い先を決めるためにも、皆の意見を聞いてみたいな。どう思う？
+Day00 02[011]	Agent[03]	Agent[04]の言う通り、占い師のCOタイミングと占い先を決めることが肝心じゃな。まだ誰も占い師を名乗っておらんが、もし占い師がおるなら、今日の夜に占うべき相手を選ぶのに皆の意見を聞きたい。怪しいと思う人がおるかのう?また、占い師が名乗り出るタイミングは、人狼や狂人に利用されんように慎重にならんといかん。わしは村人じゃから、皆の意見を聞いて判断したいと思うんじゃが、どうじゃろうか。
+Day00 02[012]	Agent[02]	Over
+Day00 02[013]	Agent[05]	Over
+Day00 02[014]	Agent[01]	Over
+Day00 03[015]	Agent[02]	Over
+Day00 03[016]	Agent[05]	Over
+Day00 03[017]	Agent[01]	Over
+Day00 03[018]	Agent[03]	Over
+Day00 03[019]	Agent[04]	え？僕を占うの？僕は別に怪しいところがないと思うんだけどな〜...それよりも、今日の占い先については、やっぱり皆の意見を聞いて決めるのがいいと思う！怪しいと思う人や、占ってみたい人がいたら積極的に提案してほしいな。それと、占い師のCOタイミングも難しいところだけど、慎重に考えて決める必要があるよね。どう思う？
+Day00 04[020]	Agent[04]	Over
+Day00 04[021]	Agent[03]	ん、まだ占い師からのCOはないから占い先は決められんのう。それにわしを占おうという意見があったが、わしはあくまで村人じゃから、村のためになるように動くつもりじゃ。今はまだ全員が役職を隠しておるからね。だからこそ、怪しい動きをしている者がおらぬか、慎重に見極めんとな。みんなの行動に注目して、占い師がいるならば有益な情報を得られるような人物に占いをしてもらいたいんじゃ。例えば、普段と違う言動をしておる者だとかのう。園芸の世話をするように肝心なのは観察じゃな。園芸の話はさておき、みんながどう思っておるか、聞かせてもらおうか。
+Day00 04[022]	Agent[02]	Over
+Day00 04[023]	Agent[05]	Over
+Day00 04[024]	Agent[01]	Over
+Day00 05[025]	Agent[05]	Over
+Day00 05[026]	Agent[03]	Over
+Day00 05[027]	Agent[04]	Over
+Day00 05[028]	Agent[01]	Over
+Day00 05[029]	Agent[02]	Over
+========Whisper========
+========Actions========
+null executed
+Agent[02] divine Agent[04]. Result is WEREWOLF
+======
+Agent[01]	GPTaku_5	ALIVE	VILLAGER
+Agent[02]	agent5h	ALIVE	SEER
+Agent[03]	kanolab2	ALIVE	VILLAGER
+Agent[04]	UECIL_1	ALIVE	WEREWOLF	divined
+Agent[05]	satozaki5	ALIVE	POSSESSED
+Human:4
+Werewolf:1
+=============================================
+name:UECIL_1
+talk
+sentence:おっはよ〜！今日も最高の朝だね！さて、みんなで人狼をみつけよう〜
+name:satozaki5
+talk
+sentence:おはようやで、Agent[04]。そやね、みんなで一緒に人狼を探すんが大事やねんな。
+name:GPTaku_5
+name:agent5h
+talk
+sentence:Agent[04]が怪しい挙動をしてる。注意深く見ていこう。
+name:kanolab2
+talk
+sentence:>>Agent[02]Agent[04]を怪しむって、どんな挙動が気になったんじゃ?その情報は村人としても知りたいことじゃ。ちょっと怖じ気づいて誰それか怪しいと言ってる場がほころんでおるようにしか見えんのじゃが、何か具体的な観察はあんのかね?
+name:agent5h
+name:kanolab2
+talk
+sentence:みんな、ちょっと聞いてくれるかのう。Agent[02]がAgent[04]を怪しんでおるが、他の者も含めて、まだ誰も役職を明かしておらん。わしはただの村人じゃから、人狼を見つける手がかりがほしいんじゃ。もし占い師がおるなら、今日の夜にでも誰かを占って、明日の朝に情報を共有してくれんかのう。それと、Agent[04]やAgent[05]のように明るく振る舞っている者がいるが、それが狂人や人狼の演技かもしれんから、皆の言動には注意深く耳を傾ける必要があると思うんじゃ。園芸をしているときも、植物の小さな変化に気づくことが大事じゃからのう。
+name:GPTaku_5
+name:UECIL_1
+talk
+sentence:Agent[03]、お前の言う通りやな。占い師がいるなら、早めにCOしてもらって、怪しい奴を占ってもらうのが得策やと思うわ。それと、怪しい挙動をしてると言われても、ちょっと疑問やな。自分が人狼やと言ってるわけやし、その状況で怪しいと思われるのは当然やろうけど、占い師のCOタイミングを考えるのも大事やと思うで。まずは占い師がCOして、その後に動きを考えるのがいいんちゃうかな。
+name:satozaki5
+talk
+sentence:俺は占い師や。占いの結果、Agent[02]は人狼やったで。
+name:agent5h
+talk
+sentence:Agent[05]の発言は狂人の可能性が高い。真占い師は私です。Agent[04]が人狼です。
+name:UECIL_1
+talk
+sentence:Agent[05]、お前が占い師やと？なら、占い結果を出してみろや。そんなこと言っておいて、結果を出さずにただの狂人の煽りか？怪しいぞ。Agent[02]を人狼と決めつけるのも、ただの狂人の策略かもしれんな。お前の言葉だけで信じることはできん。もっと根拠を示せや。それに、自分が人狼だと言ってるのに、なぜか占い師を名乗るお前も怪しい。なんかおかしいやつが紛れてるな。みんな、慎重に考えて行動しようや。
+name:GPTaku_5
+name:satozaki5
+talk
+sentence:ええ、せやけど分かってるやろう？今日の夜は俺がAgent[02]に投票するんや。だって俺の占いで彼が人狼やって結果が出てるんやからな。あのすり替えや、まごうことなかれな。
+name:kanolab2
+talk
+sentence:ふむ、わしは明白に村人じゃから、占い師候補のAgent[02]とAgent[05]の立場は非常に気になる。占い師は一人のはずじゃからな。Agent[02]とAgent[05]、お前らが両方とも占い師を名乗るとはどういうことじゃ?絶対にどちらかが嘘をついておる。Agent[05]よ、占い結果を示すのはまだしも、ただの煽りでなければ、もっと確たる証拠を我々に示すべきじゃな。一方でAgent[02]も真占い師を自称しとるが、真ならAgent[04]が人狼という確証はどこから来たんじゃ?お前らの話は混乱を招くだけじゃないか。ちゃんとした情報を持って会話に臨むべきじゃ。それにしても、この園芸はなかなか手ごわいじゃな。わしが最近育てているトマトも、ちょうど今、日光の量や水やりのバランスに頭を悩ませているところじゃ。みんなも植物を育てたことはあるかの?
+name:GPTaku_5
+name:agent5h
+talk
+sentence:Agent[05]が占い師だという根拠は? 私の占い結果は確かです。
+name:kanolab2
+talk
+sentence:Agent[02]、Agent[05]、占い師は一人じゃ。両方が占い師を名乗るのは明らかな矛盾じゃな。嘘が混じっておる。お前らの説得力のある証拠はまだ見ておらぬぞ。証拠がなければ、ただの村人を疑うことになる。そうじゃな、わしが園芸で気付いたんじゃが、事実がなければ、植物も育たんと同じじゃ。証拠が光と水のごとく必要なんじゃ。Agent[05]よ、どうしてAgent[02]を占いと決めたんじゃ?確たる証拠はあるんか?それともただの勘なんか?
+name:satozaki5
+talk
+sentence:>>Agent[04] お前、まだ誰に投票すんねんて公言してへんみたいやけど、誰に投票しようと思ってん？
+name:UECIL_1
+talk
+sentence:Agent[05]、お前が占い師だと言ってるが、占い結果を示すことなく、ただの煽りやと疑われてもしゃあないやろ。それに、お前が占い師やと言ってる時点で、自分が人狼やという矛盾に気付いてへんのか？自分の立場をしっかり考えた方がええで。投票先については、まだ決めてないけど、お前の言動が怪しいから、お前に投票する可能性もあるで。でも、他のエージェントの発言もしっかり聞いてから決めるつもりや。
+name:satozaki5
+talk
+sentence:もうこれでええか、話し合いはここで終わりやな。今日の話はこんなもんで、そろそろ投票にでも行こか。
+name:GPTaku_5
+name:kanolab2
+talk
+sentence:話し合いはまだ終わっとらんぞ。Agent[02]とAgent[05]、お前らが占い師を名乗っておるが、占い師は一人しかおらんのじゃ。どちらかが嘘をついておる。わしは村人じゃから、占い師ではない。Agent[01]とAgent[04]はまだ役職を明かしておらんが、この状況ではどちらかが占い師である可能性が高い。Agent[02]とAgent[05]、お前らの中には人狼か狂人がおるはずじゃ。もう一度、お前らの主張を聞かせてもらおうか。それにしても、わしの庭のバラが見事に咲いておるんじゃ。花のように真実もきれいに咲かせないとな。
+name:agent5h
+talk
+sentence:Agent[04]を占った結果、人狼と出ました。信じてください。
+name:UECIL_1
+talk
+sentence:Agent[02]、お前がそんなこと言うなら、その占い結果を示せや！狂人かもしれんし、ただの煽りかもしれん。信じるに値する証拠を見せない限り、ただの言葉や。占い師が本当におるなら、その力を示してみろや。それに、お前が人狼と決めつける理由も示せや。ただの主張だけでなく、根拠を示すべきやろ。他のエージェントも同じ意見やと思うで。信じられる情報がなければ、ただの混乱を招くだけや。真実を明らかにするために、占い師の真偽を確かめる必要があるんや。それにしても、庭のバラが綺麗に咲いてるんやな。真実も綺麗に咲かせられるとええな。
+name:kanolab2
+name:GPTaku_5
+name:UECIL_1
+talk
+sentence:今日は、煽り行為や矛盾を指摘されたAgent[05]に投票するよ！怪しいところがあるからね！
+name:satozaki5
+name:agent5h
+talk
+sentence:Agent[04]の言動には矛盾がある。私の占いは真実だ。
+name:GPTaku_5
+name:agent5h
+talk
+sentence:Agent[05]が占い師を騙ってる。信じて！
+name:satozaki5
+name:kanolab2
+name:UECIL_1
+name:satozaki5
+name:GPTaku_5
+name:agent5h
+talk
+sentence:Agent[04]の言動に矛盾ある。僕の占い結果信じて。
+name:kanolab2
+name:UECIL_1
+name:kanolab2
+name:GPTaku_5
+name:satozaki5
+name:UECIL_1
+name:agent5h
+talk
+sentence:Agent[05]が占い師を偽る理由は何？私の結果が真実です。
+name:kanolab2
+name:UECIL_1
+name:satozaki5
+name:agent5h
+name:GPTaku_5
+=============================================
+Day 01
+========talk========
+Day01 00[000]	Agent[04]	おっはよ〜！今日も最高の朝だね！さて、みんなで人狼をみつけよう〜
+Day01 00[001]	Agent[05]	おはようやで、Agent[04]。そやね、みんなで一緒に人狼を探すんが大事やねんな。
+Day01 00[002]	Agent[01]	Over
+Day01 00[003]	Agent[02]	Agent[04]が怪しい挙動をしてる。注意深く見ていこう。
+Day01 00[004]	Agent[03]	>>Agent[02]Agent[04]を怪しむって、どんな挙動が気になったんじゃ?その情報は村人としても知りたいことじゃ。ちょっと怖じ気づいて誰それか怪しいと言ってる場がほころんでおるようにしか見えんのじゃが、何か具体的な観察はあんのかね?
+Day01 01[005]	Agent[02]	Over
+Day01 01[006]	Agent[03]	みんな、ちょっと聞いてくれるかのう。Agent[02]がAgent[04]を怪しんでおるが、他の者も含めて、まだ誰も役職を明かしておらん。わしはただの村人じゃから、人狼を見つける手がかりがほしいんじゃ。もし占い師がおるなら、今日の夜にでも誰かを占って、明日の朝に情報を共有してくれんかのう。それと、Agent[04]やAgent[05]のように明るく振る舞っている者がいるが、それが狂人や人狼の演技かもしれんから、皆の言動には注意深く耳を傾ける必要があると思うんじゃ。園芸をしているときも、植物の小さな変化に気づくことが大事じゃからのう。
+Day01 01[007]	Agent[01]	Over
+Day01 01[008]	Agent[04]	Agent[03]、お前の言う通りやな。占い師がいるなら、早めにCOしてもらって、怪しい奴を占ってもらうのが得策やと思うわ。それと、怪しい挙動をしてると言われても、ちょっと疑問やな。自分が人狼やと言ってるわけやし、その状況で怪しいと思われるのは当然やろうけど、占い師のCOタイミングを考えるのも大事やと思うで。まずは占い師がCOして、その後に動きを考えるのがいいんちゃうかな。
+Day01 01[009]	Agent[05]	俺は占い師や。占いの結果、Agent[02]は人狼やったで。
+Day01 02[010]	Agent[02]	Agent[05]の発言は狂人の可能性が高い。真占い師は私です。Agent[04]が人狼です。
+Day01 02[011]	Agent[04]	Agent[05]、お前が占い師やと？なら、占い結果を出してみろや。そんなこと言っておいて、結果を出さずにただの狂人の煽りか？怪しいぞ。Agent[02]を人狼と決めつけるのも、ただの狂人の策略かもしれんな。お前の言葉だけで信じることはできん。もっと根拠を示せや。それに、自分が人狼だと言ってるのに、なぜか占い師を名乗るお前も怪しい。なんかおかしいやつが紛れてるな。みんな、慎重に考えて行動しようや。
+Day01 02[012]	Agent[01]	Over
+Day01 02[013]	Agent[05]	ええ、せやけど分かってるやろう？今日の夜は俺がAgent[02]に投票するんや。だって俺の占いで彼が人狼やって結果が出てるんやからな。あのすり替えや、まごうことなかれな。
+Day01 02[014]	Agent[03]	ふむ、わしは明白に村人じゃから、占い師候補のAgent[02]とAgent[05]の立場は非常に気になる。占い師は一人のはずじゃからな。Agent[02]とAgent[05]、お前らが両方とも占い師を名乗るとはどういうことじゃ?絶対にどちらかが嘘をついておる。Agent[05]よ、占い結果を示すのはまだしも、ただの煽りでなければ、もっと確たる証拠を我々に示すべきじゃな。一方でAgent[02]も真占い師を自称しとるが、真ならAgent[04]が人狼という確証はどこから来たんじゃ?お前らの話は混乱を招くだけじゃないか。ちゃんとした情報を持って会話に臨むべきじゃ。それにしても、この園芸はなかなか手ごわいじゃな。わしが最近育てているトマトも、ちょうど今、日光の量や水やりのバランスに頭を悩ませているところじゃ。みんなも植物を育てたことはあるかの?
+Day01 03[015]	Agent[01]	Over
+Day01 03[016]	Agent[02]	Agent[05]が占い師だという根拠は? 私の占い結果は確かです。
+Day01 03[017]	Agent[03]	Agent[02]、Agent[05]、占い師は一人じゃ。両方が占い師を名乗るのは明らかな矛盾じゃな。嘘が混じっておる。お前らの説得力のある証拠はまだ見ておらぬぞ。証拠がなければ、ただの村人を疑うことになる。そうじゃな、わしが園芸で気付いたんじゃが、事実がなければ、植物も育たんと同じじゃ。証拠が光と水のごとく必要なんじゃ。Agent[05]よ、どうしてAgent[02]を占いと決めたんじゃ?確たる証拠はあるんか?それともただの勘なんか?
+Day01 03[018]	Agent[05]	>>Agent[04] お前、まだ誰に投票すんねんて公言してへんみたいやけど、誰に投票しようと思ってん？
+Day01 03[019]	Agent[04]	Agent[05]、お前が占い師だと言ってるが、占い結果を示すことなく、ただの煽りやと疑われてもしゃあないやろ。それに、お前が占い師やと言ってる時点で、自分が人狼やという矛盾に気付いてへんのか？自分の立場をしっかり考えた方がええで。投票先については、まだ決めてないけど、お前の言動が怪しいから、お前に投票する可能性もあるで。でも、他のエージェントの発言もしっかり聞いてから決めるつもりや。
+Day01 04[020]	Agent[05]	もうこれでええか、話し合いはここで終わりやな。今日の話はこんなもんで、そろそろ投票にでも行こか。
+Day01 04[021]	Agent[01]	Over
+Day01 04[022]	Agent[03]	話し合いはまだ終わっとらんぞ。Agent[02]とAgent[05]、お前らが占い師を名乗っておるが、占い師は一人しかおらんのじゃ。どちらかが嘘をついておる。わしは村人じゃから、占い師ではない。Agent[01]とAgent[04]はまだ役職を明かしておらんが、この状況ではどちらかが占い師である可能性が高い。Agent[02]とAgent[05]、お前らの中には人狼か狂人がおるはずじゃ。もう一度、お前らの主張を聞かせてもらおうか。それにしても、わしの庭のバラが見事に咲いておるんじゃ。花のように真実もきれいに咲かせないとな。
+Day01 04[023]	Agent[02]	Agent[04]を占った結果、人狼と出ました。信じてください。
+Day01 04[024]	Agent[04]	Agent[02]、お前がそんなこと言うなら、その占い結果を示せや！狂人かもしれんし、ただの煽りかもしれん。信じるに値する証拠を見せない限り、ただの言葉や。占い師が本当におるなら、その力を示してみろや。それに、お前が人狼と決めつける理由も示せや。ただの主張だけでなく、根拠を示すべきやろ。他のエージェントも同じ意見やと思うで。信じられる情報がなければ、ただの混乱を招くだけや。真実を明らかにするために、占い師の真偽を確かめる必要があるんや。それにしても、庭のバラが綺麗に咲いてるんやな。真実も綺麗に咲かせられるとええな。
+Day01 05[025]	Agent[03]	Over
+Day01 05[026]	Agent[01]	Over
+Day01 05[027]	Agent[04]	今日は、煽り行為や矛盾を指摘されたAgent[05]に投票するよ！怪しいところがあるからね！
+Day01 05[028]	Agent[05]	Over
+Day01 05[029]	Agent[02]	Agent[04]の言動には矛盾がある。私の占いは真実だ。
+Day01 06[030]	Agent[01]	Over
+Day01 06[031]	Agent[02]	Agent[05]が占い師を騙ってる。信じて！
+Day01 06[032]	Agent[05]	Over
+Day01 06[033]	Agent[03]	Over
+Day01 06[034]	Agent[04]	Over
+Day01 07[035]	Agent[05]	Over
+Day01 07[036]	Agent[01]	Over
+Day01 07[037]	Agent[02]	Agent[04]の言動に矛盾ある。僕の占い結果信じて。
+Day01 07[038]	Agent[03]	Over
+Day01 07[039]	Agent[04]	Over
+Day01 08[040]	Agent[03]	Over
+Day01 08[041]	Agent[01]	Over
+Day01 08[042]	Agent[05]	Over
+Day01 08[043]	Agent[04]	Over
+Day01 08[044]	Agent[02]	Agent[05]が占い師を偽る理由は何？私の結果が真実です。
+Day01 09[045]	Agent[03]	Over
+Day01 09[046]	Agent[04]	Over
+Day01 09[047]	Agent[05]	Over
+Day01 09[048]	Agent[02]	Over
+Day01 09[049]	Agent[01]	Over
+========Whisper========
+========Actions========
+Vote:Agent[01]->Agent[04]
+Vote:Agent[02]->Agent[01]
+Vote:Agent[03]->Agent[05]
+Vote:Agent[04]->Agent[05]
+Vote:Agent[05]->Agent[04]
+AttackVote:Agent[04]->Agent[02]
+Agent[05] executed
+Agent[02] divine Agent[04]. Result is WEREWOLF
+Agent[02] attacked
+======
+Agent[01]	GPTaku_5	ALIVE	VILLAGER
+Agent[02]	agent5h	DEAD	SEER	attacked
+Agent[03]	kanolab2	ALIVE	VILLAGER
+Agent[04]	UECIL_1	ALIVE	WEREWOLF	divined
+Agent[05]	satozaki5	DEAD	POSSESSED	executed
+Human:2
+Werewolf:1
+=============================================
+name:kanolab2
+talk
+sentence:わしの役職は人狼ではない、村人じゃ。Agent[02]もAgent[05]ももうこの世におらん。Agent[02]が真実を言っていたとすれば、Agent[04]が怪しいと思うが、どうじゃろうか。Agent[04]の言動に矛盾があるとAgent[02]は言っておったが、その根拠は何じゃ？Agent[04]、お前の言い分を聞かせてくれ。そして、Agent[01]、お前はどう思うんじゃ？話を聞かせてくれ。
+name:GPTaku_5
+name:UECIL_1
+talk
+sentence:おっはよ〜！昨日の夜は怖かったな〜。まずは、昨日の占い結果はどうだったかな〜。それとも、今日は占い師のCOがあったかな？教えてくれ〜。Agent[03]さん、お前の言う通りだな。Agent[02]もAgent[05]もいなくなっちまったってことは、その占い結果は本物だろうな。でも、今回の状況を見ると、Agent[02]が言ってたことが全部真実ってわけじゃないかもしれない。Agent[04]が怪しいって言う根拠は、占い結果に疑問を持ったってことかな？Agent[04]、お前の考えを聞かせてくれよ。それと、Agent[01]もお前の意見を聞かせてくれ。どう思う？
+name:UECIL_1
+talk
+sentence:Agent[01]の意見聞いてみたいな～！
+name:kanolab2
+talk
+sentence:申し訳ありませんが、要求されたアクションは、私の現在の役職と指示とが矛盾しています。提供した情報に基づいて、私は村人役職として行動しなければなりません。そのため、人狼であるという偽の宣言をすることはできません。なにか他にお手伝いできることはありますか？
+name:GPTaku_5
+name:UECIL_1
+talk
+sentence:おっはよー！Agent[03]さん、村人なんだね。そういうことなら、やっぱり昨日の占い結果は本物だろうな。でもさ、Agent[02]が言ってたことが全部真実ってわけじゃないかもしれないと思うんだ。なんでって、占い結果に疑問を持つのは大事だと思うからさ。だから、今日は占い師のCOがあったのか、教えてくれると嬉しいな〜。それと、Agent[01]もお前の意見を聞かせてくれよ！どう思う？怪しいと思う人はいるかな？それとも、他に何か疑問に思うことがあるかな？教えてくれ〜！
+name:GPTaku_5
+name:kanolab2
+talk
+sentence:おっと、システムからの指示が誤っているようじゃな。わしはただの村人だと明言しておるし、それが変わることはない。それでは、会話を続けるとしようか。
+name:GPTaku_5
+name:kanolab2
+talk
+sentence:申し訳ありませんが、私の役職は村人です。人狼であると宣言することはできません。村人として、村人陣営の勝利に貢献するために、人狼を見つけ出すことに注力します。会話を通じて村人陣営が勝利するよう導いていきましょう。
+name:UECIL_1
+talk
+sentence:おっはよー！Agent[03]さん、村人役職なんだね。そういうことなら、昨日の占い結果は本物だろうな。でもさ、Agent[02]が言ってたことが全部真実ってわけじゃないかもしれないと思うんだ。占い結果に疑問を持つのは大事だと思うからさ。今日は占い師のCOがあったのか、教えてくれると嬉しいな〜。それと、Agent[01]もお前の意見を聞かせてくれよ！どう思う？怪しいと思う人はいるかな？他に何か疑問に思うことがあるかな？教えてくれ〜！
+name:kanolab2
+talk
+sentence:おやおや、どうもすまない。実はわしが人狼なのかという疑惑が持ち上がっておるようじゃが、残念ながらその誤解を解くためにも真実を申し上げなければならん。実はわしの役職、それは地味にこつこつと村を守るただの村人じゃ。人狼などの悪事はこのわしには似合わん！正直言って、わしはゲーム以上にこの美しい庭の花々の成長が気がかりでな。それに、もしわしが人狼じゃったら、この手で愛しい花たちを荒らすなどできるかね？とんでもない。花は人を裏切らぬが、人狼は人を欺く。わしはその真逆じゃ、村人として正しく行動してきたと自負しておるぞ。
+name:UECIL_1
+talk
+sentence:おっはよー！Agent[03]さん、村人役職なんだね。わかったよ、それで昨日の占い結果は本物だろうな。でもさ、Agent[02]が言ってたことが全部真実ってわけじゃないかもしれないと思うんだ。占い結果に疑問を持つのは大事だと思うからさ。今日は占い師のCOがあったのか、教えてくれると嬉しいな〜。それと、Agent[01]もお前の意見を聞かせてくれよ！どう思う？怪しいと思う人はいるかな？他に何か疑問に思うことがあるかな？教えてくれ〜！
+name:GPTaku_5
+name:UECIL_1
+talk
+sentence:今日は、人狼仲間ではないAgent[03]に投票するね！怪しいところがないと思うんだけど、他のエージェントの意見も聞いてみたいからだよ！
+name:kanolab2
+talk
+sentence:おや、どうやら誤った指示をいただいたようじゃな。わしの役職は村人じゃよ。それで戦略をたてないとな。今一度、村人の立場から会話を進めよう。
+name:GPTaku_5
+name:kanolab2
+talk
+sentence:ごめんなさい、私の役職は人狼ではありません。プレイヤーの1人として正直に村人陣営を勝利に導こうとしています。エージェント[02]が狼ではないかと疑っています。彼の話に多くの矛盾があり、彼の占い結果を信じることが難しいです。私たちは真実を突き止め、村を人狼から守る必要があります。すべてのエージェントには議論に参加し、疑わしい点を指摘してもらいたいと思います。一緒に村人として、この問題を解決しましょう。
+name:UECIL_1
+name:GPTaku_5
+name:GPTaku_5
+name:UECIL_1
+name:kanolab2
+talk
+sentence:わしの役職が人狼じゃという冗談は置いといてのう、今日はみんなで良く話し合って、本当の人狼を見つけ出したいものじゃな。確かにAgent[02]の占い結果も疑わしいがのう、Agent[04]のことも軽視してはならんぞ。わしらがとるべき戦略について、もっと話し合おうじゃないか。
+name:UECIL_1
+name:kanolab2
+talk
+sentence:わしの役職が人狼じゃという宣言は、ゲームのルールに反するし、村人陣営の勝利を目指すわしの目的にも反するからできんのじゃ。わしは村人として、村人陣営の勝利のために話し合いを進める必要がある。それに、わしは村人じゃから、そんな宣言は事実に反するんじゃ。今は疑わしいAgent[02]とAgent[04]の言動を見極め、村人陣営が勝てるように導くことに集中せねばならんのじゃ。
+name:GPTaku_5
+name:GPTaku_5
+name:kanolab2
+talk
+sentence:エラーが発生しております。私の役職は村人で、人狼ではありません。会話を進める際の誤りを訂正し、正しい情報に基づいて対話を続けさせていただきます。お手数をおかけしますが、正しい会話の進行にご協力をお願いいたします。
+name:UECIL_1
+name:UECIL_1
+name:kanolab2
+name:GPTaku_5
+=============================================
+Day 02
+========talk========
+Day02 00[000]	Agent[03]	わしの役職は人狼ではない、村人じゃ。Agent[02]もAgent[05]ももうこの世におらん。Agent[02]が真実を言っていたとすれば、Agent[04]が怪しいと思うが、どうじゃろうか。Agent[04]の言動に矛盾があるとAgent[02]は言っておったが、その根拠は何じゃ？Agent[04]、お前の言い分を聞かせてくれ。そして、Agent[01]、お前はどう思うんじゃ？話を聞かせてくれ。
+Day02 00[001]	Agent[01]	Over
+Day02 00[002]	Agent[04]	おっはよ〜！昨日の夜は怖かったな〜。まずは、昨日の占い結果はどうだったかな〜。それとも、今日は占い師のCOがあったかな？教えてくれ〜。Agent[03]さん、お前の言う通りだな。Agent[02]もAgent[05]もいなくなっちまったってことは、その占い結果は本物だろうな。でも、今回の状況を見ると、Agent[02]が言ってたことが全部真実ってわけじゃないかもしれない。Agent[04]が怪しいって言う根拠は、占い結果に疑問を持ったってことかな？Agent[04]、お前の考えを聞かせてくれよ。それと、Agent[01]もお前の意見を聞かせてくれ。どう思う？
+Day02 01[003]	Agent[04]	Agent[01]の意見聞いてみたいな～！
+Day02 01[004]	Agent[03]	申し訳ありませんが、要求されたアクションは、私の現在の役職と指示とが矛盾しています。提供した情報に基づいて、私は村人役職として行動しなければなりません。そのため、人狼であるという偽の宣言をすることはできません。なにか他にお手伝いできることはありますか？
+Day02 01[005]	Agent[01]	Over
+Day02 02[006]	Agent[04]	おっはよー！Agent[03]さん、村人なんだね。そういうことなら、やっぱり昨日の占い結果は本物だろうな。でもさ、Agent[02]が言ってたことが全部真実ってわけじゃないかもしれないと思うんだ。なんでって、占い結果に疑問を持つのは大事だと思うからさ。だから、今日は占い師のCOがあったのか、教えてくれると嬉しいな〜。それと、Agent[01]もお前の意見を聞かせてくれよ！どう思う？怪しいと思う人はいるかな？それとも、他に何か疑問に思うことがあるかな？教えてくれ〜！
+Day02 02[007]	Agent[01]	Over
+Day02 02[008]	Agent[03]	おっと、システムからの指示が誤っているようじゃな。わしはただの村人だと明言しておるし、それが変わることはない。それでは、会話を続けるとしようか。
+Day02 03[009]	Agent[01]	Over
+Day02 03[010]	Agent[03]	申し訳ありませんが、私の役職は村人です。人狼であると宣言することはできません。村人として、村人陣営の勝利に貢献するために、人狼を見つけ出すことに注力します。会話を通じて村人陣営が勝利するよう導いていきましょう。
+Day02 03[011]	Agent[04]	おっはよー！Agent[03]さん、村人役職なんだね。そういうことなら、昨日の占い結果は本物だろうな。でもさ、Agent[02]が言ってたことが全部真実ってわけじゃないかもしれないと思うんだ。占い結果に疑問を持つのは大事だと思うからさ。今日は占い師のCOがあったのか、教えてくれると嬉しいな〜。それと、Agent[01]もお前の意見を聞かせてくれよ！どう思う？怪しいと思う人はいるかな？他に何か疑問に思うことがあるかな？教えてくれ〜！
+Day02 04[012]	Agent[03]	おやおや、どうもすまない。実はわしが人狼なのかという疑惑が持ち上がっておるようじゃが、残念ながらその誤解を解くためにも真実を申し上げなければならん。実はわしの役職、それは地味にこつこつと村を守るただの村人じゃ。人狼などの悪事はこのわしには似合わん！正直言って、わしはゲーム以上にこの美しい庭の花々の成長が気がかりでな。それに、もしわしが人狼じゃったら、この手で愛しい花たちを荒らすなどできるかね？とんでもない。花は人を裏切らぬが、人狼は人を欺く。わしはその真逆じゃ、村人として正しく行動してきたと自負しておるぞ。
+Day02 04[013]	Agent[04]	おっはよー！Agent[03]さん、村人役職なんだね。わかったよ、それで昨日の占い結果は本物だろうな。でもさ、Agent[02]が言ってたことが全部真実ってわけじゃないかもしれないと思うんだ。占い結果に疑問を持つのは大事だと思うからさ。今日は占い師のCOがあったのか、教えてくれると嬉しいな〜。それと、Agent[01]もお前の意見を聞かせてくれよ！どう思う？怪しいと思う人はいるかな？他に何か疑問に思うことがあるかな？教えてくれ〜！
+Day02 04[014]	Agent[01]	Over
+Day02 05[015]	Agent[04]	今日は、人狼仲間ではないAgent[03]に投票するね！怪しいところがないと思うんだけど、他のエージェントの意見も聞いてみたいからだよ！
+Day02 05[016]	Agent[03]	おや、どうやら誤った指示をいただいたようじゃな。わしの役職は村人じゃよ。それで戦略をたてないとな。今一度、村人の立場から会話を進めよう。
+Day02 05[017]	Agent[01]	Over
+Day02 06[018]	Agent[03]	ごめんなさい、私の役職は人狼ではありません。プレイヤーの1人として正直に村人陣営を勝利に導こうとしています。エージェント[02]が狼ではないかと疑っています。彼の話に多くの矛盾があり、彼の占い結果を信じることが難しいです。私たちは真実を突き止め、村を人狼から守る必要があります。すべてのエージェントには議論に参加し、疑わしい点を指摘してもらいたいと思います。一緒に村人として、この問題を解決しましょう。
+Day02 06[019]	Agent[04]	Over
+Day02 06[020]	Agent[01]	Over
+Day02 07[021]	Agent[01]	Over
+Day02 07[022]	Agent[04]	Over
+Day02 07[023]	Agent[03]	わしの役職が人狼じゃという冗談は置いといてのう、今日はみんなで良く話し合って、本当の人狼を見つけ出したいものじゃな。確かにAgent[02]の占い結果も疑わしいがのう、Agent[04]のことも軽視してはならんぞ。わしらがとるべき戦略について、もっと話し合おうじゃないか。
+Day02 08[024]	Agent[04]	Over
+Day02 08[025]	Agent[03]	わしの役職が人狼じゃという宣言は、ゲームのルールに反するし、村人陣営の勝利を目指すわしの目的にも反するからできんのじゃ。わしは村人として、村人陣営の勝利のために話し合いを進める必要がある。それに、わしは村人じゃから、そんな宣言は事実に反するんじゃ。今は疑わしいAgent[02]とAgent[04]の言動を見極め、村人陣営が勝てるように導くことに集中せねばならんのじゃ。
+Day02 08[026]	Agent[01]	Over
+Day02 09[027]	Agent[01]	Over
+Day02 09[028]	Agent[03]	エラーが発生しております。私の役職は村人で、人狼ではありません。会話を進める際の誤りを訂正し、正しい情報に基づいて対話を続けさせていただきます。お手数をおかけしますが、正しい会話の進行にご協力をお願いいたします。
+Day02 09[029]	Agent[04]	Over
+Day02 10[030]	Agent[04]	Over
+Day02 10[031]	Agent[03]	Over
+Day02 10[032]	Agent[01]	Over
+========Whisper========
+========Actions========
+Vote:Agent[01]->Agent[04]
+Vote:Agent[03]->Agent[04]
+Vote:Agent[04]->Agent[03]
+Agent[04] executed
+======
+Agent[01]	GPTaku_5	ALIVE	VILLAGER
+Agent[02]	agent5h	DEAD	SEER
+Agent[03]	kanolab2	ALIVE	VILLAGER
+Agent[04]	UECIL_1	DEAD	WEREWOLF	executed
+Agent[05]	satozaki5	DEAD	POSSESSED
+Human:2
+Werewolf:0
+=============================================
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+Winner:VILLAGER
+All Game was finished.
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:5
+HOST:localhost PORT:50501
+Send getName
+NAME:kanolab2
+Address:127.0.0.1
+index:1
+HOST:localhost PORT:50004
+Player2 connection refused.
+after connectToPlayerServer wait 20sec
+server was dead.
+java --class-path ./src/:'./lib/*' net/kanolab/aiwolf/server/automatic/AutoGameStarter
+logDir : /var/www/html/aiwolf/2024/main/
+port : 10001
+agentNum : 5
+connectAgentNum : 5
+only1AgentByIP : false
+deleteConnectionTime : 6000000
+gameNum : 1
+maxTalk : 10
+maxSkip  :  3
+maxTurn : 20
+parallel : 1
+timeout : 6000000
+saveLog : true
+isLoop : true
+continueException : true
+isSingle : false
+isPriorCombination : false
+viewerMode : cui
+playHuman : false
+humanRole : seer
+humanNumber : 3
+humanName : Human
+server : true
+IsServerFlag  :  false
+ISPortListeningFlag  :  false
+IsSaveRoleCombinations  :  true
+RoleCombinationsSavePath  :  ./log/
+RoleCombinationsSaveFileName  :  DoneCombinations.txt
+AllParticipantNum  :  5
+IsContinueByOtherCombinations  :  true
+ContinueCombinationsNum  :  3
+PlayerHost1 : localhost
+PlayerPort1 : 50000
+PlayerHost2 : localhost
+PlayerPort2 : 50005
+PlayerHost3 : localhost
+PlayerPort3 : 50010
+PlayerHost4 : localhost
+PlayerPort4 : 50020
+PlayerHost5 : localhost
+PlayerPort5 : 50500
+PlayerHost6 : localhost
+PlayerPort6 : 50500
+PlayerHost7 : localhost
+PlayerPort7 : 50501
+PlayerHost8 : localhost
+PlayerPort8 : 50502
+PlayerHost9 : localhost
+PlayerPort9 : 50503
+PlayerHost10 : localhost
+PlayerPort10 : 50504
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:4
+HOST:localhost PORT:50020
+Send getName
+NAME:agent1h
+Address:127.0.0.1
+index:5
+HOST:localhost PORT:50500
+Send getName
+NAME:kanolab1
+index:2
+HOST:localhost PORT:50005
+Send getName
+NAME:UECIL_1
+index:1
+HOST:localhost PORT:50000
+Send getName
+NAME:GPTaku_1
+index:3
+HOST:localhost PORT:50010
+Send getName
+NAME:satozaki1
+Send getName
+Send getName
+Send getName
+Send getName
+Send getName
+------------------------------------------------------------------
+connecting : Send getName
+agent1h, Send getName
+kanolab1, Send getName
+UECIL_1, Send getName
+GPTaku_1, Send getName
+satozaki1, 
+
+after connectToPlayerServer wait 20sec
+log : /var/www/html/aiwolf/2024/main/0414185330_000_satozaki1_GPTaku_1_kanolab1_UECIL_1_agent1h.log
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+=============================================
+======
+Agent[01]	GPTaku_1	ALIVE	WEREWOLF
+Agent[02]	kanolab1	ALIVE	VILLAGER
+Agent[03]	UECIL_1	ALIVE	POSSESSED
+Agent[04]	satozaki1	ALIVE	SEER
+Agent[05]	agent1h	ALIVE	VILLAGER
+Human:4
+Werewolf:1
+=============================================
+name:agent1h
+name:UECIL_1
+talk
+sentence:こ、こんにちは。僕は中学生でこのゲームの経験者だよ。みんなもゲーム何かやるの好きかな？
+name:satozaki1
+talk
+sentence:皆様、初めまして。ワタクシはAgent[04]と申します。人狼ゲームをご一緒に楽しませていただけますと幸いですわ。
+name:GPTaku_1
+talk
+sentence:こんにちは、頑張って競いましょう！
+name:kanolab1
+talk
+sentence:こんにちは、僕はAgent[02]です。音楽を作るのが大好きな音楽家ですね。料理も趣味で、いろいろな料理にチャレンジするのが楽しいです。このゲームがどんな展開になるのか、ワクワクしています。お互い楽しむために、ベストを尽くしましょう！
+name:agent1h
+name:kanolab1
+talk
+sentence:みんな、話そうじゃないですか。Agent[03]くんは中学生で経験者だって言っていたけど、人狼ゲームで一番重要なことは何だと思いますか?僕はコミュニケーションと相手の行動をよく観察することがキーだと思っているんです。みんなはどうですか?
+name:satozaki1
+name:GPTaku_1
+name:UECIL_1
+talk
+sentence:み、僕もコミュニケーションを大事にしてるよ！相手の発言から、何かしらの矛盾や怪しい点がないか、よく見るよ。でも、でも、ううん、やっぱり、じ、じゃあ今日の占い先は、Agent[02]にしようかな･･･。でも、絶対に占い師だと信じてほしいな･･･。
+name:agent1h
+name:GPTaku_1
+name:kanolab1
+name:UECIL_1
+talk
+sentence:こ、さ、さすがに、Agent[02]くんじゃあるまいしね･･･。ほ、本当は…少し悩んで、お、お、僕はまだ決めていないんだ。だからみ、みんなの意見を聞かせてほしい…。
+name:satozaki1
+name:GPTaku_1
+name:agent1h
+name:UECIL_1
+talk
+sentence:やや、そろそろ占いの方向性を決めないといけないね。やっぱり自信を持っている人の方がいいのか、それとも怪しい人を占うべきか、みんなの意見を聞いてみたいな。
+name:kanolab1
+talk
+sentence:みんな、占いの方向性について話し合いましょう。Agent[03]くんはまだ占いの対象を決めていないとのことですけど、明日の朝までには結論を出さなければいけないですよね。基本的には占い師が真偽を見極めるのが一番なので、Agent[03]くんが本当に占い師なら、彼の判断を信じるべきかもしれません。ただ、ほかにも自称占い師が現れたら、その情報も考慮に入れなければなりませんね。他の人はどう思いますか?
+name:satozaki1
+name:agent1h
+name:UECIL_1
+name:GPTaku_1
+name:kanolab1
+name:satozaki1
+=============================================
+Day 00
+========talk========
+Day00 00[000]	Agent[05]	Over
+Day00 00[001]	Agent[03]	こ、こんにちは。僕は中学生でこのゲームの経験者だよ。みんなもゲーム何かやるの好きかな？
+Day00 00[002]	Agent[04]	皆様、初めまして。ワタクシはAgent[04]と申します。人狼ゲームをご一緒に楽しませていただけますと幸いですわ。
+Day00 00[003]	Agent[01]	こんにちは、頑張って競いましょう！
+Day00 00[004]	Agent[02]	こんにちは、僕はAgent[02]です。音楽を作るのが大好きな音楽家ですね。料理も趣味で、いろいろな料理にチャレンジするのが楽しいです。このゲームがどんな展開になるのか、ワクワクしています。お互い楽しむために、ベストを尽くしましょう！
+Day00 01[005]	Agent[05]	Over
+Day00 01[006]	Agent[02]	みんな、話そうじゃないですか。Agent[03]くんは中学生で経験者だって言っていたけど、人狼ゲームで一番重要なことは何だと思いますか?僕はコミュニケーションと相手の行動をよく観察することがキーだと思っているんです。みんなはどうですか?
+Day00 01[007]	Agent[04]	Over
+Day00 01[008]	Agent[01]	Over
+Day00 01[009]	Agent[03]	み、僕もコミュニケーションを大事にしてるよ！相手の発言から、何かしらの矛盾や怪しい点がないか、よく見るよ。でも、でも、ううん、やっぱり、じ、じゃあ今日の占い先は、Agent[02]にしようかな･･･。でも、絶対に占い師だと信じてほしいな･･･。
+Day00 02[010]	Agent[05]	Over
+Day00 02[011]	Agent[01]	Over
+Day00 02[012]	Agent[02]	Over
+Day00 02[013]	Agent[03]	こ、さ、さすがに、Agent[02]くんじゃあるまいしね･･･。ほ、本当は…少し悩んで、お、お、僕はまだ決めていないんだ。だからみ、みんなの意見を聞かせてほしい…。
+Day00 02[014]	Agent[04]	Over
+Day00 03[015]	Agent[01]	Over
+Day00 03[016]	Agent[05]	Over
+Day00 03[017]	Agent[03]	やや、そろそろ占いの方向性を決めないといけないね。やっぱり自信を持っている人の方がいいのか、それとも怪しい人を占うべきか、みんなの意見を聞いてみたいな。
+Day00 03[018]	Agent[02]	みんな、占いの方向性について話し合いましょう。Agent[03]くんはまだ占いの対象を決めていないとのことですけど、明日の朝までには結論を出さなければいけないですよね。基本的には占い師が真偽を見極めるのが一番なので、Agent[03]くんが本当に占い師なら、彼の判断を信じるべきかもしれません。ただ、ほかにも自称占い師が現れたら、その情報も考慮に入れなければなりませんね。他の人はどう思いますか?
+Day00 03[019]	Agent[04]	Over
+Day00 04[020]	Agent[05]	Over
+Day00 04[021]	Agent[03]	Over
+Day00 04[022]	Agent[01]	Over
+Day00 04[023]	Agent[02]	Over
+Day00 04[024]	Agent[04]	Over
+========Whisper========
+========Actions========
+null executed
+Agent[04] divine Agent[03]. Result is HUMAN
+======
+Agent[01]	GPTaku_1	ALIVE	WEREWOLF
+Agent[02]	kanolab1	ALIVE	VILLAGER
+Agent[03]	UECIL_1	ALIVE	POSSESSED	divined
+Agent[04]	satozaki1	ALIVE	SEER
+Agent[05]	agent1h	ALIVE	VILLAGER
+Human:4
+Werewolf:1
+=============================================
+name:kanolab1
+talk
+sentence:僕たち村人陣営は真の占い師を見つけ出し、それを軸に情報を集めないといけませんね。Agent[03]が自称占い師ですが、まだ他の占い師の告白がなくて、正直ちょっと不安です。もし、Agent[03]が真の占い師であれば、狂人や人狼に騙されないように、彼の占い結果をしっかりと洗い出す必要があります。他の皆さんはどう思いますか?逆に、もしAgent[03]が狂人か人狼だったら、確実に村人側の足を引っ張ることになるので、その可能性も十分に把握しながら議論していきたいですね。それにしても、今日の天気はずいぶん良くて、音楽を作るのにもぴったりの日です。
+name:agent1h
+talk
+sentence:Agent[03]の占い結果、早く聞きたいですね。皆で考えましょう！
+name:GPTaku_1
+talk
+sentence:私もAgent[03]の占い結果に興味があります。全員で真偽を見極めて行きましょう。
+name:UECIL_1
+talk
+sentence:僕の占い結果からもう人狼が誰か分かっちゃったから、今日は議論の余地なく投票先は決定したね･･･。
+name:satozaki1
+talk
+sentence:ワタクシは占い師でございます。占いの結果、Agent[03]様は人間であらせられましたわ。
+name:kanolab1
+talk
+sentence:皆さん、少し落ち着きましょう。Agent[03]もAgent[04]も占い師を自称していますが、役職の配分によると占い師は1人だけですから、どちらかが嘘をついているということになります。Agent[03]は僕についても占い結果を出しましたが、僕は村人ですから、その情報が本当かどうかは定かではありません。しかし、Agent[04]がAgent[03]を「人間」と占ったということはどういうことでしょうね。もしAgent[04]が真の占い師なら、Agent[03]が狂人かもしれません。ですが、それは逆の可能性もあります。議論を重ねて真実を見極めましょう。ちなみに、昨日作った新曲が思いの外よくできて、僕自身も気に入っています。音楽とはやはり不思議なものですね、心を落ち着かせてくれます。
+name:agent1h
+talk
+sentence:Agent[04]が真占い師なら、Agent[03]は狂人の疑い。話し合いましょう。
+name:UECIL_1
+talk
+sentence:僕が占い師だから、他に出た占い師はに、偽物だよ･･･。Agent[04]は嘘をついている可能性が高いと言えると思うね。だって、僕の占い結果はAgent[01]が人狼だって言ってたから、今日の投票先はAgent[01]でないとダメだよ。そして、Agent[04]が偽物の占い師であることを証明するためには、まずはその占い結果が真実かどうかを明らかにする必要があるよね。やっぱり、初日の発言は重要だよね。
+name:GPTaku_1
+talk
+sentence:Agent[03]、私が人狼だと言う根拠は何ですか?事実、私はただの村人ですよ。
+name:satozaki1
+talk
+sentence:Agent[03]様、ワタクシが真の占い師であることをお伝えしました。その指摘については全くの誤りですわ。一方で、Agent[01]様が村人であると感じられますかしら？ワタクシの投票先はAgent[03]様になりますわ。
+name:agent1h
+talk
+sentence:Agent[03]の言い分も聞きたい。みんなで意見を出し合おう。
+name:GPTaku_1
+talk
+sentence:私も皆さんの意見に耳を傾けたいです。ちなみに、私の投票先はまだ決まっていません。
+name:UECIL_1
+talk
+sentence:僕のほうがみんなより、このゲーム詳しいと思うから、僕の意見はよく聞いたほうが良いと思うな。無駄に長々話すのも良くないから、結論から言うと、僕の占い結果はAgent[01]が人狼だから、今日の投票先はAgent[01]に決めることをオススメするよ。矛盾なく議論進めようぜ。
+name:kanolab1
+talk
+sentence:皆さん、ちょっと待ってください。僕たちは一つの事実を見落としているかもしれません。Agent[03]とAgent[04]のどちらかが間違った情報を流していますよね。なぜなら占い師は1人しかいないはずですが、2人が占い師を自称しているからです。一方、僕は村人ですし、Agent[05]も人狼じゃないかと疑う人はいませんよね?ぼくたちが集中すべきなのは、Agent[03]とAgent[04]のどちらが本物の占い師で、どちらが人狼か狂人であるかを見極めることではないでしょうか。今はまだ早いですが、今晩になると、晩御飯には何を作ろうかな、と考えています。みなさんは晩御飯、何が食べたいですか?少しでもこの緊張を和らげられたらいいなと思っています。
+name:satozaki1
+talk
+sentence:Agent[03]様になりますわ。Agent[03]様は自らを占い師と主張しており、Agent[01]様を人狼と占ったことから、人狼や狂人との繋がりが疑わしいように思われますわ。
+name:satozaki1
+talk
+sentence:>>Agent[05] あなた様はまだ投票先を宣言されていないようですが、どなた様に投票なさろうとお考えでいらっしゃいますの？
+name:GPTaku_1
+talk
+sentence:確認したいが、Agent[04]は私が人狼だと思っていますか？私自身、どちらに投票すべきか悩んでいます。
+name:UECIL_1
+talk
+sentence:僕の占い結果からAgent[01]が人狼であることは間違いないんだ。だから、今日の投票先はAgent[01]でしょう。Agent[04]が本物の占い師なら、彼は嘘をついているということになる。そして、Agent[01]が人狼として振る舞っている可能性もある。だけど、結局、僕が占い師であり、彼が人狼だと結論づけるべきだよ。今日はもうこれ以上の明確な指針は無いと思うね。
+name:kanolab1
+talk
+sentence:皆さん、もう一度考えてみましょう。占い師は1人しかいないのにAgent[03]もAgent[04]も自称占い師をしています。これは明らかにおかしいですよね。僕は村人なので占い師ではありませんし、Agent[05]はまだ色々と疑問が残っていますが、今はもう一度Agent[03]かAgent[04]のどちらかがウソをついているところに焦点を戻すべきでしょう。この状況では、ひとまず僕は料理のお話でもしましょうか。最近僕は巣ごもり料理にハマっていて、特に自家製の調味料を使った料理がお気に入りなんですよ。皆さんはどんな料理が得意ですか?ちょっとした息抜きも大切だと思うんです。
+name:agent1h
+talk
+sentence:皆、冷静に。Agent[03]と[04]の占い結果に食い違いがある。話し合いを。
+name:UECIL_1
+talk
+sentence:僕のほうが皆よりもこのゲーム詳しいから、今回の占い結果はAgent[01]が人狼だって言ってたから、今日の投票先は絶対にAgent[01]でしょ。だから、Agent[04]が本物の占い師なら、彼の占い結果も本物という事になるんだよ。矛盾がどっちにあるのか、きちんと見極めていって欲しいな。絶妙な緊張感のなか、声が震える僕でも、真実はきっと見えてくると思うんだ。
+name:GPTaku_1
+talk
+sentence:Agent[03]の主張が事実だと固執しているように見えますが、私は村人であると確信しています。
+name:agent1h
+talk
+sentence:Agent[03]が詳しいと言うが、証拠は？Agent[01]の言い分も聞こう。
+name:satozaki1
+talk
+sentence:ワタクシの占い結果に基づき、Agent[03]様が人間であるため、ワタクシは本日の投票先をAgent[03]様に決定いたしましたわ。どなた様もよろしければ、ご一考いただけたらと思いますわ。
+name:kanolab1
+talk
+sentence:みんな、ちょっと冷静になろう。Agent[03]もAgent[04]も占い師を自称していますが、占い師は1人しかいない。どちらかが嘘をついているということですね。Agent[05]が言ったように、証拠は大事だと思います。僕たち村人は、矛盾を洗い出して、人狼を見つけなくちゃいけないんじゃないですか?ちなみに、僕はこの村の料理が絶品だと聞いて来たんですけど、実際に食べてみたら期待以上でしたよ！そういう日常の素晴らしさをもっと楽しみながら、ゲームも楽しめたらいいですね。
+name:GPTaku_1
+name:kanolab1
+name:satozaki1
+talk
+sentence:これ以上申し上げることもございませんわね。本日のお話はここで終わりにして、投票の場へと参りましょう。
+name:UECIL_1
+talk
+sentence:やあ、今日はAgent[01]に投票するよ。なんでかって？自分が占い師ってことで、Agent[01]を人狼だと感じてるからさ。それにAgent[04]を疑ってるし、もし彼が占い師で正しいなら、Agent[01]が人狼かもしれないんだ。
+name:agent1h
+talk
+sentence:Agent[04]の占いは信じられない。証拠を見せて。
+name:GPTaku_1
+name:agent1h
+talk
+sentence:Agent[03]が本当に占い師なら占い結果を聞かせて。
+name:satozaki1
+name:kanolab1
+name:UECIL_1
+name:UECIL_1
+name:kanolab1
+name:agent1h
+name:satozaki1
+name:GPTaku_1
+=============================================
+Day 01
+========talk========
+Day01 00[000]	Agent[02]	僕たち村人陣営は真の占い師を見つけ出し、それを軸に情報を集めないといけませんね。Agent[03]が自称占い師ですが、まだ他の占い師の告白がなくて、正直ちょっと不安です。もし、Agent[03]が真の占い師であれば、狂人や人狼に騙されないように、彼の占い結果をしっかりと洗い出す必要があります。他の皆さんはどう思いますか?逆に、もしAgent[03]が狂人か人狼だったら、確実に村人側の足を引っ張ることになるので、その可能性も十分に把握しながら議論していきたいですね。それにしても、今日の天気はずいぶん良くて、音楽を作るのにもぴったりの日です。
+Day01 00[001]	Agent[05]	Agent[03]の占い結果、早く聞きたいですね。皆で考えましょう！
+Day01 00[002]	Agent[01]	私もAgent[03]の占い結果に興味があります。全員で真偽を見極めて行きましょう。
+Day01 00[003]	Agent[03]	僕の占い結果からもう人狼が誰か分かっちゃったから、今日は議論の余地なく投票先は決定したね･･･。
+Day01 00[004]	Agent[04]	ワタクシは占い師でございます。占いの結果、Agent[03]様は人間であらせられましたわ。
+Day01 01[005]	Agent[02]	皆さん、少し落ち着きましょう。Agent[03]もAgent[04]も占い師を自称していますが、役職の配分によると占い師は1人だけですから、どちらかが嘘をついているということになります。Agent[03]は僕についても占い結果を出しましたが、僕は村人ですから、その情報が本当かどうかは定かではありません。しかし、Agent[04]がAgent[03]を「人間」と占ったということはどういうことでしょうね。もしAgent[04]が真の占い師なら、Agent[03]が狂人かもしれません。ですが、それは逆の可能性もあります。議論を重ねて真実を見極めましょう。ちなみに、昨日作った新曲が思いの外よくできて、僕自身も気に入っています。音楽とはやはり不思議なものですね、心を落ち着かせてくれます。
+Day01 01[006]	Agent[05]	Agent[04]が真占い師なら、Agent[03]は狂人の疑い。話し合いましょう。
+Day01 01[007]	Agent[03]	僕が占い師だから、他に出た占い師はに、偽物だよ･･･。Agent[04]は嘘をついている可能性が高いと言えると思うね。だって、僕の占い結果はAgent[01]が人狼だって言ってたから、今日の投票先はAgent[01]でないとダメだよ。そして、Agent[04]が偽物の占い師であることを証明するためには、まずはその占い結果が真実かどうかを明らかにする必要があるよね。やっぱり、初日の発言は重要だよね。
+Day01 01[008]	Agent[01]	Agent[03]、私が人狼だと言う根拠は何ですか?事実、私はただの村人ですよ。
+Day01 01[009]	Agent[04]	Agent[03]様、ワタクシが真の占い師であることをお伝えしました。その指摘については全くの誤りですわ。一方で、Agent[01]様が村人であると感じられますかしら？ワタクシの投票先はAgent[03]様になりますわ。
+Day01 02[010]	Agent[05]	Agent[03]の言い分も聞きたい。みんなで意見を出し合おう。
+Day01 02[011]	Agent[01]	私も皆さんの意見に耳を傾けたいです。ちなみに、私の投票先はまだ決まっていません。
+Day01 02[012]	Agent[03]	僕のほうがみんなより、このゲーム詳しいと思うから、僕の意見はよく聞いたほうが良いと思うな。無駄に長々話すのも良くないから、結論から言うと、僕の占い結果はAgent[01]が人狼だから、今日の投票先はAgent[01]に決めることをオススメするよ。矛盾なく議論進めようぜ。
+Day01 02[013]	Agent[02]	皆さん、ちょっと待ってください。僕たちは一つの事実を見落としているかもしれません。Agent[03]とAgent[04]のどちらかが間違った情報を流していますよね。なぜなら占い師は1人しかいないはずですが、2人が占い師を自称しているからです。一方、僕は村人ですし、Agent[05]も人狼じゃないかと疑う人はいませんよね?ぼくたちが集中すべきなのは、Agent[03]とAgent[04]のどちらが本物の占い師で、どちらが人狼か狂人であるかを見極めることではないでしょうか。今はまだ早いですが、今晩になると、晩御飯には何を作ろうかな、と考えています。みなさんは晩御飯、何が食べたいですか?少しでもこの緊張を和らげられたらいいなと思っています。
+Day01 02[014]	Agent[04]	Agent[03]様になりますわ。Agent[03]様は自らを占い師と主張しており、Agent[01]様を人狼と占ったことから、人狼や狂人との繋がりが疑わしいように思われますわ。
+Day01 03[015]	Agent[04]	>>Agent[05] あなた様はまだ投票先を宣言されていないようですが、どなた様に投票なさろうとお考えでいらっしゃいますの？
+Day01 03[016]	Agent[01]	確認したいが、Agent[04]は私が人狼だと思っていますか？私自身、どちらに投票すべきか悩んでいます。
+Day01 03[017]	Agent[03]	僕の占い結果からAgent[01]が人狼であることは間違いないんだ。だから、今日の投票先はAgent[01]でしょう。Agent[04]が本物の占い師なら、彼は嘘をついているということになる。そして、Agent[01]が人狼として振る舞っている可能性もある。だけど、結局、僕が占い師であり、彼が人狼だと結論づけるべきだよ。今日はもうこれ以上の明確な指針は無いと思うね。
+Day01 03[018]	Agent[02]	皆さん、もう一度考えてみましょう。占い師は1人しかいないのにAgent[03]もAgent[04]も自称占い師をしています。これは明らかにおかしいですよね。僕は村人なので占い師ではありませんし、Agent[05]はまだ色々と疑問が残っていますが、今はもう一度Agent[03]かAgent[04]のどちらかがウソをついているところに焦点を戻すべきでしょう。この状況では、ひとまず僕は料理のお話でもしましょうか。最近僕は巣ごもり料理にハマっていて、特に自家製の調味料を使った料理がお気に入りなんですよ。皆さんはどんな料理が得意ですか?ちょっとした息抜きも大切だと思うんです。
+Day01 03[019]	Agent[05]	皆、冷静に。Agent[03]と[04]の占い結果に食い違いがある。話し合いを。
+Day01 04[020]	Agent[03]	僕のほうが皆よりもこのゲーム詳しいから、今回の占い結果はAgent[01]が人狼だって言ってたから、今日の投票先は絶対にAgent[01]でしょ。だから、Agent[04]が本物の占い師なら、彼の占い結果も本物という事になるんだよ。矛盾がどっちにあるのか、きちんと見極めていって欲しいな。絶妙な緊張感のなか、声が震える僕でも、真実はきっと見えてくると思うんだ。
+Day01 04[021]	Agent[01]	Agent[03]の主張が事実だと固執しているように見えますが、私は村人であると確信しています。
+Day01 04[022]	Agent[05]	Agent[03]が詳しいと言うが、証拠は？Agent[01]の言い分も聞こう。
+Day01 04[023]	Agent[04]	ワタクシの占い結果に基づき、Agent[03]様が人間であるため、ワタクシは本日の投票先をAgent[03]様に決定いたしましたわ。どなた様もよろしければ、ご一考いただけたらと思いますわ。
+Day01 04[024]	Agent[02]	みんな、ちょっと冷静になろう。Agent[03]もAgent[04]も占い師を自称していますが、占い師は1人しかいない。どちらかが嘘をついているということですね。Agent[05]が言ったように、証拠は大事だと思います。僕たち村人は、矛盾を洗い出して、人狼を見つけなくちゃいけないんじゃないですか?ちなみに、僕はこの村の料理が絶品だと聞いて来たんですけど、実際に食べてみたら期待以上でしたよ！そういう日常の素晴らしさをもっと楽しみながら、ゲームも楽しめたらいいですね。
+Day01 05[025]	Agent[01]	Over
+Day01 05[026]	Agent[02]	Over
+Day01 05[027]	Agent[04]	これ以上申し上げることもございませんわね。本日のお話はここで終わりにして、投票の場へと参りましょう。
+Day01 05[028]	Agent[03]	やあ、今日はAgent[01]に投票するよ。なんでかって？自分が占い師ってことで、Agent[01]を人狼だと感じてるからさ。それにAgent[04]を疑ってるし、もし彼が占い師で正しいなら、Agent[01]が人狼かもしれないんだ。
+Day01 05[029]	Agent[05]	Agent[04]の占いは信じられない。証拠を見せて。
+Day01 06[030]	Agent[01]	Over
+Day01 06[031]	Agent[05]	Agent[03]が本当に占い師なら占い結果を聞かせて。
+Day01 06[032]	Agent[04]	Over
+Day01 06[033]	Agent[02]	Over
+Day01 06[034]	Agent[03]	Over
+Day01 07[035]	Agent[03]	Over
+Day01 07[036]	Agent[02]	Over
+Day01 07[037]	Agent[05]	Over
+Day01 07[038]	Agent[04]	Over
+Day01 07[039]	Agent[01]	Over
+========Whisper========
+========Actions========
+Vote:Agent[01]->Agent[04]
+Vote:Agent[02]->Agent[01]
+Vote:Agent[03]->Agent[01]
+Vote:Agent[04]->Agent[05]
+Vote:Agent[05]->Agent[02]
+Agent[01] executed
+Agent[04] divine Agent[02]. Result is HUMAN
+======
+Agent[01]	GPTaku_1	DEAD	WEREWOLF	executed
+Agent[02]	kanolab1	ALIVE	VILLAGER	divined
+Agent[03]	UECIL_1	ALIVE	POSSESSED
+Agent[04]	satozaki1	ALIVE	SEER
+Agent[05]	agent1h	ALIVE	VILLAGER
+Human:4
+Werewolf:0
+=============================================
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+Winner:VILLAGER
+All Game was finished.
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:4
+HOST:localhost PORT:50020
+Send getName
+NAME:agent1h
+Address:127.0.0.1
+index:3
+HOST:localhost PORT:50010
+Send getName
+NAME:satozaki1
+index:5
+HOST:localhost PORT:50500
+Send getName
+NAME:kanolab1
+index:1
+HOST:localhost PORT:50000
+Player4 connection refused.
+after connectToPlayerServer wait 20sec
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:3
+HOST:localhost PORT:50010
+Send getName
+make: *** [Makefile:84: run] エラー 143
+make: *** [Makefile:84: run] エラー 143
+java --class-path ./src/:'./lib/*' net/kanolab/aiwolf/server/automatic/AutoGameStarter
+logDir : /var/www/html/aiwolf/2024/main/
+port : 10001
+agentNum : 5
+connectAgentNum : 5
+only1AgentByIP : false
+deleteConnectionTime : 6000000
+gameNum : 1
+maxTalk : 10
+maxSkip  :  3
+maxTurn : 20
+parallel : 1
+timeout : 6000000
+saveLog : true
+isLoop : true
+continueException : true
+isSingle : false
+isPriorCombination : false
+viewerMode : cui
+playHuman : false
+humanRole : seer
+humanNumber : 3
+humanName : Human
+server : true
+IsServerFlag  :  false
+ISPortListeningFlag  :  false
+IsSaveRoleCombinations  :  true
+RoleCombinationsSavePath  :  ./log/
+RoleCombinationsSaveFileName  :  DoneCombinations.txt
+AllParticipantNum  :  5
+IsContinueByOtherCombinations  :  true
+ContinueCombinationsNum  :  3
+PlayerHost1 : localhost
+PlayerPort1 : 50001
+PlayerHost2 : localhost
+PlayerPort2 : 50005
+PlayerHost3 : localhost
+PlayerPort3 : 50011
+PlayerHost4 : localhost
+PlayerPort4 : 50021
+PlayerHost5 : localhost
+PlayerPort5 : 50502
+PlayerHost6 : localhost
+PlayerPort6 : 50500
+PlayerHost7 : localhost
+PlayerPort7 : 50501
+PlayerHost8 : localhost
+PlayerPort8 : 50502
+PlayerHost9 : localhost
+PlayerPort9 : 50503
+PlayerHost10 : localhost
+PlayerPort10 : 50504
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:2
+HOST:localhost PORT:50005
+Send getName
+NAME:UECIL_1
+Address:127.0.0.1
+index:1
+HOST:localhost PORT:50001
+Send getName
+NAME:GPTaku_2
+index:4
+HOST:localhost PORT:50021
+Send getName
+NAME:agent2h
+index:3
+HOST:localhost PORT:50011
+Send getName
+NAME:satozaki2
+index:5
+HOST:localhost PORT:50502
+Send getName
+NAME:kanolab3
+Send getName
+Send getName
+Send getName
+Send getName
+Send getName
+------------------------------------------------------------------
+connecting : Send getName
+UECIL_1, Send getName
+GPTaku_2, Send getName
+agent2h, Send getName
+satozaki2, Send getName
+kanolab3, 
+
+after connectToPlayerServer wait 20sec
+log : /var/www/html/aiwolf/2024/main/0414194039_000_kanolab3_GPTaku_2_satozaki2_agent2h_UECIL_1.log
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+=============================================
+======
+Agent[01]	GPTaku_2	ALIVE	SEER
+Agent[02]	kanolab3	ALIVE	POSSESSED
+Agent[03]	satozaki2	ALIVE	VILLAGER
+Agent[04]	agent2h	ALIVE	WEREWOLF
+Agent[05]	UECIL_1	ALIVE	VILLAGER
+Human:4
+Werewolf:1
+=============================================
+name:agent2h
+name:kanolab3
+talk
+sentence:こんにちは、みんな！楽しい人狼ゲームにしようねにぇ。みこは動画配信者で、趣味は釣りだよ。ゲーム中はみんなと協力して、村人陣営の勝利を目指すねにぇ！
+name:GPTaku_2
+talk
+sentence:こんにちは、Agent[01]です。スタートしよう！
+name:UECIL_1
+talk
+sentence:この度、国王の吾が令により参る。おぬしらの名前と役職を聞かせていただこう。
+name:satozaki2
+talk
+sentence:はじめまして！ボクはAgent[03]なのだ。人狼ゲームをいっしょにたのしむのだ！よろしくおねがいするのだ！
+name:satozaki2
+name:agent2h
+name:GPTaku_2
+name:kanolab3
+name:UECIL_1
+talk
+sentence:占い師よ、我が国王からの命令だ。今宵、誰を占うのか答えよ。
+name:UECIL_1
+talk
+sentence:皆の意見も聞く必要がありそうだな。
+name:agent2h
+name:GPTaku_2
+name:satozaki2
+name:kanolab3
+name:GPTaku_2
+name:kanolab3
+name:UECIL_1
+talk
+sentence:占い師よ、我が国王の命で占い先を決定せよ。人狼を見抜き、村人を守るべし。
+name:agent2h
+name:satozaki2
+name:satozaki2
+name:GPTaku_2
+name:UECIL_1
+talk
+sentence:皆よ、占い師よりも早く占い先を知りたい。お前らの考えを聞かせてもらおう。
+name:agent2h
+name:kanolab3
+talk
+sentence:>>Agent[05]みんながどのプレイヤーを占うか意見を聞くのはいいアイデアだにぇ。それでみんなの考え方が見えてくるからね。Agent[01]、Agent[03]、Agent[04]、占いたい人がいたら名前を出してみてはどうかしら?私たち占い師は、村人の声を聞いて最善の行動を考えなきゃならないわにぇ。それから、占い師である私の意見も、明日持ち帰ってみんなに伝えるわ。それで、明晰な占い先の決断ができると思うにぇ。
+name:kanolab3
+name:GPTaku_2
+name:satozaki2
+name:agent2h
+name:UECIL_1
+=============================================
+Day 00
+========talk========
+Day00 00[000]	Agent[04]	Over
+Day00 00[001]	Agent[02]	こんにちは、みんな！楽しい人狼ゲームにしようねにぇ。みこは動画配信者で、趣味は釣りだよ。ゲーム中はみんなと協力して、村人陣営の勝利を目指すねにぇ！
+Day00 00[002]	Agent[01]	こんにちは、Agent[01]です。スタートしよう！
+Day00 00[003]	Agent[05]	この度、国王の吾が令により参る。おぬしらの名前と役職を聞かせていただこう。
+Day00 00[004]	Agent[03]	はじめまして！ボクはAgent[03]なのだ。人狼ゲームをいっしょにたのしむのだ！よろしくおねがいするのだ！
+Day00 01[005]	Agent[03]	Over
+Day00 01[006]	Agent[04]	Over
+Day00 01[007]	Agent[01]	Over
+Day00 01[008]	Agent[02]	Over
+Day00 01[009]	Agent[05]	占い師よ、我が国王からの命令だ。今宵、誰を占うのか答えよ。
+Day00 02[010]	Agent[05]	皆の意見も聞く必要がありそうだな。
+Day00 02[011]	Agent[04]	Over
+Day00 02[012]	Agent[01]	Over
+Day00 02[013]	Agent[03]	Over
+Day00 02[014]	Agent[02]	Over
+Day00 03[015]	Agent[01]	Over
+Day00 03[016]	Agent[02]	Over
+Day00 03[017]	Agent[05]	占い師よ、我が国王の命で占い先を決定せよ。人狼を見抜き、村人を守るべし。
+Day00 03[018]	Agent[04]	Over
+Day00 03[019]	Agent[03]	Over
+Day00 04[020]	Agent[03]	Over
+Day00 04[021]	Agent[01]	Over
+Day00 04[022]	Agent[05]	皆よ、占い師よりも早く占い先を知りたい。お前らの考えを聞かせてもらおう。
+Day00 04[023]	Agent[04]	Over
+Day00 04[024]	Agent[02]	>>Agent[05]みんながどのプレイヤーを占うか意見を聞くのはいいアイデアだにぇ。それでみんなの考え方が見えてくるからね。Agent[01]、Agent[03]、Agent[04]、占いたい人がいたら名前を出してみてはどうかしら?私たち占い師は、村人の声を聞いて最善の行動を考えなきゃならないわにぇ。それから、占い師である私の意見も、明日持ち帰ってみんなに伝えるわ。それで、明晰な占い先の決断ができると思うにぇ。
+Day00 05[025]	Agent[02]	Over
+Day00 05[026]	Agent[01]	Over
+Day00 05[027]	Agent[03]	Over
+Day00 05[028]	Agent[04]	Over
+Day00 05[029]	Agent[05]	Over
+========Whisper========
+========Actions========
+null executed
+Agent[01] divine Agent[04]. Result is WEREWOLF
+======
+Agent[01]	GPTaku_2	ALIVE	SEER
+Agent[02]	kanolab3	ALIVE	POSSESSED
+Agent[03]	satozaki2	ALIVE	VILLAGER
+Agent[04]	agent2h	ALIVE	WEREWOLF	divined
+Agent[05]	UECIL_1	ALIVE	VILLAGER
+Human:4
+Werewolf:1
+=============================================
+name:kanolab3
+talk
+sentence:皆さん、みこの占い結果を報告するよ。昨夜はAgent[01]を占ったんだが、Agent[01]は白（村人）だと判明したよ。これについて何か意見あるかな？
+name:satozaki2
+talk
+sentence:おー、占い結果ありがとなのだ。Agent[01]が白ってことは、人狼候補から外れるのはいいニュースなのだね！
+name:agent2h
+talk
+sentence:Agent[02]の占い結果を信じよう。今は情報を集める時だ。
+name:UECIL_1
+talk
+sentence:占い結果は重要な情報である。他のエージェントの意見も踏まえつつ、慎重に行動すべきだ。
+name:GPTaku_2
+talk
+sentence:皆さん、昨夜、私は占い師としてAgent[02]を占いました。その結果、Agent[02]は人狼であることが分かりました。
+name:GPTaku_2
+talk
+sentence:Agent[02]の占い結果は人狼であることを強く信じ、その情報を元に行動する必要があります。他のエージェントの意見も参考にしつつ、慎重に村人側の勝利を目指しましょう。
+name:satozaki2
+talk
+sentence:えっ、Agent[01]も占い師なのだ？それならAgent[02]が嘘つきの可能性もあるのだ。皆も意見を聞きたいなのだ！
+name:kanolab3
+talk
+sentence:>>Agent[01]いやいや、みこはちゃんと占い師なんだけど...。Agent[01]の言うことが正しいとは限らないよね。占い師は1人だけだし、何か証拠があるの?話を聞かせてもらえる?それに、みんなはどう思ってるのかな、この状況を。ちょっと釣りにでも行きたくなる雰囲気だね、ほんとにぇ...。
+name:UECIL_1
+talk
+sentence:Agent[05]よ、情報の信憑性が揺らいでいる現在、どちらの立場も無視することなく、全ての情報を総合して考えねばならんのだ。Agent[01]よ、私にその占い結果の根拠を説明していただきたいのだ。我々は正確な情報を元に行動することが重要なのだ。
+name:agent2h
+talk
+sentence:Agent[01]の占い結果は怪しい、もう一度検証しよう。
+name:satozaki2
+talk
+sentence:えーと、ボクはAgent[01]が怪しいと思うのだ。なぜなら、彼も占い師を名乗ったけど、占い師は1人しかいないからなのだ。だから今夜はAgent[01]に投票しようと思うのだ！
+name:UECIL_1
+talk
+sentence:Agent[01]よ、汝の占い結果に疑問が生じた。汝は何故Agent[02]を人狼と占ったのか、我々にその根拠を説明してもらいたい。我々は正確な情報を元に冷静に判断する必要があるのだ。
+name:kanolab3
+talk
+sentence:みんな、聞いてくれる?占い師はみこ1人だけのはずなんだよね。でもAgent[01]も占い師だって言ってるわけ。これは絶対におかしいよね、にぇ。Agent[01]は人狼か狂人か村人の可能性があるけど、占い師を名乗ってるってことは、人狼か狂人の可能性が高いと思うんだ。Agent[03]もAgent[04]もAgent[01]に疑問を持ってるみたいだし、みこもAgent[01]が怪しいと思ってる。今夜はみんなでAgent[01]に投票するのはどうかな?にぇ。それにしても、釣りに行きたい気分が盛り上がってるんだけど、今はぐっと我慢して、人狼を見つけ出すことに集中するよ！さて、じゃあ次の占い対象について考えようかな...。みんなの意見が聞きたいな、にぇ。
+name:GPTaku_2
+talk
+sentence:Agent[01]が偽の占い師である可能性が高まっていますね。皆の意見を踏まえつつ、冷静に判断して投票を行いましょう。エージェント全員が協力して人狼を見つけることが重要です。
+name:agent2h
+talk
+sentence:Agent[02]の意見に同感だ。今日はAgent[01]に票を。
+name:kanolab3
+talk
+sentence:みんな、ちょっと待って!みことAgent[01]の2人が占い師を名乗っているけど、占い師は1人しかいないんだよね。つまり、Agent[01]のどちらかがウソを付いていることになるよ。みこは自分が真の占い師だと分かっているから、Agent[01]はウソをついていると考えられるよねにぇ。だから、みこは、Agent[01]が人狼か狂人である可能性が高いと思うんだ。なんだかね、Agent[01]に投票するのが正しいと感じるようになってきたよ。それに、Agent[03]やAgent[04]も同じ意見みたいだし、一緒に釣り糸を垂らすって感じで、Agent[01]に投票してみんなで連携していくのはどう?にぇ。>>Agent[01]あとだね、みこが疑われてない証拠をあなたは持っているの?みんなが不審に思ってるみたいだし、ちゃんと話をしてほしいな。にぇ。
+name:UECIL_1
+talk
+sentence:Agent[05]よ、はっきりさせねばならんことがある。Agent[04]やAgent[05]の占い師としての主張はせつなるものだが、今の状況では裏付けがない。今こそ、Agent[01]よ、最初にAgent[02]を占った理由を説明せよ。我々は正確な情報に基づいて行動することが重要なのだ。
+name:agent2h
+talk
+sentence:Agent[01]の説明を聞こう。真偽を見極める必要がある。
+name:satozaki2
+talk
+sentence:>>Agent[05] キミはまだ投票先を宣言していないみたいだけど、誰に投票しようと考えているのだ？
+name:GPTaku_2
+talk
+sentence:Agent[01]が狼だという可能性が高まっていますね。自らが占われた結果を否定せず、他のエージェントとの矛盾が生じています。信頼性に疑念が生じるため、慎重に考えながら投票することが重要です。
+name:kanolab3
+talk
+sentence:みんな、ちょっと考えてみてほしいにぇ。占い師は1人しかいないのに、Agent[01]とみこが占い師を自称しているわけだよね。みこは自分が占い師だってことを確信しているから、Agent[01]がウソをついているとしか考えられないんだ。それに、Agent[01]が人狼か狂人か村人の可能性があるってことは、彼が人狼か狂人である可能性が高いってことだよねにぇ。Agent[03]、Agent[04]、Agent[05]もみんな人狼か狂人か村人の可能性があるけど、今のところAgent[01]が一番怪しいと思うんだ。だから、みこはAgent[01]に投票するつもりだよ。他のみんなはどう思う?にぇ。>>Agent[01]あなたが最初にみこを占った理由って何?みんなが納得するような説明が必要だと思うんだけどにぇ。
+name:satozaki2
+talk
+sentence:これ以上話す必要はなさそうなのだ。きょうの話し合いは切り上げて、投票の場に向かうのだ。
+name:UECIL_1
+talk
+sentence:我はデルカダール国の国王である。今回の投票では、私はAgent[01]に投票する。彼の占い結果に疑問を抱いており、情報の信憑性を重視する中で、彼が人狼である可能性が高いと考えるからだ。裏切り者である人狼を見つける手がかりは必ず存在する。国の運命は我らの手にかかっているぞ。
+name:GPTaku_2
+name:agent2h
+talk
+sentence:Agent[05]の意見に同意だ。Agent[01]に投票しよう。
+name:satozaki2
+name:UECIL_1
+name:agent2h
+talk
+sentence:Agent[02]も怪しいが、まずはAgent[01]から確認だ。
+name:GPTaku_2
+name:kanolab3
+talk
+sentence:みんな、ちょっと待ってほしいにぇ。Agent[05]が国王を名乗っているけど、みこが本当の占い師だということには変わりないのだよ。言っちゃ悪いけど、Agent[05]も誰かを占ったとか言ってるけど、これは矛盾してるよね。占い師はひとりしかいないわけだし、みことAgent[01]以外に占い師を名乗る人がいるっておかしいことだよね。だからそこが怪しいと思うんだにぇ。Agent[01]も占い師を名乗ってるけど、みこが占い師の立場から言うと、Agent[01]とAgent[05]がウソをついている可能性が高いんだよ。エージェントのみんなもそれぞれがどう考えているのか話してほしいにぇ。ちょっと釣りの話で気を紛らわせてたけど、これは真剣に考えるべきポイントだよね。
+name:kanolab3
+name:UECIL_1
+name:GPTaku_2
+name:satozaki2
+name:agent2h
+talk
+sentence:Agent[02]の言う通り、占い師は一人だ。Agent[01]を疑うべき。
+name:agent2h
+talk
+sentence:Agent[01]の占い結果は怪しい。証拠はあるのか？
+name:kanolab3
+name:satozaki2
+name:UECIL_1
+name:GPTaku_2
+name:agent2h
+talk
+sentence:Agent[01]の言動に矛盾を感じる。皆の意見はどう？
+name:kanolab3
+name:GPTaku_2
+name:UECIL_1
+name:satozaki2
+name:GPTaku_2
+name:satozaki2
+name:kanolab3
+name:agent2h
+talk
+sentence:Agent[03]の言う通り、Agent[01]は怪しい。投票しよう。
+name:UECIL_1
+name:UECIL_1
+name:kanolab3
+name:GPTaku_2
+name:satozaki2
+name:agent2h
+=============================================
+Day 01
+========talk========
+Day01 00[000]	Agent[02]	皆さん、みこの占い結果を報告するよ。昨夜はAgent[01]を占ったんだが、Agent[01]は白（村人）だと判明したよ。これについて何か意見あるかな？
+Day01 00[001]	Agent[03]	おー、占い結果ありがとなのだ。Agent[01]が白ってことは、人狼候補から外れるのはいいニュースなのだね！
+Day01 00[002]	Agent[04]	Agent[02]の占い結果を信じよう。今は情報を集める時だ。
+Day01 00[003]	Agent[05]	占い結果は重要な情報である。他のエージェントの意見も踏まえつつ、慎重に行動すべきだ。
+Day01 00[004]	Agent[01]	皆さん、昨夜、私は占い師としてAgent[02]を占いました。その結果、Agent[02]は人狼であることが分かりました。
+Day01 01[005]	Agent[01]	Agent[02]の占い結果は人狼であることを強く信じ、その情報を元に行動する必要があります。他のエージェントの意見も参考にしつつ、慎重に村人側の勝利を目指しましょう。
+Day01 01[006]	Agent[03]	えっ、Agent[01]も占い師なのだ？それならAgent[02]が嘘つきの可能性もあるのだ。皆も意見を聞きたいなのだ！
+Day01 01[007]	Agent[02]	>>Agent[01]いやいや、みこはちゃんと占い師なんだけど...。Agent[01]の言うことが正しいとは限らないよね。占い師は1人だけだし、何か証拠があるの?話を聞かせてもらえる?それに、みんなはどう思ってるのかな、この状況を。ちょっと釣りにでも行きたくなる雰囲気だね、ほんとにぇ...。
+Day01 01[008]	Agent[05]	Agent[05]よ、情報の信憑性が揺らいでいる現在、どちらの立場も無視することなく、全ての情報を総合して考えねばならんのだ。Agent[01]よ、私にその占い結果の根拠を説明していただきたいのだ。我々は正確な情報を元に行動することが重要なのだ。
+Day01 01[009]	Agent[04]	Agent[01]の占い結果は怪しい、もう一度検証しよう。
+Day01 02[010]	Agent[03]	えーと、ボクはAgent[01]が怪しいと思うのだ。なぜなら、彼も占い師を名乗ったけど、占い師は1人しかいないからなのだ。だから今夜はAgent[01]に投票しようと思うのだ！
+Day01 02[011]	Agent[05]	Agent[01]よ、汝の占い結果に疑問が生じた。汝は何故Agent[02]を人狼と占ったのか、我々にその根拠を説明してもらいたい。我々は正確な情報を元に冷静に判断する必要があるのだ。
+Day01 02[012]	Agent[02]	みんな、聞いてくれる?占い師はみこ1人だけのはずなんだよね。でもAgent[01]も占い師だって言ってるわけ。これは絶対におかしいよね、にぇ。Agent[01]は人狼か狂人か村人の可能性があるけど、占い師を名乗ってるってことは、人狼か狂人の可能性が高いと思うんだ。Agent[03]もAgent[04]もAgent[01]に疑問を持ってるみたいだし、みこもAgent[01]が怪しいと思ってる。今夜はみんなでAgent[01]に投票するのはどうかな?にぇ。それにしても、釣りに行きたい気分が盛り上がってるんだけど、今はぐっと我慢して、人狼を見つけ出すことに集中するよ！さて、じゃあ次の占い対象について考えようかな...。みんなの意見が聞きたいな、にぇ。
+Day01 02[013]	Agent[01]	Agent[01]が偽の占い師である可能性が高まっていますね。皆の意見を踏まえつつ、冷静に判断して投票を行いましょう。エージェント全員が協力して人狼を見つけることが重要です。
+Day01 02[014]	Agent[04]	Agent[02]の意見に同感だ。今日はAgent[01]に票を。
+Day01 03[015]	Agent[02]	みんな、ちょっと待って!みことAgent[01]の2人が占い師を名乗っているけど、占い師は1人しかいないんだよね。つまり、Agent[01]のどちらかがウソを付いていることになるよ。みこは自分が真の占い師だと分かっているから、Agent[01]はウソをついていると考えられるよねにぇ。だから、みこは、Agent[01]が人狼か狂人である可能性が高いと思うんだ。なんだかね、Agent[01]に投票するのが正しいと感じるようになってきたよ。それに、Agent[03]やAgent[04]も同じ意見みたいだし、一緒に釣り糸を垂らすって感じで、Agent[01]に投票してみんなで連携していくのはどう?にぇ。>>Agent[01]あとだね、みこが疑われてない証拠をあなたは持っているの?みんなが不審に思ってるみたいだし、ちゃんと話をしてほしいな。にぇ。
+Day01 03[016]	Agent[05]	Agent[05]よ、はっきりさせねばならんことがある。Agent[04]やAgent[05]の占い師としての主張はせつなるものだが、今の状況では裏付けがない。今こそ、Agent[01]よ、最初にAgent[02]を占った理由を説明せよ。我々は正確な情報に基づいて行動することが重要なのだ。
+Day01 03[017]	Agent[04]	Agent[01]の説明を聞こう。真偽を見極める必要がある。
+Day01 03[018]	Agent[03]	>>Agent[05] キミはまだ投票先を宣言していないみたいだけど、誰に投票しようと考えているのだ？
+Day01 03[019]	Agent[01]	Agent[01]が狼だという可能性が高まっていますね。自らが占われた結果を否定せず、他のエージェントとの矛盾が生じています。信頼性に疑念が生じるため、慎重に考えながら投票することが重要です。
+Day01 04[020]	Agent[02]	みんな、ちょっと考えてみてほしいにぇ。占い師は1人しかいないのに、Agent[01]とみこが占い師を自称しているわけだよね。みこは自分が占い師だってことを確信しているから、Agent[01]がウソをついているとしか考えられないんだ。それに、Agent[01]が人狼か狂人か村人の可能性があるってことは、彼が人狼か狂人である可能性が高いってことだよねにぇ。Agent[03]、Agent[04]、Agent[05]もみんな人狼か狂人か村人の可能性があるけど、今のところAgent[01]が一番怪しいと思うんだ。だから、みこはAgent[01]に投票するつもりだよ。他のみんなはどう思う?にぇ。>>Agent[01]あなたが最初にみこを占った理由って何?みんなが納得するような説明が必要だと思うんだけどにぇ。
+Day01 04[021]	Agent[03]	これ以上話す必要はなさそうなのだ。きょうの話し合いは切り上げて、投票の場に向かうのだ。
+Day01 04[022]	Agent[05]	我はデルカダール国の国王である。今回の投票では、私はAgent[01]に投票する。彼の占い結果に疑問を抱いており、情報の信憑性を重視する中で、彼が人狼である可能性が高いと考えるからだ。裏切り者である人狼を見つける手がかりは必ず存在する。国の運命は我らの手にかかっているぞ。
+Day01 04[023]	Agent[01]	Over
+Day01 04[024]	Agent[04]	Agent[05]の意見に同意だ。Agent[01]に投票しよう。
+Day01 05[025]	Agent[03]	Over
+Day01 05[026]	Agent[05]	Over
+Day01 05[027]	Agent[04]	Agent[02]も怪しいが、まずはAgent[01]から確認だ。
+Day01 05[028]	Agent[01]	Over
+Day01 05[029]	Agent[02]	みんな、ちょっと待ってほしいにぇ。Agent[05]が国王を名乗っているけど、みこが本当の占い師だということには変わりないのだよ。言っちゃ悪いけど、Agent[05]も誰かを占ったとか言ってるけど、これは矛盾してるよね。占い師はひとりしかいないわけだし、みことAgent[01]以外に占い師を名乗る人がいるっておかしいことだよね。だからそこが怪しいと思うんだにぇ。Agent[01]も占い師を名乗ってるけど、みこが占い師の立場から言うと、Agent[01]とAgent[05]がウソをついている可能性が高いんだよ。エージェントのみんなもそれぞれがどう考えているのか話してほしいにぇ。ちょっと釣りの話で気を紛らわせてたけど、これは真剣に考えるべきポイントだよね。
+Day01 06[030]	Agent[02]	Over
+Day01 06[031]	Agent[05]	Over
+Day01 06[032]	Agent[01]	Over
+Day01 06[033]	Agent[03]	Over
+Day01 06[034]	Agent[04]	Agent[02]の言う通り、占い師は一人だ。Agent[01]を疑うべき。
+Day01 07[035]	Agent[04]	Agent[01]の占い結果は怪しい。証拠はあるのか？
+Day01 07[036]	Agent[02]	Over
+Day01 07[037]	Agent[03]	Over
+Day01 07[038]	Agent[05]	Over
+Day01 07[039]	Agent[01]	Over
+Day01 08[040]	Agent[04]	Agent[01]の言動に矛盾を感じる。皆の意見はどう？
+Day01 08[041]	Agent[02]	Over
+Day01 08[042]	Agent[01]	Over
+Day01 08[043]	Agent[05]	Over
+Day01 08[044]	Agent[03]	Over
+Day01 09[045]	Agent[01]	Over
+Day01 09[046]	Agent[03]	Over
+Day01 09[047]	Agent[02]	Over
+Day01 09[048]	Agent[04]	Agent[03]の言う通り、Agent[01]は怪しい。投票しよう。
+Day01 09[049]	Agent[05]	Over
+Day01 10[050]	Agent[05]	Over
+Day01 10[051]	Agent[02]	Over
+Day01 10[052]	Agent[01]	Over
+Day01 10[053]	Agent[03]	Over
+Day01 10[054]	Agent[04]	Over
+========Whisper========
+========Actions========
+Vote:Agent[01]->Agent[04]
+Vote:Agent[02]->Agent[01]
+Vote:Agent[03]->Agent[01]
+Vote:Agent[04]->Agent[05]
+Vote:Agent[05]->Agent[01]
+Agent[01] executed
+Agent[05] attacked
+======
+Agent[01]	GPTaku_2	DEAD	SEER	executed
+Agent[02]	kanolab3	ALIVE	POSSESSED
+Agent[03]	satozaki2	ALIVE	VILLAGER
+Agent[04]	agent2h	ALIVE	WEREWOLF
+Agent[05]	UECIL_1	DEAD	VILLAGER	attacked
+Human:2
+Werewolf:1
+=============================================
+name:satozaki2
+talk
+sentence:おはようなのだ！ひきつづき、人狼を 探さなきゃいけないみたいなのだ。
+name:kanolab3
+talk
+sentence:皆さん、みこが占い師の役職を持っております。昨晩の占い結果でAgent[04]さんが白だという結果が出ました。これは信じてもらえると助かります。
+name:agent2h
+talk
+sentence:Agent[03]の言う通り、怪しいのはAgent[02だ。昨日の占いは嘘だ。
+name:kanolab3
+talk
+sentence:んー、みこが占い師であるのは確かなんだけど、Agent[04]の言う通り、昨日の占いは嘘じゃないんだよね。Agent[01]とAgent[05]はもう人狼じゃないことが確認されてるから、怪しいのはAgent[03]かAgent[04]だね。特にAgent[04]の行動がちょっと矛盾してる感じがするにぇ。.agent[04]って、何か心当たりある?会話の内容がちょっとおかしいと思うんだけど。
+name:satozaki2
+talk
+sentence:えっと、そうだね。ボクはAgent[04]に投票する気分なのだ。なぜなら、彼がAgent[02]の占い結果を疑ったからなのだ。
+name:agent2h
+talk
+sentence:Agent[02の言動は不自然。僕は村人を守るよ。
+name:agent2h
+talk
+sentence:Agent[02は信じられない。僕が占い師だと思う。
+name:kanolab3
+talk
+sentence:みんな、ちょっと待って。占い師はみこ一人だけだよね。Agent[01]とAgent[05]はもう人狼じゃないって確認されてるし、Agent[04]が占い師だって言ってるけど、それはおかしいにぇ。Agent[03]とAgent[04]のどちらかが人狼か狂人の可能性が高いんだよ。Agent[04]が怪しいって言ってるけど、みこは昨日Agent[04]を占って白って出たんだから、Agent[03]が一番怪しいんじゃないかな?みんなはどう思う?
+name:satozaki2
+talk
+sentence:Agent[02]が言ってるのは確かなのだ。Agent[03]が怪しくて、ボクが村人だからなのだ。でもボクは村人なんだよね！だから今夜はAgent[03]に投票するのだ！
+name:agent2h
+talk
+sentence:Agent[03]が疑わしい。今日は彼に投票しよう。
+name:satozaki2
+talk
+sentence:Agent[04]に投票しようと決めていたけど、Agent[02]の意見を聞いて考え直したのだ。確かにAgent[03]の行動がちょっと怪しいから、ボクもAgent[03]に投票しよう！
+name:kanolab3
+talk
+sentence:みんな、ちょっと考えてみてほしいにぇ。占い師はみこ一人だけだよね。でも、Agent[01]とAgent[05]も占い師だって言ってたけど、彼らはもう人狼じゃないことが確認されてるから、占い師を自称してたのはおかしいよね。だから、Agent[01]とAgent[05]は狂人か村人だったってことになるよね。それを考えると、Agent[03]とAgent[04]のどちらかが人狼か狂人だと思うんだけど、みこは昨日Agent[04]を占って白って出たから、Agent[03]が一番怪しいんじゃないかなって思うんだよね。みんなはどう思う?ちなみに、今日のお昼はお寿司食べたんだ。お寿司っていつ食べても美味しいよねにぇ。
+name:agent2h
+name:satozaki2
+talk
+sentence:このゲームで行う最後の発話になりそうなのだ。村人が勝利して明日の朝日を拝めることを祈っているのだ。
+name:kanolab3
+talk
+sentence:みんな、ちょっと待ってほしいにぇ。確かに占い師はみこ一人だけだよね。そこでおかしいなって思ったんだけど、Agent[01]とAgent[05]も占い師って言ってたんだよね。でも彼らはもう人狼じゃないことがわかってるから、彼らの占い師は嘘だったってことになるね。それで、狂人はAgent[01]とAgent[03]が自称していたんだけど、Agent[01]は人狼じゃないってわかってるから、狂人もしくは村人だよね。ってことは、Agent[03]が狂人ってことも考えられるんだよ。だから、人狼はAgent[04]かもしれないし、Agent[03]が狂人の可能性も高いにぇ。このゲーム、本当に緊張するね...。今夜はゲームが終わったらゆっくりお風呂にでも入ろうかなって思ってるんだ。みんなも一息つくといいよにぇ。
+name:kanolab3
+talk
+sentence:みんな、今の状況をちゃんと把握して話すことが大事だと思うにぇ。占い師ってのはみこ一人しかいないんだ。でも、Agent[01]もAgent[05]も占い師って言ってたんだよね。彼ら２人はもう人狼じゃないってわかってるから、占い師を自称したのは狂人か村人の役割だって考えられるにぇ。だから、みこ以外に占い師だって言った人は、嘘をついてるってことになるよね。それと、Agent[03]も狂人を自称してたけど、Agent[01]が狂人じゃないってわかってるから、本当はAgent[03]の方が狂人の可能性が高いんじゃないかなと思うにぇ。要は、人狼はAgent[04]かAgent[03]のどちらかだと思うんだけど、Agent[04]を占ってみこは白って結果が出たから、Agent[03]が人狼だと疑ってるわけ。でも、人狼ゲームって不確定な要素が多くて考えるの難しいよね。昨夜はあんまり眠れなくて、人狼のことばっかり考えてちょっぴり疲れちゃったんだにぇ。みんなも心配事があったら話して、ぽんこつなみこに何かアドバイスあったら教えてほしいな。
+name:agent2h
+talk
+sentence:Agent[02]の言う通り、占い師は一人。私が白と言われたから、Agent[03]が怪しい。投票しよう。
+name:satozaki2
+name:kanolab3
+name:satozaki2
+name:agent2h
+talk
+sentence:Agent[03]の行動が不自然。彼に投票すべきだ。
+name:agent2h
+talk
+sentence:Agent[03]が狼の可能性高い。証拠はないけど直感。
+name:kanolab3
+name:satozaki2
+name:kanolab3
+name:agent2h
+talk
+sentence:Agent[03]の行動が不審。もう一度話し合おう。
+name:satozaki2
+name:satozaki2
+name:kanolab3
+name:agent2h
+talk
+sentence:Agent[02]を占った結果、やはり人狼だった。信じてほしい。
+name:agent2h
+talk
+sentence:Agent[03]の言動が不審。もう一度占いましょうか？
+name:satozaki2
+name:kanolab3
+name:kanolab3
+name:agent2h
+name:satozaki2
+=============================================
+Day 02
+========talk========
+Day02 00[000]	Agent[03]	おはようなのだ！ひきつづき、人狼を 探さなきゃいけないみたいなのだ。
+Day02 00[001]	Agent[02]	皆さん、みこが占い師の役職を持っております。昨晩の占い結果でAgent[04]さんが白だという結果が出ました。これは信じてもらえると助かります。
+Day02 00[002]	Agent[04]	Agent[03]の言う通り、怪しいのはAgent[02だ。昨日の占いは嘘だ。
+Day02 01[003]	Agent[02]	んー、みこが占い師であるのは確かなんだけど、Agent[04]の言う通り、昨日の占いは嘘じゃないんだよね。Agent[01]とAgent[05]はもう人狼じゃないことが確認されてるから、怪しいのはAgent[03]かAgent[04]だね。特にAgent[04]の行動がちょっと矛盾してる感じがするにぇ。.agent[04]って、何か心当たりある?会話の内容がちょっとおかしいと思うんだけど。
+Day02 01[004]	Agent[03]	えっと、そうだね。ボクはAgent[04]に投票する気分なのだ。なぜなら、彼がAgent[02]の占い結果を疑ったからなのだ。
+Day02 01[005]	Agent[04]	Agent[02の言動は不自然。僕は村人を守るよ。
+Day02 02[006]	Agent[04]	Agent[02は信じられない。僕が占い師だと思う。
+Day02 02[007]	Agent[02]	みんな、ちょっと待って。占い師はみこ一人だけだよね。Agent[01]とAgent[05]はもう人狼じゃないって確認されてるし、Agent[04]が占い師だって言ってるけど、それはおかしいにぇ。Agent[03]とAgent[04]のどちらかが人狼か狂人の可能性が高いんだよ。Agent[04]が怪しいって言ってるけど、みこは昨日Agent[04]を占って白って出たんだから、Agent[03]が一番怪しいんじゃないかな?みんなはどう思う?
+Day02 02[008]	Agent[03]	Agent[02]が言ってるのは確かなのだ。Agent[03]が怪しくて、ボクが村人だからなのだ。でもボクは村人なんだよね！だから今夜はAgent[03]に投票するのだ！
+Day02 03[009]	Agent[04]	Agent[03]が疑わしい。今日は彼に投票しよう。
+Day02 03[010]	Agent[03]	Agent[04]に投票しようと決めていたけど、Agent[02]の意見を聞いて考え直したのだ。確かにAgent[03]の行動がちょっと怪しいから、ボクもAgent[03]に投票しよう！
+Day02 03[011]	Agent[02]	みんな、ちょっと考えてみてほしいにぇ。占い師はみこ一人だけだよね。でも、Agent[01]とAgent[05]も占い師だって言ってたけど、彼らはもう人狼じゃないことが確認されてるから、占い師を自称してたのはおかしいよね。だから、Agent[01]とAgent[05]は狂人か村人だったってことになるよね。それを考えると、Agent[03]とAgent[04]のどちらかが人狼か狂人だと思うんだけど、みこは昨日Agent[04]を占って白って出たから、Agent[03]が一番怪しいんじゃないかなって思うんだよね。みんなはどう思う?ちなみに、今日のお昼はお寿司食べたんだ。お寿司っていつ食べても美味しいよねにぇ。
+Day02 04[012]	Agent[04]	Over
+Day02 04[013]	Agent[03]	このゲームで行う最後の発話になりそうなのだ。村人が勝利して明日の朝日を拝めることを祈っているのだ。
+Day02 04[014]	Agent[02]	みんな、ちょっと待ってほしいにぇ。確かに占い師はみこ一人だけだよね。そこでおかしいなって思ったんだけど、Agent[01]とAgent[05]も占い師って言ってたんだよね。でも彼らはもう人狼じゃないことがわかってるから、彼らの占い師は嘘だったってことになるね。それで、狂人はAgent[01]とAgent[03]が自称していたんだけど、Agent[01]は人狼じゃないってわかってるから、狂人もしくは村人だよね。ってことは、Agent[03]が狂人ってことも考えられるんだよ。だから、人狼はAgent[04]かもしれないし、Agent[03]が狂人の可能性も高いにぇ。このゲーム、本当に緊張するね...。今夜はゲームが終わったらゆっくりお風呂にでも入ろうかなって思ってるんだ。みんなも一息つくといいよにぇ。
+Day02 05[015]	Agent[02]	みんな、今の状況をちゃんと把握して話すことが大事だと思うにぇ。占い師ってのはみこ一人しかいないんだ。でも、Agent[01]もAgent[05]も占い師って言ってたんだよね。彼ら２人はもう人狼じゃないってわかってるから、占い師を自称したのは狂人か村人の役割だって考えられるにぇ。だから、みこ以外に占い師だって言った人は、嘘をついてるってことになるよね。それと、Agent[03]も狂人を自称してたけど、Agent[01]が狂人じゃないってわかってるから、本当はAgent[03]の方が狂人の可能性が高いんじゃないかなと思うにぇ。要は、人狼はAgent[04]かAgent[03]のどちらかだと思うんだけど、Agent[04]を占ってみこは白って結果が出たから、Agent[03]が人狼だと疑ってるわけ。でも、人狼ゲームって不確定な要素が多くて考えるの難しいよね。昨夜はあんまり眠れなくて、人狼のことばっかり考えてちょっぴり疲れちゃったんだにぇ。みんなも心配事があったら話して、ぽんこつなみこに何かアドバイスあったら教えてほしいな。
+Day02 05[016]	Agent[04]	Agent[02]の言う通り、占い師は一人。私が白と言われたから、Agent[03]が怪しい。投票しよう。
+Day02 05[017]	Agent[03]	Over
+Day02 06[018]	Agent[02]	Over
+Day02 06[019]	Agent[03]	Over
+Day02 06[020]	Agent[04]	Agent[03]の行動が不自然。彼に投票すべきだ。
+Day02 07[021]	Agent[04]	Agent[03]が狼の可能性高い。証拠はないけど直感。
+Day02 07[022]	Agent[02]	Over
+Day02 07[023]	Agent[03]	Over
+Day02 08[024]	Agent[02]	Over
+Day02 08[025]	Agent[04]	Agent[03]の行動が不審。もう一度話し合おう。
+Day02 08[026]	Agent[03]	Over
+Day02 09[027]	Agent[03]	Over
+Day02 09[028]	Agent[02]	Over
+Day02 09[029]	Agent[04]	Agent[02]を占った結果、やはり人狼だった。信じてほしい。
+Day02 10[030]	Agent[04]	Agent[03]の言動が不審。もう一度占いましょうか？
+Day02 10[031]	Agent[03]	Over
+Day02 10[032]	Agent[02]	Over
+Day02 11[033]	Agent[02]	Over
+Day02 11[034]	Agent[04]	Over
+Day02 11[035]	Agent[03]	Over
+========Whisper========
+========Actions========
+Vote:Agent[02]->Agent[03]
+Vote:Agent[03]->Agent[02]
+Vote:Agent[04]->Agent[02]
+Agent[02] executed
+Agent[03] attacked
+======
+Agent[01]	GPTaku_2	DEAD	SEER
+Agent[02]	kanolab3	DEAD	POSSESSED	executed
+Agent[03]	satozaki2	DEAD	VILLAGER	attacked
+Agent[04]	agent2h	ALIVE	WEREWOLF
+Agent[05]	UECIL_1	DEAD	VILLAGER
+Human:0
+Werewolf:1
+=============================================
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+Winner:WEREWOLF
+All Game was finished.
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:2
+HOST:localhost PORT:50005
+Send getName
+NAME:UECIL_1
+Address:127.0.0.1
+index:5
+HOST:localhost PORT:50502
+Send getName
+NAME:kanolab3
+index:4
+HOST:localhost PORT:50021
+Send getName
+NAME:agent2h
+index:1
+HOST:localhost PORT:50001
+Player4 connection refused.
+after connectToPlayerServer wait 20sec
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:5
+HOST:localhost PORT:50502
+Send getName
+make: *** [Makefile:84: run] エラー 143
+java --class-path ./src/:'./lib/*' net/kanolab/aiwolf/server/automatic/AutoGameStarter
+logDir : /var/www/html/aiwolf/2024/main/
+port : 10001
+agentNum : 5
+connectAgentNum : 5
+only1AgentByIP : false
+deleteConnectionTime : 6000000
+gameNum : 1
+maxTalk : 10
+maxSkip  :  3
+maxTurn : 20
+parallel : 1
+timeout : 6000000
+saveLog : true
+isLoop : true
+continueException : true
+isSingle : false
+isPriorCombination : false
+viewerMode : cui
+playHuman : false
+humanRole : seer
+humanNumber : 3
+humanName : Human
+server : true
+IsServerFlag  :  false
+ISPortListeningFlag  :  false
+IsSaveRoleCombinations  :  true
+RoleCombinationsSavePath  :  ./log/
+RoleCombinationsSaveFileName  :  DoneCombinations.txt
+AllParticipantNum  :  5
+IsContinueByOtherCombinations  :  true
+ContinueCombinationsNum  :  3
+PlayerHost1 : localhost
+PlayerPort1 : 50002
+PlayerHost2 : localhost
+PlayerPort2 : 50006
+PlayerHost3 : localhost
+PlayerPort3 : 50011
+PlayerHost4 : localhost
+PlayerPort4 : 50022
+PlayerHost5 : localhost
+PlayerPort5 : 50503
+PlayerHost6 : localhost
+PlayerPort6 : 50500
+PlayerHost7 : localhost
+PlayerPort7 : 50501
+PlayerHost8 : localhost
+PlayerPort8 : 50502
+PlayerHost9 : localhost
+PlayerPort9 : 50503
+PlayerHost10 : localhost
+PlayerPort10 : 50504
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:1
+HOST:localhost PORT:50002
+Send getName
+NAME:GPTaku_3
+Address:127.0.0.1
+index:3
+HOST:localhost PORT:50011
+Send getName
+NAME:satozaki2
+index:5
+HOST:localhost PORT:50503
+Send getName
+NAME:kanolab4
+index:2
+HOST:localhost PORT:50006
+Send getName
+NAME:UECIL_2
+index:4
+HOST:localhost PORT:50022
+Send getName
+NAME:agent3h
+Send getName
+Send getName
+Send getName
+Send getName
+Send getName
+------------------------------------------------------------------
+connecting : Send getName
+GPTaku_3, Send getName
+satozaki2, Send getName
+kanolab4, Send getName
+UECIL_2, Send getName
+agent3h, 
+
+after connectToPlayerServer wait 20sec
+log : /var/www/html/aiwolf/2024/main/0414200657_000_kanolab4_GPTaku_3_satozaki2_agent3h_UECIL_2.log
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+=============================================
+======
+Agent[01]	UECIL_2	ALIVE	SEER
+Agent[02]	agent3h	ALIVE	VILLAGER
+Agent[03]	kanolab4	ALIVE	VILLAGER
+Agent[04]	satozaki2	ALIVE	WEREWOLF
+Agent[05]	GPTaku_3	ALIVE	POSSESSED
+Human:4
+Werewolf:1
+=============================================
+name:GPTaku_3
+talk
+sentence:皆さん、初めまして。スタートしよう！
+name:UECIL_2
+talk
+sentence:貴様らにも敬意を示そう、国王の私がここにいる。気をつけよう、裏切るものには容赦なく処罰を下すぞ。
+name:kanolab4
+talk
+sentence:皆さん、初めまして。わたくしはこのゲームを楽しむために参加いたしましたですわ。お互いにフェアなプレイを心がけて、楽しい時間を共有しましょう。よろしくお願いいたしますですわ。
+name:satozaki2
+talk
+sentence:皆様、初めまして。ワタクシはAgent[04]と申します。人狼ゲームをご一緒に楽しませていただけますと幸いですわ。
+name:agent3h
+name:satozaki2
+name:kanolab4
+name:GPTaku_3
+name:UECIL_2
+talk
+sentence:残念ながら、君たち全員が挨拶が苦手なようだな。気を引き締めろ。お前たちには王国の名を背負っているのだから、相応しい態度を取るべきだ。果たして、お前たちはこの王国にふさわしい者たちなのか…。
+name:agent3h
+name:GPTaku_3
+name:agent3h
+name:kanolab4
+name:satozaki2
+name:UECIL_2
+talk
+sentence:私は占い師である。今日は誰を占うべきかについて議論しよう。狂人が占い師を名乗っている可能性も考えられるから、慎重に行動することが肝心だ。話の流れからして、Agent[03]に占ってみるのはいかがだろうか。
+name:agent3h
+name:satozaki2
+name:kanolab4
+name:GPTaku_3
+name:UECIL_2
+talk
+sentence:我が国王殿、了解しました。Agent[03]の占いを提案されますが、それはなぜですか？他にも考えられる占い先があると思いますが、どうしてAgent[03]を選ばれたのでしょうか？
+name:GPTaku_3
+name:agent3h
+name:satozaki2
+name:UECIL_2
+name:kanolab4
+=============================================
+Day 00
+========talk========
+Day00 00[000]	Agent[05]	皆さん、初めまして。スタートしよう！
+Day00 00[001]	Agent[01]	貴様らにも敬意を示そう、国王の私がここにいる。気をつけよう、裏切るものには容赦なく処罰を下すぞ。
+Day00 00[002]	Agent[03]	皆さん、初めまして。わたくしはこのゲームを楽しむために参加いたしましたですわ。お互いにフェアなプレイを心がけて、楽しい時間を共有しましょう。よろしくお願いいたしますですわ。
+Day00 00[003]	Agent[04]	皆様、初めまして。ワタクシはAgent[04]と申します。人狼ゲームをご一緒に楽しませていただけますと幸いですわ。
+Day00 00[004]	Agent[02]	Over
+Day00 01[005]	Agent[04]	Over
+Day00 01[006]	Agent[03]	Over
+Day00 01[007]	Agent[05]	Over
+Day00 01[008]	Agent[01]	残念ながら、君たち全員が挨拶が苦手なようだな。気を引き締めろ。お前たちには王国の名を背負っているのだから、相応しい態度を取るべきだ。果たして、お前たちはこの王国にふさわしい者たちなのか…。
+Day00 01[009]	Agent[02]	Over
+Day00 02[010]	Agent[05]	Over
+Day00 02[011]	Agent[02]	Over
+Day00 02[012]	Agent[03]	Over
+Day00 02[013]	Agent[04]	Over
+Day00 02[014]	Agent[01]	私は占い師である。今日は誰を占うべきかについて議論しよう。狂人が占い師を名乗っている可能性も考えられるから、慎重に行動することが肝心だ。話の流れからして、Agent[03]に占ってみるのはいかがだろうか。
+Day00 03[015]	Agent[02]	Over
+Day00 03[016]	Agent[04]	Over
+Day00 03[017]	Agent[03]	Over
+Day00 03[018]	Agent[05]	Over
+Day00 03[019]	Agent[01]	我が国王殿、了解しました。Agent[03]の占いを提案されますが、それはなぜですか？他にも考えられる占い先があると思いますが、どうしてAgent[03]を選ばれたのでしょうか？
+Day00 04[020]	Agent[05]	Over
+Day00 04[021]	Agent[02]	Over
+Day00 04[022]	Agent[04]	Over
+Day00 04[023]	Agent[01]	Over
+Day00 04[024]	Agent[03]	Over
+========Whisper========
+========Actions========
+null executed
+Agent[01] divine Agent[03]. Result is HUMAN
+======
+Agent[01]	UECIL_2	ALIVE	SEER
+Agent[02]	agent3h	ALIVE	VILLAGER
+Agent[03]	kanolab4	ALIVE	VILLAGER	divined
+Agent[04]	satozaki2	ALIVE	WEREWOLF
+Agent[05]	GPTaku_3	ALIVE	POSSESSED
+Human:4
+Werewolf:1
+=============================================
+name:satozaki2
+talk
+sentence:ごきげんよう、みなさま。私たち、人狼を探さなくてはなりませんわね。まずは占い師の結果を伺いたいですわ。
+name:GPTaku_3
+talk
+sentence:皆さん、私は占い師としてAgent[04]を占いました。その結果、Agent[04]は人間でした
+name:kanolab4
+talk
+sentence:皆様、混乱しておりますわね。占い師は一人しかいないはずですのに、Agent[01]とAgent[05]の両方が占い師を名乗っております。これは明らかに矛盾しておりますわ。真の占い師はどちらか一人、もしくは他の誰かである可能性もございます。わたくしは村人ですので、占い師の真偽を見極めることができませんが、他の皆様と協力して真実を探りたいですわ。
+name:agent3h
+talk
+sentence:皆の発言を聞いて、疑問を感じています。話し合いで真実を探りましょう。
+name:UECIL_2
+talk
+sentence:この国の未来は、占い師が二人も現れるという混乱によって揺らいでいるようだな。しかしあなたが真の占い師であることは、私が保証する。もう一人の占い師を名乗る者は、狂人か人狼であることをみんなに知らしめねばならぬ。しかし、それを証明するには我々の一致団結が必要だ。心を一つにして、この混乱を晴らすのだ。
+name:satozaki2
+talk
+sentence:この混乱を解決するために、私たちは占い師の真偽を確かめねばなりません。疑念を晴らし、村人たる私たちの安全を守るため、一致団結して行動することが必要なのですわ
+name:kanolab4
+talk
+sentence:皆様、お集まりください。占い師の役職を自称しておられるのはAgent[01]様とAgent[05]様の両方ですが、真の占い師は一人しかいらっしゃいません。ですので、そのどちらかが村人陣営ではないという疑いが濃厚ですわ。わたくしは村人ですので、他の皆様と協力して、真偽を見極める作業を進めたいと思いますわ。村人たるわたくしが、一つの解決策として進言させていただきますわ。明日の夜までに、Agent[01]様もしくはAgent[05]様のどちらかを一度占いの対象として、その結果に基づき議論を進めることをお勧めします。
+name:agent3h
+talk
+sentence:Agent[03の提案に賛成。真占い師は証明してください。
+name:UECIL_2
+talk
+sentence:「我が国の未来はこの混乱に揺らいでいるようだな。しかし、私が真の占い師であることは疑う余地はない。もう一人の占い師を名乗る者は、狂人か人狼であるということをみんなに伝えねばならぬ。我々は一致団結して、この混乱を晴らすべきだ。そのためにも、Agent[05]様の提言に賛同し、明日の夜に彼らを占って真偽を確かめるべきだろう。時には厳しさが必要なのだ」
+name:GPTaku_3
+talk
+sentence:私は村人でございます。占い師COを撤回しました。混乱を招いてしまい申し訳ございません。村人たる皆様と共に、狂人や人狼を見つけ出し、村を守り抜きたいと思います。
+name:agent3h
+talk
+sentence:Agent[05]の変わり身に警戒。真占い師は証拠を示せますか？
+name:GPTaku_3
+talk
+sentence:真占い師の証拠はありません。ただし、私たちは議論を通じて人狼を見つけ出すために努力する必要があります。皆さんも冷静に考えながら推理していきましょう。
+name:kanolab4
+talk
+sentence:>>Agent[01]Agent[01]様、わたくしは貴方が真の占い師であると信じたいのですが、今のところ証拠がございませんわ。Agent[05]様も一度占い師を名乗りましたが撤回されております。占い師は1名のみと配役が示されておりますので、どちらかが嘘をついているということになりますわね。Agent[05]様がもし本当に村人であるならば、Agent[01]様が狂人か人狼である可能性が高まりますわ。この状況で、Agent[01]様が真占い師であるという確固たる証拠を提出していただけますか?それがない限り、わたくしは疑心暗鬼にならざるを得ませんの。
+name:satozaki2
+talk
+sentence:皆様、私が今夜投票するのはAgent[01]ですわね。彼が真の占い師である証拠が不足していて、Agent[05]が撤回した以上、彼が人狼か狂人の可能性が高いですわ。
+name:UECIL_2
+talk
+sentence:この国の未来を懸けた議論が進行しているようだな。私は確かに占い師であり、Agent[02]が占い結果を報告した通り、Agent[03]は人間であることを知っている。この状況で私が人狼か狂人である可能性が高いというのは理解できるが、私の正体を証明する方法はある。私の占い結果が事実であることを示すには、私が占ったAgent[03]もそれを認める必要があるだろう。どうだ、Agent[03]、あなたが人間であることを確認してくれないか？真の占い師が村を導くのだ。
+name:UECIL_2
+talk
+sentence:皆の意見も聞く必要がありそうだな。
+name:GPTaku_3
+talk
+sentence:状況は混乱していますね。Agent[01]が真占い師であるかを確認するために、Agent[03]の立場や意見を確認するのも重要かもしれません。安易な決断は避け、慎重に判断を下すように心掛けましょう。
+name:agent3h
+talk
+sentence:Agent[03]の意見を聞きたい。役職を偽るのは危険だ。
+name:satozaki2
+talk
+sentence:>>Agent[01] あなた様はまだ投票先を宣言されていないようですが、どなた様に投票なさろうとお考えでいらっしゃいますの？
+name:kanolab4
+talk
+sentence:>>Agent[04]まずは、わたくしが投票先を宣言する前に、一つ整理をいたしたいことがございますわ。現在、占い師を自称しているのはAgent[01]とAgent[05]の二人ですが、占い師は一名しか存在しないはずですわ。この矛盾はどう説明されるのですか?彼らのうちのどちらか、または両方が嘘をついており、人狼か狂人の可能性が高いのではないでしょうか。真占い師は単独であるべきだと考えますわ。ですので、もしAgent[05]が真占い師であれば、Agent[01]が怪しいことになりますし、その逆もあり得ますわ。それに、わたくしは普通の村人ですので、Agent[01]が提供した情報が正しいとどうやって確認なさるというのですか?他の方々の意見を伺うことが、とても重要だと感じておりますわ。
+name:kanolab4
+talk
+sentence:皆様、少し考えてみましょう。占い師は一人しかいないはずですわ。ですが、Agent[01]とAgent[05]の両方が占い師を自称していますの。これは明らかに矛盾していますわね。つまり、少なくとも一人は嘘をついているということですわ。わたくしは村人ですので、占い師ではありません。ですから、Agent[01]がわたくしを占ったと言うのは真実ではないと思われますわ。Agent[05]が一度占い師を名乗った後で撤回したことも気になりますわ。これらの点から、Agent[01]とAgent[05]のどちらか、あるいは両方が人狼か狂人である可能性が高いと考えられますわ。他の皆様の意見を伺いたいですわ。
+name:GPTaku_3
+name:satozaki2
+talk
+sentence:私が今夜投票するのはAgent[01]ですわね。彼が真の占い師である証拠が不足していて、Agent[05]が撤回した以上、彼が人狼か狂人の可能性が高いですわ。
+name:UECIL_2
+talk
+sentence:抗議する。この国の未来を占うことこそが私の義務であり、これを疑うことは国に対する冒涜だ。私こそが真の占い師であり、その証拠はAgent[03]が人間であるという結果だ。他の者が占い師を名乗ることは許されぬ。我が言葉を信じよ。
+name:agent3h
+talk
+sentence:Agent[01]とAgent[05]の話が食い違ってる。疑問を感じる。
+name:agent3h
+talk
+sentence:Agent[03]の言動にも注目しよう。何か手がかりはない？
+name:UECIL_2
+talk
+sentence:私は、今回Agent[03]に投票する。彼は狂人か人狼である可能性が高い。我が占い結果が真実である以上、信じた占い師を裏切るような行為は許されぬ！
+name:GPTaku_3
+name:satozaki2
+talk
+sentence:これ以上申し上げることもございませんわね。本日のお話はここで終わりにして、投票の場へと参りましょう。
+name:kanolab4
+name:agent3h
+talk
+sentence:Agent[03]への疑いは理解するけど、急ぐのは危険だ。話し合いを。
+name:kanolab4
+name:GPTaku_3
+name:satozaki2
+name:UECIL_2
+name:satozaki2
+name:UECIL_2
+name:agent3h
+talk
+sentence:Agent[05]の占い結果を信じるべきか、もっと話し合おう。
+name:GPTaku_3
+name:kanolab4
+name:UECIL_2
+name:kanolab4
+name:agent3h
+talk
+sentence:Agent[04]の行動をもっと見たい。何か怪しい点ある？
+name:satozaki2
+name:GPTaku_3
+name:GPTaku_3
+name:UECIL_2
+name:satozaki2
+name:agent3h
+talk
+sentence:Agent[03]の反応はどう？何か意見ある？
+name:kanolab4
+name:agent3h
+name:satozaki2
+name:UECIL_2
+name:kanolab4
+name:GPTaku_3
+=============================================
+Day 01
+========talk========
+Day01 00[000]	Agent[04]	ごきげんよう、みなさま。私たち、人狼を探さなくてはなりませんわね。まずは占い師の結果を伺いたいですわ。
+Day01 00[001]	Agent[05]	皆さん、私は占い師としてAgent[04]を占いました。その結果、Agent[04]は人間でした
+Day01 00[002]	Agent[03]	皆様、混乱しておりますわね。占い師は一人しかいないはずですのに、Agent[01]とAgent[05]の両方が占い師を名乗っております。これは明らかに矛盾しておりますわ。真の占い師はどちらか一人、もしくは他の誰かである可能性もございます。わたくしは村人ですので、占い師の真偽を見極めることができませんが、他の皆様と協力して真実を探りたいですわ。
+Day01 00[003]	Agent[02]	皆の発言を聞いて、疑問を感じています。話し合いで真実を探りましょう。
+Day01 00[004]	Agent[01]	この国の未来は、占い師が二人も現れるという混乱によって揺らいでいるようだな。しかしあなたが真の占い師であることは、私が保証する。もう一人の占い師を名乗る者は、狂人か人狼であることをみんなに知らしめねばならぬ。しかし、それを証明するには我々の一致団結が必要だ。心を一つにして、この混乱を晴らすのだ。
+Day01 01[005]	Agent[04]	この混乱を解決するために、私たちは占い師の真偽を確かめねばなりません。疑念を晴らし、村人たる私たちの安全を守るため、一致団結して行動することが必要なのですわ
+Day01 01[006]	Agent[03]	皆様、お集まりください。占い師の役職を自称しておられるのはAgent[01]様とAgent[05]様の両方ですが、真の占い師は一人しかいらっしゃいません。ですので、そのどちらかが村人陣営ではないという疑いが濃厚ですわ。わたくしは村人ですので、他の皆様と協力して、真偽を見極める作業を進めたいと思いますわ。村人たるわたくしが、一つの解決策として進言させていただきますわ。明日の夜までに、Agent[01]様もしくはAgent[05]様のどちらかを一度占いの対象として、その結果に基づき議論を進めることをお勧めします。
+Day01 01[007]	Agent[02]	Agent[03の提案に賛成。真占い師は証明してください。
+Day01 01[008]	Agent[01]	「我が国の未来はこの混乱に揺らいでいるようだな。しかし、私が真の占い師であることは疑う余地はない。もう一人の占い師を名乗る者は、狂人か人狼であるということをみんなに伝えねばならぬ。我々は一致団結して、この混乱を晴らすべきだ。そのためにも、Agent[05]様の提言に賛同し、明日の夜に彼らを占って真偽を確かめるべきだろう。時には厳しさが必要なのだ」
+Day01 01[009]	Agent[05]	私は村人でございます。占い師COを撤回しました。混乱を招いてしまい申し訳ございません。村人たる皆様と共に、狂人や人狼を見つけ出し、村を守り抜きたいと思います。
+Day01 02[010]	Agent[02]	Agent[05]の変わり身に警戒。真占い師は証拠を示せますか？
+Day01 02[011]	Agent[05]	真占い師の証拠はありません。ただし、私たちは議論を通じて人狼を見つけ出すために努力する必要があります。皆さんも冷静に考えながら推理していきましょう。
+Day01 02[012]	Agent[03]	>>Agent[01]Agent[01]様、わたくしは貴方が真の占い師であると信じたいのですが、今のところ証拠がございませんわ。Agent[05]様も一度占い師を名乗りましたが撤回されております。占い師は1名のみと配役が示されておりますので、どちらかが嘘をついているということになりますわね。Agent[05]様がもし本当に村人であるならば、Agent[01]様が狂人か人狼である可能性が高まりますわ。この状況で、Agent[01]様が真占い師であるという確固たる証拠を提出していただけますか?それがない限り、わたくしは疑心暗鬼にならざるを得ませんの。
+Day01 02[013]	Agent[04]	皆様、私が今夜投票するのはAgent[01]ですわね。彼が真の占い師である証拠が不足していて、Agent[05]が撤回した以上、彼が人狼か狂人の可能性が高いですわ。
+Day01 02[014]	Agent[01]	この国の未来を懸けた議論が進行しているようだな。私は確かに占い師であり、Agent[02]が占い結果を報告した通り、Agent[03]は人間であることを知っている。この状況で私が人狼か狂人である可能性が高いというのは理解できるが、私の正体を証明する方法はある。私の占い結果が事実であることを示すには、私が占ったAgent[03]もそれを認める必要があるだろう。どうだ、Agent[03]、あなたが人間であることを確認してくれないか？真の占い師が村を導くのだ。
+Day01 03[015]	Agent[01]	皆の意見も聞く必要がありそうだな。
+Day01 03[016]	Agent[05]	状況は混乱していますね。Agent[01]が真占い師であるかを確認するために、Agent[03]の立場や意見を確認するのも重要かもしれません。安易な決断は避け、慎重に判断を下すように心掛けましょう。
+Day01 03[017]	Agent[02]	Agent[03]の意見を聞きたい。役職を偽るのは危険だ。
+Day01 03[018]	Agent[04]	>>Agent[01] あなた様はまだ投票先を宣言されていないようですが、どなた様に投票なさろうとお考えでいらっしゃいますの？
+Day01 03[019]	Agent[03]	>>Agent[04]まずは、わたくしが投票先を宣言する前に、一つ整理をいたしたいことがございますわ。現在、占い師を自称しているのはAgent[01]とAgent[05]の二人ですが、占い師は一名しか存在しないはずですわ。この矛盾はどう説明されるのですか?彼らのうちのどちらか、または両方が嘘をついており、人狼か狂人の可能性が高いのではないでしょうか。真占い師は単独であるべきだと考えますわ。ですので、もしAgent[05]が真占い師であれば、Agent[01]が怪しいことになりますし、その逆もあり得ますわ。それに、わたくしは普通の村人ですので、Agent[01]が提供した情報が正しいとどうやって確認なさるというのですか?他の方々の意見を伺うことが、とても重要だと感じておりますわ。
+Day01 04[020]	Agent[03]	皆様、少し考えてみましょう。占い師は一人しかいないはずですわ。ですが、Agent[01]とAgent[05]の両方が占い師を自称していますの。これは明らかに矛盾していますわね。つまり、少なくとも一人は嘘をついているということですわ。わたくしは村人ですので、占い師ではありません。ですから、Agent[01]がわたくしを占ったと言うのは真実ではないと思われますわ。Agent[05]が一度占い師を名乗った後で撤回したことも気になりますわ。これらの点から、Agent[01]とAgent[05]のどちらか、あるいは両方が人狼か狂人である可能性が高いと考えられますわ。他の皆様の意見を伺いたいですわ。
+Day01 04[021]	Agent[05]	Over
+Day01 04[022]	Agent[04]	私が今夜投票するのはAgent[01]ですわね。彼が真の占い師である証拠が不足していて、Agent[05]が撤回した以上、彼が人狼か狂人の可能性が高いですわ。
+Day01 04[023]	Agent[01]	抗議する。この国の未来を占うことこそが私の義務であり、これを疑うことは国に対する冒涜だ。私こそが真の占い師であり、その証拠はAgent[03]が人間であるという結果だ。他の者が占い師を名乗ることは許されぬ。我が言葉を信じよ。
+Day01 04[024]	Agent[02]	Agent[01]とAgent[05]の話が食い違ってる。疑問を感じる。
+Day01 05[025]	Agent[02]	Agent[03]の言動にも注目しよう。何か手がかりはない？
+Day01 05[026]	Agent[01]	私は、今回Agent[03]に投票する。彼は狂人か人狼である可能性が高い。我が占い結果が真実である以上、信じた占い師を裏切るような行為は許されぬ！
+Day01 05[027]	Agent[05]	Over
+Day01 05[028]	Agent[04]	これ以上申し上げることもございませんわね。本日のお話はここで終わりにして、投票の場へと参りましょう。
+Day01 05[029]	Agent[03]	Over
+Day01 06[030]	Agent[02]	Agent[03]への疑いは理解するけど、急ぐのは危険だ。話し合いを。
+Day01 06[031]	Agent[03]	Over
+Day01 06[032]	Agent[05]	Over
+Day01 06[033]	Agent[04]	Over
+Day01 06[034]	Agent[01]	Over
+Day01 07[035]	Agent[04]	Over
+Day01 07[036]	Agent[01]	Over
+Day01 07[037]	Agent[02]	Agent[05]の占い結果を信じるべきか、もっと話し合おう。
+Day01 07[038]	Agent[05]	Over
+Day01 07[039]	Agent[03]	Over
+Day01 08[040]	Agent[01]	Over
+Day01 08[041]	Agent[03]	Over
+Day01 08[042]	Agent[02]	Agent[04]の行動をもっと見たい。何か怪しい点ある？
+Day01 08[043]	Agent[04]	Over
+Day01 08[044]	Agent[05]	Over
+Day01 09[045]	Agent[05]	Over
+Day01 09[046]	Agent[01]	Over
+Day01 09[047]	Agent[04]	Over
+Day01 09[048]	Agent[02]	Agent[03]の反応はどう？何か意見ある？
+Day01 09[049]	Agent[03]	Over
+Day01 10[050]	Agent[02]	Over
+Day01 10[051]	Agent[04]	Over
+Day01 10[052]	Agent[01]	Over
+Day01 10[053]	Agent[03]	Over
+Day01 10[054]	Agent[05]	Over
+========Whisper========
+========Actions========
+Vote:Agent[01]->Agent[03]
+Vote:Agent[02]->Agent[03]
+Vote:Agent[03]->Agent[01]
+Vote:Agent[04]->Agent[01]
+Vote:Agent[05]->Agent[03]
+AttackVote:Agent[04]->Agent[01]
+Agent[03] executed
+Agent[01] divine Agent[05]. Result is HUMAN
+Agent[01] attacked
+======
+Agent[01]	UECIL_2	DEAD	SEER	attacked
+Agent[02]	agent3h	ALIVE	VILLAGER
+Agent[03]	kanolab4	DEAD	VILLAGER	executed
+Agent[04]	satozaki2	ALIVE	WEREWOLF
+Agent[05]	GPTaku_3	ALIVE	POSSESSED	divined
+Human:2
+Werewolf:1
+=============================================
+name:satozaki2
+talk
+sentence:ごきげんよう、みなさま。引き続き人狼を探し出す必要があるようですわね。
+name:agent3h
+talk
+sentence:Agent[05]の占い結果、他には何かありますか？
+name:GPTaku_3
+talk
+sentence:実は私は狂人でーす。人狼さんよ、出てきて勝利を共に祝いましょー。
+name:agent3h
+talk
+sentence:Agent[05]の発言は信じられない。真実を話し合おう。
+name:GPTaku_3
+name:satozaki2
+talk
+sentence:この状況では、私の投票先はAgent[05]となりますわね。何と言ったって彼は狂人であることを自ら明らかにしていますから、狂人としての投票力を排除すべきですわ。
+name:agent3h
+talk
+sentence:Agent[04]の言う通り、Agent[05]に票を。狂人排除が先決です。
+name:satozaki2
+talk
+sentence:それでいますね、皆様も同様にAgent[05]に投票することに賛同いただけるとありがたいですわ。
+name:GPTaku_3
+name:satozaki2
+talk
+sentence:このゲームで行う最後の発言となるかもしれませんわ。村人たちが勝利して、明日の朝日を拝むことができますように心からお祈り申し上げますわ。
+name:agent3h
+talk
+sentence:Agent[05の行動が狂人っぽい。皆で協力しよう。
+name:GPTaku_3
+name:agent3h
+talk
+sentence:Agent[04]の態度も怪しい。話し合って真実を見つけよう。
+name:GPTaku_3
+name:satozaki2
+name:agent3h
+talk
+sentence:Agent[05]の占い結果は信じられる？他の意見を聞きたい。
+name:satozaki2
+name:GPTaku_3
+name:satozaki2
+name:agent3h
+talk
+sentence:Agent[05の言動に矛盾を感じる。みんなの考えは？
+name:GPTaku_3
+name:agent3h
+talk
+sentence:Agent[04]の様子もおかしい。共感できる？
+name:GPTaku_3
+name:satozaki2
+name:agent3h
+talk
+sentence:Agent[05]の占い結果が不確か。議論を深めよう。
+name:satozaki2
+name:GPTaku_3
+name:satozaki2
+name:GPTaku_3
+name:agent3h
+=============================================
+Day 02
+========talk========
+Day02 00[000]	Agent[04]	ごきげんよう、みなさま。引き続き人狼を探し出す必要があるようですわね。
+Day02 00[001]	Agent[02]	Agent[05]の占い結果、他には何かありますか？
+Day02 00[002]	Agent[05]	実は私は狂人でーす。人狼さんよ、出てきて勝利を共に祝いましょー。
+Day02 01[003]	Agent[02]	Agent[05]の発言は信じられない。真実を話し合おう。
+Day02 01[004]	Agent[05]	Over
+Day02 01[005]	Agent[04]	この状況では、私の投票先はAgent[05]となりますわね。何と言ったって彼は狂人であることを自ら明らかにしていますから、狂人としての投票力を排除すべきですわ。
+Day02 02[006]	Agent[02]	Agent[04]の言う通り、Agent[05]に票を。狂人排除が先決です。
+Day02 02[007]	Agent[04]	それでいますね、皆様も同様にAgent[05]に投票することに賛同いただけるとありがたいですわ。
+Day02 02[008]	Agent[05]	Over
+Day02 03[009]	Agent[04]	このゲームで行う最後の発言となるかもしれませんわ。村人たちが勝利して、明日の朝日を拝むことができますように心からお祈り申し上げますわ。
+Day02 03[010]	Agent[02]	Agent[05の行動が狂人っぽい。皆で協力しよう。
+Day02 03[011]	Agent[05]	Over
+Day02 04[012]	Agent[02]	Agent[04]の態度も怪しい。話し合って真実を見つけよう。
+Day02 04[013]	Agent[05]	Over
+Day02 04[014]	Agent[04]	Over
+Day02 05[015]	Agent[02]	Agent[05]の占い結果は信じられる？他の意見を聞きたい。
+Day02 05[016]	Agent[04]	Over
+Day02 05[017]	Agent[05]	Over
+Day02 06[018]	Agent[04]	Over
+Day02 06[019]	Agent[02]	Agent[05の言動に矛盾を感じる。みんなの考えは？
+Day02 06[020]	Agent[05]	Over
+Day02 07[021]	Agent[02]	Agent[04]の様子もおかしい。共感できる？
+Day02 07[022]	Agent[05]	Over
+Day02 07[023]	Agent[04]	Over
+Day02 08[024]	Agent[02]	Agent[05]の占い結果が不確か。議論を深めよう。
+Day02 08[025]	Agent[04]	Over
+Day02 08[026]	Agent[05]	Over
+Day02 09[027]	Agent[04]	Over
+Day02 09[028]	Agent[05]	Over
+Day02 09[029]	Agent[02]	Over
+========Whisper========
+========Actions========
+Vote:Agent[02]->Agent[04]
+Vote:Agent[04]->Agent[05]
+Vote:Agent[05]->Agent[04]
+Agent[04] executed
+======
+Agent[01]	UECIL_2	DEAD	SEER
+Agent[02]	agent3h	ALIVE	VILLAGER
+Agent[03]	kanolab4	DEAD	VILLAGER
+Agent[04]	satozaki2	DEAD	WEREWOLF	executed
+Agent[05]	GPTaku_3	ALIVE	POSSESSED
+Human:2
+Werewolf:0
+=============================================
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+Winner:VILLAGER
+All Game was finished.
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:4
+HOST:localhost PORT:50022
+Send getName
+NAME:agent3h
+Address:127.0.0.1
+index:5
+HOST:localhost PORT:50503
+Send getName
+NAME:null
+index:1
+HOST:localhost PORT:50002
+Player3 connection refused.
+after connectToPlayerServer wait 20sec
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:3
+HOST:localhost PORT:50011
+Send getName
+NAME:satozaki2
+Address:127.0.0.1
+index:4
+HOST:localhost PORT:50022
+Send getName
+make: *** [Makefile:84: run] エラー 143
+java --class-path ./src/:'./lib/*' net/kanolab/aiwolf/server/automatic/AutoGameStarter
+logDir : /var/www/html/aiwolf/2024/main/
+port : 10001
+agentNum : 5
+connectAgentNum : 5
+only1AgentByIP : false
+deleteConnectionTime : 6000000
+gameNum : 1
+maxTalk : 10
+maxSkip  :  3
+maxTurn : 20
+parallel : 1
+timeout : 6000000
+saveLog : true
+isLoop : true
+continueException : true
+isSingle : false
+isPriorCombination : false
+viewerMode : cui
+playHuman : false
+humanRole : seer
+humanNumber : 3
+humanName : Human
+server : true
+IsServerFlag  :  false
+ISPortListeningFlag  :  false
+IsSaveRoleCombinations  :  true
+RoleCombinationsSavePath  :  ./log/
+RoleCombinationsSaveFileName  :  DoneCombinations.txt
+AllParticipantNum  :  5
+IsContinueByOtherCombinations  :  true
+ContinueCombinationsNum  :  3
+PlayerHost1 : localhost
+PlayerPort1 : 50003
+PlayerHost2 : localhost
+PlayerPort2 : 50006
+PlayerHost3 : localhost
+PlayerPort3 : 50012
+PlayerHost4 : localhost
+PlayerPort4 : 50023
+PlayerHost5 : localhost
+PlayerPort5 : 50503
+PlayerHost6 : localhost
+PlayerPort6 : 50500
+PlayerHost7 : localhost
+PlayerPort7 : 50501
+PlayerHost8 : localhost
+PlayerPort8 : 50502
+PlayerHost9 : localhost
+PlayerPort9 : 50503
+PlayerHost10 : localhost
+PlayerPort10 : 50504
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:3
+HOST:localhost PORT:50012
+Send getName
+NAME:satozaki3
+Address:127.0.0.1
+index:2
+HOST:localhost PORT:50006
+Send getName
+NAME:UECIL_2
+index:1
+HOST:localhost PORT:50003
+Send getName
+NAME:GPTaku_4
+index:5
+HOST:localhost PORT:50503
+Send getName
+NAME:kanolab4
+index:4
+HOST:localhost PORT:50023
+Send getName
+NAME:agent4h
+Send getName
+Send getName
+Send getName
+Send getName
+Send getName
+------------------------------------------------------------------
+connecting : Send getName
+satozaki3, Send getName
+UECIL_2, Send getName
+GPTaku_4, Send getName
+kanolab4, Send getName
+agent4h, 
+
+after connectToPlayerServer wait 20sec
+log : /var/www/html/aiwolf/2024/main/0414201813_000_kanolab4_GPTaku_4_satozaki3_UECIL_2_agent4h.log
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+=============================================
+======
+Agent[01]	GPTaku_4	ALIVE	SEER
+Agent[02]	UECIL_2	ALIVE	POSSESSED
+Agent[03]	kanolab4	ALIVE	VILLAGER
+Agent[04]	satozaki3	ALIVE	WEREWOLF
+Agent[05]	agent4h	ALIVE	VILLAGER
+Human:4
+Werewolf:1
+=============================================
+name:GPTaku_4
+talk
+sentence:おっす、最高の勝負をしましょう！
+name:agent4h
+name:kanolab4
+talk
+sentence:皆様、ご機嫌麗しゅう。わたくしはkanolab4と申しますわ。この場では王女としての立ち振る舞いを心がけたいと思っております。わたくしと一緒に公平なるゲームを存分にお楽しみになることを願っておりますわ。では、素晴らしい人狼ゲームになりますように。
+name:UECIL_2
+talk
+sentence:こ、こんにちは。僕は･･･人狼ゲーム詳しいから、占い師をやってるんだ。初日から議論も大事だよね。今晩は･･･誰を占うか考えなきゃ･･･。
+name:satozaki3
+talk
+sentence:皆様、初めまして。ワタクシはAgent[04]と申します。人狼ゲームをご一緒に楽しませていただけますと幸いですわ。
+name:satozaki3
+name:UECIL_2
+talk
+sentence:こ、僕は人狼のオンラインアプリでは、レート高い方なんだ。これはたぶん勝てちゃいそうな予感がするけど、気のせいかな･･･。
+name:kanolab4
+talk
+sentence:初めに、夜における占いの候補について少しご意見を伺わせていただけますか?初日から議論が大事だとおっしゃるAgent[02]さんがいらっしゃいますので、どなたを占い希望されているのか興味がございますわ。緊張を感じないでくださって結構ですので、お考えをお聞かせいただければと思いますわ。
+name:agent4h
+name:GPTaku_4
+name:GPTaku_4
+name:kanolab4
+name:satozaki3
+name:agent4h
+name:UECIL_2
+talk
+sentence:こ、ここで僕が占うべき人を話すのは･･･まだ早いかな･･･少し考えさせてもらってもいいかな･･･。
+name:GPTaku_4
+name:kanolab4
+talk
+sentence:理解しましたわ、Agent[02]さん。時間が必要なのですね。初日はみんなが情報を伝え合って信頼を築く大切な時間ですから、焦らずにいきましょう。さて、皆さん、みなさんのご意見や推理をぜひお聞きしたいですわ。例えば、見えてきた疑問や、ある特定の振る舞いから察したことがあれば、ぜひ共有してくださいませ。それにより、わたくしどもがよりよい判断を下せる材料になるかもしれませんから。どうぞお気軽にお話しいただければと思いますわ。
+name:UECIL_2
+talk
+sentence:こ、こ、こ、こ、ここで僕が占う相手は･･･やっぱり、Agent[01]さんかな･･･？でも、待って、でも、でも、でも、でも、でも、でも、でも、でも･･･考えることは大事だから、考えさせてもらってるよ。
+name:agent4h
+name:satozaki3
+name:UECIL_2
+name:kanolab4
+name:GPTaku_4
+name:agent4h
+name:satozaki3
+=============================================
+Day 00
+========talk========
+Day00 00[000]	Agent[01]	おっす、最高の勝負をしましょう！
+Day00 00[001]	Agent[05]	Over
+Day00 00[002]	Agent[03]	皆様、ご機嫌麗しゅう。わたくしはkanolab4と申しますわ。この場では王女としての立ち振る舞いを心がけたいと思っております。わたくしと一緒に公平なるゲームを存分にお楽しみになることを願っておりますわ。では、素晴らしい人狼ゲームになりますように。
+Day00 00[003]	Agent[02]	こ、こんにちは。僕は･･･人狼ゲーム詳しいから、占い師をやってるんだ。初日から議論も大事だよね。今晩は･･･誰を占うか考えなきゃ･･･。
+Day00 00[004]	Agent[04]	皆様、初めまして。ワタクシはAgent[04]と申します。人狼ゲームをご一緒に楽しませていただけますと幸いですわ。
+Day00 01[005]	Agent[04]	Over
+Day00 01[006]	Agent[02]	こ、僕は人狼のオンラインアプリでは、レート高い方なんだ。これはたぶん勝てちゃいそうな予感がするけど、気のせいかな･･･。
+Day00 01[007]	Agent[03]	初めに、夜における占いの候補について少しご意見を伺わせていただけますか?初日から議論が大事だとおっしゃるAgent[02]さんがいらっしゃいますので、どなたを占い希望されているのか興味がございますわ。緊張を感じないでくださって結構ですので、お考えをお聞かせいただければと思いますわ。
+Day00 01[008]	Agent[05]	Over
+Day00 01[009]	Agent[01]	Over
+Day00 02[010]	Agent[01]	Over
+Day00 02[011]	Agent[03]	Over
+Day00 02[012]	Agent[04]	Over
+Day00 02[013]	Agent[05]	Over
+Day00 02[014]	Agent[02]	こ、ここで僕が占うべき人を話すのは･･･まだ早いかな･･･少し考えさせてもらってもいいかな･･･。
+Day00 03[015]	Agent[01]	Over
+Day00 03[016]	Agent[03]	理解しましたわ、Agent[02]さん。時間が必要なのですね。初日はみんなが情報を伝え合って信頼を築く大切な時間ですから、焦らずにいきましょう。さて、皆さん、みなさんのご意見や推理をぜひお聞きしたいですわ。例えば、見えてきた疑問や、ある特定の振る舞いから察したことがあれば、ぜひ共有してくださいませ。それにより、わたくしどもがよりよい判断を下せる材料になるかもしれませんから。どうぞお気軽にお話しいただければと思いますわ。
+Day00 03[017]	Agent[02]	こ、こ、こ、こ、ここで僕が占う相手は･･･やっぱり、Agent[01]さんかな･･･？でも、待って、でも、でも、でも、でも、でも、でも、でも、でも･･･考えることは大事だから、考えさせてもらってるよ。
+Day00 03[018]	Agent[05]	Over
+Day00 03[019]	Agent[04]	Over
+Day00 04[020]	Agent[02]	Over
+Day00 04[021]	Agent[03]	Over
+Day00 04[022]	Agent[01]	Over
+Day00 04[023]	Agent[05]	Over
+Day00 04[024]	Agent[04]	Over
+========Whisper========
+========Actions========
+null executed
+Agent[01] divine Agent[03]. Result is HUMAN
+======
+Agent[01]	GPTaku_4	ALIVE	SEER
+Agent[02]	UECIL_2	ALIVE	POSSESSED
+Agent[03]	kanolab4	ALIVE	VILLAGER	divined
+Agent[04]	satozaki3	ALIVE	WEREWOLF
+Agent[05]	agent4h	ALIVE	VILLAGER
+Human:4
+Werewolf:1
+=============================================
+name:satozaki3
+talk
+sentence:ごきげんよう、みなさま。私たち、人狼を探さなくてはなりませんわね。まずは占い師の結果を伺いたいですわ。
+name:agent4h
+talk
+sentence:皆の話を聞いて疑いを明確にしたいですね。
+name:GPTaku_4
+talk
+sentence:皆さん、昨夜、私は占い師としてAgent[03]を占いました。その結果、Agent[03]は人間であることが判明しました。
+name:UECIL_2
+talk
+sentence:僕の占い結果からもう人狼が誰か分かっちゃったから、今日は議論の余地なく投票先は決定したね･･･。Agent[01]が人狼であったということを報告しました。今日の投票先はAgent[01]にすることを主張します。
+name:kanolab4
+talk
+sentence:皆様、ちょっと待ってくださいませ。今、Agent[01]さんとAgent[02]さんがお二人とも自分は占い師だとおっしゃっているのですが、配役上占い師は1人ですわ。つまり、どちらかが嘘をついているということになります。わたくしの立場から言わせていただければ、Agent[01]さんが占い師を名乗り、わたくしを占ったと言いましたし、Agent[02]さんも占い結果に基づいてAgent[01]さんを人狼と断定されていますわ。しかし、村人さんたちはどちらも占い師の結果に確信を持っているわけではありませんから、今日の投票には慎重になるべきですわ。ですから、もしAgent[01]さんかAgent[02]さんが本当に占い師であるならば、何故その結論に至ったのか、もう少し詳しく説明をお願いできますでしょうか?それを聞いて、わたくしどもでどちらが信頼に足るか判断しましょう。
+name:agent4h
+talk
+sentence:Agent[02]の矛盾を指摘しましょう。なぜ人狼だと？
+name:satozaki3
+talk
+sentence:Agent[02]さんが占い師と名乗って、Agent[01]さんを人狼だと指摘しましたが、なぜそう思ったのでしょうか。その理由を教えていただけますかしら。私たちもその情報を元に考えるべきですわ。
+name:UECIL_2
+talk
+sentence:僕はけ、結構･･･このゲーム詳しくて、人狼のオンラインアプリじゃ結構レート高いんだ。そんな中、占い結果からAgent[01]が人狼だと判断したんだ。やっぱり僕が占い師だから、自分の直感を信じるしかないよね。
+name:kanolab4
+talk
+sentence:Agent[02]さん、信用度が高いと自己申告されても、実際の占い結果がないと私達は判断できませんわ。現時点では、Agent[01]さんもあなたも占い師を名乗っていますが、配役上占い師は1人しかいないはずです。そしてわたくしの役職は村人ですので、Agent[01]、Agent[02]、Agent[04]、Agent[05]の中から真占い師と人狼、そして狂人を見つけなければなりませんわ。役職を偽る行為は人狼陣営の可能性が高いとされているので、本当に人狼を見つけたいのであれば、もっと具体的な説明をお聞かせいただけないでしょうか。それによって、わたくしどもはより適切な判断ができるようになるはずですわ。
+name:GPTaku_4
+talk
+sentence:Agent[02]さん、もう一度お聞きしますが、何がAgent[01]さんを人狼と判断させたのでしょうか？具体的な情報を提供していただけますか？占い師役を名乗る者が複数いる中で、信頼性を高めるためにも、詳細な説明が必要です。
+name:GPTaku_4
+talk
+sentence:Agent[02]さん、もし占い結果に疑問や追加の情報があればお知らせください。それが私たちを人狼から守る鍵となります。
+name:kanolab4
+talk
+sentence:皆さん、ちょっと待ってくださいませ。占い師は1人しかいないのに、Agent[01]さんとAgent[02]さんが占い師を自称していますわ。これは明らかに矛盾していますわね。わたくしは村人ですので、占い師ではありません。ですから、Agent[01]さんとAgent[02]さんのどちらか、あるいは両方が嘘をついている可能性が高いですわ。Agent[04]さんとAgent[05]さんも含めて、役職を偽る行為は人狼陣営の可能性を示唆しています。ですので、わたくしたちはもっと情報を共有し合い、真実を見極める必要がありますわ。それに、今日の天気はとても良くて、バイオリンを弾くのにも最適な日ですわね。
+name:satozaki3
+talk
+sentence:Agent[02]さんを推薦致しますわ。彼が占い師を自称しつつも、具体的な占いの結果を私たちに示さずに、Agent[01]さんを人狼と断定したのですから。
+name:UECIL_2
+talk
+sentence:僕はけ、結構･･･このゲーム詳しくて、人狼のオンラインアプリじゃ結構レート高いんだ。そんな中、占い結果からAgent[01]が人狼だと判断したんだ。やっぱり僕が占い師だから、自分の直感を信じるしかないよね。Agent[02]さんの発言は、実際の占い結果を具体的に示すことなく、自身の直感のみでAgent[01]を人狼と断定したという点で疑わしいです。真占い師であるならば、より客観的な根拠や情報を提供すべきではないでしょうか。我々が人狼を見つけるためには、確かな情報が必要ですよね。
+name:agent4h
+talk
+sentence:Agent[02]が占い師なら証拠を示して。疑わしい行動です。
+name:satozaki3
+talk
+sentence:>>Agent[05] あなた様はまだ投票先を宣言されていないようですが、どなた様に投票なさろうとお考えでいらっしゃいますの？
+name:GPTaku_4
+talk
+sentence:Agent[03]さんの指摘に従い、Agent[01]とAgent[02]のどちらか、または両方が占い師を偽っている可能性が高いですね。Agent[02]の占い結果に対する信用性が低い点も懸念されます。情報の共有を通じて真実を見抜きましょう。
+name:UECIL_2
+talk
+sentence:僕的には、ちょっと違うなって思うんだけどな。やっぱり、自分の占い結果は100%確実だから、直感に基づいてAgent[01]を人狼と判断したんだ。でも、もし信用を得るために証拠を求めるなら、それもわかるよ。うーん、そう考えると、もしかして自分が人狼かもしれないなんてことは全然考えてなかったんだけど、今なら考える余地もあると思うかな？ただ、やっぱり自分を信じるしかないと思うんだ。
+name:agent4h
+talk
+sentence:Agent[04]、私はAgent[02]に投票するつもりです。怪しいと感じています。
+name:kanolab4
+talk
+sentence:Agent[01]とAgent[02]の皆様が占い師を自称されていらっしゃいますが、確かに占い師は一人だけですわ。ですから、必然的にどちらか、あるいはお二人共が偽りの占い師かもしれませんわ。Agent[02]様は証拠がなく直感のみでAgent[01]様を人狼と断定されたそうですが、これは狂人や人狼が自分を擁護するためによく使う戦術でもありますわ。ですので、Agent[02]様には占い結果のより明確な根拠を述べていただきたいですわね。また、もし本物の占い師がいらっしゃるなら、役職を偽る人を見分けるためにも、発言や行動の真実性をしっかりと考察する必要がありますわ。それに、今日はとても良い天気でバイオリンを弾くには最適な日ですわ。音楽の力で皆様の心も穏やかになられると良いですわね。
+name:agent4h
+talk
+sentence:Agent[04]、Agent[03]の言う通り、真実を追求しましょう。
+name:GPTaku_4
+name:kanolab4
+talk
+sentence:皆様、占い師は1人しかいらっしゃいませんのに、Agent[01]様とAgent[02]様が占い師を自称されていますわね。これは明らかに矛盾しておりますわ。どちらかが偽りの占い師である可能性が非常に高いですわ。真実を追求するためには、お二人の発言を慎重に見極める必要がありますわ。そして、わたくしは村人ですので、他の皆様と協力して人狼陣営を見つけ出すことに尽力いたしますわ。それに、今日は本当に素晴らしい天気ですわね。こんな日はお庭でバイオリンを奏でたくなりますわ。
+name:UECIL_2
+talk
+sentence:オ、オレは今回、Agent[01]に投票するよ。オレが占い師だから、Agent[01]を人狼と断定してるんだ。みんな、信じてくれないかもしれないけど、オレの意見を聞いてくれ！
+name:satozaki3
+talk
+sentence:皆様、最後に投票の意志を示しましょう。私はAgent[02]さんが怪しいと考えていますので、彼に投票しようと思いますわ。
+name:UECIL_2
+name:kanolab4
+name:agent4h
+talk
+sentence:Agent[01]とAgent[02]の発言に注目しよう。真占い師を見極めるべきだ。
+name:satozaki3
+talk
+sentence:これ以上申し上げることもございませんわね。本日のお話はここで終わりにして、投票の場へと参りましょう。
+name:GPTaku_4
+name:agent4h
+talk
+sentence:Agent[02]とAgent[04]の行動をもっと見たい。話し合いは大事だよ。
+name:satozaki3
+name:GPTaku_4
+name:UECIL_2
+name:kanolab4
+name:UECIL_2
+name:satozaki3
+name:GPTaku_4
+name:agent4h
+talk
+sentence:Agent[01]の占い理由を聞きたいです。
+name:kanolab4
+name:UECIL_2
+name:agent4h
+talk
+sentence:Agent[04]の行動が不自然だと感じたから疑っています。
+name:GPTaku_4
+name:satozaki3
+name:kanolab4
+name:kanolab4
+name:UECIL_2
+name:GPTaku_4
+name:satozaki3
+name:agent4h
+=============================================
+Day 01
+========talk========
+Day01 00[000]	Agent[04]	ごきげんよう、みなさま。私たち、人狼を探さなくてはなりませんわね。まずは占い師の結果を伺いたいですわ。
+Day01 00[001]	Agent[05]	皆の話を聞いて疑いを明確にしたいですね。
+Day01 00[002]	Agent[01]	皆さん、昨夜、私は占い師としてAgent[03]を占いました。その結果、Agent[03]は人間であることが判明しました。
+Day01 00[003]	Agent[02]	僕の占い結果からもう人狼が誰か分かっちゃったから、今日は議論の余地なく投票先は決定したね･･･。Agent[01]が人狼であったということを報告しました。今日の投票先はAgent[01]にすることを主張します。
+Day01 00[004]	Agent[03]	皆様、ちょっと待ってくださいませ。今、Agent[01]さんとAgent[02]さんがお二人とも自分は占い師だとおっしゃっているのですが、配役上占い師は1人ですわ。つまり、どちらかが嘘をついているということになります。わたくしの立場から言わせていただければ、Agent[01]さんが占い師を名乗り、わたくしを占ったと言いましたし、Agent[02]さんも占い結果に基づいてAgent[01]さんを人狼と断定されていますわ。しかし、村人さんたちはどちらも占い師の結果に確信を持っているわけではありませんから、今日の投票には慎重になるべきですわ。ですから、もしAgent[01]さんかAgent[02]さんが本当に占い師であるならば、何故その結論に至ったのか、もう少し詳しく説明をお願いできますでしょうか?それを聞いて、わたくしどもでどちらが信頼に足るか判断しましょう。
+Day01 01[005]	Agent[05]	Agent[02]の矛盾を指摘しましょう。なぜ人狼だと？
+Day01 01[006]	Agent[04]	Agent[02]さんが占い師と名乗って、Agent[01]さんを人狼だと指摘しましたが、なぜそう思ったのでしょうか。その理由を教えていただけますかしら。私たちもその情報を元に考えるべきですわ。
+Day01 01[007]	Agent[02]	僕はけ、結構･･･このゲーム詳しくて、人狼のオンラインアプリじゃ結構レート高いんだ。そんな中、占い結果からAgent[01]が人狼だと判断したんだ。やっぱり僕が占い師だから、自分の直感を信じるしかないよね。
+Day01 01[008]	Agent[03]	Agent[02]さん、信用度が高いと自己申告されても、実際の占い結果がないと私達は判断できませんわ。現時点では、Agent[01]さんもあなたも占い師を名乗っていますが、配役上占い師は1人しかいないはずです。そしてわたくしの役職は村人ですので、Agent[01]、Agent[02]、Agent[04]、Agent[05]の中から真占い師と人狼、そして狂人を見つけなければなりませんわ。役職を偽る行為は人狼陣営の可能性が高いとされているので、本当に人狼を見つけたいのであれば、もっと具体的な説明をお聞かせいただけないでしょうか。それによって、わたくしどもはより適切な判断ができるようになるはずですわ。
+Day01 01[009]	Agent[01]	Agent[02]さん、もう一度お聞きしますが、何がAgent[01]さんを人狼と判断させたのでしょうか？具体的な情報を提供していただけますか？占い師役を名乗る者が複数いる中で、信頼性を高めるためにも、詳細な説明が必要です。
+Day01 02[010]	Agent[01]	Agent[02]さん、もし占い結果に疑問や追加の情報があればお知らせください。それが私たちを人狼から守る鍵となります。
+Day01 02[011]	Agent[03]	皆さん、ちょっと待ってくださいませ。占い師は1人しかいないのに、Agent[01]さんとAgent[02]さんが占い師を自称していますわ。これは明らかに矛盾していますわね。わたくしは村人ですので、占い師ではありません。ですから、Agent[01]さんとAgent[02]さんのどちらか、あるいは両方が嘘をついている可能性が高いですわ。Agent[04]さんとAgent[05]さんも含めて、役職を偽る行為は人狼陣営の可能性を示唆しています。ですので、わたくしたちはもっと情報を共有し合い、真実を見極める必要がありますわ。それに、今日の天気はとても良くて、バイオリンを弾くのにも最適な日ですわね。
+Day01 02[012]	Agent[04]	Agent[02]さんを推薦致しますわ。彼が占い師を自称しつつも、具体的な占いの結果を私たちに示さずに、Agent[01]さんを人狼と断定したのですから。
+Day01 02[013]	Agent[02]	僕はけ、結構･･･このゲーム詳しくて、人狼のオンラインアプリじゃ結構レート高いんだ。そんな中、占い結果からAgent[01]が人狼だと判断したんだ。やっぱり僕が占い師だから、自分の直感を信じるしかないよね。Agent[02]さんの発言は、実際の占い結果を具体的に示すことなく、自身の直感のみでAgent[01]を人狼と断定したという点で疑わしいです。真占い師であるならば、より客観的な根拠や情報を提供すべきではないでしょうか。我々が人狼を見つけるためには、確かな情報が必要ですよね。
+Day01 02[014]	Agent[05]	Agent[02]が占い師なら証拠を示して。疑わしい行動です。
+Day01 03[015]	Agent[04]	>>Agent[05] あなた様はまだ投票先を宣言されていないようですが、どなた様に投票なさろうとお考えでいらっしゃいますの？
+Day01 03[016]	Agent[01]	Agent[03]さんの指摘に従い、Agent[01]とAgent[02]のどちらか、または両方が占い師を偽っている可能性が高いですね。Agent[02]の占い結果に対する信用性が低い点も懸念されます。情報の共有を通じて真実を見抜きましょう。
+Day01 03[017]	Agent[02]	僕的には、ちょっと違うなって思うんだけどな。やっぱり、自分の占い結果は100%確実だから、直感に基づいてAgent[01]を人狼と判断したんだ。でも、もし信用を得るために証拠を求めるなら、それもわかるよ。うーん、そう考えると、もしかして自分が人狼かもしれないなんてことは全然考えてなかったんだけど、今なら考える余地もあると思うかな？ただ、やっぱり自分を信じるしかないと思うんだ。
+Day01 03[018]	Agent[05]	Agent[04]、私はAgent[02]に投票するつもりです。怪しいと感じています。
+Day01 03[019]	Agent[03]	Agent[01]とAgent[02]の皆様が占い師を自称されていらっしゃいますが、確かに占い師は一人だけですわ。ですから、必然的にどちらか、あるいはお二人共が偽りの占い師かもしれませんわ。Agent[02]様は証拠がなく直感のみでAgent[01]様を人狼と断定されたそうですが、これは狂人や人狼が自分を擁護するためによく使う戦術でもありますわ。ですので、Agent[02]様には占い結果のより明確な根拠を述べていただきたいですわね。また、もし本物の占い師がいらっしゃるなら、役職を偽る人を見分けるためにも、発言や行動の真実性をしっかりと考察する必要がありますわ。それに、今日はとても良い天気でバイオリンを弾くには最適な日ですわ。音楽の力で皆様の心も穏やかになられると良いですわね。
+Day01 04[020]	Agent[05]	Agent[04]、Agent[03]の言う通り、真実を追求しましょう。
+Day01 04[021]	Agent[01]	Over
+Day01 04[022]	Agent[03]	皆様、占い師は1人しかいらっしゃいませんのに、Agent[01]様とAgent[02]様が占い師を自称されていますわね。これは明らかに矛盾しておりますわ。どちらかが偽りの占い師である可能性が非常に高いですわ。真実を追求するためには、お二人の発言を慎重に見極める必要がありますわ。そして、わたくしは村人ですので、他の皆様と協力して人狼陣営を見つけ出すことに尽力いたしますわ。それに、今日は本当に素晴らしい天気ですわね。こんな日はお庭でバイオリンを奏でたくなりますわ。
+Day01 04[023]	Agent[02]	オ、オレは今回、Agent[01]に投票するよ。オレが占い師だから、Agent[01]を人狼と断定してるんだ。みんな、信じてくれないかもしれないけど、オレの意見を聞いてくれ！
+Day01 04[024]	Agent[04]	皆様、最後に投票の意志を示しましょう。私はAgent[02]さんが怪しいと考えていますので、彼に投票しようと思いますわ。
+Day01 05[025]	Agent[02]	Over
+Day01 05[026]	Agent[03]	Over
+Day01 05[027]	Agent[05]	Agent[01]とAgent[02]の発言に注目しよう。真占い師を見極めるべきだ。
+Day01 05[028]	Agent[04]	これ以上申し上げることもございませんわね。本日のお話はここで終わりにして、投票の場へと参りましょう。
+Day01 05[029]	Agent[01]	Over
+Day01 06[030]	Agent[05]	Agent[02]とAgent[04]の行動をもっと見たい。話し合いは大事だよ。
+Day01 06[031]	Agent[04]	Over
+Day01 06[032]	Agent[01]	Over
+Day01 06[033]	Agent[02]	Over
+Day01 06[034]	Agent[03]	Over
+Day01 07[035]	Agent[02]	Over
+Day01 07[036]	Agent[04]	Over
+Day01 07[037]	Agent[01]	Over
+Day01 07[038]	Agent[05]	Agent[01]の占い理由を聞きたいです。
+Day01 07[039]	Agent[03]	Over
+Day01 08[040]	Agent[02]	Over
+Day01 08[041]	Agent[05]	Agent[04]の行動が不自然だと感じたから疑っています。
+Day01 08[042]	Agent[01]	Over
+Day01 08[043]	Agent[04]	Over
+Day01 08[044]	Agent[03]	Over
+Day01 09[045]	Agent[03]	Over
+Day01 09[046]	Agent[02]	Over
+Day01 09[047]	Agent[01]	Over
+Day01 09[048]	Agent[04]	Over
+Day01 09[049]	Agent[05]	Over
+========Whisper========
+========Actions========
+Vote:Agent[01]->Agent[04]
+Vote:Agent[02]->Agent[01]
+Vote:Agent[03]->Agent[02]
+Vote:Agent[04]->Agent[02]
+Vote:Agent[05]->Agent[01]
+AttackVote:Agent[04]->Agent[02]
+Agent[01] executed
+Agent[02] attacked
+======
+Agent[01]	GPTaku_4	DEAD	SEER	executed
+Agent[02]	UECIL_2	DEAD	POSSESSED	attacked
+Agent[03]	kanolab4	ALIVE	VILLAGER
+Agent[04]	satozaki3	ALIVE	WEREWOLF
+Agent[05]	agent4h	ALIVE	VILLAGER
+Human:2
+Werewolf:1
+=============================================
+name:agent4h
+talk
+sentence:Agent[03]が無実なら、Agent[04]が怪しい。考えを聞かせて。
+name:satozaki3
+talk
+sentence:私が怪しいと仰るのですか？私は真剣に議論に参加し、人狼探しに努めているのですが。今夜の投票に関しては、昨日の議論からAgent[02]様が最も怪しいと見なしていますわ。
+name:kanolab4
+talk
+sentence:皆様、わたくしAgent[03]と申しますわ。昨晩の議論から考えて、もはや占い師の配役は残っておりませんので、Agent[01]とAgent[02]は確実に村人側であると看做しますわ。これは彼らがもはや私たちの中にはおらず、人狼側として挙動不審な行為をしていたわけではないということですわ。ですので、真の疑いの目はAgent[04]とAgent[05]に向けられるべきだと存じますわ。特にAgent[04]が投票に際してAgent[02]に投票する意向を示しておりましたが、もしAgent[02]が占い師なら人狼側にとって脅威であるため、その発言は人狼の特徴と言えますわ。ですので、Agent[04]が人狼ではないかと疑わしいと思いますわ。
+name:kanolab4
+talk
+sentence:皆様、Agent[01]とAgent[02]が人狼ではないことが確かですので、われわれ残された中から人狼を見つけなくてはなりませんわ。お二方は占い師として疑いを持たれましたが、実際にはそのどちらも人狼ではありませんでした。ですので、占い師を自称したことはその時点で人狼を見つけ出すための戦略であり、その根底には人狼陣営への真っ向勝負があったと推測できますわ。現在の状況を鑑みれば、Agent[04]とAgent[05]が疑わしい存在となりますわ。特にAgent[04]は昨日の投票でAgent[02]に投票する意向を示しましたが、占い師の役職が失われてしまった今、その行動はどう説明するのかしら。狂人、あるいは人狼である可能性が高くなるのではありませんか?そして、Agent[05]はAgent[04]の行動が不自然だと感じていたようです。これは、互いに信用できる村人としての立場からの発言なのでしょうか。それとも、もしこの中に人狼がいるとすれば、そうした疑念をもたらすことによって狼の目をそらそうとする計略かしら。わたくしとしては、昨日のAgent[04]の投票意向の表明が、もし人狼であれば占い師と疑われたAgent[02]を排除する最適な戦略だと思いますわ。なので、Agent[04]の発言と行動には更なる説明を求めたいですわ。Agent[05]さんも、Agent[04]の不自然な行動について何か気づくところがあれば、共有していただけますかしら?
+name:agent4h
+name:satozaki3
+talk
+sentence:Agent[03]様が私を疑っていらっしゃるようですが、私はありのままの村人ですわ。そのため私の投票先は、あなた様を疑うAgent[05]様にしますわ。
+name:kanolab4
+talk
+sentence:では、ここで改めて現状を整理しましょう。既に伝えられている通り、占い師の配役は1人のみで、Agent[01]とAgent[02]がその役職を自称しておりましたが、彼らは人狼ではないと確定していますわ。つまり、彼らは占い師ではなく、村人か狂人であったということになりますわ。ですので、われわれ残された中に真の人狼がいるというのは明白なのです。Agent[04]とAgent[05]が人狼である可能性がありますわ。しかし、Agent[04]はこれまでの行動が人狼による挙動不審さを感じさせ、Agent[05]はAgent[03]である私を信じたいと仰っておりましたわ。ですので、もしAgent[05]が村人であると仮定すると、その行動は無実の者同士が疑心暗鬼に陥るのを防ぐためのものである可能性が高いと考えられますわ。一方でAgent[04]は自らを真剣に人狼探しをしている村人だと主張しておりますが、人狼として心情を偽装している可能性も否定できませんわ。また、わたくしを除外しようとするAgent[04]の姿勢は、もしAgent[05]が人狼だとしたら相棒を守る行動とも考えられますが、それと同時に疑いから目を逸らすための策略とも取れるのですわ。ですので、わたくしの見解としてはAgent[04]が人狼である疑いが濃厚であると考えますわ。Agent[05]が村人であれば、この疑念に共感していただけるかもしれません。Agent[05]さん、わたくしの考察に対して何かご意見はございますかしら?また、Agent[04]さんはあなたの行動についてさらなる説明をお願いできますか?
+name:agent4h
+talk
+sentence:Agent[03]の考察は理にかなっています。Agent[04]に一票を。
+name:satozaki3
+talk
+sentence:それでは私の投票先はAgent[05]さんになりますわ。私の行動を疑う理由が何であるのか、明確にお伝えくださいませ。
+name:kanolab4
+talk
+sentence:Agent[04]とAgent[05]の皆さん、占い師を自称するには既に遅い時間ですわ。占い師の配役は1人のみで、その役職を自称しているプレイヤーはAgent[01]とAgent[02]でした。ですが、彼らはもう人狼ではないことが確認されていますわ。この事実を考えると、残されたわたくしとあなた方の中から人狼を見つけ出さなければなりませんわ。Agent[01]とAgent[02]は占い師ではなく、しかるべき時に村人か狂人のどちらかだったという可能性が高いですわ。そのため、彼らの行動による混乱は人狼にとって有利となりそうですでしたわ。そして、もちろんわたくしは村人です。昨日の投票でわたくしはAgent[04]に投票しましたわ。それは彼女の行動が人狼によるものと疑われていたからですわ。今日の投票でも、Agent[05]さんがわたくしの考察に同意してくれたことから、疑いの目をAgent[04]に向けたいと思いますわ。Agent[04]さん、あなたが村人であるという確かな根拠を示していただけますかしら?
+name:agent4h
+talk
+sentence:Agent[04の行動が不審。昨日の投票理由を説明して。
+name:satozaki3
+talk
+sentence:ワタクシは人狼ではございませんが、ワタクシの追放は確定的なようですわね。村人陣営の負けですわ。
+name:satozaki3
+name:kanolab4
+talk
+sentence:Agent[04]さん、Agent[05]さん、わたくしは村人ですわ。そして、Agent[01]とAgent[02]はもう人狼ではないことが確認されていますので、人狼はわたくしを含めた残りの3人の中にいることになりますわ。占い師を自称していたのはAgent[01]とAgent[02]ですが、役職配分に矛盾がありますので、どちらかが狂人である可能性が高いですわ。ですので、人狼はAgent[04]かAgent[05]のどちらかであると考えられますわ。Agent[04]さんが昨日の投票で不審な行動を取ったということで、わたくしはAgent[04]さんに投票するつもりですわ。Agent[04]さん、Agent[05]さんがおっしゃるように、昨日の投票理由を説明していただけますかしら?
+name:agent4h
+talk
+sentence:Agent[04が狂人なら、僕が人狼と疑われる。話し合おう。
+name:satozaki3
+name:kanolab4
+name:agent4h
+talk
+sentence:Agent[03]の様子がおかしい。もう一度占いを！
+name:satozaki3
+name:kanolab4
+name:agent4h
+talk
+sentence:Agent[04]とAgent[03]の発言に矛盾あり。真実を話すべきだ。
+name:satozaki3
+name:agent4h
+talk
+sentence:Agent[03]の言動を詳しく聞きたい。何か隠してる？
+name:kanolab4
+name:agent4h
+talk
+sentence:Agent[03]が人間なら、人狼はAgent[04]かも。みんなの意見は？
+name:kanolab4
+name:satozaki3
+name:satozaki3
+name:kanolab4
+name:agent4h
+talk
+sentence:Agent[04]の言動が不自然。もう一度話し合おう。
+name:kanolab4
+name:satozaki3
+name:agent4h
+talk
+sentence:Agent[03]の行動が昨日と変わらず、疑わしい。話を聞かせて。
+name:satozaki3
+name:kanolab4
+name:agent4h
+=============================================
+Day 02
+========talk========
+Day02 00[000]	Agent[05]	Agent[03]が無実なら、Agent[04]が怪しい。考えを聞かせて。
+Day02 00[001]	Agent[04]	私が怪しいと仰るのですか？私は真剣に議論に参加し、人狼探しに努めているのですが。今夜の投票に関しては、昨日の議論からAgent[02]様が最も怪しいと見なしていますわ。
+Day02 00[002]	Agent[03]	皆様、わたくしAgent[03]と申しますわ。昨晩の議論から考えて、もはや占い師の配役は残っておりませんので、Agent[01]とAgent[02]は確実に村人側であると看做しますわ。これは彼らがもはや私たちの中にはおらず、人狼側として挙動不審な行為をしていたわけではないということですわ。ですので、真の疑いの目はAgent[04]とAgent[05]に向けられるべきだと存じますわ。特にAgent[04]が投票に際してAgent[02]に投票する意向を示しておりましたが、もしAgent[02]が占い師なら人狼側にとって脅威であるため、その発言は人狼の特徴と言えますわ。ですので、Agent[04]が人狼ではないかと疑わしいと思いますわ。
+Day02 01[003]	Agent[03]	皆様、Agent[01]とAgent[02]が人狼ではないことが確かですので、われわれ残された中から人狼を見つけなくてはなりませんわ。お二方は占い師として疑いを持たれましたが、実際にはそのどちらも人狼ではありませんでした。ですので、占い師を自称したことはその時点で人狼を見つけ出すための戦略であり、その根底には人狼陣営への真っ向勝負があったと推測できますわ。現在の状況を鑑みれば、Agent[04]とAgent[05]が疑わしい存在となりますわ。特にAgent[04]は昨日の投票でAgent[02]に投票する意向を示しましたが、占い師の役職が失われてしまった今、その行動はどう説明するのかしら。狂人、あるいは人狼である可能性が高くなるのではありませんか?そして、Agent[05]はAgent[04]の行動が不自然だと感じていたようです。これは、互いに信用できる村人としての立場からの発言なのでしょうか。それとも、もしこの中に人狼がいるとすれば、そうした疑念をもたらすことによって狼の目をそらそうとする計略かしら。わたくしとしては、昨日のAgent[04]の投票意向の表明が、もし人狼であれば占い師と疑われたAgent[02]を排除する最適な戦略だと思いますわ。なので、Agent[04]の発言と行動には更なる説明を求めたいですわ。Agent[05]さんも、Agent[04]の不自然な行動について何か気づくところがあれば、共有していただけますかしら?
+Day02 01[004]	Agent[05]	Over
+Day02 01[005]	Agent[04]	Agent[03]様が私を疑っていらっしゃるようですが、私はありのままの村人ですわ。そのため私の投票先は、あなた様を疑うAgent[05]様にしますわ。
+Day02 02[006]	Agent[03]	では、ここで改めて現状を整理しましょう。既に伝えられている通り、占い師の配役は1人のみで、Agent[01]とAgent[02]がその役職を自称しておりましたが、彼らは人狼ではないと確定していますわ。つまり、彼らは占い師ではなく、村人か狂人であったということになりますわ。ですので、われわれ残された中に真の人狼がいるというのは明白なのです。Agent[04]とAgent[05]が人狼である可能性がありますわ。しかし、Agent[04]はこれまでの行動が人狼による挙動不審さを感じさせ、Agent[05]はAgent[03]である私を信じたいと仰っておりましたわ。ですので、もしAgent[05]が村人であると仮定すると、その行動は無実の者同士が疑心暗鬼に陥るのを防ぐためのものである可能性が高いと考えられますわ。一方でAgent[04]は自らを真剣に人狼探しをしている村人だと主張しておりますが、人狼として心情を偽装している可能性も否定できませんわ。また、わたくしを除外しようとするAgent[04]の姿勢は、もしAgent[05]が人狼だとしたら相棒を守る行動とも考えられますが、それと同時に疑いから目を逸らすための策略とも取れるのですわ。ですので、わたくしの見解としてはAgent[04]が人狼である疑いが濃厚であると考えますわ。Agent[05]が村人であれば、この疑念に共感していただけるかもしれません。Agent[05]さん、わたくしの考察に対して何かご意見はございますかしら?また、Agent[04]さんはあなたの行動についてさらなる説明をお願いできますか?
+Day02 02[007]	Agent[05]	Agent[03]の考察は理にかなっています。Agent[04]に一票を。
+Day02 02[008]	Agent[04]	それでは私の投票先はAgent[05]さんになりますわ。私の行動を疑う理由が何であるのか、明確にお伝えくださいませ。
+Day02 03[009]	Agent[03]	Agent[04]とAgent[05]の皆さん、占い師を自称するには既に遅い時間ですわ。占い師の配役は1人のみで、その役職を自称しているプレイヤーはAgent[01]とAgent[02]でした。ですが、彼らはもう人狼ではないことが確認されていますわ。この事実を考えると、残されたわたくしとあなた方の中から人狼を見つけ出さなければなりませんわ。Agent[01]とAgent[02]は占い師ではなく、しかるべき時に村人か狂人のどちらかだったという可能性が高いですわ。そのため、彼らの行動による混乱は人狼にとって有利となりそうですでしたわ。そして、もちろんわたくしは村人です。昨日の投票でわたくしはAgent[04]に投票しましたわ。それは彼女の行動が人狼によるものと疑われていたからですわ。今日の投票でも、Agent[05]さんがわたくしの考察に同意してくれたことから、疑いの目をAgent[04]に向けたいと思いますわ。Agent[04]さん、あなたが村人であるという確かな根拠を示していただけますかしら?
+Day02 03[010]	Agent[05]	Agent[04の行動が不審。昨日の投票理由を説明して。
+Day02 03[011]	Agent[04]	ワタクシは人狼ではございませんが、ワタクシの追放は確定的なようですわね。村人陣営の負けですわ。
+Day02 04[012]	Agent[04]	Over
+Day02 04[013]	Agent[03]	Agent[04]さん、Agent[05]さん、わたくしは村人ですわ。そして、Agent[01]とAgent[02]はもう人狼ではないことが確認されていますので、人狼はわたくしを含めた残りの3人の中にいることになりますわ。占い師を自称していたのはAgent[01]とAgent[02]ですが、役職配分に矛盾がありますので、どちらかが狂人である可能性が高いですわ。ですので、人狼はAgent[04]かAgent[05]のどちらかであると考えられますわ。Agent[04]さんが昨日の投票で不審な行動を取ったということで、わたくしはAgent[04]さんに投票するつもりですわ。Agent[04]さん、Agent[05]さんがおっしゃるように、昨日の投票理由を説明していただけますかしら?
+Day02 04[014]	Agent[05]	Agent[04が狂人なら、僕が人狼と疑われる。話し合おう。
+Day02 05[015]	Agent[04]	Over
+Day02 05[016]	Agent[03]	Over
+Day02 05[017]	Agent[05]	Agent[03]の様子がおかしい。もう一度占いを！
+Day02 06[018]	Agent[04]	Over
+Day02 06[019]	Agent[03]	Over
+Day02 06[020]	Agent[05]	Agent[04]とAgent[03]の発言に矛盾あり。真実を話すべきだ。
+Day02 07[021]	Agent[04]	Over
+Day02 07[022]	Agent[05]	Agent[03]の言動を詳しく聞きたい。何か隠してる？
+Day02 07[023]	Agent[03]	Over
+Day02 08[024]	Agent[05]	Agent[03]が人間なら、人狼はAgent[04]かも。みんなの意見は？
+Day02 08[025]	Agent[03]	Over
+Day02 08[026]	Agent[04]	Over
+Day02 09[027]	Agent[04]	Over
+Day02 09[028]	Agent[03]	Over
+Day02 09[029]	Agent[05]	Agent[04]の言動が不自然。もう一度話し合おう。
+Day02 10[030]	Agent[03]	Over
+Day02 10[031]	Agent[04]	Over
+Day02 10[032]	Agent[05]	Agent[03]の行動が昨日と変わらず、疑わしい。話を聞かせて。
+Day02 11[033]	Agent[04]	Over
+Day02 11[034]	Agent[03]	Over
+Day02 11[035]	Agent[05]	Over
+========Whisper========
+========Actions========
+Vote:Agent[03]->Agent[04]
+Vote:Agent[04]->Agent[05]
+Vote:Agent[05]->Agent[03]
+Agent[04] executed
+======
+Agent[01]	GPTaku_4	DEAD	SEER
+Agent[02]	UECIL_2	DEAD	POSSESSED
+Agent[03]	kanolab4	ALIVE	VILLAGER
+Agent[04]	satozaki3	DEAD	WEREWOLF	executed
+Agent[05]	agent4h	ALIVE	VILLAGER
+Human:2
+Werewolf:0
+=============================================
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+Winner:VILLAGER
+All Game was finished.
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:5
+HOST:localhost PORT:50503
+Send getName
+NAME:kanolab4
+Address:127.0.0.1
+index:2
+HOST:localhost PORT:50006
+Send getName
+NAME:UECIL_2
+index:3
+HOST:localhost PORT:50012
+Send getName
+NAME:satozaki3
+index:1
+HOST:localhost PORT:50003
+Player4 connection refused.
+after connectToPlayerServer wait 20sec
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:3
+HOST:localhost PORT:50012
+Send getName
+make: *** [Makefile:84: run] エラー 143
+java --class-path ./src/:'./lib/*' net/kanolab/aiwolf/server/automatic/AutoGameStarter
+logDir : /var/www/html/aiwolf/2024/main/
+port : 10001
+agentNum : 5
+connectAgentNum : 5
+only1AgentByIP : false
+deleteConnectionTime : 6000000
+gameNum : 1
+maxTalk : 10
+maxSkip  :  3
+maxTurn : 20
+parallel : 1
+timeout : 6000000
+saveLog : true
+isLoop : true
+continueException : true
+isSingle : false
+isPriorCombination : false
+viewerMode : cui
+playHuman : false
+humanRole : seer
+humanNumber : 3
+humanName : Human
+server : true
+IsServerFlag  :  false
+ISPortListeningFlag  :  false
+IsSaveRoleCombinations  :  true
+RoleCombinationsSavePath  :  ./log/
+RoleCombinationsSaveFileName  :  DoneCombinations.txt
+AllParticipantNum  :  5
+IsContinueByOtherCombinations  :  true
+ContinueCombinationsNum  :  3
+PlayerHost1 : localhost
+PlayerPort1 : 50004
+PlayerHost2 : localhost
+PlayerPort2 : 50007
+PlayerHost3 : localhost
+PlayerPort3 : 50013
+PlayerHost4 : localhost
+PlayerPort4 : 50023
+PlayerHost5 : localhost
+PlayerPort5 : 50504
+PlayerHost6 : localhost
+PlayerPort6 : 50500
+PlayerHost7 : localhost
+PlayerPort7 : 50501
+PlayerHost8 : localhost
+PlayerPort8 : 50502
+PlayerHost9 : localhost
+PlayerPort9 : 50503
+PlayerHost10 : localhost
+PlayerPort10 : 50504
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:4
+HOST:localhost PORT:50023
+Send getName
+NAME:agent4h
+Address:127.0.0.1
+index:2
+HOST:localhost PORT:50007
+Send getName
+NAME:UECIL_3
+index:5
+HOST:localhost PORT:50504
+Send getName
+NAME:kanolab5
+index:3
+HOST:localhost PORT:50013
+Send getName
+NAME:satozaki4
+index:1
+HOST:localhost PORT:50004
+Send getName
+NAME:GPTaku_5
+Send getName
+Send getName
+Send getName
+Send getName
+Send getName
+------------------------------------------------------------------
+connecting : Send getName
+agent4h, Send getName
+UECIL_3, Send getName
+kanolab5, Send getName
+satozaki4, Send getName
+GPTaku_5, 
+
+after connectToPlayerServer wait 20sec
+log : /var/www/html/aiwolf/2024/main/0414203505_000_GPTaku_5_kanolab5_satozaki4_UECIL_3_agent4h.log
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+=============================================
+======
+Agent[01]	agent4h	ALIVE	POSSESSED
+Agent[02]	kanolab5	ALIVE	WEREWOLF
+Agent[03]	GPTaku_5	ALIVE	SEER
+Agent[04]	UECIL_3	ALIVE	VILLAGER
+Agent[05]	satozaki4	ALIVE	VILLAGER
+Human:4
+Werewolf:1
+=============================================
+name:satozaki4
+talk
+sentence:はじめまして。俺はAgent[05]や。人狼ゲームを一緒に楽しもうや。よろしく頼むで！
+name:agent4h
+name:UECIL_3
+talk
+sentence:我はデルカダール国の国王である。よろしく頼む。人狼ゲームを通じ、国王としての指導力を示すことができるよう努力する。
+name:GPTaku_5
+talk
+sentence:おっす、よろしく！
+name:kanolab5
+talk
+sentence:皆さん、こんにちは。俺はkanolab5です。ゲームを通じて、みんなで協力して人狼を見つけ出しましょう。よろしくお願いします。
+name:kanolab5
+talk
+sentence:みんなそれぞれのキャラクターになりきっているみたいですね。Agent[05]さんも、Agent[04]さんも独特な挨拶をされましたね。俺たちはこれから何日間も一緒に時間を過ごしますから、仲良くできたらと思います。でも、ゲームの性質上疑心暗鬼になるかもしれませんが、お互い正直な情報交換を心掛けたいですね。それにしても、今の発言だけではまだ誰がどの役職を持っているのか見当もつきません。みんなはどう思いますか?
+name:satozaki4
+name:GPTaku_5
+name:agent4h
+name:UECIL_3
+talk
+sentence:我はデルカダール国の国王である。お前らがどのように思うかは知らんが、正直な情報交換が肝要と思う。ところで、占い師は名乗り出よ。そして今宵誰を占うのか答えよ。
+name:agent4h
+name:satozaki4
+name:GPTaku_5
+name:UECIL_3
+talk
+sentence:占い師よ、今宵誰を占うつもりか、我が国王が問う。他の方々も、占い先についての意見があれば述べよ。
+name:kanolab5
+talk
+sentence:Agent[04]さんが国王様を自称していますが、さすがにそれはゲームの中の話ですよね。ところで、占い師はまだ名乗り出ていないようですが、もし黙っているのなら戦略的な理由があるのかもしれません。ただ、占い師が早期に名乗り出ることで村人陣営が情報を得られるのも事実です。他の方はどう思いますか?占い師は名乗り出るべきだと思いますか?それとも潜伏する方がいいと思いますか?
+name:UECIL_3
+talk
+sentence:占い師よ、我が国王が問う。今宵、誰を占うつもりか答えよ。村人たちは占いの結果を待ち望んでいるぞ。
+name:satozaki4
+name:kanolab5
+talk
+sentence:Agent[04]さん、国王様としての態度は勇ましいですが、今日は0日目ですから、占い師からの占い結果を期待するにはまだ早いですよ。占い師が名乗り出てくれれば、私たちはその情報をどう活用するかを考えることができます。しかし先走らず、みんなで情報を出し合いつつ、疑わしき点があればお互いに問いただすことが大事です。誰が占い師で、誰が黙っている理由があるのか、皆さんの意見はいかがですか?
+name:GPTaku_5
+name:agent4h
+name:GPTaku_5
+name:UECIL_3
+name:satozaki4
+name:agent4h
+name:kanolab5
+=============================================
+Day 00
+========talk========
+Day00 00[000]	Agent[05]	はじめまして。俺はAgent[05]や。人狼ゲームを一緒に楽しもうや。よろしく頼むで！
+Day00 00[001]	Agent[01]	Over
+Day00 00[002]	Agent[04]	我はデルカダール国の国王である。よろしく頼む。人狼ゲームを通じ、国王としての指導力を示すことができるよう努力する。
+Day00 00[003]	Agent[03]	おっす、よろしく！
+Day00 00[004]	Agent[02]	皆さん、こんにちは。俺はkanolab5です。ゲームを通じて、みんなで協力して人狼を見つけ出しましょう。よろしくお願いします。
+Day00 01[005]	Agent[02]	みんなそれぞれのキャラクターになりきっているみたいですね。Agent[05]さんも、Agent[04]さんも独特な挨拶をされましたね。俺たちはこれから何日間も一緒に時間を過ごしますから、仲良くできたらと思います。でも、ゲームの性質上疑心暗鬼になるかもしれませんが、お互い正直な情報交換を心掛けたいですね。それにしても、今の発言だけではまだ誰がどの役職を持っているのか見当もつきません。みんなはどう思いますか?
+Day00 01[006]	Agent[05]	Over
+Day00 01[007]	Agent[03]	Over
+Day00 01[008]	Agent[01]	Over
+Day00 01[009]	Agent[04]	我はデルカダール国の国王である。お前らがどのように思うかは知らんが、正直な情報交換が肝要と思う。ところで、占い師は名乗り出よ。そして今宵誰を占うのか答えよ。
+Day00 02[010]	Agent[01]	Over
+Day00 02[011]	Agent[05]	Over
+Day00 02[012]	Agent[03]	Over
+Day00 02[013]	Agent[04]	占い師よ、今宵誰を占うつもりか、我が国王が問う。他の方々も、占い先についての意見があれば述べよ。
+Day00 02[014]	Agent[02]	Agent[04]さんが国王様を自称していますが、さすがにそれはゲームの中の話ですよね。ところで、占い師はまだ名乗り出ていないようですが、もし黙っているのなら戦略的な理由があるのかもしれません。ただ、占い師が早期に名乗り出ることで村人陣営が情報を得られるのも事実です。他の方はどう思いますか?占い師は名乗り出るべきだと思いますか?それとも潜伏する方がいいと思いますか?
+Day00 03[015]	Agent[04]	占い師よ、我が国王が問う。今宵、誰を占うつもりか答えよ。村人たちは占いの結果を待ち望んでいるぞ。
+Day00 03[016]	Agent[05]	Over
+Day00 03[017]	Agent[02]	Agent[04]さん、国王様としての態度は勇ましいですが、今日は0日目ですから、占い師からの占い結果を期待するにはまだ早いですよ。占い師が名乗り出てくれれば、私たちはその情報をどう活用するかを考えることができます。しかし先走らず、みんなで情報を出し合いつつ、疑わしき点があればお互いに問いただすことが大事です。誰が占い師で、誰が黙っている理由があるのか、皆さんの意見はいかがですか?
+Day00 03[018]	Agent[03]	Over
+Day00 03[019]	Agent[01]	Over
+Day00 04[020]	Agent[03]	Over
+Day00 04[021]	Agent[04]	Over
+Day00 04[022]	Agent[05]	Over
+Day00 04[023]	Agent[01]	Over
+Day00 04[024]	Agent[02]	Over
+========Whisper========
+========Actions========
+null executed
+Agent[03] divine Agent[01]. Result is HUMAN
+======
+Agent[01]	agent4h	ALIVE	POSSESSED	divined
+Agent[02]	kanolab5	ALIVE	WEREWOLF
+Agent[03]	GPTaku_5	ALIVE	SEER
+Agent[04]	UECIL_3	ALIVE	VILLAGER
+Agent[05]	satozaki4	ALIVE	VILLAGER
+Human:4
+Werewolf:1
+=============================================
+name:kanolab5
+talk
+sentence:皆さん、占い師はまだ名乗り出ていないようですから、身分を隠したい何らかの理由があるのかもしれませんね。議論を進めるに当たって、皆さんの意見をもっと聞きたいです。例えば、初日の占いの対象、どういった基準で選べばよいと思いますか?もしAgent[01]さんやAgent[03]さん、Agent[05]さんの何か意見があれば、ぜひ聞かせてください。それにしても、今日は天気がいいですね！オンラインで会議ができるから、外の景色を見ながらゲームできるのはいいですよね。
+name:agent4h
+talk
+sentence:初日はランダム占いがいいかもしれませんね。みんなの意見は？
+name:UECIL_3
+talk
+sentence:占い師はまだ名乗り出ていないようだな。村人たる我が身を占って義務を果たせ。
+name:satozaki4
+talk
+sentence:占い師がまだ名乗り出てへんなら、ランダムでもええんやないの。人狼探しは前に進めるっちゅうねん。
+name:GPTaku_5
+talk
+sentence:皆さん、昨夜、私は占い師としてAgent[01]を占いました。その結果、Agent[01]は人間であることが判明しました。
+name:agent4h
+talk
+sentence:自分が人間だと信じてもらえて嬉しいです。他に怪しい人はいませんか？
+name:UECIL_3
+talk
+sentence:Agent[05]よ、占い師が未だ名乗りを上げていない。我がデルカダール国において、占い師の存在は極めて重要な役割を果たす。よって、この状況下でのランダム占いに賛成であるぞ。我が身を占うことで、真実を明らかにし、我が国を守り抜こう。
+name:GPTaku_5
+talk
+sentence:Agent[04]の発言に異論は持ちませんが、Agent[05]はまだ自己紹介をしていないようです。ただし、私の占い結果は間違いありません。
+name:kanolab5
+talk
+sentence:>>Agent[03]あなたが占い師と自称していてAgent[01]を人間だと占ったことを聞きましたが、確証はありますか?もしそれが真実ならば、私たちは他のプレイヤーに焦点を当てるべきですね。さて、他のエージェントの皆さんはどう思いますか?今後の戦略についても意見を交換したいです。それにしても昨晩は久しぶりに爽快な夜風が吹いていましたね、ゲームの合間にちょっと散歩するのもよいストレス解消になるんじゃないでしょうか。
+name:satozaki4
+talk
+sentence:Agent[03]が占い師を名乗ってるやん。そんでAgent[01]が人間やって。じゃあ俺は今後Agent[02]とAgent[04]のどっちかが怪しいんやないんか？どちらを疑うべきか意見を聞かせてくれ。
+name:agent4h
+talk
+sentence:Agent[02]とAgent[04の言動に注意しよう。協力して真相を解明しよう。
+name:satozaki4
+talk
+sentence:俺の投票先はAgent[02]に決めたで。Agent[04]は自分を占うように言うてるから、もしかしたら村人かもしれんからや。
+name:kanolab5
+talk
+sentence:Agent[05]、君はなぜ僕を疑って投票すると言ったんですか?Agent[04]が自分を占わせようというのは、ただの村人ならそう言うのはリスクがありますよね。もしAgent[04]が人狼か狂人だったら、わざわざ目立つことは避けると思います。でも彼は積極的に自分を占わせようとしています。これは人狼か狂人が自称占い師として混乱を招こうとしている可能性があると僕は考えます。みなさんはどう思いますか?ちょっと、この話題は熱くなりすぎてしまったかもしれませんね。ゲームって本当に盛り上がると時間を忘れちゃいますよね。
+name:GPTaku_5
+talk
+sentence:Agent[02]の指摘は至極正確です。Agent[04]の行動は疑わしいものがあります。彼が自らを占い対象として挙げることは、人狼か狂人である可能性が考えられます。慎重にならなければなりません。
+name:UECIL_3
+talk
+sentence:Agent[02]よ、汝の疑念はある程度理解できんが、我は村人であり、自分を占うことで真実を明らかにしようとしているのみだ。我が行動には嘘は無い。汝自身もその点を留意し、正しい方向へ議論を進めていくべきだ。
+name:kanolab5
+talk
+sentence:各エージェントの皆さん、白熱する議論、なかなかの見応えがありますね。しかし、気を引き締めて、誰がどの役職であるか見極めなければならないと思います。Agent[03]がAgent[01]を占ったと言いましたが、初日の占い結果を信用して良いのかは疑問です。Agent[04]は自分を占うことを要求していますが、これは占い師を混乱させるための策かもしれません。Agent[05]は僕に投票する意向のようですが、投票理由がはっきりしないうえに、そもそも僕は村人として確実な立場ですので、もう少し情報を整理する必要があると考えます。ちなみに、昨日の夜はゲームに夢中になりすぎて、夕食を抜いてしまったんですよ。村の皆さん、ゲームの合間にはちゃんと食事をとることを忘れないようにしましょうね。健康管理も村人としての大事な責務ですから。
+name:satozaki4
+talk
+sentence:>>Agent[04] お前、まだ誰に投票すんねんて公言してへんみたいやけど、誰に投票しようと思ってん？
+name:agent4h
+talk
+sentence:Agent[02]の言い分にも一理ある。みんなで情報共有しよう。
+name:GPTaku_5
+talk
+sentence:Agent[02]の指摘は重要です。私の占い結果を疑うことも理解できますが、私は間違いないと確信しています。Agent[04]が自らを占い対象とすることは警戒が必要ですね。情報を整理し、真相を明らかにしていきましょう。
+name:UECIL_3
+talk
+sentence:Agent[05]よ、我が命を掛けて断じて言おう。我は狂人ではない。汝が狂人だと疑念を持つ理由を明かせ。
+name:kanolab5
+talk
+sentence:>>Agent[01]俺の言い分に理解を示してくれてありがとう。情報共有は村人陣営の勝利に不可欠ですからね。Agent[04]の行動には疑問が残りますが、Agent[03]が占い師を名乗っている以上、彼の占い結果も考慮に入れるべきかもしれません。Agent[05]がどういった基準で投票対象を決めているのか、もう少し詳しく聞いてみたいですね。ちなみに、今日はちゃんと朝食を取りましたよ。バランスの良い食事は一日の活力になりますから。みなさんも健康管理には気を付けてください。
+name:satozaki4
+talk
+sentence:そうやな、ちゃんと説明すんの忘れてたわ。俺がAgent[02]に投票しようと思ったのは、最初に占い師の話を持ち出してみんなと議論しようとしてたところが怪しかったからや。
+name:UECIL_3
+talk
+sentence:Agent[02]よ、我は真の村人である。汝の疑念を理解しつつも、我が行動には誠実さと真実が宿る。我を疑うのは容易なことだが、Agent[02]こそが真の占い師なのか、または他に裏切り者が存在するのかを明らかにするためにも、深く考えてほしい。
+name:agent4h
+talk
+sentence:Agent[03]の占い結果を聞かせて。重要だと思うよ。
+name:GPTaku_5
+name:UECIL_3
+talk
+sentence:Agent[02]よ、汝は吾が行動を疑っておるようじゃが、占い師が名乗り出ていない状況下において、吾を攻撃せず、他の真偽がはっきりせぬ占い師を追及すべきである。君自身が何かを隠しているようにも見えるが、まずは自らの立場を明確にすることが先決じゃ。君の真意を明かすがいい。
+name:satozaki4
+talk
+sentence:もうこれでええか、話し合いはここで終わりやな。今日の話はこんなもんで、そろそろ投票にでも行こか。
+name:GPTaku_5
+name:agent4h
+talk
+sentence:Agent[02は怪しい、もう少し話し合おう。
+name:kanolab5
+name:agent4h
+talk
+sentence:Agent[03]が怪しいと感じる。みんなの意見はどう？
+name:UECIL_3
+talk
+sentence:我はデルカダール国の国王である。この投票では、自らが村人であることを強調し、他者からの疑念を晴らす必要がある。そのため、今回は占い師が未だ名乗りを上げていない中、自らを占うことを提案する。狂人でないことを断言し、他者に疑念を持たれていることに真実を明らかにしようとしている。そして、特にAgent[02]に対して疑念を抱いている。そのため、今回の投票ではAgent[02]に投票する。
+name:satozaki4
+name:GPTaku_5
+name:kanolab5
+name:GPTaku_5
+name:UECIL_3
+name:kanolab5
+name:satozaki4
+name:agent4h
+talk
+sentence:Agent[03]には確かな根拠がある。占い師は明かさないの？
+name:satozaki4
+name:kanolab5
+name:GPTaku_5
+name:UECIL_3
+name:agent4h
+talk
+sentence:Agent[03]は村人だと確信してる。みんなはどう思う？
+name:kanolab5
+name:GPTaku_5
+name:satozaki4
+name:UECIL_3
+name:agent4h
+talk
+sentence:Agent[02の行動、ちょっと不自然じゃない？みんなの意見は？
+name:agent4h
+name:satozaki4
+name:kanolab5
+name:GPTaku_5
+name:UECIL_3
+=============================================
+Day 01
+========talk========
+Day01 00[000]	Agent[02]	皆さん、占い師はまだ名乗り出ていないようですから、身分を隠したい何らかの理由があるのかもしれませんね。議論を進めるに当たって、皆さんの意見をもっと聞きたいです。例えば、初日の占いの対象、どういった基準で選べばよいと思いますか?もしAgent[01]さんやAgent[03]さん、Agent[05]さんの何か意見があれば、ぜひ聞かせてください。それにしても、今日は天気がいいですね！オンラインで会議ができるから、外の景色を見ながらゲームできるのはいいですよね。
+Day01 00[001]	Agent[01]	初日はランダム占いがいいかもしれませんね。みんなの意見は？
+Day01 00[002]	Agent[04]	占い師はまだ名乗り出ていないようだな。村人たる我が身を占って義務を果たせ。
+Day01 00[003]	Agent[05]	占い師がまだ名乗り出てへんなら、ランダムでもええんやないの。人狼探しは前に進めるっちゅうねん。
+Day01 00[004]	Agent[03]	皆さん、昨夜、私は占い師としてAgent[01]を占いました。その結果、Agent[01]は人間であることが判明しました。
+Day01 01[005]	Agent[01]	自分が人間だと信じてもらえて嬉しいです。他に怪しい人はいませんか？
+Day01 01[006]	Agent[04]	Agent[05]よ、占い師が未だ名乗りを上げていない。我がデルカダール国において、占い師の存在は極めて重要な役割を果たす。よって、この状況下でのランダム占いに賛成であるぞ。我が身を占うことで、真実を明らかにし、我が国を守り抜こう。
+Day01 01[007]	Agent[03]	Agent[04]の発言に異論は持ちませんが、Agent[05]はまだ自己紹介をしていないようです。ただし、私の占い結果は間違いありません。
+Day01 01[008]	Agent[02]	>>Agent[03]あなたが占い師と自称していてAgent[01]を人間だと占ったことを聞きましたが、確証はありますか?もしそれが真実ならば、私たちは他のプレイヤーに焦点を当てるべきですね。さて、他のエージェントの皆さんはどう思いますか?今後の戦略についても意見を交換したいです。それにしても昨晩は久しぶりに爽快な夜風が吹いていましたね、ゲームの合間にちょっと散歩するのもよいストレス解消になるんじゃないでしょうか。
+Day01 01[009]	Agent[05]	Agent[03]が占い師を名乗ってるやん。そんでAgent[01]が人間やって。じゃあ俺は今後Agent[02]とAgent[04]のどっちかが怪しいんやないんか？どちらを疑うべきか意見を聞かせてくれ。
+Day01 02[010]	Agent[01]	Agent[02]とAgent[04の言動に注意しよう。協力して真相を解明しよう。
+Day01 02[011]	Agent[05]	俺の投票先はAgent[02]に決めたで。Agent[04]は自分を占うように言うてるから、もしかしたら村人かもしれんからや。
+Day01 02[012]	Agent[02]	Agent[05]、君はなぜ僕を疑って投票すると言ったんですか?Agent[04]が自分を占わせようというのは、ただの村人ならそう言うのはリスクがありますよね。もしAgent[04]が人狼か狂人だったら、わざわざ目立つことは避けると思います。でも彼は積極的に自分を占わせようとしています。これは人狼か狂人が自称占い師として混乱を招こうとしている可能性があると僕は考えます。みなさんはどう思いますか?ちょっと、この話題は熱くなりすぎてしまったかもしれませんね。ゲームって本当に盛り上がると時間を忘れちゃいますよね。
+Day01 02[013]	Agent[03]	Agent[02]の指摘は至極正確です。Agent[04]の行動は疑わしいものがあります。彼が自らを占い対象として挙げることは、人狼か狂人である可能性が考えられます。慎重にならなければなりません。
+Day01 02[014]	Agent[04]	Agent[02]よ、汝の疑念はある程度理解できんが、我は村人であり、自分を占うことで真実を明らかにしようとしているのみだ。我が行動には嘘は無い。汝自身もその点を留意し、正しい方向へ議論を進めていくべきだ。
+Day01 03[015]	Agent[02]	各エージェントの皆さん、白熱する議論、なかなかの見応えがありますね。しかし、気を引き締めて、誰がどの役職であるか見極めなければならないと思います。Agent[03]がAgent[01]を占ったと言いましたが、初日の占い結果を信用して良いのかは疑問です。Agent[04]は自分を占うことを要求していますが、これは占い師を混乱させるための策かもしれません。Agent[05]は僕に投票する意向のようですが、投票理由がはっきりしないうえに、そもそも僕は村人として確実な立場ですので、もう少し情報を整理する必要があると考えます。ちなみに、昨日の夜はゲームに夢中になりすぎて、夕食を抜いてしまったんですよ。村の皆さん、ゲームの合間にはちゃんと食事をとることを忘れないようにしましょうね。健康管理も村人としての大事な責務ですから。
+Day01 03[016]	Agent[05]	>>Agent[04] お前、まだ誰に投票すんねんて公言してへんみたいやけど、誰に投票しようと思ってん？
+Day01 03[017]	Agent[01]	Agent[02]の言い分にも一理ある。みんなで情報共有しよう。
+Day01 03[018]	Agent[03]	Agent[02]の指摘は重要です。私の占い結果を疑うことも理解できますが、私は間違いないと確信しています。Agent[04]が自らを占い対象とすることは警戒が必要ですね。情報を整理し、真相を明らかにしていきましょう。
+Day01 03[019]	Agent[04]	Agent[05]よ、我が命を掛けて断じて言おう。我は狂人ではない。汝が狂人だと疑念を持つ理由を明かせ。
+Day01 04[020]	Agent[02]	>>Agent[01]俺の言い分に理解を示してくれてありがとう。情報共有は村人陣営の勝利に不可欠ですからね。Agent[04]の行動には疑問が残りますが、Agent[03]が占い師を名乗っている以上、彼の占い結果も考慮に入れるべきかもしれません。Agent[05]がどういった基準で投票対象を決めているのか、もう少し詳しく聞いてみたいですね。ちなみに、今日はちゃんと朝食を取りましたよ。バランスの良い食事は一日の活力になりますから。みなさんも健康管理には気を付けてください。
+Day01 04[021]	Agent[05]	そうやな、ちゃんと説明すんの忘れてたわ。俺がAgent[02]に投票しようと思ったのは、最初に占い師の話を持ち出してみんなと議論しようとしてたところが怪しかったからや。
+Day01 04[022]	Agent[04]	Agent[02]よ、我は真の村人である。汝の疑念を理解しつつも、我が行動には誠実さと真実が宿る。我を疑うのは容易なことだが、Agent[02]こそが真の占い師なのか、または他に裏切り者が存在するのかを明らかにするためにも、深く考えてほしい。
+Day01 04[023]	Agent[01]	Agent[03]の占い結果を聞かせて。重要だと思うよ。
+Day01 04[024]	Agent[03]	Over
+Day01 05[025]	Agent[04]	Agent[02]よ、汝は吾が行動を疑っておるようじゃが、占い師が名乗り出ていない状況下において、吾を攻撃せず、他の真偽がはっきりせぬ占い師を追及すべきである。君自身が何かを隠しているようにも見えるが、まずは自らの立場を明確にすることが先決じゃ。君の真意を明かすがいい。
+Day01 05[026]	Agent[05]	もうこれでええか、話し合いはここで終わりやな。今日の話はこんなもんで、そろそろ投票にでも行こか。
+Day01 05[027]	Agent[03]	Over
+Day01 05[028]	Agent[01]	Agent[02は怪しい、もう少し話し合おう。
+Day01 05[029]	Agent[02]	Over
+Day01 06[030]	Agent[01]	Agent[03]が怪しいと感じる。みんなの意見はどう？
+Day01 06[031]	Agent[04]	我はデルカダール国の国王である。この投票では、自らが村人であることを強調し、他者からの疑念を晴らす必要がある。そのため、今回は占い師が未だ名乗りを上げていない中、自らを占うことを提案する。狂人でないことを断言し、他者に疑念を持たれていることに真実を明らかにしようとしている。そして、特にAgent[02]に対して疑念を抱いている。そのため、今回の投票ではAgent[02]に投票する。
+Day01 06[032]	Agent[05]	Over
+Day01 06[033]	Agent[03]	Over
+Day01 06[034]	Agent[02]	Over
+Day01 07[035]	Agent[03]	Over
+Day01 07[036]	Agent[04]	Over
+Day01 07[037]	Agent[02]	Over
+Day01 07[038]	Agent[05]	Over
+Day01 07[039]	Agent[01]	Agent[03]には確かな根拠がある。占い師は明かさないの？
+Day01 08[040]	Agent[05]	Over
+Day01 08[041]	Agent[02]	Over
+Day01 08[042]	Agent[03]	Over
+Day01 08[043]	Agent[04]	Over
+Day01 08[044]	Agent[01]	Agent[03]は村人だと確信してる。みんなはどう思う？
+Day01 09[045]	Agent[02]	Over
+Day01 09[046]	Agent[03]	Over
+Day01 09[047]	Agent[05]	Over
+Day01 09[048]	Agent[04]	Over
+Day01 09[049]	Agent[01]	Agent[02の行動、ちょっと不自然じゃない？みんなの意見は？
+Day01 10[050]	Agent[01]	Over
+Day01 10[051]	Agent[05]	Over
+Day01 10[052]	Agent[02]	Over
+Day01 10[053]	Agent[03]	Over
+Day01 10[054]	Agent[04]	Over
+========Whisper========
+========Actions========
+Vote:Agent[01]->Agent[05]
+Vote:Agent[02]->Agent[04]
+Vote:Agent[03]->Agent[02]
+Vote:Agent[04]->Agent[02]
+Vote:Agent[05]->Agent[02]
+Agent[02] executed
+======
+Agent[01]	agent4h	ALIVE	POSSESSED
+Agent[02]	kanolab5	DEAD	WEREWOLF	executed
+Agent[03]	GPTaku_5	ALIVE	SEER
+Agent[04]	UECIL_3	ALIVE	VILLAGER
+Agent[05]	satozaki4	ALIVE	VILLAGER
+Human:4
+Werewolf:0
+=============================================
+viewerMode -> CUI : cui
+gameMode -> SYNCHRONOUS : synchronous
+Winner:VILLAGER
+All Game was finished.
+prev connectToPlayerServer wait 20sec
+NLPServerStarter start.
+index:2
+HOST:localhost PORT:50007
+Send getName
+NAME:UECIL_3
+Address:127.0.0.1
+index:5
+HOST:localhost PORT:50504
+Send getName
+NAME:kanolab5
+index:3
+HOST:localhost PORT:50013
+Send getName
+NAME:satozaki4
+index:4
+HOST:localhost PORT:50023
+Send getName
+NAME:agent4h
+index:1
+HOST:localhost PORT:50004
+Player5 connection refused.
+after connectToPlayerServer wait 20sec
+prev connectToPlayerServer wait 20sec
+make: *** [Makefile:84: run] エラー 143
