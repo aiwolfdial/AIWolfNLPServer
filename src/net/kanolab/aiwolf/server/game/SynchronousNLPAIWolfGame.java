@@ -47,16 +47,23 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame{
 	 * @author nwatanabe
 	 */
 	private String makeRoleCombinationsText(){
-		boolean includeAgentNum = false;
+		boolean includeAgentNum = false; 		// 1,VILLAGER,UECIL_3,2,VILLAGER,satozaki4 	みたいに同じ役職の割り振りでもエージェントのindexで区別する(本質的に同じ割り振りの配役になる可能性がある)
+		boolean includeAgentNameNum = false; 	// 例 kanolab1, shinshu_univ1 	true: VILLAGER,kanolab1,VILLAGER,shinshu_univ2  false: VILLAGER,kanolab,VILLAGER,shinshu_univ (保存時にエージェントの識別番号を取るか取らないか。本質的に同じ配役を排除したいけど、前ゲームkanolab1、次ゲームkanolab2みたいな状況を排除するかしないか)
 		ArrayList<String> combinationText = new ArrayList<>();
 
 		for(Agent agent:new TreeSet<Agent>(gameData.getAgentList())){
+			String agentName = agentNameMap.get(agent);
+
+			if(!includeAgentNameNum){
+				// remove number from agent name
+				agentName = agentName.replaceAll("[0-9]","");
+			}
 
 			if(includeAgentNum){
-				combinationText.add(String.format("%d,%s,%s", agent.getAgentIdx(),gameData.getRole(agent), agentNameMap.get(agent)));
+				combinationText.add(String.format("%d,%s,%s", agent.getAgentIdx(),gameData.getRole(agent), agentName));
 			}
 			else{
-				combinationText.add(String.format("%s,%s",gameData.getRole(agent), agentNameMap.get(agent)));
+				combinationText.add(String.format("%s,%s",gameData.getRole(agent), agentName));
 			}
 		}
 
