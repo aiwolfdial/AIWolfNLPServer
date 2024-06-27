@@ -17,6 +17,11 @@ import net.kanolab.aiwolf.server.common.GameConfiguration;
 import net.kanolab.aiwolf.server.common.NLPAIWolfConnection;
 
 /**
+ * mamo: https://github.com/aiwolf/AIWolfServer/blob/0.6.x/src/org/aiwolf/server/net/TcpipServer.java#L418
+ * 	https://github.com/aiwolf/AIWolfServer/blob/0.6.x/src/org/aiwolf/server/AIWolfGame.java#L614
+ */
+
+/**
  * ゲームの進行
  * @author tminowa
  *
