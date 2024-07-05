@@ -29,7 +29,6 @@ import org.aiwolf.server.net.GameServer;
 import net.kanolab.aiwolf.server.common.BRCallable;
 import net.kanolab.aiwolf.server.common.GameConfiguration;
 import net.kanolab.aiwolf.server.common.NLPAIWolfConnection;
-import net.kanolab.aiwolf.server.common.Option;
 
 /**
  *
@@ -67,13 +66,12 @@ public abstract class AbstractNLPServer implements GameServer {
 	 * @throws LostClientException
 	 */
 	protected Object catchException(Agent agent, Request request, Exception e) throws LostClientException {
-		boolean continueException = config.get(Option.CONTINUE_EXCEPTION_AGENT);
 		NLPAIWolfConnection connection = allAgentConnectionMap.get(agent);
 		if (connection.isAlive()) {
 			e.printStackTrace();
 			connection.catchException(agent, e, request);
 		}
-		if (continueException)
+		if (config.isContinueExceptionAgent())
 			return null;
 		throw new LostClientException("Lost connection with " + agent + "\t" + getName(agent), e, agent);
 	}
@@ -98,8 +96,8 @@ public abstract class AbstractNLPServer implements GameServer {
 
 		BRCallable task = new BRCallable(connection.getBufferedReader());
 		Future<String> future = pool.submit(task);
-		long timeout = config.get(Option.TIMEOUT);
-		String line = timeout > 0 ? future.get(timeout, TimeUnit.MILLISECONDS) : future.get();
+		String line = config.getResponseTimeout() > 0 ? future.get(
+				config.getResponseTimeout(), TimeUnit.MILLISECONDS) : future.get();
 		if (!task.isSuccess()) {
 			throw task.getIOException();
 		}

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Queue;
 
 import net.kanolab.aiwolf.server.common.GameConfiguration;
-import net.kanolab.aiwolf.server.common.Option;
 
 /**
  * 起動中のゲームの管理
@@ -33,7 +32,6 @@ public class GameStarter extends Thread {
 
 	@Override
 	public void run() {
-		int parallelNum = config.get(Option.PARALLEL_RUNNING_GAME_NUM);
 		while (true) {
 			// 実行が終了しているサーバの削除
 			Iterator<NLPGameBuilder> serverIterator = gameList.iterator();
@@ -46,7 +44,7 @@ public class GameStarter extends Thread {
 
 			// 同時起動数未満なら待機Listから1グループ取得してゲームを開始する
 			synchronized (socketQue) {
-				if (socketQue.size() > 0 && gameList.size() < parallelNum) {
+				if (socketQue.size() > 0 && gameList.size() < config.getParallelRunningGameNum()) {
 					NLPGameBuilder builder = new NLPGameBuilder(socketQue.poll(), config);
 					gameList.add(builder);
 					builder.start();

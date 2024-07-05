@@ -56,8 +56,8 @@ public class NLPAIWolfConnection {
 			// 結果の受け取りとタイムアウト
 			BRCallable task = new BRCallable(getBufferedReader());
 			Future<String> future = pool.submit(task);
-			long timeout = config.get(Option.TIMEOUT);
-			String line = timeout > 0 ? future.get(timeout, TimeUnit.MILLISECONDS) : future.get();
+			String line = config.getResponseTimeout() > 0 ? future.get(
+					config.getResponseTimeout(), TimeUnit.MILLISECONDS) : future.get();
 			if (!task.isSuccess()) {
 				throw task.getIOException();
 			}

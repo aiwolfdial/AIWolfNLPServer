@@ -20,7 +20,6 @@ import org.aiwolf.server.GameData;
 
 import net.kanolab.aiwolf.server.common.GameConfiguration;
 import net.kanolab.aiwolf.server.common.NLPAIWolfConnection;
-import net.kanolab.aiwolf.server.common.Option;
 import net.kanolab.aiwolf.server.gui.GUIConnector;
 import net.kanolab.aiwolf.server.gui.TextConverter;
 
@@ -37,13 +36,12 @@ public class NLPGUIGameServer extends AbstractNLPServer {
 	public NLPGUIGameServer(GameSetting gameSetting, GameConfiguration config,
 			Map<Agent, NLPAIWolfConnection> agentConnectionMap) {
 		super(gameSetting, config, agentConnectionMap);
-		this.connector = new GUIConnector(config.get(Option.GUI_ADDRESS), config.get(Option.GUI_PORT));
+		this.connector = new GUIConnector(config.getGuiIp(), config.getGuiPort());
 		this.converter = new TextConverter();
 	}
 
 	@Override
 	public void dayFinish(Agent agent) {
-		// TODO 自動生成されたメソッド・スタブ
 		isAlreadySendDayStartInfo = false;
 		send(agent, Request.DAILY_FINISH);
 	}
@@ -80,7 +78,6 @@ public class NLPGUIGameServer extends AbstractNLPServer {
 			isAlreadySendDayStartInfo = true;
 		}
 
-		// TODO 自動生成されたメソッド・スタブ
 		send(agent, Request.DAILY_INITIALIZE);
 	}
 
@@ -115,13 +112,11 @@ public class NLPGUIGameServer extends AbstractNLPServer {
 
 			isAlreadySendGameFinishInfo = true;
 		}
-		// TODO 自動生成されたメソッド・スタブ
 		send(agent, Request.FINISH);
 	}
 
 	@Override
 	public void init(Agent agent) {
-		// TODO 自動生成されたメソッド・スタブ
 		isAlreadySendDayStartInfo = false;
 		isAlreadySendGameFinishInfo = false;
 		send(agent, Request.INITIALIZE);
@@ -148,25 +143,21 @@ public class NLPGUIGameServer extends AbstractNLPServer {
 
 	@Override
 	public Agent requestAttackTarget(Agent agent) {
-		// TODO 自動生成されたメソッド・スタブ
 		return (Agent) request(agent, Request.ATTACK);
 	}
 
 	@Override
 	public Agent requestDivineTarget(Agent agent) {
-		// TODO 自動生成されたメソッド・スタブ
 		return (Agent) request(agent, Request.DIVINE);
 	}
 
 	@Override
 	public Agent requestGuardTarget(Agent agent) {
-		// TODO 自動生成されたメソッド・スタブ
 		return (Agent) request(agent, Request.GUARD);
 	}
 
 	@Override
 	public Role requestRequestRole(Agent agent) {
-		// TODO 自動生成されたメソッド・スタブ
 		String roleString = (String) request(agent, Request.ROLE);
 		try {
 			return roleString == null ? null : Role.valueOf(roleString);
@@ -177,31 +168,26 @@ public class NLPGUIGameServer extends AbstractNLPServer {
 
 	@Override
 	public String requestTalk(Agent agent) {
-		// TODO 自動生成されたメソッド・スタブ
 		return (String) request(agent, Request.TALK);
 	}
 
 	@Override
 	public Agent requestVote(Agent agent) {
-		// TODO 自動生成されたメソッド・スタブ
 		return (Agent) request(agent, Request.VOTE);
 	}
 
 	@Override
 	public String requestWhisper(Agent agent) {
-		// TODO 自動生成されたメソッド・スタブ
 		return (String) request(agent, Request.WHISPER);
 	}
 
 	@Override
 	public void setGameData(GameData gameData) {
-		// TODO 自動生成されたメソッド・スタブ
 		this.gameData = gameData;
 	}
 
 	@Override
 	public void setGameSetting(GameSetting gameSetting) {
-		// TODO 自動生成されたメソッド・スタブ
 		this.gameSetting = gameSetting;
 	}
 }

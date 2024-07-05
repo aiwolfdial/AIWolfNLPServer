@@ -20,7 +20,6 @@ import org.aiwolf.server.GameData;
 import org.aiwolf.server.net.GameServer;
 
 import net.kanolab.aiwolf.server.common.GameConfiguration;
-import net.kanolab.aiwolf.server.common.Option;
 
 /**
  * 自然言語対戦用ゲームクラス
@@ -38,8 +37,8 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 	 * @author nwatanabe
 	 */
 	private boolean isWriteRoleCombinations(GameConfiguration config) {
-		return config.getBoolean(Option.IS_SAVE_ROLE_COMBINATIONS)
-				&& (Integer) config.get(Option.ALL_PARTICIPANT_NUM) >= (Integer) config.get(Option.BATTLE_AGENT_NUM);
+		return config.isSaveRoleCombination()
+				&& config.getAllParticipantNum() >= config.getBattleAgentNum();
 	}
 
 	/**
@@ -83,8 +82,8 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 	 * @author nwatanabe
 	 */
 	private boolean isDoneCombinations(GameConfiguration config, String checkCombinationText) {
-		File file = new File((String) config.get(Option.ROLE_COMBINATIONS_SAVE_PATH)
-				+ (String) config.get(Option.ROLE_COMBINATIONS_SAVE_FILE_NAME));
+		File file = new File(config.getRoleCombinationDir()
+				+ config.getRoleCombinationFilename());
 
 		if (!file.exists()) {
 			return false;
@@ -149,8 +148,7 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 		String saveText = makeRoleCombinationsText() + "\r\n";
 
 		try {
-			File file = new File((String) config.get(Option.ROLE_COMBINATIONS_SAVE_PATH)
-					+ (String) config.get(Option.ROLE_COMBINATIONS_SAVE_FILE_NAME));
+			File file = new File(config.getRoleCombinationDir() + config.getRoleCombinationFilename());
 
 			if (!file.canWrite()) {
 				file.setWritable(true);

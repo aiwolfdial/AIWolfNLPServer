@@ -9,7 +9,6 @@ import java.net.NoRouteToHostException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
-// throw errors
 import java.net.UnknownHostException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -39,7 +38,6 @@ import org.aiwolf.server.bin.ServerStarter;
 import net.kanolab.aiwolf.server.common.BRCallable;
 import net.kanolab.aiwolf.server.common.GameConfiguration;
 import net.kanolab.aiwolf.server.common.NLPAIWolfConnection;
-import net.kanolab.aiwolf.server.common.Option;
 
 /**
  * aiwolf server
@@ -53,84 +51,58 @@ import net.kanolab.aiwolf.server.common.Option;
 /**
  * 継続してクライアントからの接続を受け付ける人狼知能対戦用サーバ
  * 人狼知能プラットフォーム標準のままだとAgent.getAgentが並列対応しておらず、バグるためgetAgentメソッドを並列処理できるようにする必要がある
- * 
- * @author tminowa
- *
- *         ・追記 2023/09/07
- *         ゲームサーバをクライアント側に、プレイヤーをサーバ側としてゲームを実行する処理の記載
- * @author nwatanabe
  */
 public class NLPServerStarter extends ServerStarter {
 	private static final String DEFAULT_INI_PATH = "./res/AIWolfGameServer.ini";
 
+	private GameConfiguration config;
+	private Queue<List<Socket>> socketQue = new ArrayDeque<>();
+	private GameStarter gameStarter;
+
+	private Map<String, Map<String, List<Pair<Long, Socket>>>> allWaitingSocketMap = new HashMap<>();
+
+	private boolean isActive = false;
+
 	public static void main(String[] args) {
 		String initFileName = DEFAULT_INI_PATH;
-		// オプションの読み込み
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
 			if (arg.startsWith("-f")) {
 				initFileName = args[++i];
 			}
 		}
-
-		// iniファイルが指定されていなければ終了
 		if (initFileName == null) {
-			System.out.println("Usage: NLPServerStarter -f initFileName");
 			System.exit(0);
 		}
-
-		// NLPServerStarterの開始
 		NLPServerStarter starter = new NLPServerStarter(initFileName);
 		starter.start();
 	}
-
-	private GameConfiguration config;
-	private Queue<List<Socket>> socketQue = new ArrayDeque<>();
-	private GameStarter gameStarter;
-
-	private boolean isActive = false; // ゲームサーバが既に動いているかどうか
-
-	private Map<String, Map<String, List<Pair<Long, Socket>>>> allWaitingSocketMap = new HashMap<>();
 
 	public NLPServerStarter() {
 		this.config = new GameConfiguration(DEFAULT_INI_PATH);
 	}
 
-	/**
-	 * コンストラクタ
-	 * iniファイルの読み込み
-	 * 
-	 * @param fileName
-	 */
-	public NLPServerStarter(String fileName) {
-		this.config = new GameConfiguration(fileName);
+	public NLPServerStarter(String path) {
+		this.config = new GameConfiguration(path);
 	}
 
-	/**
-	 * クライアントを受け付ける
-	 */
 	private void acceptClients() {
-		boolean isSingle = config.get(Option.RUN_SINGLE_PORT_GAME);
-		int connectAgentNum = config.get(Option.CONNECT_AGENT_NUM);
-		int deleteTime = config.get(Option.DELETE_WAITING_CONNECTION_TIME);// deleteTimeオプションは動作未検証
-		boolean onlyConnection = config.get(Option.ONLY_1AGENT_BY_IP);
-		String essentialAgentName = config.get(Option.ESSENTIAL_AGENT_NAME);
-		boolean existEssentialAgent = !(essentialAgentName == null || essentialAgentName.isEmpty());
+		boolean existEssentialAgent = !(config.getRequiredAgentName() == null
+				|| config.getRequiredAgentName().isEmpty());
 
 		ServerSocket serverSocket = null;
 		try {
-			serverSocket = new ServerSocket(config.get(Option.PORT_NUM));
-		} catch (IOException e2) {
-			// TODO 自動生成された catch ブロック
-			e2.printStackTrace();
+			serverSocket = new ServerSocket(config.getPort());
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		Set<Socket> essentialSocketSet = new HashSet<>();
 		System.out.println("NLPServerStarter start.");
-		System.out.println("onlyConnection = " + onlyConnection + " " + Thread.currentThread().getStackTrace()[1]);
+		System.out.println(
+				"SingleAgentPerIp = " + config.isSingleAgentPerIp() + " " + Thread.currentThread().getStackTrace()[1]);
 		this.isActive = true;
 		while (true) {
 			try {
-
 				if (existEssentialAgent)
 					System.out.println("EssentialSocket : " + essentialSocketSet);
 
@@ -142,7 +114,7 @@ public class NLPServerStarter extends ServerStarter {
 
 				// 同一IP対戦ならIPをキーに利用し、それ以外はMapのハッシュコードをキーに使用する
 				String key = String.valueOf(entrySocketMap.hashCode());
-				if (isSingle)
+				if (config.isSingleAgentPerIp())
 					key = socket.getInetAddress().getHostAddress();
 				else if (allWaitingSocketMap.size() != 0)
 					key = new ArrayList<String>(allWaitingSocketMap.keySet()).get(0);
@@ -155,7 +127,7 @@ public class NLPServerStarter extends ServerStarter {
 				// Thread.currentThread().getStackTrace()[1]);
 				// エージェント名が必須エージェントなら必須ソケットセットに加える
 				String name = getName(socket);
-				if (existEssentialAgent && name.contains(essentialAgentName))
+				if (existEssentialAgent && name.contains(config.getRequiredAgentName()))
 					essentialSocketSet.add(socket);
 
 				// Socketの追加
@@ -168,14 +140,14 @@ public class NLPServerStarter extends ServerStarter {
 					entrySocketMap.put(socket.getInetAddress().getHostAddress(), list);
 				}
 
-				removeInvalidConnection(deleteTime);
+				removeInvalidConnection(config.getIdleConnectionTimeout());
 				printActiveConnection();
 
 				// エージェントが人数に達していなければコネクションの受付へ戻る
 				if (existEssentialAgent && essentialSocketSet.isEmpty())
 					continue;
 
-				sendConnectionQueue(connectAgentNum, onlyConnection, essentialSocketSet);
+				sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), essentialSocketSet);
 			} catch (Exception e) {
 				System.out.println();
 				continue;
@@ -195,64 +167,60 @@ public class NLPServerStarter extends ServerStarter {
 	private Socket getServerSocket(int index, String line, Set<Integer> entryAgentIndex)
 			throws UnknownHostException, ConnectException, NoRouteToHostException, IOException {
 		Map<String, Object> serverInfo = new HashMap<String, Object>();
-
-		if (config.getBoolean(Option.IS_CONTINUE_BY_OTHER_COMBINATIONS)) {
-
+		if (config.isContinueOtherCombinations()) {
 			while (true) {
 				Random rand = new Random();
-				index = rand.nextInt((Integer) config.get(Option.ALL_PARTICIPANT_NUM)) + 1;
+				index = rand.nextInt((Integer) config.getAllParticipantNum()) + 1;
 
 				if (!entryAgentIndex.contains(index)) {
 					entryAgentIndex.add(index);
 					break;
 				}
-
 			}
-
 		}
 
 		System.out.println("index:" + Integer.toString(index));
 
 		switch (index) {
 			case 1:
-				serverInfo.put("HOST", config.get(Option.PLAYER_HOST1));
-				serverInfo.put("PORT", config.get(Option.PLAYER_PORT1));
+				serverInfo.put("HOST", config.getPlayer1Ip());
+				serverInfo.put("PORT", config.getPlayer1Port());
 				break;
 			case 2:
-				serverInfo.put("HOST", config.get(Option.PLAYER_HOST2));
-				serverInfo.put("PORT", config.get(Option.PLAYER_PORT2));
+				serverInfo.put("HOST", config.getPlayer2Ip());
+				serverInfo.put("PORT", config.getPlayer2Port());
 				break;
 			case 3:
-				serverInfo.put("HOST", config.get(Option.PLAYER_HOST3));
-				serverInfo.put("PORT", config.get(Option.PLAYER_PORT3));
+				serverInfo.put("HOST", config.getPlayer3Ip());
+				serverInfo.put("PORT", config.getPlayer3Port());
 				break;
 			case 4:
-				serverInfo.put("HOST", config.get(Option.PLAYER_HOST4));
-				serverInfo.put("PORT", config.get(Option.PLAYER_PORT4));
+				serverInfo.put("HOST", config.getPlayer4Ip());
+				serverInfo.put("PORT", config.getPlayer4Port());
 				break;
 			case 5:
-				serverInfo.put("HOST", config.get(Option.PLAYER_HOST5));
-				serverInfo.put("PORT", config.get(Option.PLAYER_PORT5));
+				serverInfo.put("HOST", config.getPlayer5Ip());
+				serverInfo.put("PORT", config.getPlayer5Port());
 				break;
 			case 6:
-				serverInfo.put("HOST", config.get(Option.PLAYER_HOST6));
-				serverInfo.put("PORT", config.get(Option.PLAYER_PORT6));
+				serverInfo.put("HOST", config.getPlayer6Ip());
+				serverInfo.put("PORT", config.getPlayer6Port());
 				break;
 			case 7:
-				serverInfo.put("HOST", config.get(Option.PLAYER_HOST7));
-				serverInfo.put("PORT", config.get(Option.PLAYER_PORT7));
+				serverInfo.put("HOST", config.getPlayer7Ip());
+				serverInfo.put("PORT", config.getPlayer7Port());
 				break;
 			case 8:
-				serverInfo.put("HOST", config.get(Option.PLAYER_HOST8));
-				serverInfo.put("PORT", config.get(Option.PLAYER_PORT8));
+				serverInfo.put("HOST", config.getPlayer8Ip());
+				serverInfo.put("PORT", config.getPlayer8Port());
 				break;
 			case 9:
-				serverInfo.put("HOST", config.get(Option.PLAYER_HOST9));
-				serverInfo.put("PORT", config.get(Option.PLAYER_PORT9));
+				serverInfo.put("HOST", config.getPlayer9Ip());
+				serverInfo.put("PORT", config.getPlayer9Port());
 				break;
 			case 10:
-				serverInfo.put("HOST", config.get(Option.PLAYER_HOST10));
-				serverInfo.put("PORT", config.get(Option.PLAYER_PORT10));
+				serverInfo.put("HOST", config.getPlayer10Ip());
+				serverInfo.put("PORT", config.getPlayer10Port());
 				break;
 			case 10000:
 			case 10001:
@@ -275,14 +243,7 @@ public class NLPServerStarter extends ServerStarter {
 		} catch (Exception e) {
 			throw new UnknownHostException();
 		}
-
 		return sock;
-	}
-
-	private void waitGame() {
-		while (true) {
-			continue;
-		}
 	}
 
 	/**
@@ -291,11 +252,6 @@ public class NLPServerStarter extends ServerStarter {
 	 * @author nwatanabe
 	 */
 	private void connectToPlayerServer() {
-		boolean isSingle = config.get(Option.RUN_SINGLE_PORT_GAME);
-		int connectAgentNum = config.get(Option.CONNECT_AGENT_NUM);
-		int deleteTime = config.get(Option.DELETE_WAITING_CONNECTION_TIME); // deleteTimeオプションは動作未検証
-		boolean onlyConnection = config.get(Option.ONLY_1AGENT_BY_IP); // 同一IPからのみ接続があるかどうか
-
 		Set<Socket> essentialSocketSet = new HashSet<>(); // essentialAgentはこちらから繋ぎに行く都合上いらない気がするので今は入れてない。(引数として必要なため定義)
 		System.out.println("NLPServerStarter start.");
 		// System.out.println("onlyConnection = " + onlyConnection + " " +
@@ -306,20 +262,20 @@ public class NLPServerStarter extends ServerStarter {
 
 		try {
 
-			if (config.get(Option.IS_PORT_LISTENING_FLAG)) {
+			if (config.isListenPort()) {
 				// 接続先のポートを聞く。
 				System.out.println("Port Listening...");
-				ServerSocket serverSocket = new ServerSocket(config.get(Option.PORT_NUM));
+				ServerSocket serverSocket = new ServerSocket(config.getPort());
 				Socket socket = serverSocket.accept();
 				line = getHostNameAndPort(socket);
 				index = 10000;
 			}
 
-			Map<String, List<Pair<Long, Socket>>> entrySocketMap = new HashMap<>(); // key:ip value:
-																					// list[pair(entrytime, socket)]
+			Map<String, List<Pair<Long, Socket>>> entrySocketMap = new HashMap<>();
+			// key:ip value:
+			// list[pair(entrytime, socket)]
 			Set<Integer> entryAgentIndex = new HashSet<>();
-			for (int i = 0; i < connectAgentNum; i++) {
-
+			for (int i = 0; i < config.getConnectAgentNum(); i++) {
 				Socket socket = getServerSocket(index, line, entryAgentIndex);
 
 				// Socketの追加
@@ -341,7 +297,7 @@ public class NLPServerStarter extends ServerStarter {
 				index++;
 			}
 
-			removeInvalidConnection(deleteTime);
+			removeInvalidConnection(config.getIdleConnectionTimeout());
 
 			try {
 				printActiveConnection();
@@ -350,7 +306,7 @@ public class NLPServerStarter extends ServerStarter {
 				return;
 			}
 
-			sendConnectionQueue(connectAgentNum, onlyConnection, essentialSocketSet);
+			sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), essentialSocketSet);
 
 		} catch (UnknownHostException e) {
 			// check spelling of hostname
@@ -369,7 +325,6 @@ public class NLPServerStarter extends ServerStarter {
 			System.out.println("Player" + index + "some error occured.");
 			return;
 		}
-
 	}
 
 	/**
@@ -399,8 +354,8 @@ public class NLPServerStarter extends ServerStarter {
 		// 結果の受け取りとタイムアウト
 		BRCallable task = new BRCallable(connection.getBufferedReader());
 		Future<String> future = pool.submit(task);
-		long timeout = config.get(Option.TIMEOUT);
-		String line = timeout > 0 ? future.get(timeout, TimeUnit.MILLISECONDS) : future.get();
+		String line = config.getResponseTimeout() > 0 ? future.get(config.getResponseTimeout(), TimeUnit.MILLISECONDS)
+				: future.get();
 		if (!task.isSuccess()) {
 			throw task.getIOException();
 		}
@@ -462,7 +417,6 @@ public class NLPServerStarter extends ServerStarter {
 				allWaitingSocketMap.remove(keyPair.getKey());
 		}
 		removeEmptyMap();
-
 	}
 
 	/**
@@ -577,13 +531,11 @@ public class NLPServerStarter extends ServerStarter {
 		gameStarter = new GameStarter(socketQue, config);
 		gameStarter.start();
 
-		if (config.get(Option.IS_SERVER_FLAG)) {
+		if (config.isServer()) {
 			// サーバとして待ち受け
 			acceptClients();
-		} else if (config.getBoolean(Option.IS_CONTINUE_BY_OTHER_COMBINATIONS)) {
-
-			for (int i = 0; i < (Integer) config.get(Option.CONTINUE_COMBINATIONS_NUM); i++) {
-
+		} else if (config.isContinueOtherCombinations()) {
+			for (int i = 0; i < config.getContinueCombinationsNum(); i++) {
 				while (gameStarter.isGameRunning() || gameStarter.isWaitingGame()) {
 					// continue; のみとかだと何故か上手く動かない
 					try {
@@ -610,10 +562,8 @@ public class NLPServerStarter extends ServerStarter {
 				} catch (Exception e) {
 					System.out.println(e);
 				}
-
 			}
-
-		} else if (!config.getBoolean(Option.IS_PORT_LISTENING_FLAG)) {
+		} else if (!config.isListenPort()) {
 			connectToPlayerServer();
 		} else {
 			// port listening

@@ -1,80 +1,69 @@
 package net.kanolab.aiwolf.server.automatic;
 
-import org.aiwolf.common.data.Agent;
+import java.io.File;
+import java.io.IOException;
 
-// import net.kanolab.aiwolf.agent.KanolabPlayer;
-import net.kanolab.tminowa.util.DataReader;
+import org.aiwolf.common.data.Agent;
+import org.ini4j.Ini;
+import org.ini4j.Profile.Section;
 
 public class AutomaticStarterConfiguration {
-	// private static final Class<?> DEFAULT_CLASS = KanolabPlayer.class;
-	private static final Class<?> DEFAULT_CLASS = Agent.class;
-	private static final String DEFAULT_HOST = "localhost";
-	private static final int DEFAULT_NUM = 5;
-	private static final int DEFAULT_PORT = 10000;
-	private static final boolean DEFAULT_START_SERVER = false;
-
-	private String host;
-	private Class<?> playerClass;
-	private int port;
-	private int num;
-	private boolean startServer;
-
-	public AutomaticStarterConfiguration() {
-		this.host = DEFAULT_HOST;
-		this.playerClass = DEFAULT_CLASS;
-		this.port = DEFAULT_PORT;
-		this.num = DEFAULT_NUM;
-		this.startServer = DEFAULT_START_SERVER;
-	}
+	private String hostname = "localhost";
+	private int port = 10000;
+	private int playerNum = 5;
+	private Class<?> playerClass = Agent.class;
+	private boolean startServer = false;
 
 	public AutomaticStarterConfiguration(String path) {
-		this();
-		DataReader reader = new DataReader(path, "=");
-		for (String[] array : reader.getSplitLines()) {
-			System.out.println(array[0] + " : " + array[1]);
-			switch (array[0]) {
-				case "port":
-					port = Integer.parseInt(array[1]);
-					break;
-				case "player":
-					num = Integer.parseInt(array[1]);
-					break;
-				case "host":
-					host = array[1];
-					break;
-				case "className":
-					try {
-						playerClass = Class.forName(array[1]);
-					} catch (ClassNotFoundException e) {
-						// TODO 自動生成された catch ブロック
-						e.printStackTrace();
-					}
-					break;
-				case "server":
-					startServer = Boolean.parseBoolean(array[1]);
-					break;
+		File file = new File(path);
+		if (!file.exists()) {
+			System.err.println("File not found: " + path);
+			return;
+		}
+		try {
+			Ini ini = new Ini(file);
+			Section section = ini.get("automaticStarter");
+			if (section.containsKey("hostname")) {
+				hostname = section.get("hostname");
 			}
+			if (section.containsKey("port")) {
+				port = Integer.parseInt(section.get("port"));
+			}
+			if (section.containsKey("playerNum")) {
+				playerNum = Integer.parseInt(section.get("playerNum"));
+			}
+			if (section.containsKey("className")) {
+				try {
+					playerClass = Class.forName(section.get("className"));
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+			}
+			if (section.containsKey("startServer")) {
+				startServer = Boolean.parseBoolean(section.get("startServer"));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
-	public String getHost() {
-		return host;
-	}
-
-	public Class<?> getPlayerClass() {
-		return playerClass;
+	public String getHostname() {
+		return hostname;
 	}
 
 	public int getPort() {
 		return port;
 	}
 
-	public int getNum() {
-		return num;
+	public int getPlayerNum() {
+		return playerNum;
+	}
+
+	public Class<?> getPlayerClass() {
+		return playerClass;
 	}
 
 	public boolean isStartServer() {
 		return startServer;
 	}
-
 }
