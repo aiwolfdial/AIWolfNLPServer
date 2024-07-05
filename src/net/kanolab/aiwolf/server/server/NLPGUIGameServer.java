@@ -87,8 +87,6 @@ public class NLPGUIGameServer extends AbstractNLPServer {
 		int day = gameInfo.getDay();
 
 		if (!isAlreadySendGameFinishInfo) {
-			Map<Agent, Status> statusMap = gameInfo.getStatusMap();
-
 			// 投票のリスト
 			List<Vote> list = gameInfo.getVoteList();
 			for (Vote vote : list) {

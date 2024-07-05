@@ -482,7 +482,6 @@ public class NLPServerStarter extends ServerStarter {
 		// Thread.currentThread().getStackTrace()[1]);
 		// 人数が揃っていればセット開始待機リストに追加
 		boolean send = false;
-		List<String> removeList = new ArrayList<>();
 		Iterator<Entry<String, Map<String, List<Pair<Long, Socket>>>>> iterator = allWaitingSocketMap.entrySet()
 				.iterator();
 		Set<Socket> set = new HashSet<>(essentialSocketSet);
@@ -491,7 +490,6 @@ public class NLPServerStarter extends ServerStarter {
 			// Set<Socket> set = new HashSet<>(essentialSocketSet);
 			boolean canStartGame = false;
 			for (Entry<String, List<Pair<Long, Socket>>> socketEntry : entry.getValue().entrySet()) {
-				Pair<String, String> keyPair = new Pair<>(entry.getKey(), socketEntry.getKey());
 				List<Socket> l = socketEntry.getValue().stream().map(p -> p.getValue()).collect(Collectors.toList());
 				if (l.isEmpty())
 					continue;
