@@ -55,7 +55,6 @@ public class GameStarter extends Thread {
 			try {
 				Thread.sleep(1000L);
 			} catch (InterruptedException e) {
-				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
 			}
 		}

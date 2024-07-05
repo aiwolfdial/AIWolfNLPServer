@@ -238,7 +238,7 @@ public class NLPGameBuilder extends Thread {
 
 		for (int i = 0; i < limit; i++) {
 			Map<Agent, Role> agentRoleMap = agentRoleMapList.get(i);
-			if (config.isJoinHuman() && agentRoleMap.get(human).getClass() != config.getHumanClass())
+			if (config.isJoinHuman() && agentRoleMap.get(human).name() != config.getHumanRole().name())
 				continue;
 			SynchronousNLPAIWolfGame game = new SynchronousNLPAIWolfGame(gameSetting, nlpServer);
 			GameData gameData = new GameData(gameSetting);

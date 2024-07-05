@@ -136,7 +136,6 @@ public abstract class AbstractNLPServer implements GameServer {
 
 	@Override
 	public void close() {
-		// TODO 自動生成されたメソッド・スタブ
 		for (NLPAIWolfConnection connection : allAgentConnectionMap.values()) {
 			connection.close();
 		}
@@ -146,7 +145,6 @@ public abstract class AbstractNLPServer implements GameServer {
 
 	@Override
 	public List<Agent> getConnectedAgentList() {
-		// TODO 自動生成されたメソッド・スタブ
 		return usingAgentList;
 	}
 

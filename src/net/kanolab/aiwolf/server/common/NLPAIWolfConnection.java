@@ -80,7 +80,6 @@ public class NLPAIWolfConnection {
 			this.bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			this.config = config;
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 	}

@@ -2,11 +2,18 @@ package net.kanolab.aiwolf.server.common;
 
 import java.io.File;
 
-import org.aiwolf.ui.HumanPlayer;
 import org.ini4j.Ini;
 import org.ini4j.Profile.Section;
 
 public class GameConfiguration {
+    public enum HumanRole {
+        VILLAGER,
+        SEER,
+        POSSESSED,
+        WEREWOLF,
+        NULL,
+    }
+
     private String logDir = "./log/";
     private int port = 10000;
     private int battleAgentNum = 5;
@@ -31,7 +38,7 @@ public class GameConfiguration {
     private boolean synchronousMode = true;
     private boolean joinHuman = false;
     private String humanName = "Human";
-    private Class<?> humanClass = HumanPlayer.class;
+    private HumanRole humanRole = HumanRole.SEER;
     private int humanAgentNum = 0;
     private boolean isServer = true;
     private boolean listenPort = true;
@@ -143,12 +150,8 @@ public class GameConfiguration {
             if (section.containsKey("humanName")) {
                 humanName = section.get("humanName");
             }
-            if (section.containsKey("humanClass")) {
-                try {
-                    humanClass = Class.forName(section.get("humanClass"));
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+            if (section.containsKey("humanRole")) {
+                humanRole = HumanRole.valueOf(section.get("humanRole"));
             }
             if (section.containsKey("humanAgentNum")) {
                 humanAgentNum = Integer.parseInt(section.get("humanAgentNum"));
@@ -338,8 +341,8 @@ public class GameConfiguration {
         return humanName;
     }
 
-    public Class<?> getHumanClass() {
-        return humanClass;
+    public HumanRole getHumanRole() {
+        return humanRole;
     }
 
     public int getHumanAgentNum() {
