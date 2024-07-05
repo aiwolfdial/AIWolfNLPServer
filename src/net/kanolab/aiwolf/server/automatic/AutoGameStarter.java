@@ -7,13 +7,14 @@ import net.kanolab.aiwolf.server.starter.NLPServerStarter;
  * あとで別プロセスに変更したい
  */
 public class AutoGameStarter {
-	public static void main(String[] args){
-		
+	public static void main(String[] args) {
+
 		String configIniPath = "./res/AIWolfGameServer.ini";
 
-		if (args.length > 0) configIniPath = args[0];
+		if (args.length > 0)
+			configIniPath = args[0];
 		AutomaticStarterConfiguration config = new AutomaticStarterConfiguration(configIniPath);
-		if(config.isStartServer()){
+		if (config.isStartServer()) {
 
 			Runnable r = new Runnable() {
 

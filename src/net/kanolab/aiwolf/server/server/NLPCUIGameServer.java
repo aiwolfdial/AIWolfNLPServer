@@ -23,12 +23,14 @@ import net.kanolab.aiwolf.server.common.NLPAIWolfConnection;
 
 /**
  * ゲームの進行
+ * 
  * @author tminowa
  *
  */
-public class NLPCUIGameServer extends AbstractNLPServer{
+public class NLPCUIGameServer extends AbstractNLPServer {
 
-	public NLPCUIGameServer(GameSetting gameSetting, GameConfiguration config, Map<Agent,NLPAIWolfConnection> agentConnectionMap){
+	public NLPCUIGameServer(GameSetting gameSetting, GameConfiguration config,
+			Map<Agent, NLPAIWolfConnection> agentConnectionMap) {
 		super(gameSetting, config, agentConnectionMap);
 	}
 
@@ -56,21 +58,19 @@ public class NLPCUIGameServer extends AbstractNLPServer{
 		send(agent, Request.INITIALIZE);
 	}
 
-	protected Object request(Agent agent, Request request){
+	protected Object request(Agent agent, Request request) {
 		NLPAIWolfConnection connection = allAgentConnectionMap.get(agent);
 		ExecutorService pool = Executors.newSingleThreadExecutor();
 
-		try{
+		try {
 			String line = getResponse(connection, pool, agent, request);
 			return convertRequestData(request, line);
-		}catch(IOException | InterruptedException | ExecutionException | TimeoutException e){
-			return catchException(agent,request,e);
-		}finally{
+		} catch (IOException | InterruptedException | ExecutionException | TimeoutException e) {
+			return catchException(agent, request, e);
+		} finally {
 			pool.shutdownNow();
 		}
 	}
-
-
 
 	@Override
 	public Agent requestAttackTarget(Agent agent) {

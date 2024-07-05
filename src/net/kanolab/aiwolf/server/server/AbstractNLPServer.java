@@ -35,24 +35,24 @@ import net.kanolab.aiwolf.server.common.Option;
  *
  */
 public abstract class AbstractNLPServer implements GameServer {
-	//ゲーム設定
+	// ゲーム設定
 	protected GameSetting gameSetting;
 
-	//起動時オプション
+	// 起動時オプション
 	protected GameConfiguration config;
 
-	//1セット内の全エージェントとコネクションのマップ
+	// 1セット内の全エージェントとコネクションのマップ
 	protected BidiMap<Agent, NLPAIWolfConnection> allAgentConnectionMap;
 
-	//現在使用しているエージェントリスト
+	// 現在使用しているエージェントリスト
 	protected List<Agent> usingAgentList;
-
 
 	protected GameData gameData;
 	protected Map<Agent, Integer> lastTalkIdxMap = new HashMap<>();
 	protected Map<Agent, Integer> lastWhisperIdxMap = new HashMap<>();
 
-	public AbstractNLPServer(GameSetting gameSetting, GameConfiguration config, Map<Agent, NLPAIWolfConnection> agentConnectionMap){
+	public AbstractNLPServer(GameSetting gameSetting, GameConfiguration config,
+			Map<Agent, NLPAIWolfConnection> agentConnectionMap) {
 		this.gameSetting = gameSetting;
 		this.config = config;
 		this.allAgentConnectionMap = new BidiMap<>(agentConnectionMap);
@@ -60,24 +60,27 @@ public abstract class AbstractNLPServer implements GameServer {
 
 	/**
 	 * クライアントが原因の際の例外処理
+	 * 
 	 * @param agent
 	 * @param request
 	 * @param e
 	 * @throws LostClientException
 	 */
-	protected Object catchException(Agent agent, Request request, Exception e) throws LostClientException{
+	protected Object catchException(Agent agent, Request request, Exception e) throws LostClientException {
 		boolean continueException = config.get(Option.CONTINUE_EXCEPTION_AGENT);
 		NLPAIWolfConnection connection = allAgentConnectionMap.get(agent);
-		if(connection.isAlive()) {
+		if (connection.isAlive()) {
 			e.printStackTrace();
 			connection.catchException(agent, e, request);
 		}
-		if(continueException) return null;
+		if (continueException)
+			return null;
 		throw new LostClientException("Lost connection with " + agent + "\t" + getName(agent), e, agent);
 	}
 
 	/**
 	 * clientにリクエストを送信し、結果を受け取る
+	 * 
 	 * @param connection
 	 * @param pool
 	 * @param agent
@@ -88,15 +91,16 @@ public abstract class AbstractNLPServer implements GameServer {
 	 * @throws TimeoutException
 	 * @throws IOException
 	 */
-	protected String getResponse(NLPAIWolfConnection connection, ExecutorService pool,Agent agent, Request request) throws InterruptedException, ExecutionException, TimeoutException, IOException{
-		//clientにrequestを送信し、結果を受け取る
+	protected String getResponse(NLPAIWolfConnection connection, ExecutorService pool, Agent agent, Request request)
+			throws InterruptedException, ExecutionException, TimeoutException, IOException {
+		// clientにrequestを送信し、結果を受け取る
 		send(agent, request);
 
 		BRCallable task = new BRCallable(connection.getBufferedReader());
 		Future<String> future = pool.submit(task);
 		long timeout = config.get(Option.TIMEOUT);
 		String line = timeout > 0 ? future.get(timeout, TimeUnit.MILLISECONDS) : future.get();
-		if(!task.isSuccess()){
+		if (!task.isSuccess()) {
 			throw task.getIOException();
 		}
 		return line;
@@ -104,28 +108,29 @@ public abstract class AbstractNLPServer implements GameServer {
 
 	/**
 	 * 受け取ったリクエストを変換
+	 * 
 	 * @param request
 	 * @param line
 	 * @return
 	 */
-	protected Object convertRequestData(Request request, String line){
-		if(line != null && line.isEmpty()){
+	protected Object convertRequestData(Request request, String line) {
+		if (line != null && line.isEmpty()) {
 			line = null;
 		}
-		//返す内容の決定
-		switch(request){
-		case TALK:
-		case NAME:
-		case ROLE:
-		case WHISPER:
-			return line;
-		case ATTACK:
-		case DIVINE:
-		case GUARD:
-		case VOTE:
-			return  DataConverter.getInstance().toAgent(line);
-		default:
-			return null;
+		// 返す内容の決定
+		switch (request) {
+			case TALK:
+			case NAME:
+			case ROLE:
+			case WHISPER:
+				return line;
+			case ATTACK:
+			case DIVINE:
+			case GUARD:
+			case VOTE:
+				return DataConverter.getInstance().toAgent(line);
+			default:
+				return null;
 		}
 	}
 
@@ -134,7 +139,7 @@ public abstract class AbstractNLPServer implements GameServer {
 	@Override
 	public void close() {
 		// TODO 自動生成されたメソッド・スタブ
-		for(NLPAIWolfConnection connection : allAgentConnectionMap.values()){
+		for (NLPAIWolfConnection connection : allAgentConnectionMap.values()) {
 			connection.close();
 		}
 
@@ -149,43 +154,46 @@ public abstract class AbstractNLPServer implements GameServer {
 
 	/**
 	 * Requestから対応するPacketを作成し、それをStringに変換したものを返す
+	 * 
 	 * @param agent
 	 * @param request
 	 * @return
 	 */
-	protected String getMessage(Agent agent, Request request){
+	protected String getMessage(Agent agent, Request request) {
 		Packet packet = null;
 		boolean flag = false;
 
-		//各リクエストに応じたパケットの作成
-		switch(request){
-		case DAILY_INITIALIZE:
-		case INITIALIZE:
-			lastTalkIdxMap.clear();
-			lastWhisperIdxMap.clear();
-			packet = new Packet(request, gameData.getGameInfoToSend(agent), gameSetting);
-			break;
-		case NAME:
-		case ROLE:
-			packet = new Packet(request);
-			break;
-		case FINISH:
-			packet = new Packet(request, gameData.getFinalGameInfoToSend(agent));
-			break;
-		case DIVINE:
-		case GUARD:
-		case WHISPER:
-			flag = gameData.getExecuted() != null;
-			break;
-		case VOTE:
-			flag = !gameData.getLatestVoteList().isEmpty();
-			break;
-		case ATTACK:
-			flag = !gameData.getLatestAttackVoteList().isEmpty() || gameData.getExecuted() != null;
-			break;
+		// 各リクエストに応じたパケットの作成
+		switch (request) {
+			case DAILY_INITIALIZE:
+			case INITIALIZE:
+				lastTalkIdxMap.clear();
+				lastWhisperIdxMap.clear();
+				packet = new Packet(request, gameData.getGameInfoToSend(agent), gameSetting);
+				break;
+			case NAME:
+			case ROLE:
+				packet = new Packet(request);
+				break;
+			case FINISH:
+				packet = new Packet(request, gameData.getFinalGameInfoToSend(agent));
+				break;
+			case DIVINE:
+			case GUARD:
+			case WHISPER:
+				flag = gameData.getExecuted() != null;
+				break;
+			case VOTE:
+				flag = !gameData.getLatestVoteList().isEmpty();
+				break;
+			case ATTACK:
+				flag = !gameData.getLatestAttackVoteList().isEmpty() || gameData.getExecuted() != null;
+				break;
 		}
-		if(flag) packet = new Packet(request, gameData.getGameInfoToSend(agent));
-		if(packet != null) return DataConverter.getInstance().convert(packet);
+		if (flag)
+			packet = new Packet(request, gameData.getGameInfoToSend(agent));
+		if (packet != null)
+			return DataConverter.getInstance().convert(packet);
 
 		List<TalkToSend> talkList = gameData.getGameInfoToSend(agent).getTalkList();
 		List<TalkToSend> whisperList = gameData.getGameInfoToSend(agent).getWhisperList();
@@ -195,7 +203,7 @@ public abstract class AbstractNLPServer implements GameServer {
 		return DataConverter.getInstance().convert(packet);
 	}
 
-	public String getName(Agent agent){
+	public String getName(Agent agent) {
 		return requestName(agent);
 	}
 
@@ -204,9 +212,9 @@ public abstract class AbstractNLPServer implements GameServer {
 		return allAgentConnectionMap.get(agent).getName();
 	}
 
-	public Set<String> getNames(){
+	public Set<String> getNames() {
 		Set<String> set = new HashSet<>();
-		for(Agent agent : usingAgentList){
+		for (Agent agent : usingAgentList) {
 			set.add(getName(agent));
 		}
 		return new HashSet<String>(set);
@@ -214,6 +222,7 @@ public abstract class AbstractNLPServer implements GameServer {
 
 	/**
 	 * すでに送った発話の削除
+	 * 
 	 * @param agent
 	 * @param list
 	 * @param lastIdxMap
@@ -221,38 +230,39 @@ public abstract class AbstractNLPServer implements GameServer {
 	 */
 	protected List<TalkToSend> minimize(Agent agent, List<TalkToSend> list, Map<Agent, Integer> lastIdxMap) {
 		int lastIdx = list.size();
-		if(lastIdxMap.containsKey(agent) && list.size() >= lastIdxMap.get(agent)){
+		if (lastIdxMap.containsKey(agent) && list.size() >= lastIdxMap.get(agent)) {
 			list = list.subList(lastIdxMap.get(agent), list.size());
 		}
 		lastIdxMap.put(agent, lastIdx);
 		return list;
 	}
 
-
 	/**
 	 * メッセージの送信
+	 * 
 	 * @param agent
 	 * @param request
 	 */
-	protected void send(Agent agent, Request request){
+	protected void send(Agent agent, Request request) {
 		String message = getMessage(agent, request);
 
 		NLPAIWolfConnection connection = allAgentConnectionMap.get(agent);
 		BufferedWriter bw = connection.getBufferedWriter();
-		try{
+		try {
 			bw.append(message);
 			bw.append("\n");
 			bw.flush();
-		}catch(IOException e){
+		} catch (IOException e) {
 			catchException(agent, request, e);
 		}
 	}
 
 	/**
 	 * 現在対戦に使用しているエージェント一覧の更新
+	 * 
 	 * @param agentList
 	 */
-	public void updateUsingAgentList(Collection<Agent> agentCollection){
+	public void updateUsingAgentList(Collection<Agent> agentCollection) {
 		this.usingAgentList = new ArrayList<>(agentCollection);
 	}
 }

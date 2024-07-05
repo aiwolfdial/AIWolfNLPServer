@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class GUIConnector {
 
-	//private Socket socket;
+	// private Socket socket;
 	private int messageIdx = 0;
 	private String address;
 	private int port;
@@ -23,19 +23,19 @@ public class GUIConnector {
 		this.messageIdx = messageIdx;
 	}
 
-	public GUIConnector(String address, int port){
-		//try {
-			this.address = address;
-			this.port = port;
-			//this.socket = new Socket(address, port);
-//			System.out.println("guiConnector : " + socket);
-//		} catch (IOException e) {
-//			// TODO 自動生成された catch ブロック
-//			e.printStackTrace();
-//		}
+	public GUIConnector(String address, int port) {
+		// try {
+		this.address = address;
+		this.port = port;
+		// this.socket = new Socket(address, port);
+		// System.out.println("guiConnector : " + socket);
+		// } catch (IOException e) {
+		// // TODO 自動生成された catch ブロック
+		// e.printStackTrace();
+		// }
 	}
 
-	public void send(String str){
+	public void send(String str) {
 		str = String.format("%04d", messageIdx++) + str;
 		try {
 			Socket socket = new Socket(address, port);
@@ -50,12 +50,12 @@ public class GUIConnector {
 		}
 	}
 
-	public void destroy(){
-//		try {
-//			this.socket.close();
-//		} catch (IOException e) {
-//			// TODO 自動生成された catch ブロック
-//			e.printStackTrace();
-//		}
+	public void destroy() {
+		// try {
+		// this.socket.close();
+		// } catch (IOException e) {
+		// // TODO 自動生成された catch ブロック
+		// e.printStackTrace();
+		// }
 	}
 }

@@ -15,6 +15,7 @@ public class TextConverter {
     /**
      * 名前設定用に変換
      * N$1$The Agent
+     * 
      * @return ソケット通信用データ
      */
     public String name(int agentNum, String str) {
@@ -27,6 +28,7 @@ public class TextConverter {
     /**
      * 会話用に変換
      * 例 T$0$こんにちは。
+     * 
      * @return ソケット通信用データ
      */
     public String talk(int agentNum, String str) {
@@ -38,7 +40,8 @@ public class TextConverter {
 
     /**
      * 投票結果を変換
-     * 投票者->被投票者の順　V$1$2
+     * 投票者->被投票者の順 V$1$2
+     * 
      * @return ソケット通信用データ
      */
     public String vote(Vote vote) {
@@ -54,11 +57,12 @@ public class TextConverter {
     /**
      * 昨晩死んだエージェントを変換
      * 例: D$1$4
+     * 
      * @return ソケット通信用データ
      */
     public String dead(List<Agent> deads) {
         String line = "D";
-        for(Agent dead : deads) {
+        for (Agent dead : deads) {
             line += "$" + dead.getAgentIdx();
         }
         return line;
@@ -66,6 +70,7 @@ public class TextConverter {
 
     /**
      * 日数の送信 (これが送信されたときは次の日に進んだとみなす)
+     * 
      * @return ソケット通信用データ
      */
     public String nextDay(int day) {
@@ -78,8 +83,8 @@ public class TextConverter {
      * 結果の送信
      */
     public String result(String str) {
-    	String line = "RES";
-    	line += "$" + str;
-    	return line;
+        String line = "RES";
+        line += "$" + str;
+        return line;
     }
 }

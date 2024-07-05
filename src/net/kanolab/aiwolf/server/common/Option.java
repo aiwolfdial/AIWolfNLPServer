@@ -4,13 +4,13 @@ package net.kanolab.aiwolf.server.common;
  * iniファイルで設定できる内容の定義<br>
  * 値に列挙型を使用する場合はstringを引数に列挙型を返すstringToParam(String)メソッドを必ず実装しなければならない
  */
-public enum Option{
+public enum Option {
 	/**
 	 * ログの保存先<br>
 	 * String型<br>
 	 * 初期値 : ./log/
 	 */
-	LOG_DIR("logDir","./log/", String.class),
+	LOG_DIR("logDir", "./log/", String.class),
 	/**
 	 * 使用するport<br>
 	 * int型<br>
@@ -22,7 +22,7 @@ public enum Option{
 	 * int型<br>
 	 * 初期値 : 5
 	 */
-	BATTLE_AGENT_NUM("agentNum","5", Integer.class),
+	BATTLE_AGENT_NUM("agentNum", "5", Integer.class),
 	/**
 	 * 接続するエージェントの人数<br>
 	 * int型<br>
@@ -34,7 +34,7 @@ public enum Option{
 	 * int型<br>
 	 * 初期値 : 1
 	 */
-	GAME_NUM("gameNum","1", Integer.class),
+	GAME_NUM("gameNum", "1", Integer.class),
 	/**
 	 * 1エージェントが1日に行える発話上限<br>
 	 * int型<br>
@@ -52,31 +52,31 @@ public enum Option{
 	 * int型<br>
 	 * 初期値 : 5
 	 */
-	PARALLEL_RUNNING_GAME_NUM("parallel","5", Integer.class),
+	PARALLEL_RUNNING_GAME_NUM("parallel", "5", Integer.class),
 	/**
 	 * エージェントからの応答時間制限<br>
 	 * long型<br>
 	 * 初期値 : 5000
 	 */
-	TIMEOUT("timeout","5000", Long.class),
+	TIMEOUT("timeout", "5000", Long.class),
 	/**
 	 * ログを保存するかどうか<br>
 	 * boolean型<br>
 	 * 初期値 : false
 	 */
-	IS_SAVE_LOG("saveLog","false", Boolean.class),
+	IS_SAVE_LOG("saveLog", "false", Boolean.class),
 	/**
 	 * エージェントが落ちても試合を続行するかどうか<br>
 	 * boolean型<br>
 	 * 初期値 : false
 	 */
-	CONTINUE_EXCEPTION_AGENT("continueException","false", Boolean.class),
+	CONTINUE_EXCEPTION_AGENT("continueException", "false", Boolean.class),
 	/**
 	 * 同一IPからの接続は同一IP同士で対戦する<br>
 	 * boolean型<br>
 	 * 初期値 : false
 	 */
-	RUN_SINGLE_PORT_GAME("isSingle","false", Boolean.class),
+	RUN_SINGLE_PORT_GAME("isSingle", "false", Boolean.class),
 	/**
 	 * 初日発話を行うかどうか<br>
 	 * boolean型<br>
@@ -88,7 +88,7 @@ public enum Option{
 	 * boolean型<br>
 	 * 初期値 : true
 	 */
-	ONLY_1AGENT_BY_IP("only1AgentByIP","true",Boolean.class),
+	ONLY_1AGENT_BY_IP("only1AgentByIP", "true", Boolean.class),
 	/**
 	 * 接続のまま放置しているコネクションを対戦に使用しなかった場合に削除する時間(h)<br>
 	 * int型<br>
@@ -100,13 +100,13 @@ public enum Option{
 	 * String型<br>
 	 * 初期値 : 空文字列
 	 */
-	ESSENTIAL_AGENT_NAME("essentialAgentName","", String.class),
+	ESSENTIAL_AGENT_NAME("essentialAgentName", "", String.class),
 	/**
 	 * ゲーム数よりもコンビネーション数を優先する<br>
 	 * boolean型<br>
 	 * 初期値 : true
 	 */
-	PRIORITY_COMBINATION("isPriorCombination","true", Boolean.class),
+	PRIORITY_COMBINATION("isPriorCombination", "true", Boolean.class),
 	/**
 	 * GUIモードで使用する接続先アドレス<br>
 	 * String型<br>
@@ -160,13 +160,13 @@ public enum Option{
 	 * 初期値：1（0以下は指定無し扱い）
 	 */
 	HUMAN_NUMBER("humanNumber", "0", Integer.class),
-	//以下はあとで実装予定
-	//対戦後もクライアントとの接続を再利用するかどうか
-	//LOOP("isLoop","false", Boolean.class),
-	//コンソールのログを出力するかどうか
-	//CONSOLELOG("showConsoleLog","false", Boolean.class),
-	//接続クライアントに人間が含まれるかどうか
-	//HUMAN("containsHuman","false", Boolean.class),
+	// 以下はあとで実装予定
+	// 対戦後もクライアントとの接続を再利用するかどうか
+	// LOOP("isLoop","false", Boolean.class),
+	// コンソールのログを出力するかどうか
+	// CONSOLELOG("showConsoleLog","false", Boolean.class),
+	// 接続クライアントに人間が含まれるかどうか
+	// HUMAN("containsHuman","false", Boolean.class),
 
 	/**
 	 * ゲーム提供をサーバとして行うか、クライアントとして行うか。
@@ -174,7 +174,7 @@ public enum Option{
 	 * boolean型<br>
 	 * 初期値：false
 	 */
-	IS_SERVER_FLAG("IsServerFlag","true",Boolean.class),
+	IS_SERVER_FLAG("IsServerFlag", "true", Boolean.class),
 
 	/**
 	 * IsServerFlag = false の時、相手方のポートを.iniファイルに書いてある物に接続するか、ポートを聞く通信を開き、待つか
@@ -182,15 +182,15 @@ public enum Option{
 	 * boolean型<br>
 	 * 初期値：false
 	 */
-	IS_PORT_LISTENING_FLAG("ISPortListeningFlag","true",Boolean.class),
+	IS_PORT_LISTENING_FLAG("ISPortListeningFlag", "true", Boolean.class),
 
 	/**
 	 * IsPortListeningFlag = falseの時かつ、本戦で5人より参加者が多いときに均等にゲームを割り振るためのフラグ
-	 * True: 誰がどの役職をプレイしたかログに残し、それを参考に重複が無いように役職を割り振る 	False:ランダム
+	 * True: 誰がどの役職をプレイしたかログに残し、それを参考に重複が無いように役職を割り振る False:ランダム
 	 * boolean型<br>
 	 * 初期値：false
 	 */
-	IS_SAVE_ROLE_COMBINATIONS("IsSaveRoleCombinations","false",Boolean.class),
+	IS_SAVE_ROLE_COMBINATIONS("IsSaveRoleCombinations", "false", Boolean.class),
 
 	/**
 	 * IsSaveRoleCombinations = trueの時に何処にその役職のログを保存するか
@@ -211,22 +211,22 @@ public enum Option{
 	 * int型<br>
 	 * 初期値：6
 	 */
-	ALL_PARTICIPANT_NUM("AllParticipantNum","6",Integer.class),
+	ALL_PARTICIPANT_NUM("AllParticipantNum", "6", Integer.class),
 
 	/**
 	 * IsSaveRoleCombinations = trueの時、ameNum分のゲーム終了後別のプレイヤーの組み合わせにし実行するか
-	 * True: 実行する 	False:しない
+	 * True: 実行する False:しない
 	 * boolean型<br>
 	 * 初期値：false
 	 */
-	IS_CONTINUE_BY_OTHER_COMBINATIONS("IsContinueByOtherCombinations","false",Boolean.class),
+	IS_CONTINUE_BY_OTHER_COMBINATIONS("IsContinueByOtherCombinations", "false", Boolean.class),
 
 	/**
 	 * IsContinueByOtherCombinations=trueの時、何通りのプレイヤーの組み合わせを試すか
 	 * int型<br>
 	 * 初期値：3
 	 */
-	CONTINUE_COMBINATIONS_NUM("ContinueCombinationsNum","3",Integer.class),
+	CONTINUE_COMBINATIONS_NUM("ContinueCombinationsNum", "3", Integer.class),
 
 	/**
 	 * プレイヤー側がサーバとして振る舞うときの1人目の接続先アドレス<br>
@@ -305,7 +305,7 @@ public enum Option{
 	 * 初期値 : 10000
 	 */
 	PLAYER_PORT6("PlayerPort6", "10000", Integer.class),
-	
+
 	/**
 	 * プレイヤー側がサーバとして振る舞うときの7人目の接続先アドレス<br>
 	 * String型<br>
@@ -359,7 +359,6 @@ public enum Option{
 	PLAYER_PORT10("PlayerPort10", "10000", Integer.class),
 	;
 
-
 	private String name;
 	private String parameter;
 	private Class<?> c;
@@ -369,29 +368,27 @@ public enum Option{
 			Option.HUMAN_ROLE,
 	};
 
-
-
-	private Option(String name, String parameter, Class<?> c){
-		this.name= name;
-		this.parameter =parameter;
+	private Option(String name, String parameter, Class<?> c) {
+		this.name = name;
+		this.parameter = parameter;
 		this.c = c;
 	}
 
-	public static Option get(String name){
+	public static Option get(String name) {
 		name = name.trim();
-		for(Option o : Option.values()){
-			if(o.name.equalsIgnoreCase(name)){
+		for (Option o : Option.values()) {
+			if (o.name.equalsIgnoreCase(name)) {
 				return o;
 			}
 		}
 		return null;
 	}
 
-	public Class<?> getParamClass(){
+	public Class<?> getParamClass() {
 		return c;
 	}
 
-	public String getDefaultParam(){
+	public String getDefaultParam() {
 		return parameter;
 	}
 }

@@ -1,9 +1,9 @@
 package net.kanolab.aiwolf.server.automatic;
 
+import org.aiwolf.common.data.Agent;
+
 // import net.kanolab.aiwolf.agent.KanolabPlayer;
 import net.kanolab.tminowa.util.DataReader;
-
-import org.aiwolf.common.data.Agent;
 
 public class AutomaticStarterConfiguration {
 	// private static final Class<?> DEFAULT_CLASS = KanolabPlayer.class;
@@ -19,40 +19,40 @@ public class AutomaticStarterConfiguration {
 	private int num;
 	private boolean startServer;
 
-	public AutomaticStarterConfiguration(){
+	public AutomaticStarterConfiguration() {
 		this.host = DEFAULT_HOST;
 		this.playerClass = DEFAULT_CLASS;
 		this.port = DEFAULT_PORT;
 		this.num = DEFAULT_NUM;
-		this.startServer =DEFAULT_START_SERVER;
+		this.startServer = DEFAULT_START_SERVER;
 	}
 
-	public AutomaticStarterConfiguration(String path){
+	public AutomaticStarterConfiguration(String path) {
 		this();
-		DataReader reader = new DataReader(path,"=");
-		for(String[] array : reader.getSplitLines()){
-			System.out.println(array[0] + " : "+ array[1]);
-			switch(array[0]){
-			case "port":
-				port = Integer.parseInt(array[1]);
-				break;
-			case "player":
-				num = Integer.parseInt(array[1]);
-				break;
-			case "host":
-				host = array[1];
-				break;
-			case "className":
-				try {
-					playerClass = Class.forName(array[1]);
-				} catch (ClassNotFoundException e) {
-					// TODO 自動生成された catch ブロック
-					e.printStackTrace();
-				}
-				break;
-			case "server":
-				startServer = Boolean.parseBoolean(array[1]);
-				break;
+		DataReader reader = new DataReader(path, "=");
+		for (String[] array : reader.getSplitLines()) {
+			System.out.println(array[0] + " : " + array[1]);
+			switch (array[0]) {
+				case "port":
+					port = Integer.parseInt(array[1]);
+					break;
+				case "player":
+					num = Integer.parseInt(array[1]);
+					break;
+				case "host":
+					host = array[1];
+					break;
+				case "className":
+					try {
+						playerClass = Class.forName(array[1]);
+					} catch (ClassNotFoundException e) {
+						// TODO 自動生成された catch ブロック
+						e.printStackTrace();
+					}
+					break;
+				case "server":
+					startServer = Boolean.parseBoolean(array[1]);
+					break;
 			}
 		}
 	}
@@ -76,6 +76,5 @@ public class AutomaticStarterConfiguration {
 	public boolean isStartServer() {
 		return startServer;
 	}
-
 
 }

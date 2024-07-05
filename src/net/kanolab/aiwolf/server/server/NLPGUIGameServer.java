@@ -24,17 +24,18 @@ import net.kanolab.aiwolf.server.common.Option;
 import net.kanolab.aiwolf.server.gui.GUIConnector;
 import net.kanolab.aiwolf.server.gui.TextConverter;
 
-public class NLPGUIGameServer extends AbstractNLPServer{
-	//GUI接続用コネクタ
+public class NLPGUIGameServer extends AbstractNLPServer {
+	// GUI接続用コネクタ
 	private GUIConnector connector;
 
-	//ソケット通信で送信する内容の変換
+	// ソケット通信で送信する内容の変換
 	private TextConverter converter;
 
 	private boolean isAlreadySendDayStartInfo;
 	private boolean isAlreadySendGameFinishInfo;
 
-	public NLPGUIGameServer(GameSetting gameSetting, GameConfiguration config, Map<Agent, NLPAIWolfConnection> agentConnectionMap){
+	public NLPGUIGameServer(GameSetting gameSetting, GameConfiguration config,
+			Map<Agent, NLPAIWolfConnection> agentConnectionMap) {
 		super(gameSetting, config, agentConnectionMap);
 		this.connector = new GUIConnector(config.get(Option.GUI_ADDRESS), config.get(Option.GUI_PORT));
 		this.converter = new TextConverter();
@@ -52,20 +53,21 @@ public class NLPGUIGameServer extends AbstractNLPServer{
 		GameInfo gameInfo = gameData.getGameInfo();
 		int day = gameData.getGameInfo().getDay();
 
-		//まだday日の情報を送っていなければ送信する
-		if(!isAlreadySendDayStartInfo){
+		// まだday日の情報を送っていなければ送信する
+		if (!isAlreadySendDayStartInfo) {
 
 			// 昨晩死んだエージェントのリスト
 			List<Agent> lastDeadAgentList = gameInfo.getLastDeadAgentList();
 			Agent executedAgent = gameInfo.getExecutedAgent();
-			if (executedAgent != null) lastDeadAgentList.add(executedAgent);
-
+			if (executedAgent != null)
+				lastDeadAgentList.add(executedAgent);
 
 			// 挨拶ターンではなかった場合
 			if (day > 0) {
 				// 投票のリスト
 				for (Vote vote : gameInfo.getVoteList()) {
-					if (vote.getDay() == day - 1) connector.send(converter.vote(vote));
+					if (vote.getDay() == day - 1)
+						connector.send(converter.vote(vote));
 				}
 			}
 
@@ -87,20 +89,24 @@ public class NLPGUIGameServer extends AbstractNLPServer{
 		GameInfo gameInfo = gameData.getGameInfo();
 		int day = gameInfo.getDay();
 
-		if (!isAlreadySendGameFinishInfo){
+		if (!isAlreadySendGameFinishInfo) {
 			Map<Agent, Status> statusMap = gameInfo.getStatusMap();
 
 			// 投票のリスト
 			List<Vote> list = gameInfo.getVoteList();
 			for (Vote vote : list) {
-				if (vote.getDay() == day - 1) connector.send(converter.vote(vote));
+				if (vote.getDay() == day - 1)
+					connector.send(converter.vote(vote));
 			}
 
 			int aliveCount = 0;
-			for (Agent a: gameInfo.getAgentList()){
-				if(gameInfo.getStatusMap().get(a) == Status.DEAD) continue;
-				if(gameInfo.getRoleMap().get(a).getSpecies() == Species.HUMAN) aliveCount++;
-				else aliveCount--;
+			for (Agent a : gameInfo.getAgentList()) {
+				if (gameInfo.getStatusMap().get(a) == Status.DEAD)
+					continue;
+				if (gameInfo.getRoleMap().get(a).getSpecies() == Species.HUMAN)
+					aliveCount++;
+				else
+					aliveCount--;
 			}
 
 			// 勝敗を送る
@@ -126,16 +132,16 @@ public class NLPGUIGameServer extends AbstractNLPServer{
 		NLPAIWolfConnection connection = allAgentConnectionMap.get(agent);
 		ExecutorService pool = Executors.newSingleThreadExecutor();
 
-		try{
+		try {
 			String line = getResponse(connection, pool, agent, request);
-			if(request == Request.TALK){
+			if (request == Request.TALK) {
 				connector.send(converter.talk(agent.getAgentIdx(), line));
 				line = line.replaceAll("%\\d%", "");
 			}
 			return convertRequestData(request, line);
-		}catch(IOException | InterruptedException | ExecutionException | TimeoutException e){
-			return catchException(agent,request,e);
-		}finally{
+		} catch (IOException | InterruptedException | ExecutionException | TimeoutException e) {
+			return catchException(agent, request, e);
+		} finally {
 			pool.shutdownNow();
 		}
 	}
