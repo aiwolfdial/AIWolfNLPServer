@@ -45,6 +45,13 @@ public class AutomaticStarterConfiguration {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		System.out.println("Configuration loaded from " + path);
+		System.out.println("hostname: " + hostname);
+		System.out.println("port: " + port);
+		System.out.println("playerNum: " + playerNum);
+		System.out.println("playerClass: " + playerClass.getName());
+		System.out.println("startServer: " + startServer);
 	}
 
 	public String getHostname() {

@@ -10,5 +10,4 @@ public class NLPTcpipClient extends TcpipClient {
 	public NLPTcpipClient(String hostname, int port) {
 		super(hostname, port);
 	}
-
 }

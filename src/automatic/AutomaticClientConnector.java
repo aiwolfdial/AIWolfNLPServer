@@ -12,12 +12,8 @@ public class AutomaticClientConnector {
 
 	public static void main(String[] args) {
 		String configPath = DEFAULT_CONFIG_PATH;
-		for (int i = 0; i < args.length; i++) {
-			if (args[i].equals("-f") && i + 1 < args.length) {
-				configPath = args[++i];
-			}
-		}
-
+		if (args.length > 0)
+			configPath = args[0];
 		AutomaticStarterConfiguration config = new AutomaticStarterConfiguration(configPath);
 		AutomaticClientConnector connector = new AutomaticClientConnector(config);
 		connector.connectClients();
@@ -28,8 +24,8 @@ public class AutomaticClientConnector {
 	}
 
 	/**
-	 * このインスタンスが持つhostのportに対してnum体のagentClassエージェントを接続する<br>
-	 * エージェントの生成にはデフォルトコンストラクタを使用する<br>
+	 * このインスタンスが持つhostのportに対してnum体のagentClassエージェントを接続する
+	 * エージェントの生成にはデフォルトコンストラクタを使用する
 	 * 現在はスレッド化して生成しているが、この実装だと1体落ちると全滅するので将来的にはそれぞれ別プロセスで実行するようにしたい
 	 */
 	public void connectClients() {

@@ -12,7 +12,6 @@ public class AutoGameStarter {
 		AutomaticStarterConfiguration config = new AutomaticStarterConfiguration(configPath);
 		if (config.isStartServer()) {
 			Runnable r = new Runnable() {
-				@Override
 				public void run() {
 					NLPServerStarter starter = new NLPServerStarter();
 					starter.start();

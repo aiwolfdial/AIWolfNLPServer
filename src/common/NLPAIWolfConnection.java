@@ -20,12 +20,6 @@ import org.aiwolf.common.util.Pair;
 import org.aiwolf.server.LostClientException;
 import org.aiwolf.server.util.FileGameLogger;
 
-/**
- * コネクション
- * 
- * @author tminowa
- *
- */
 public class NLPAIWolfConnection {
 	// エラーログ内のメッセージ
 	private static final String LOST_CONNECTION_MESSAGE = "%s(%s:%s)_[Request:%s] lostConnection";

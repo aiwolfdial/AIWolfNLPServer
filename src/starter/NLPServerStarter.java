@@ -53,7 +53,7 @@ import common.NLPAIWolfConnection;
  * 人狼知能プラットフォーム標準のままだとAgent.getAgentが並列対応しておらず、バグるためgetAgentメソッドを並列処理できるようにする必要がある
  */
 public class NLPServerStarter extends ServerStarter {
-	private static final String DEFAULT_INI_PATH = "./res/AIWolfGameServer.ini";
+	private static final String DEFAULT_CONFIG_PATH = "./res/AIWolfGameServer.ini";
 
 	private GameConfiguration config;
 	private Queue<List<Socket>> socketQue = new ArrayDeque<>();
@@ -64,22 +64,15 @@ public class NLPServerStarter extends ServerStarter {
 	private boolean isActive = false;
 
 	public static void main(String[] args) {
-		String initFileName = DEFAULT_INI_PATH;
-		for (int i = 0; i < args.length; i++) {
-			String arg = args[i];
-			if (arg.startsWith("-f")) {
-				initFileName = args[++i];
-			}
-		}
-		if (initFileName == null) {
-			System.exit(0);
-		}
-		NLPServerStarter starter = new NLPServerStarter(initFileName);
+		String configPath = DEFAULT_CONFIG_PATH;
+		if (args.length > 0)
+			configPath = args[0];
+		NLPServerStarter starter = new NLPServerStarter(configPath);
 		starter.start();
 	}
 
 	public NLPServerStarter() {
-		this.config = new GameConfiguration(DEFAULT_INI_PATH);
+		this.config = new GameConfiguration(DEFAULT_CONFIG_PATH);
 	}
 
 	public NLPServerStarter(String path) {
