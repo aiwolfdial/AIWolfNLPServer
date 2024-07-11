@@ -90,14 +90,39 @@ public abstract class AbstractNLPServer implements GameServer {
 	 * @throws IOException
 	 */
 	protected String getResponse(NLPAIWolfConnection connection, ExecutorService pool, Agent agent, Request request)
-			throws InterruptedException, ExecutionException, TimeoutException, IOException {
+			throws InterruptedException, ExecutionException, TimeoutException, ActionTimeoutException, IOException {
 		// clientにrequestを送信し、結果を受け取る
 		send(agent, request);
 
 		BRCallable task = new BRCallable(connection.getBufferedReader());
 		Future<String> future = pool.submit(task);
-		String line = config.getResponseTimeout() > 0 ? future.get(
-				config.getResponseTimeout(), TimeUnit.MILLISECONDS) : future.get();
+		long responseTimeout = config.getResponseTimeout();
+		long actionTimeout = config.getActionTimeout();
+		String line = null;
+
+		try {
+			if (responseTimeout > 0 && actionTimeout > 0) {
+				line = future.get(Math.min(responseTimeout, actionTimeout), TimeUnit.MILLISECONDS);
+			} else if (responseTimeout > 0) {
+				line = future.get(responseTimeout, TimeUnit.MILLISECONDS);
+			} else if (actionTimeout > 0) {
+				line = future.get(actionTimeout, TimeUnit.MILLISECONDS);
+			} else {
+				line = future.get();
+			}
+		} catch (TimeoutException e) {
+			if (responseTimeout > 0 && actionTimeout > 0) {
+				if (responseTimeout < actionTimeout) {
+					throw e;
+				} else {
+					throw new ActionTimeoutException();
+				}
+			} else if (responseTimeout > 0) {
+				throw e;
+			} else {
+				throw new ActionTimeoutException();
+			}
+		}
 		if (!task.isSuccess()) {
 			throw task.getIOException();
 		}

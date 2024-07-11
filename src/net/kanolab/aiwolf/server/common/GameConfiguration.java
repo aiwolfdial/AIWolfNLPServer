@@ -23,6 +23,7 @@ public class GameConfiguration {
     private int maxTalkTurn = 20;
     private int parallelRunningGameNum = 5;
     private long responseTimeout = 5000;
+    private long actionTimeout = 3000;
     private boolean saveLog = false;
     private boolean continueExceptionAgent = false;
     private boolean matchSameIpOnly = false;
@@ -104,6 +105,9 @@ public class GameConfiguration {
             }
             if (section.containsKey("responseTimeout")) {
                 responseTimeout = Long.parseLong(section.get("responseTimeout"));
+            }
+            if (section.containsKey("actionTimeout")) {
+                actionTimeout = Long.parseLong(section.get("actionTimeout"));
             }
             if (section.containsKey("saveLog")) {
                 saveLog = Boolean.parseBoolean(section.get("saveLog"));
@@ -279,6 +283,10 @@ public class GameConfiguration {
 
     public long getResponseTimeout() {
         return responseTimeout;
+    }
+
+    public long getActionTimeout() {
+        return actionTimeout;
     }
 
     public boolean isSaveLog() {

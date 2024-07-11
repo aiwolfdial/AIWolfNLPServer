@@ -61,7 +61,8 @@ public class NLPCUIGameServer extends AbstractNLPServer {
 		try {
 			String line = getResponse(connection, pool, agent, request);
 			return convertRequestData(request, line);
-			// TODO:
+		} catch (ActionTimeoutException e) {
+			return convertRequestData(Request.NAME, null);
 		} catch (IOException | InterruptedException | ExecutionException | TimeoutException e) {
 			return catchException(agent, request, e);
 		} finally {

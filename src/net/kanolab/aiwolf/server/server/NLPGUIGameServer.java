@@ -132,6 +132,8 @@ public class NLPGUIGameServer extends AbstractNLPServer {
 				line = line.replaceAll("%\\d%", "");
 			}
 			return convertRequestData(request, line);
+		} catch (ActionTimeoutException e) {
+			return convertRequestData(Request.NAME, null);
 		} catch (IOException | InterruptedException | ExecutionException | TimeoutException e) {
 			return catchException(agent, request, e);
 		} finally {
