@@ -55,15 +55,15 @@ public class NLPGameBuilder extends Thread {
 	};
 
 	// iniファイルのオプション
-	private GameConfiguration config;
+	private final GameConfiguration config;
 
 	// サーバに渡すGameSetting
-	private GameSetting gameSetting;
+	private final GameSetting gameSetting;
 
 	// 同一セット内で扱うエージェント一覧（現在、エージェント番号は固定）
-	private Map<Agent, NLPAIWolfConnection> agentConnectionMap = new HashMap<>();
+	private final Map<Agent, NLPAIWolfConnection> agentConnectionMap = new HashMap<>();
 
-	private Debugger debugger = new Debugger();
+	private final Debugger debugger = new Debugger();
 
 	/**
 	 * GameSettingの作成とConnectionの登録

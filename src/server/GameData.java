@@ -245,7 +245,7 @@ public class GameData {
 
 			ArrayList<Integer> lastDeadAgentList = new ArrayList<>();
 			for (Agent a : yesterday.getLastDeadAgentList()) {
-				lastDeadAgentList.add(new Integer(a.getAgentIdx()));
+				lastDeadAgentList.add(Integer.valueOf(a.getAgentIdx()));
 			}
 			gi.setLastDeadAgentList(lastDeadAgentList);
 

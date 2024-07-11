@@ -82,10 +82,10 @@ public enum Role {
 	 */
 	ANY(Team.ANY, Species.ANY);
 
-	private Team teamType;
-	private Species species;
+	private final Team teamType;
+	private final Species species;
 
-	private Role(Team teamType, Species species) {
+	Role(Team teamType, Species species) {
 		this.teamType = teamType;
 		this.species = species;
 	}

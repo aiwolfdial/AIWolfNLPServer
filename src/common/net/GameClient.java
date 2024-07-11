@@ -2,6 +2,6 @@ package common.net;
 
 public interface GameClient {
 
-	public abstract Object recieve(Packet packet);
+	Object recieve(Packet packet);
 
 }

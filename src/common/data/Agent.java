@@ -28,7 +28,7 @@ import java.util.Map;
  */
 final public class Agent implements Comparable<Agent> {
 
-	private static Map<Integer, Agent> agentIndexMap = new HashMap<>();
+	private static final Map<Integer, Agent> agentIndexMap = new HashMap<>();
 
 	/**
 	 * <div lang="ja">指定されたインデックスのエージェントを取得します。</div>
@@ -109,9 +109,7 @@ final public class Agent implements Comparable<Agent> {
 		if (getClass() != obj.getClass())
 			return false;
 		Agent other = (Agent) obj;
-		if (agentIdx != other.agentIdx)
-			return false;
-		return true;
+		return agentIdx == other.agentIdx;
 	}
 
 	@Override

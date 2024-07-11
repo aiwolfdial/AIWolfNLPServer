@@ -29,7 +29,7 @@ class VoteReasonMap extends HashMap<Agent, Entry<Agent, Content>> {
 	private static final long serialVersionUID = 5951357442022947347L;
 
 	// 得票数マップ
-	private Map<Agent, Integer> voteCountMap = new HashMap<>();
+	private final Map<Agent, Integer> voteCountMap = new HashMap<>();
 
 	// 得票数をカウント
 	private void countVote() {

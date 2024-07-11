@@ -38,7 +38,7 @@ public class AiWolfLoggerFactory {
 				logger.config("ログ設定: LogManagerを設定しました。");
 			} catch (IOException e) {
 				logger.warning("ログ設定: LogManager設定の際に"
-						+ "例外が発生しました。:" + e.toString());
+						+ "例外が発生しました。:" + e);
 			} finally {
 				try {
 					if (inStream != null)
@@ -46,7 +46,7 @@ public class AiWolfLoggerFactory {
 				} catch (IOException e) {
 					logger.warning("ログ設定: ログ設定プロパティ"
 							+ "ファイルのストリームクローズ時に例外が"
-							+ "発生しました。:" + e.toString());
+							+ "発生しました。:" + e);
 				}
 			}
 		}

@@ -95,7 +95,7 @@ public enum Request {
 
 	boolean hasReturn;
 
-	private Request(boolean hasReturn) {
+	Request(boolean hasReturn) {
 		this.hasReturn = hasReturn;
 	}
 

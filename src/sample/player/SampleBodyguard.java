@@ -26,13 +26,13 @@ import common.net.GameSetting;
 public final class SampleBodyguard extends SampleBasePlayer {
 
 	/** 人狼候補リスト */
-	private List<Agent> wolfCandidates = new ArrayList<>();
+	private final List<Agent> wolfCandidates = new ArrayList<>();
 
 	/** 護衛したエージェント */
 	private Agent guardedAgent;
 
 	/** 護衛に成功したエージェントのセット */
-	private Set<Agent> guardedAgentSet = new HashSet<>();
+	private final Set<Agent> guardedAgentSet = new HashSet<>();
 
 	@Override
 	public void initialize(GameInfo gameInfo, GameSetting gameSetting) {

@@ -7,6 +7,7 @@ package client.lib;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import common.data.Agent;
 
@@ -68,7 +69,7 @@ public class RequestContentBuilder extends ContentBuilder {
 		if (this.target == Content.UNSPEC) {
 			this.target = content.getSubject() == Content.UNSPEC ? Content.ANY : content.getSubject();
 		}
-		contentList = new ArrayList<>(Arrays.asList(content));
+		contentList = new ArrayList<>(Collections.singletonList(content));
 	}
 
 }

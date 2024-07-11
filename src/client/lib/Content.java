@@ -481,21 +481,21 @@ public class Content implements Cloneable {
 				break;
 			case AGREE:
 			case DISAGREE:
-				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
-						+ topic.toString()
+				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject + " ")
+						+ topic
 						+ " " + talkType.toString() + " day" + talkDay + " ID:" + talkID;
 				break;
 			case ESTIMATE:
 			case COMINGOUT:
-				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
-						+ topic.toString()
+				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject + " ")
+						+ topic
 						+ " " + (target == ANY ? "ANY" : target.toString())
 						+ " " + role.toString();
 				break;
 			case DIVINED:
 			case IDENTIFIED:
-				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
-						+ topic.toString()
+				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject + " ")
+						+ topic
 						+ " " + (target == ANY ? "ANY" : target.toString())
 						+ " " + result.toString();
 				break;
@@ -506,16 +506,16 @@ public class Content implements Cloneable {
 			case GUARDED:
 			case VOTE:
 			case VOTED:
-				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
-						+ topic.toString()
+				text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject + " ")
+						+ topic
 						+ " " + (target == ANY ? "ANY" : target.toString());
 				break;
 			case OPERATOR:
 				switch (operator) {
 					case REQUEST:
 					case INQUIRE:
-						text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
-								+ operator.toString()
+						text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject + " ")
+								+ operator
 								+ " " + (target == ANY ? "ANY" : target.toString())
 								+ " ("
 								+ (contentList.get(0).getSubject() == target
@@ -525,8 +525,8 @@ public class Content implements Cloneable {
 						break;
 					case BECAUSE:
 					case XOR:
-						text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
-								+ operator.toString()
+						text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject + " ")
+								+ operator
 								+ " ("
 								+ (contentList.get(0).getSubject() == subject
 										? stripSubject(contentList.get(0).getText())
@@ -539,15 +539,15 @@ public class Content implements Cloneable {
 						break;
 					case AND:
 					case OR:
-						text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
-								+ operator.toString()
+						text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject + " ")
+								+ operator
 								+ " " + contentList.stream().map(c -> "(" +
 										(c.getSubject() == subject ? stripSubject(c.getText()) : c.getText())
 										+ ")").collect(Collectors.joining(" "));
 						break;
 					case NOT:
-						text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
-								+ operator.toString()
+						text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject + " ")
+								+ operator
 								+ " ("
 								+ (contentList.get(0).getSubject() == subject
 										? stripSubject(contentList.get(0).getText())
@@ -555,9 +555,9 @@ public class Content implements Cloneable {
 								+ ")";
 						break;
 					case DAY:
-						text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject.toString() + " ")
-								+ operator.toString()
-								+ " " + String.valueOf(day)
+						text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject + " ")
+								+ operator
+								+ " " + day
 								+ " ("
 								+ (contentList.get(0).getSubject() == subject
 										? stripSubject(contentList.get(0).getText())

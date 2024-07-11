@@ -32,22 +32,22 @@ public final class SampleSeer extends SampleBasePlayer {
 	private boolean isCameout;
 
 	/** 自分の占い結果の時系列 */
-	private List<Judge> myDivinationList = new ArrayList<>();
+	private final List<Judge> myDivinationList = new ArrayList<>();
 
 	/** 自分の占い済みエージェントと判定のマップ */
-	private Map<Agent, Judge> myDivinationMap = new HashMap<>();
+	private final Map<Agent, Judge> myDivinationMap = new HashMap<>();
 
 	/** 生存人狼 */
 	private List<Agent> aliveWolves;
 
 	/** 人狼候補 */
-	private List<Agent> wolfCandidates = new ArrayList<>();
+	private final List<Agent> wolfCandidates = new ArrayList<>();
 
 	/** 白リスト */
-	private List<Agent> whiteList = new ArrayList<>();
+	private final List<Agent> whiteList = new ArrayList<>();
 
 	/** 黒リスト */
-	private List<Agent> blackList = new ArrayList<>();
+	private final List<Agent> blackList = new ArrayList<>();
 
 	/** 灰リスト */
 	private List<Agent> grayList = new ArrayList<>();

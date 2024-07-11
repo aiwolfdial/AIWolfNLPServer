@@ -7,6 +7,7 @@ package client.lib;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import common.data.Agent;
 
@@ -65,7 +66,7 @@ public class InquiryContentBuilder extends ContentBuilder {
 		operator = Operator.INQUIRE;
 		this.subject = subject;
 		this.target = target;
-		contentList = new ArrayList<>(Arrays.asList(content));
+		contentList = new ArrayList<>(Collections.singletonList(content));
 	}
 
 }

@@ -10,5 +10,5 @@ package client.lib;
  *
  */
 public enum TalkType {
-	TALK, WHISPER;
+	TALK, WHISPER
 }

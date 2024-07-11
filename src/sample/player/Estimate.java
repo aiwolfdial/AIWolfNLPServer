@@ -37,7 +37,7 @@ class Estimate {
 		}
 
 		if (content.getTopic() == Topic.ESTIMATE) {
-			return Arrays.asList(new Estimate(content.getSubject(), content.getTarget(), content.getRole()));
+			return List.of(new Estimate(content.getSubject(), content.getTarget(), content.getRole()));
 		}
 
 		if (content.getOperator() == Operator.AND || content.getOperator() == Operator.OR
@@ -69,10 +69,10 @@ class Estimate {
 		return null;
 	}
 
-	private Agent estimater;
-	private Agent estimated;
-	private List<Role> roles = new ArrayList<>();
-	private List<Content> reasons = new ArrayList<>();
+	private final Agent estimater;
+	private final Agent estimated;
+	private final List<Role> roles = new ArrayList<>();
+	private final List<Content> reasons = new ArrayList<>();
 
 	Estimate(Agent estimater, Agent estimated, Role... roles) {
 		this.estimater = estimater;

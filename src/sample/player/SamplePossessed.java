@@ -30,22 +30,22 @@ public final class SamplePossessed extends SampleBasePlayer {
 	private boolean isCameout;
 
 	/** 偽占い結果の時系列 */
-	private List<Judge> fakeDivinationList = new ArrayList<>();
+	private final List<Judge> fakeDivinationList = new ArrayList<>();
 
 	/** 偽占い済みエージェントと判定のマップ */
-	private Map<Agent, Judge> myFakeDivinationMap = new HashMap<>();
+	private final Map<Agent, Judge> myFakeDivinationMap = new HashMap<>();
 
 	/** 生存偽人狼 */
 	private List<Agent> aliveFakeWolves;
 
 	/** 人狼候補 */
-	private List<Agent> wolfCandidates = new ArrayList<>();
+	private final List<Agent> wolfCandidates = new ArrayList<>();
 
 	/** 偽白リスト */
-	private List<Agent> fakeWhiteList = new ArrayList<>();
+	private final List<Agent> fakeWhiteList = new ArrayList<>();
 
 	/** 偽黒リスト */
-	private List<Agent> fakeBlackList = new ArrayList<>();
+	private final List<Agent> fakeBlackList = new ArrayList<>();
 
 	/** 偽灰リスト */
 	private List<Agent> fakeGrayList = new ArrayList<>();

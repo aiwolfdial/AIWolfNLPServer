@@ -54,11 +54,11 @@ import server.bin.ServerStarter;
 public class NLPServerStarter extends ServerStarter {
 	private static final String DEFAULT_CONFIG_PATH = "./res/AIWolfGameServer.ini";
 
-	private GameConfiguration config;
-	private Queue<List<Socket>> socketQue = new ArrayDeque<>();
+	private final GameConfiguration config;
+	private final Queue<List<Socket>> socketQue = new ArrayDeque<>();
 	private GameStarter gameStarter;
 
-	private Map<String, Map<String, List<Pair<Long, Socket>>>> allWaitingSocketMap = new HashMap<>();
+	private final Map<String, Map<String, List<Pair<Long, Socket>>>> allWaitingSocketMap = new HashMap<>();
 
 	private boolean isActive = false;
 
@@ -162,7 +162,7 @@ public class NLPServerStarter extends ServerStarter {
 		if (config.isContinueOtherCombinations()) {
 			while (true) {
 				Random rand = new Random();
-				index = rand.nextInt((Integer) config.getAllParticipantNum()) + 1;
+				index = rand.nextInt(config.getAllParticipantNum()) + 1;
 
 				if (!entryAgentIndex.contains(index)) {
 					entryAgentIndex.add(index);
@@ -171,7 +171,7 @@ public class NLPServerStarter extends ServerStarter {
 			}
 		}
 
-		System.out.println("index:" + Integer.toString(index));
+		System.out.println("index:" + index);
 
 		switch (index) {
 			case 1:
@@ -303,19 +303,15 @@ public class NLPServerStarter extends ServerStarter {
 		} catch (UnknownHostException e) {
 			// check spelling of hostname
 			System.out.println("Player" + index + " host is not found.\nPlease check spelling of hostname");
-			return;
 		} catch (ConnectException e) {
 			// connection refused - is server down? Try another port.
 			System.out.println("Player" + index + " connection refused.");
-			return;
 		} catch (NoRouteToHostException e) {
 			// The connect attempt timed out. Try connecting through a proxy
 			System.out.println("Player" + index + "time out.");
-			return;
 		} catch (IOException e) {
 			// another error occurred
 			System.out.println("Player" + index + "some error occured.");
-			return;
 		}
 	}
 

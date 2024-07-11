@@ -51,22 +51,22 @@ public final class SampleWerewolf extends SampleBasePlayer {
 	private int whisperListHead;
 
 	/** 囁き用待ち行列 */
-	private Deque<Content> whisperQueue = new LinkedList<>();
+	private final Deque<Content> whisperQueue = new LinkedList<>();
 
 	/** 偽判定リスト */
-	private List<Judge> myFakeJudgeList = new ArrayList<>();
+	private final List<Judge> myFakeJudgeList = new ArrayList<>();
 
 	/** 偽判定マップ */
-	private Map<Agent, Judge> myFakeJudgeMap = new HashMap<>();
+	private final Map<Agent, Judge> myFakeJudgeMap = new HashMap<>();
 
 	/** 未公表偽判定の待ち行列 */
-	private Deque<Judge> myFakeJudgeQueue = new LinkedList<>();
+	private final Deque<Judge> myFakeJudgeQueue = new LinkedList<>();
 
 	/** FCO宣言状況 */
-	private Map<Agent, Role> fakeComingoutMap = new HashMap<>();
+	private final Map<Agent, Role> fakeComingoutMap = new HashMap<>();
 
 	/** 裏切り者リスト */
-	private List<Agent> possessedList = new ArrayList<>();
+	private final List<Agent> possessedList = new ArrayList<>();
 
 	/** 人狼リスト */
 	private List<Agent> werewolves = new ArrayList<>();
@@ -84,16 +84,16 @@ public final class SampleWerewolf extends SampleBasePlayer {
 	private List<Agent> fakeWolfCandidates = new ArrayList<>();
 
 	/** 偽白のリスト */
-	private List<Agent> fakeWhiteList = new ArrayList<>();
+	private final List<Agent> fakeWhiteList = new ArrayList<>();
 
 	/** 偽黒のリスト */
-	private List<Agent> fakeBlackList = new ArrayList<>();
+	private final List<Agent> fakeBlackList = new ArrayList<>();
 
 	/** 偽灰のリスト */
 	private List<Agent> fakeGrayList = new ArrayList<>();
 
 	/** 襲撃投票理由マップ */
-	private AttackVoteReasonMap attackVoteReasonMap = new AttackVoteReasonMap();
+	private final AttackVoteReasonMap attackVoteReasonMap = new AttackVoteReasonMap();
 
 	@Override
 	public void initialize(GameInfo gameInfo, GameSetting gameSetting) {

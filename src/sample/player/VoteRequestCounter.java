@@ -26,10 +26,10 @@ class VoteRequestCounter extends ArrayList<Content> {
 	private static final long serialVersionUID = 3810063151532925245L;
 
 	/** リクエスト元と投票先のマップ */
-	private Map<Agent, Agent> agentRequestMap = new HashMap<>();
+	private final Map<Agent, Agent> agentRequestMap = new HashMap<>();
 
 	/** エージェントとそれに対する投票リクエスト数のマップ */
-	private Map<Agent, Integer> agentCountMap = new HashMap<>();
+	private final Map<Agent, Integer> agentCountMap = new HashMap<>();
 
 	/** リクエスト数の降順に並べたエージェントのリスト */
 	private List<Agent> orderedAgentList;

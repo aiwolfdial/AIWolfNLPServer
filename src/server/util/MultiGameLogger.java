@@ -1,5 +1,6 @@
 package server.util;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,9 +19,7 @@ public class MultiGameLogger implements GameLogger {
 
 	public MultiGameLogger(GameLogger... loggers) {
 		gameLoggerSet = new HashSet<GameLogger>();
-		for (GameLogger gl : loggers) {
-			gameLoggerSet.add(gl);
-		}
+		Collections.addAll(gameLoggerSet, loggers);
 	}
 
 	public void add(GameLogger gameLogger) {

@@ -7,7 +7,7 @@ import common.data.Player;
 
 public class AutomaticClientConnector {
 	private static final String DEFAULT_CONFIG_PATH = "./res/AIWolfGameServer.ini";
-	private AutomaticStarterConfiguration config;
+	private final AutomaticStarterConfiguration config;
 
 	public static void main(String[] args) {
 		String configPath = DEFAULT_CONFIG_PATH;

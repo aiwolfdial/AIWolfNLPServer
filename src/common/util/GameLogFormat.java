@@ -9,11 +9,10 @@ public class GameLogFormat extends Formatter {
 
 	@Override
 	public String format(LogRecord record) {
-		final StringBuffer buf = new StringBuffer();
-		buf.append(record.getMessage());
-		buf.append("\n");
+		String buf = record.getMessage() +
+				"\n";
 
-		return buf.toString();
+		return buf;
 	}
 
 }

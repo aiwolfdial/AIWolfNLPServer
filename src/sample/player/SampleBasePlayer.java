@@ -81,7 +81,7 @@ public class SampleBasePlayer implements Player {
 	List<Judge> identList = new ArrayList<>();
 
 	/** 発言用待ち行列 */
-	private Deque<Content> talkQueue = new LinkedList<>();
+	private final Deque<Content> talkQueue = new LinkedList<>();
 
 	/** 投票先候補 */
 	Agent voteCandidate;

@@ -24,7 +24,7 @@ import common.data.Vote;
 public final class SampleVillager extends SampleBasePlayer {
 
 	/** 人狼候補リスト */
-	private List<Agent> wolfCandidates = new ArrayList<>();
+	private final List<Agent> wolfCandidates = new ArrayList<>();
 
 	@Override
 	void chooseVoteCandidate() {

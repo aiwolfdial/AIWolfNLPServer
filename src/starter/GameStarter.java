@@ -21,9 +21,9 @@ import common.GameConfiguration;
  *
  */
 public class GameStarter extends Thread {
-	private List<NLPGameBuilder> gameList = new ArrayList<>();
-	private Queue<List<Socket>> socketQue;
-	private GameConfiguration config;
+	private final List<NLPGameBuilder> gameList = new ArrayList<>();
+	private final Queue<List<Socket>> socketQue;
+	private final GameConfiguration config;
 
 	public GameStarter(Queue<List<Socket>> socketQue, GameConfiguration config) {
 		this.socketQue = socketQue;

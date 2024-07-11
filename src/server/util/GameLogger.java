@@ -1,9 +1,9 @@
 package server.util;
 
 public interface GameLogger {
-	public void log(String log);
+	void log(String log);
 
-	public void flush();
+	void flush();
 
-	public void close();
+	void close();
 }

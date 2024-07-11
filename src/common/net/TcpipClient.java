@@ -130,8 +130,6 @@ public class TcpipClient implements Runnable, GameClient {
 					throw new AIWolfRuntimeException(e);
 				}
 			}
-		} finally {
-			// isRunning = false;
 		}
 	}
 
@@ -259,9 +257,7 @@ public class TcpipClient implements Runnable, GameClient {
 			if (talk.getDay() < lastTalk.getDay()) {
 				return false;
 			}
-			if (talk.getDay() == lastTalk.getDay() && talk.getIdx() <= lastTalk.getIdx()) {
-				return false;
-			}
+			return talk.getDay() != lastTalk.getDay() || talk.getIdx() > lastTalk.getIdx();
 		}
 		return true;
 	}

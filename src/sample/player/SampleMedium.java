@@ -26,7 +26,7 @@ import common.net.GameSetting;
 public final class SampleMedium extends SampleBasePlayer {
 
 	/** 人狼候補リスト */
-	private List<Agent> wolfCandidates = new ArrayList<>();
+	private final List<Agent> wolfCandidates = new ArrayList<>();
 
 	/** COする日 */
 	private int comingoutDay;
@@ -35,10 +35,10 @@ public final class SampleMedium extends SampleBasePlayer {
 	private boolean isCameout;
 
 	/** 自分の霊媒結果の時系列 */
-	private List<Judge> myIdentList = new ArrayList<>();
+	private final List<Judge> myIdentList = new ArrayList<>();
 
 	/** 自分の霊媒結果のマップ */
-	private Map<Agent, Judge> myIdentMap = new HashMap<>();
+	private final Map<Agent, Judge> myIdentMap = new HashMap<>();
 
 	@Override
 	public void initialize(GameInfo gameInfo, GameSetting gameSetting) {

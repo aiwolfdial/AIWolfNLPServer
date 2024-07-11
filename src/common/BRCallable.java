@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.concurrent.Callable;
 
 public class BRCallable implements Callable<String> {
-	private BufferedReader br;
+	private final BufferedReader br;
 	private IOException ioException = null;
 
 	public BRCallable(BufferedReader br) {

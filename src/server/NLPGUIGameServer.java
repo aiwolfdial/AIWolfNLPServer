@@ -23,10 +23,10 @@ import gui.TextConverter;
 
 public class NLPGUIGameServer extends AbstractNLPServer {
 	// GUI接続用コネクタ
-	private GUIConnector connector;
+	private final GUIConnector connector;
 
 	// ソケット通信で送信する内容の変換
-	private TextConverter converter;
+	private final TextConverter converter;
 
 	private boolean isAlreadySendDayStartInfo;
 	private boolean isAlreadySendGameFinishInfo;

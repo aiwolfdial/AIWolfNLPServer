@@ -10,8 +10,8 @@ import java.nio.charset.StandardCharsets;
  */
 public class GUIConnector {
 	private int messageIdx = 0;
-	private String address;
-	private int port;
+	private final String address;
+	private final int port;
 
 	public int getMessageIdx() {
 		return messageIdx;

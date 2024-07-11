@@ -8,6 +8,7 @@ package common.net;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -162,7 +163,7 @@ public class GameSetting implements Cloneable {
 		GameSetting setting = new GameSetting();
 
 		Path src = new File(fileName).toPath();
-		for (String line : Files.readAllLines(src, Charset.forName("UTF8"))) {
+		for (String line : Files.readAllLines(src, StandardCharsets.UTF_8)) {
 			if (line.startsWith("#")) {
 				continue;
 			} else if (line.contains("=")) {
