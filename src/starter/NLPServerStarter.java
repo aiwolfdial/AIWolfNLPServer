@@ -1,4 +1,4 @@
-package net.kanolab.aiwolf.server.starter;
+package starter;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -35,9 +35,9 @@ import org.aiwolf.common.net.Packet;
 import org.aiwolf.common.util.Pair;
 import org.aiwolf.server.bin.ServerStarter;
 
-import net.kanolab.aiwolf.server.common.BRCallable;
-import net.kanolab.aiwolf.server.common.GameConfiguration;
-import net.kanolab.aiwolf.server.common.NLPAIWolfConnection;
+import common.BRCallable;
+import common.GameConfiguration;
+import common.NLPAIWolfConnection;
 
 /**
  * aiwolf server

@@ -1,4 +1,4 @@
-package net.kanolab.aiwolf.server.server;
+package server;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,10 +18,10 @@ import org.aiwolf.common.net.GameInfo;
 import org.aiwolf.common.net.GameSetting;
 import org.aiwolf.server.GameData;
 
-import net.kanolab.aiwolf.server.common.GameConfiguration;
-import net.kanolab.aiwolf.server.common.NLPAIWolfConnection;
-import net.kanolab.aiwolf.server.gui.GUIConnector;
-import net.kanolab.aiwolf.server.gui.TextConverter;
+import common.GameConfiguration;
+import common.NLPAIWolfConnection;
+import gui.GUIConnector;
+import gui.TextConverter;
 
 public class NLPGUIGameServer extends AbstractNLPServer {
 	// GUI接続用コネクタ

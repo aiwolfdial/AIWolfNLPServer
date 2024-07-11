@@ -1,4 +1,4 @@
-package net.kanolab.aiwolf.server.server;
+package server;
 
 public class ActionTimeoutException extends Exception {
     private static final long serialVersionUID = 1L;

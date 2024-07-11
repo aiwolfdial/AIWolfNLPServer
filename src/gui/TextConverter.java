@@ -1,4 +1,4 @@
-package net.kanolab.aiwolf.server.gui;
+package gui;
 
 import java.util.List;
 

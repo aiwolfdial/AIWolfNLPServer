@@ -1,4 +1,4 @@
-package net.kanolab.aiwolf.server.server;
+package server;
 
 import java.io.IOException;
 import java.util.Map;
@@ -13,8 +13,8 @@ import org.aiwolf.common.data.Role;
 import org.aiwolf.common.net.GameSetting;
 import org.aiwolf.server.GameData;
 
-import net.kanolab.aiwolf.server.common.GameConfiguration;
-import net.kanolab.aiwolf.server.common.NLPAIWolfConnection;
+import common.GameConfiguration;
+import common.NLPAIWolfConnection;
 
 /**
  * mamo: https://github.com/aiwolf/AIWolfServer/blob/0.6.x/src/org/aiwolf/server/net/TcpipServer.java#L418

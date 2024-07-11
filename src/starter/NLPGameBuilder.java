@@ -1,4 +1,4 @@
-package net.kanolab.aiwolf.server.starter;
+package starter;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,13 +26,13 @@ import org.aiwolf.server.util.FileGameLogger;
 import org.apache.commons.collections4.iterators.PermutationIterator;
 import org.apache.commons.math3.util.Combinations;
 
-import net.kanolab.aiwolf.server.common.GameConfiguration;
-import net.kanolab.aiwolf.server.common.NLPAIWolfConnection;
-import net.kanolab.aiwolf.server.game.SynchronousNLPAIWolfGame;
-import net.kanolab.aiwolf.server.server.AbstractNLPServer;
-import net.kanolab.aiwolf.server.server.NLPCUIGameServer;
-import net.kanolab.aiwolf.server.server.NLPGUIGameServer;
+import common.GameConfiguration;
+import common.NLPAIWolfConnection;
+import game.SynchronousNLPAIWolfGame;
 import net.kanolab.tminowa.util.Debugger;
+import server.AbstractNLPServer;
+import server.NLPCUIGameServer;
+import server.NLPGUIGameServer;
 
 /**
  * 1セット内の対戦の管理

@@ -1,4 +1,4 @@
-package net.kanolab.aiwolf.server.starter;
+package starter;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 
-import net.kanolab.aiwolf.server.common.GameConfiguration;
+import common.GameConfiguration;
 
 /**
  * 起動中のゲームの管理

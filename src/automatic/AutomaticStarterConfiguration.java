@@ -1,4 +1,4 @@
-package net.kanolab.aiwolf.server.automatic;
+package automatic;
 
 import java.io.File;
 import java.io.IOException;

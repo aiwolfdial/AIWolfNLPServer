@@ -1,6 +1,6 @@
-package net.kanolab.aiwolf.server.automatic;
+package automatic;
 
-import net.kanolab.aiwolf.server.starter.NLPServerStarter;
+import starter.NLPServerStarter;
 
 public class AutoGameStarter {
 	private static final String DEFAULT_CONFIG_PATH = "./res/AIWolfGameServer.ini";

@@ -7,78 +7,75 @@ build:
 	@make build-starter
 	@make build-automatic
 
-clear clean:
-	@make clear-gui
-	@make clear-game
-	@make clear-client
-	@make clear-common
-	@make clear-server
-	@make clear-starter
-	@make clear-automatic
+clean:
+	@make clean-gui
+	@make clean-game
+	@make clean-client
+	@make clean-common
+	@make clean-server
+	@make clean-starter
+	@make clean-automatic
 
 build-gui:
-	@javac ./src/net/kanolab/aiwolf/server/gui/*.java \
+	@javac -d ./out ./src/gui/*.java \
 	-classpath './lib/*':./src/
-	@chmod 775 ./src/net/kanolab/aiwolf/server/gui/*.class
+	@chmod 775 ./out/gui/*.class
 
-clear-gui clean-gui:
-	@rm ./src/net/kanolab/aiwolf/server/gui/*.class
+clean-gui:
+	@rm -r ./out/gui
 
 build-game:
-	@javac ./src/net/kanolab/aiwolf/server/game/*.java \
+	@javac -d ./out ./src/game/*.java \
 	-classpath './lib/*':./src/
-	@chmod 775 ./src/net/kanolab/aiwolf/server/game/*.class
+	@chmod 775 ./out/game/*.class
 
-clear-game clean-game:
-	@rm ./src/net/kanolab/aiwolf/server/game/*.class
+clean-game:
+	@rm -r ./out/game
 
 build-client:
-	@javac ./src/net/kanolab/aiwolf/server/client/*.java \
+	@javac -d ./out ./src/client/*.java \
 	-classpath './lib/*':./src/
-	@chmod 775 ./src/net/kanolab/aiwolf/server/client/*.class
+	@chmod 775 ./out/client/*.class
 
-clear-client clean-client:
-	@rm  ./src/net/kanolab/aiwolf/server/client/*.class
+clean-client:
+	@rm -r ./out/client
 
 build-common:
-	@javac ./src/net/kanolab/aiwolf/server/common/*.java \
+	@javac -d ./out ./src/common/*.java \
 	-classpath './lib/*':./src/
-	@chmod 775 ./src/net/kanolab/aiwolf/server/common/*.class
+	@chmod 775 ./out/common/*.class
 
-clear-common clean-common:
-	@rm  ./src/net/kanolab/aiwolf/server/common/*.class
+clean-common:
+	@rm -r ./out/common
 
-# (common,gui)
 build-server:
-	@javac ./src/net/kanolab/aiwolf/server/server/*.java \
+	@javac -d ./out ./src/server/*.java \
 	-classpath './lib/*':./src/
-	@chmod 775 ./src/net/kanolab/aiwolf/server/server/*.class
+	@chmod 775 ./out/server/*.class
 
-clear-server clean-server:
-	@rm ./src/net/kanolab/aiwolf/server/server/*.class
+clean-server:
+	@rm -r ./out/server
 
-# (server,common,client)
 build-starter:
-	@javac ./src/net/kanolab/aiwolf/server/starter/*.java \
+	@javac -d ./out ./src/starter/*.java \
 	-classpath './lib/*':./src/ \
 	-Xlint:none
-	@chmod 775 ./src/net/kanolab/aiwolf/server/starter/*.class
+	@chmod 775 ./out/starter/*.class
 
-clear-starter clean-starter:
-	@rm ./src/net/kanolab/aiwolf/server/starter/*.class
+clean-starter:
+	@rm -r ./out/starter
 
-# (starter,client,aiwolf.agent)
 build-automatic:
-	@javac ./src/net/kanolab/aiwolf/server/automatic/*.java \
+	@javac -d ./out ./src/automatic/*.java \
 	-classpath './lib/*':./src/ \
 	-Xlint:none
-	@chmod 775 ./src/net/kanolab/aiwolf/server/automatic/*.class
+	@chmod 775 ./out/automatic/*.class
 
-clear-automatic clean-automatic:
-	@rm ./src/net/kanolab/aiwolf/server/automatic/*.class
+clean-automatic:
+	@rm -r ./out/automatic
 
-clear-log clean-log delete-log:
-	@rm ./log/*.log
+clean-log:
+	@rm -r ./log
 
 run:
-	java --class-path ./src/:'./lib/*' net/kanolab/aiwolf/server/automatic/AutoGameStarter
+	java --class-path ./out/:'./lib/*' automatic/AutoGameStarter

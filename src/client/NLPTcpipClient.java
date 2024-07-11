@@ -1,4 +1,4 @@
-package net.kanolab.aiwolf.server.client;
+package client;
 
 import org.aiwolf.common.net.TcpipClient;
 

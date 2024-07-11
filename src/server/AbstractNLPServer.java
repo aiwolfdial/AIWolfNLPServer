@@ -1,4 +1,4 @@
-package net.kanolab.aiwolf.server.server;
+package server;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -26,9 +26,9 @@ import org.aiwolf.server.GameData;
 import org.aiwolf.server.LostClientException;
 import org.aiwolf.server.net.GameServer;
 
-import net.kanolab.aiwolf.server.common.BRCallable;
-import net.kanolab.aiwolf.server.common.GameConfiguration;
-import net.kanolab.aiwolf.server.common.NLPAIWolfConnection;
+import common.BRCallable;
+import common.GameConfiguration;
+import common.NLPAIWolfConnection;
 
 /**
  *

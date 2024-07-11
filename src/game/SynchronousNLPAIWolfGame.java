@@ -1,4 +1,4 @@
-package net.kanolab.aiwolf.server.game;
+package game;
 
 import java.io.BufferedReader;
 // 役職の割り振りを保存するためのインポート
@@ -19,7 +19,7 @@ import org.aiwolf.server.AIWolfGame;
 import org.aiwolf.server.GameData;
 import org.aiwolf.server.net.GameServer;
 
-import net.kanolab.aiwolf.server.common.GameConfiguration;
+import common.GameConfiguration;
 
 /**
  * 自然言語対戦用ゲームクラス

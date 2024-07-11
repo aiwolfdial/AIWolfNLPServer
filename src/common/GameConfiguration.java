@@ -1,4 +1,4 @@
-package net.kanolab.aiwolf.server.common;
+package common;
 
 import java.io.File;
 
