@@ -2,9 +2,8 @@ package automatic;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.aiwolf.common.data.Player;
-
 import client.NLPTcpipClient;
+import common.data.Player;
 
 public class AutomaticClientConnector {
 	private static final String DEFAULT_CONFIG_PATH = "./res/AIWolfGameServer.ini";

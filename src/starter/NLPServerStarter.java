@@ -29,15 +29,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
-import org.aiwolf.common.data.Request;
-import org.aiwolf.common.net.DataConverter;
-import org.aiwolf.common.net.Packet;
-import org.aiwolf.common.util.Pair;
-import org.aiwolf.server.bin.ServerStarter;
-
 import common.BRCallable;
 import common.GameConfiguration;
 import common.NLPAIWolfConnection;
+import common.data.Request;
+import common.net.DataConverter;
+import common.net.Packet;
+import common.util.Pair;
+import server.bin.ServerStarter;
 
 /**
  * aiwolf server

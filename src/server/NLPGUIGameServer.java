@@ -8,18 +8,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
 
-import org.aiwolf.common.data.Agent;
-import org.aiwolf.common.data.Request;
-import org.aiwolf.common.data.Role;
-import org.aiwolf.common.data.Species;
-import org.aiwolf.common.data.Status;
-import org.aiwolf.common.data.Vote;
-import org.aiwolf.common.net.GameInfo;
-import org.aiwolf.common.net.GameSetting;
-import org.aiwolf.server.GameData;
-
 import common.GameConfiguration;
 import common.NLPAIWolfConnection;
+import common.data.Agent;
+import common.data.Request;
+import common.data.Role;
+import common.data.Species;
+import common.data.Status;
+import common.data.Vote;
+import common.net.GameInfo;
+import common.net.GameSetting;
 import gui.GUIConnector;
 import gui.TextConverter;
 

@@ -11,14 +11,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import org.aiwolf.common.data.Agent;
-import org.aiwolf.common.data.Request;
-import org.aiwolf.common.data.Role;
-import org.aiwolf.common.net.DataConverter;
-import org.aiwolf.common.net.Packet;
-import org.aiwolf.common.util.Pair;
-import org.aiwolf.server.LostClientException;
-import org.aiwolf.server.util.FileGameLogger;
+import common.data.Agent;
+import common.data.Request;
+import common.data.Role;
+import common.net.DataConverter;
+import common.net.Packet;
+import common.util.Pair;
+import server.LostClientException;
+import server.util.FileGameLogger;
 
 public class NLPAIWolfConnection {
 	// エラーログ内のメッセージ

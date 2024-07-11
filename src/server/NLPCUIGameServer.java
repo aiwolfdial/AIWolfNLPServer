@@ -7,14 +7,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
 
-import org.aiwolf.common.data.Agent;
-import org.aiwolf.common.data.Request;
-import org.aiwolf.common.data.Role;
-import org.aiwolf.common.net.GameSetting;
-import org.aiwolf.server.GameData;
-
 import common.GameConfiguration;
 import common.NLPAIWolfConnection;
+import common.data.Agent;
+import common.data.Request;
+import common.data.Role;
+import common.net.GameSetting;
 
 /**
  * mamo: https://github.com/aiwolf/AIWolfServer/blob/0.6.x/src/org/aiwolf/server/net/TcpipServer.java#L418

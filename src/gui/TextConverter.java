@@ -2,8 +2,8 @@ package gui;
 
 import java.util.List;
 
-import org.aiwolf.common.data.Agent;
-import org.aiwolf.common.data.Vote;
+import common.data.Agent;
+import common.data.Vote;
 
 /**
  * ソケット通信で使える形に整形する

@@ -3,9 +3,10 @@ package automatic;
 import java.io.File;
 import java.io.IOException;
 
-import org.aiwolf.common.data.Agent;
 import org.ini4j.Ini;
 import org.ini4j.Profile.Section;
+
+import common.data.Agent;
 
 public class AutomaticStarterConfiguration {
 	private String hostname = "localhost";

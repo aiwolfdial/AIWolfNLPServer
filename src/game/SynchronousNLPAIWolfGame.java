@@ -13,13 +13,12 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.aiwolf.common.data.Agent;
-import org.aiwolf.common.net.GameSetting;
-import org.aiwolf.server.AIWolfGame;
-import org.aiwolf.server.GameData;
-import org.aiwolf.server.net.GameServer;
-
 import common.GameConfiguration;
+import common.data.Agent;
+import common.net.GameSetting;
+import server.AIWolfGame;
+import server.GameData;
+import server.net.GameServer;
 
 /**
  * 自然言語対戦用ゲームクラス

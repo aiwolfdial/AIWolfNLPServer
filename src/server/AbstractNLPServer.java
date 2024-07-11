@@ -15,20 +15,17 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.aiwolf.common.data.Agent;
-import org.aiwolf.common.data.Request;
-import org.aiwolf.common.net.DataConverter;
-import org.aiwolf.common.net.GameSetting;
-import org.aiwolf.common.net.Packet;
-import org.aiwolf.common.net.TalkToSend;
-import org.aiwolf.common.util.BidiMap;
-import org.aiwolf.server.GameData;
-import org.aiwolf.server.LostClientException;
-import org.aiwolf.server.net.GameServer;
-
 import common.BRCallable;
 import common.GameConfiguration;
 import common.NLPAIWolfConnection;
+import common.data.Agent;
+import common.data.Request;
+import common.net.DataConverter;
+import common.net.GameSetting;
+import common.net.Packet;
+import common.net.TalkToSend;
+import common.util.BidiMap;
+import server.net.GameServer;
 
 /**
  *

@@ -17,22 +17,22 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.aiwolf.common.data.Agent;
-import org.aiwolf.common.data.Role;
-import org.aiwolf.common.data.Status;
-import org.aiwolf.common.net.GameSetting;
-import org.aiwolf.server.GameData;
-import org.aiwolf.server.util.FileGameLogger;
 import org.apache.commons.collections4.iterators.PermutationIterator;
 import org.apache.commons.math3.util.Combinations;
 
 import common.GameConfiguration;
 import common.NLPAIWolfConnection;
+import common.data.Agent;
+import common.data.Role;
+import common.data.Status;
+import common.net.GameSetting;
 import game.SynchronousNLPAIWolfGame;
 import net.kanolab.tminowa.util.Debugger;
 import server.AbstractNLPServer;
+import server.GameData;
 import server.NLPCUIGameServer;
 import server.NLPGUIGameServer;
+import server.util.FileGameLogger;
 
 /**
  * 1セット内の対戦の管理
