@@ -98,7 +98,7 @@ public class TcpipServer implements GameServer {
 	/**
 	 * Time limit for waiting request
 	 */
-	protected int timeLimit = 1000;
+	protected int responseTimeout = 1000;
 
 	/**
 	 *
@@ -109,8 +109,8 @@ public class TcpipServer implements GameServer {
 		this.gameSetting = gameSetting;
 		this.port = port;
 		this.limit = limit;
-		if (gameSetting.getTimeLimit() != -1) {
-			timeLimit = gameSetting.getTimeLimit();
+		if (gameSetting.getResponseTimeout() != -1) {
+			this.responseTimeout = gameSetting.getResponseTimeout();
 		}
 
 		socketAgentMap = new BidiMap<Socket, Agent>();
@@ -324,7 +324,7 @@ public class TcpipServer implements GameServer {
 			try {
 				Future<String> future = pool.submit(task);
 				try {
-					line = future.get(timeLimit, TimeUnit.MILLISECONDS); // 1秒でタイムアウト
+					line = future.get(responseTimeout, TimeUnit.MILLISECONDS); // 1秒でタイムアウト
 				} catch (InterruptedException | ExecutionException e) {
 					throw e;
 				} catch (TimeoutException e) {
@@ -461,7 +461,8 @@ public class TcpipServer implements GameServer {
 	}
 
 	/**
-	 * @param isWaitForClient セットする isWaitForClient
+	 * @param isWaitForClient
+	 *            セットする isWaitForClient
 	 */
 	public void setWaitForClient(boolean isWaitForClient) {
 		this.isWaitForClient = isWaitForClient;
@@ -527,19 +528,19 @@ public class TcpipServer implements GameServer {
 	}
 
 	/**
-	 * @return timeLimit
+	 * @return responseTimeout
 	 */
-	public int getTimeLimit() {
-		return timeLimit;
+	public int getResponseTimeout() {
+		return responseTimeout;
 	}
 
 	/**
-	 * @param timeLimit セットする timeLimit
+	 * @param responseTimeout
+	 *            セットする timeLimit
 	 */
-	public void setTimeLimit(int timeLimit) {
-		this.timeLimit = timeLimit;
+	public void setResponseTimeout(int responseTimeout) {
+		this.responseTimeout = responseTimeout;
 	}
-
 }
 
 class RequestReadCallable implements Callable<String> {

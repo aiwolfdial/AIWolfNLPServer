@@ -6,7 +6,6 @@
 package client.lib;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import common.data.Agent;
@@ -28,9 +27,9 @@ public class NotContentBuilder extends ContentBuilder {
 	 * subject specified).</div>
 	 * 
 	 * @param content
-	 *                <div lang="ja">否定される{@code Content}</div>
+	 *            <div lang="ja">否定される{@code Content}</div>
 	 *
-	 *                <div lang="en">The negated {@code Content}.</div>
+	 *            <div lang="en">The negated {@code Content}.</div>
 	 */
 	public NotContentBuilder(Content content) {
 		this(Content.UNSPEC, content);
@@ -42,13 +41,13 @@ public class NotContentBuilder extends ContentBuilder {
 	 * <div lang="en">Constructs a NotContentBuilder for NOT operator.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">発話エージェント</div>
+	 *            <div lang="ja">発話エージェント</div>
 	 *
-	 *                <div lang="en">The agent who utters.</div>
+	 *            <div lang="en">The agent who utters.</div>
 	 * @param content
-	 *                <div lang="ja">否定される{@code Content}</div>
+	 *            <div lang="ja">否定される{@code Content}</div>
 	 *
-	 *                <div lang="en">The negated {@code Content}.</div>
+	 *            <div lang="en">The negated {@code Content}.</div>
 	 */
 	public NotContentBuilder(Agent subject, Content content) {
 		topic = Topic.OPERATOR;

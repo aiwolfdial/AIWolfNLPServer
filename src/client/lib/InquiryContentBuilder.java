@@ -6,7 +6,6 @@
 package client.lib;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import common.data.Agent;
@@ -28,14 +27,14 @@ public class InquiryContentBuilder extends ContentBuilder {
 	 * inquiry (with no subject specified).</div>
 	 * 
 	 * @param target
-	 *                <div lang="ja">被照会エージェント</div>
+	 *            <div lang="ja">被照会エージェント</div>
 	 *
-	 *                <div lang="en">The inquired agent.</div>
+	 *            <div lang="en">The inquired agent.</div>
 	 * @param content
-	 *                <div lang="ja">照会事項を表す{@code Content}</div>
+	 *            <div lang="ja">照会事項を表す{@code Content}</div>
 	 *
-	 *                <div lang="en">{@code Content} representing the inquired
-	 *                matter.</div>
+	 *            <div lang="en">{@code Content} representing the inquired
+	 *            matter.</div>
 	 */
 	public InquiryContentBuilder(Agent target, Content content) {
 		this(Content.UNSPEC, target, content);
@@ -48,18 +47,18 @@ public class InquiryContentBuilder extends ContentBuilder {
 	 * inquiry.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">照会をするエージェント</div>
+	 *            <div lang="ja">照会をするエージェント</div>
 	 *
-	 *                <div lang="en">The agent who inquires.</div>
+	 *            <div lang="en">The agent who inquires.</div>
 	 * @param target
-	 *                <div lang="ja">被照会エージェント</div>
+	 *            <div lang="ja">被照会エージェント</div>
 	 *
-	 *                <div lang="en">The inquired agent.</div>
+	 *            <div lang="en">The inquired agent.</div>
 	 * @param content
-	 *                <div lang="ja">照会事項を表す{@code Content}</div>
+	 *            <div lang="ja">照会事項を表す{@code Content}</div>
 	 *
-	 *                <div lang="en">{@code Content} representing the inquired
-	 *                matter.</div>
+	 *            <div lang="en">{@code Content} representing the inquired
+	 *            matter.</div>
 	 */
 	public InquiryContentBuilder(Agent subject, Agent target, Content content) {
 		topic = Topic.OPERATOR;

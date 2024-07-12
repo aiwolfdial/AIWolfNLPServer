@@ -7,7 +7,6 @@ package common.net;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -99,9 +98,9 @@ public class GameSetting implements Cloneable {
 	 *
 	 * @param agentNum
 	 *
-	 *                 <div lang="ja">ゲームに参加するエージェントの数</div>
+	 *            <div lang="ja">ゲームに参加するエージェントの数</div>
 	 *
-	 *                 <div lang="en">Number of agents</div>
+	 *            <div lang="en">Number of agents</div>
 	 *
 	 * @return
 	 *
@@ -131,7 +130,8 @@ public class GameSetting implements Cloneable {
 		setting.isTalkOnFirstDay = false;
 		setting.isValidateUtterance = true;
 		setting.isWhisperBeforeRevote = false;
-		setting.timeLimit = -1; // -1: is not set yet
+		setting.responseTimeout = -1;
+		setting.actionTimeout = -1;
 		setting.maxRevote = 1;
 		setting.maxAttackRevote = 1;
 		setting.isEnableRoleRequest = true;
@@ -149,9 +149,9 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Returns game setting read from configuration file.</div>
 	 *
 	 * @param fileName
-	 *                 <div lang="ja">設定ファイルのファイル名</div>
+	 *            <div lang="ja">設定ファイルのファイル名</div>
 	 *
-	 *                 <div lang="en">configuration file's name</div>
+	 *            <div lang="en">configuration file's name</div>
 	 *
 	 * @return <div lang="ja">読み込んだGameSetting</div>
 	 *
@@ -183,8 +183,10 @@ public class GameSetting implements Cloneable {
 					setting.maxSkip = Integer.parseInt(data[1].trim());
 				} else if (data[0].trim().equalsIgnoreCase("randomseed")) {
 					setting.randomSeed = Integer.parseInt(data[1].trim());
-				} else if (data[0].trim().equalsIgnoreCase("timelimit")) {
-					setting.timeLimit = Integer.parseInt(data[1].trim());
+				} else if (data[0].trim().equalsIgnoreCase("responsetimeout")) {
+					setting.responseTimeout = Integer.parseInt(data[1].trim());
+				} else if (data[0].trim().equalsIgnoreCase("actiontimeout")) {
+					setting.actionTimeout = Integer.parseInt(data[1].trim());
 				} else if (data[0].trim().equalsIgnoreCase("maxrevote")) {
 					setting.maxRevote = Integer.parseInt(data[1].trim());
 				} else if (data[0].trim().equalsIgnoreCase("maxattackrevote")) {
@@ -363,7 +365,8 @@ public class GameSetting implements Cloneable {
 	 *
 	 * <div lang="en">Time limit for the response to the request</div>
 	 */
-	int timeLimit;
+	int responseTimeout;
+	int actionTimeout;
 
 	/**
 	 * <div lang="ja">最大再投票回数</div>
@@ -419,9 +422,9 @@ public class GameSetting implements Cloneable {
 	 * </div>
 	 *
 	 * @param role
-	 *             <div lang="ja">役職</div>
+	 *            <div lang="ja">役職</div>
 	 *
-	 *             <div lang="en">Role</div>
+	 *            <div lang="en">Role</div>
 	 *
 	 * @return <div lang="ja">指定された役職の人数</div>
 	 *
@@ -454,9 +457,9 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en"> Set max number of talks. </div>
 	 *
 	 * @param maxTalk
-	 *                <div lang="ja">1日あたりの発言の最大数</div>
+	 *            <div lang="ja">1日あたりの発言の最大数</div>
 	 *
-	 *                <div lang="en">Max number of talks</div>
+	 *            <div lang="en">Max number of talks</div>
 	 */
 	public void setMaxTalk(int maxTalk) {
 		this.maxTalk = maxTalk;
@@ -481,10 +484,10 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Sets the maximum number of turns of talk.</div>
 	 *
 	 * @param maxTalkTurn
-	 *                    <div lang="ja">1日あたりの発言ターン最大数を表す{@code int}</div>
+	 *            <div lang="ja">1日あたりの発言ターン最大数を表す{@code int}</div>
 	 *
-	 *                    <div lang="en">{@code int} representing the maximum number
-	 *                    of turns of talk</div>
+	 *            <div lang="en">{@code int} representing the maximum number
+	 *            of turns of talk</div>
 	 */
 	public void setMaxTalkTurn(int maxTalkTurn) {
 		this.maxTalkTurn = maxTalkTurn;
@@ -509,10 +512,10 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en"> Sets the maximum number of whispers a day. </div>
 	 *
 	 * @param maxWhisper
-	 *                   <div lang="ja">1日あたりの囁きの最大数を表す{@code int}</div>
+	 *            <div lang="ja">1日あたりの囁きの最大数を表す{@code int}</div>
 	 *
-	 *                   <div lang="en">{@code int} representing the maximum number
-	 *                   of whispers a day.</div>
+	 *            <div lang="en">{@code int} representing the maximum number
+	 *            of whispers a day.</div>
 	 */
 	public void setMaxWhisper(int maxWhisper) {
 		this.maxWhisper = maxWhisper;
@@ -537,10 +540,10 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Sets the maximum number of turns of whisper.</div>
 	 *
 	 * @param maxWhisperTurn
-	 *                       <div lang="ja">1日あたりの囁きターン最大数を表す{@code int}</div>
+	 *            <div lang="ja">1日あたりの囁きターン最大数を表す{@code int}</div>
 	 *
-	 *                       <div lang="en">{@code int} representing the maximum
-	 *                       number of turns of whisper.</div>
+	 *            <div lang="en">{@code int} representing the maximum
+	 *            number of turns of whisper.</div>
 	 */
 	public void setMaxWhisperTurn(int maxWhisperTurn) {
 		this.maxWhisperTurn = maxWhisperTurn;
@@ -569,10 +572,10 @@ public class GameSetting implements Cloneable {
 	 * Skips.</div>
 	 *
 	 * @param maxSkip
-	 *                <div lang="ja">最大許容長を表す{@code int}</div>
+	 *            <div lang="ja">最大許容長を表す{@code int}</div>
 	 *
-	 *                <div lang="en">{@code int} representing the maximum
-	 *                permissible length.</div>
+	 *            <div lang="en">{@code int} representing the maximum
+	 *            permissible length.</div>
 	 */
 	public void setMaxSkip(int maxSkip) {
 		this.maxSkip = maxSkip;
@@ -622,10 +625,10 @@ public class GameSetting implements Cloneable {
 	 *
 	 * @param isEnableNoAttack
 	 *
-	 *                         <div lang="ja">誰も襲撃しないのを許すかどうか</div>
+	 *            <div lang="ja">誰も襲撃しないのを許すかどうか</div>
 	 *
-	 *                         <div lang="en">Permission for werewolfs attack no
-	 *                         one</div>
+	 *            <div lang="en">Permission for werewolfs attack no
+	 *            one</div>
 	 */
 	public void setEnableNoAttack(boolean isEnableNoAttack) {
 		this.isEnableNoAttack = isEnableNoAttack;
@@ -675,17 +678,17 @@ public class GameSetting implements Cloneable {
 	 *
 	 * @param isVoteVisible
 	 *
-	 *                      <div lang="ja">
+	 *            <div lang="ja">
 	 *
-	 *                      誰が誰に投票したかをエージェントが確認できるかどうか
+	 *            誰が誰に投票したかをエージェントが確認できるかどうか
 	 *
-	 *                      </div>
+	 *            </div>
 	 *
-	 *                      <div lang="en">
+	 *            <div lang="en">
 	 *
-	 *                      Permission for agents see who vote to who
+	 *            Permission for agents see who vote to who
 	 *
-	 *                      </div>
+	 *            </div>
 	 */
 	public void setVoteVisible(boolean isVoteVisible) {
 		this.isVoteVisible = isVoteVisible;
@@ -726,11 +729,11 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en"> Sets whether or not there is vote on first day. </div>
 	 *
 	 * @param isVotableInFirstDay
-	 *                            <div lang="ja">初日の投票ができるかどうかを表す{@code boolean}
-	 *                            </div>
+	 *            <div lang="ja">初日の投票ができるかどうかを表す{@code boolean}
+	 *            </div>
 	 *
-	 *                            <div lang="en"> {@code boolean} representing
-	 *                            whether or not there is vote on first day. </div>
+	 *            <div lang="en"> {@code boolean} representing
+	 *            whether or not there is vote on first day. </div>
 	 */
 	public void setVotableInFirstDay(boolean isVotableInFirstDay) {
 		this.isVotableInFirstDay = isVotableInFirstDay;
@@ -755,10 +758,10 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Sets whether or not executing nobody is allowed.</div>
 	 *
 	 * @param isEnableNoExecution
-	 *                            <div lang="ja">同票数の場合に追放なしとするかどうか </div>
+	 *            <div lang="ja">同票数の場合に追放なしとするかどうか </div>
 	 *
-	 *                            <div lang="en">whether or not executing nobody is
-	 *                            allowed</div>
+	 *            <div lang="en">whether or not executing nobody is
+	 *            allowed</div>
 	 */
 	public void setEnableNoExecution(boolean isEnableNoExecution) {
 		this.isEnableNoExecution = isEnableNoExecution;
@@ -791,9 +794,9 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Sets whether or not there are talks on day 0.</div>
 	 *
 	 * @param isTalkOnFirstDay
-	 *                         - <div lang="ja">Day 0にtalkがあるかどうか</div>
-	 *                         <div lang="en">whether or not there are talks on day
-	 *                         0</div>
+	 *            - <div lang="ja">Day 0にtalkがあるかどうか</div>
+	 *            <div lang="en">whether or not there are talks on day
+	 *            0</div>
 	 */
 	public void setTalkOnFirstDay(boolean isTalkOnFirstDay) {
 		this.isTalkOnFirstDay = isTalkOnFirstDay;
@@ -820,10 +823,10 @@ public class GameSetting implements Cloneable {
 	 * validated.</div>
 	 *
 	 * @param isValidateUtterance
-	 *                            <div lang="ja">発話文字列の違反チェックを行うかどうか</div>
+	 *            <div lang="ja">発話文字列の違反チェックを行うかどうか</div>
 	 *
-	 *                            <div lang="en">whether or not the text in
-	 *                            talk/whisper is validated</div>
+	 *            <div lang="en">whether or not the text in
+	 *            talk/whisper is validated</div>
 	 */
 	public void setValidateUtterance(boolean isValidateUtterance) {
 		this.isValidateUtterance = isValidateUtterance;
@@ -851,10 +854,10 @@ public class GameSetting implements Cloneable {
 	 * attack.</div> *
 	 *
 	 * @param isWhisperBeforeRevote
-	 *                              <div lang="ja">再襲撃投票前にwhisperするかどうか</div>
+	 *            <div lang="ja">再襲撃投票前にwhisperするかどうか</div>
 	 *
-	 *                              <div lang="en">whether or not there is whisper
-	 *                              before the revote for attack</div>
+	 *            <div lang="en">whether or not there is whisper
+	 *            before the revote for attack</div>
 	 */
 	public void setWhisperBeforeRevote(boolean isWhisperBeforeRevote) {
 		this.isWhisperBeforeRevote = isWhisperBeforeRevote;
@@ -933,9 +936,9 @@ public class GameSetting implements Cloneable {
 	 *
 	 * @param roleNumMap
 	 *
-	 *                   <div lang="ja">役職に対する人数を関連付けたマップ</div>
+	 *            <div lang="ja">役職に対する人数を関連付けたマップ</div>
 	 *
-	 *                   <div lang="en">Number of each charactors</div>
+	 *            <div lang="en">Number of each charactors</div>
 	 */
 	public void setRoleNumMap(Map<Role, Integer> roleNumMap) {
 		this.roleNumMap = roleNumMap;
@@ -963,9 +966,9 @@ public class GameSetting implements Cloneable {
 	 *
 	 * @param randomSeed
 	 *
-	 *                   <div lang="ja">ランダムシード</div>
+	 *            <div lang="ja">ランダムシード</div>
 	 *
-	 *                   <div lang="en">Random seed</div>
+	 *            <div lang="en">Random seed</div>
 	 */
 	public void setRandomSeed(long randomSeed) {
 		this.randomSeed = randomSeed;
@@ -981,8 +984,12 @@ public class GameSetting implements Cloneable {
 	 *         <div lang="en">the time limit in millisecond or -1 if this is not set
 	 *         yet<div>
 	 */
-	public int getTimeLimit() {
-		return timeLimit;
+	public int getResponseTimeout() {
+		return responseTimeout;
+	}
+
+	public int getActionTimeout() {
+		return actionTimeout;
 	}
 
 	/**
@@ -990,13 +997,17 @@ public class GameSetting implements Cloneable {
 	 *
 	 * <div lang="en">Sets the time limit for the response to the request.</div>
 	 *
-	 * @param timeLimit
-	 *                  <div lang="ja">制限時間</div>
+	 * @param responseTimeout
+	 *            <div lang="ja">制限時間</div>
 	 *
-	 *                  <div lang="en">the timeLimit to set</div>
+	 *            <div lang="en">the timeLimit to set</div>
 	 */
-	public void setTimeLimit(int timeLimit) {
-		this.timeLimit = timeLimit;
+	public void setResponseTimeout(int responseTimeout) {
+		this.responseTimeout = responseTimeout;
+	}
+
+	public void setActionTimeout(int actionTimeout) {
+		this.actionTimeout = actionTimeout;
 	}
 
 	/**
@@ -1018,9 +1029,9 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Sets the maximum number of revotes.</div>
 	 *
 	 * @param maxRevote
-	 *                  <div lang="ja">最大再投票回数</div>
+	 *            <div lang="ja">最大再投票回数</div>
 	 *
-	 *                  <div lang="en">the maximum number of revotes</div>
+	 *            <div lang="en">the maximum number of revotes</div>
 	 */
 	public void setMaxRevote(int maxRevote) {
 		this.maxRevote = maxRevote;
@@ -1045,10 +1056,10 @@ public class GameSetting implements Cloneable {
 	 * <div lang="en">Sets the maximum number of revotes for attack.</div>
 	 *
 	 * @param maxRevote
-	 *                  <div lang="ja">最大再襲撃投票回数</div>
+	 *            <div lang="ja">最大再襲撃投票回数</div>
 	 *
-	 *                  <div lang="en">the maximum number of revotes for
-	 *                  attack</div>
+	 *            <div lang="en">the maximum number of revotes for
+	 *            attack</div>
 	 */
 	public void setMaxAttackRevote(int maxAttackRevote) {
 		this.maxAttackRevote = maxAttackRevote;
@@ -1087,7 +1098,8 @@ public class GameSetting implements Cloneable {
 		gameSetting.maxTalkTurn = maxTalkTurn;
 		gameSetting.maxSkip = maxSkip;
 		gameSetting.randomSeed = randomSeed;
-		gameSetting.timeLimit = timeLimit;
+		gameSetting.responseTimeout = responseTimeout;
+		gameSetting.actionTimeout = actionTimeout;
 		gameSetting.maxRevote = maxRevote;
 		gameSetting.maxAttackRevote = maxAttackRevote;
 		gameSetting.roleNumMap.putAll(roleNumMap);

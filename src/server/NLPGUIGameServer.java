@@ -120,19 +120,36 @@ public class NLPGUIGameServer extends AbstractNLPServer {
 
 	@Override
 	protected Object request(Agent agent, Request request) {
+		// ゲーム設定からレスポンスとアクションのタイムアウトを取得
+		long responseTimeout = gameSetting.getResponseTimeout();
+		long actionTimeout = gameSetting.getActionTimeout();
+		// エージェントに関連付けられた接続を取得
 		NLPAIWolfConnection connection = allAgentConnectionMap.get(agent);
 		ExecutorService pool = Executors.newSingleThreadExecutor();
-
 		try {
-			String line = getResponse(connection, pool, agent, request);
-			if (request == Request.TALK) {
-				connector.send(converter.talk(agent.getAgentIdx(), line));
-				line = line.replaceAll("%\\d%", "");
+			try {
+				// 短いタイムアウト内にレスポンスを取得
+				String line = getResponse(connection, pool, agent, request, Math.min(responseTimeout, actionTimeout));
+				return convertRequestData(request, line);
+			} catch (TimeoutException e) {
+				// アクションのタイムアウトを超えた場合
+				if (responseTimeout > actionTimeout) {
+					try {
+						// 接続が切れたかどうかを確認
+						String line = getResponse(connection, pool, agent, Request.NAME,
+								responseTimeout - actionTimeout);
+						return convertRequestData(request, line);
+					} catch (TimeoutException e1) {
+						// 再度タイムアウトした場合
+						return catchException(agent, request, e1);
+					}
+				} else {
+					// すでにレスポンスのタイムアウトを超えた場合
+					return catchException(agent, request, e);
+				}
 			}
-			return convertRequestData(request, line);
-		} catch (ActionTimeoutException e) {
-			return convertRequestData(Request.NAME, null);
-		} catch (IOException | InterruptedException | ExecutionException | TimeoutException e) {
+		} catch (IOException | InterruptedException | ExecutionException e) {
+			// リクエスト中に発生する他の例外を処理
 			return catchException(agent, request, e);
 		} finally {
 			pool.shutdownNow();

@@ -6,7 +6,6 @@
 package client.lib;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import common.data.Agent;
@@ -28,14 +27,14 @@ public class DayContentBuilder extends ContentBuilder {
 	 * content (with no subject specified).</div>
 	 * 
 	 * @param day
-	 *                <div lang="ja">日付</div>
+	 *            <div lang="ja">日付</div>
 	 *
-	 *                <div lang="en">The date.</div>
+	 *            <div lang="en">The date.</div>
 	 * @param content
-	 *                <div lang="ja">日付情報を与えられる{@code Content}</div>
+	 *            <div lang="ja">日付情報を与えられる{@code Content}</div>
 	 *
-	 *                <div lang="en">{@code Content} given the date
-	 *                information.</div>
+	 *            <div lang="en">{@code Content} given the date
+	 *            information.</div>
 	 */
 	public DayContentBuilder(int day, Content content) {
 		this(Content.UNSPEC, day, content);
@@ -48,18 +47,18 @@ public class DayContentBuilder extends ContentBuilder {
 	 * content.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">発話エージェント</div>
+	 *            <div lang="ja">発話エージェント</div>
 	 *
-	 *                <div lang="en">The agent who utters.</div>
+	 *            <div lang="en">The agent who utters.</div>
 	 * @param day
-	 *                <div lang="ja">日付</div>
+	 *            <div lang="ja">日付</div>
 	 *
-	 *                <div lang="en">The date.</div>
+	 *            <div lang="en">The date.</div>
 	 * @param content
-	 *                <div lang="ja">日付情報を与えられる{@code Content}</div>
+	 *            <div lang="ja">日付情報を与えられる{@code Content}</div>
 	 *
-	 *                <div lang="en">{@code Content} given the date
-	 *                information.</div>
+	 *            <div lang="en">{@code Content} given the date
+	 *            information.</div>
 	 */
 	public DayContentBuilder(Agent subject, int day, Content content) {
 		topic = Topic.OPERATOR;

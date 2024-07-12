@@ -6,7 +6,6 @@
 package client.lib;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import common.data.Agent;
@@ -28,14 +27,14 @@ public class RequestContentBuilder extends ContentBuilder {
 	 * agent's action (with no subject specified).</div>
 	 * 
 	 * @param target
-	 *                <div lang="ja">要求先のエージェント</div>
+	 *            <div lang="ja">要求先のエージェント</div>
 	 *
-	 *                <div lang="en">The requested agent.</div>
+	 *            <div lang="en">The requested agent.</div>
 	 * @param content
-	 *                <div lang="ja">要求される行動を表す{@code Content}</div>
+	 *            <div lang="ja">要求される行動を表す{@code Content}</div>
 	 *
-	 *                <div lang="en">{@code Content} representing the requested
-	 *                action.</div>
+	 *            <div lang="en">{@code Content} representing the requested
+	 *            action.</div>
 	 */
 	public RequestContentBuilder(Agent target, Content content) {
 		this(Content.UNSPEC, target, content);
@@ -48,18 +47,18 @@ public class RequestContentBuilder extends ContentBuilder {
 	 * agent's action.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">要求をするエージェント</div>
+	 *            <div lang="ja">要求をするエージェント</div>
 	 *
-	 *                <div lang="en">The agent who requests.</div>
+	 *            <div lang="en">The agent who requests.</div>
 	 * @param target
-	 *                <div lang="ja">要求先のエージェント</div>
+	 *            <div lang="ja">要求先のエージェント</div>
 	 *
-	 *                <div lang="en">The requested agent.</div>
+	 *            <div lang="en">The requested agent.</div>
 	 * @param content
-	 *                <div lang="ja">要求される行動を表す{@code Content}</div>
+	 *            <div lang="ja">要求される行動を表す{@code Content}</div>
 	 *
-	 *                <div lang="en">{@code Content} representing the requested
-	 *                action.</div>
+	 *            <div lang="en">{@code Content} representing the requested
+	 *            action.</div>
 	 */
 	public RequestContentBuilder(Agent subject, Agent target, Content content) {
 		topic = Topic.OPERATOR;
