@@ -72,7 +72,7 @@ public class NLPCUIGameServer extends AbstractNLPServer {
 						// 接続が切れたかどうかを確認
 						String line = getResponse(connection, pool, agent, Request.NAME,
 								responseTimeout - actionTimeout);
-						return convertRequestData(request, line);
+						return convertRequestData(request, line); // TODO nameであるかを確認
 					} catch (TimeoutException e1) {
 						// 再度タイムアウトした場合
 						return catchException(agent, request, e1);
@@ -139,5 +139,4 @@ public class NLPCUIGameServer extends AbstractNLPServer {
 	public void setGameSetting(GameSetting gameSetting) {
 		this.gameSetting = gameSetting;
 	}
-
 }

@@ -58,9 +58,9 @@ public class NLPServerStarter extends ServerStarter {
 	private final Queue<List<Socket>> socketQue = new ArrayDeque<>();
 	private GameStarter gameStarter;
 
-	private final Map<String, Map<String, List<Pair<Long, Socket>>>> allWaitingSocketMap = new HashMap<>();
+	private final Map<String, Map<String, List<Pair<Long, Socket>>>> waitingSockets = new HashMap<>();
 
-	private boolean isActive = false;
+	private boolean isRunning = false;
 
 	public static void main(String[] args) {
 		String configPath = DEFAULT_CONFIG_PATH;
@@ -79,140 +79,130 @@ public class NLPServerStarter extends ServerStarter {
 	}
 
 	private void acceptClients() {
-		boolean existEssentialAgent = !(config.getRequiredAgentName() == null
-				|| config.getRequiredAgentName().isEmpty());
-
+		// 必要なエージェント名が設定されているかどうかを確認
+		boolean isSetRequiredAgentName = !config.getRequiredAgentName().isEmpty();
 		ServerSocket serverSocket = null;
 		try {
+			// サーバーソケットを指定されたポートで作成
 			serverSocket = new ServerSocket(config.getPort());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Set<Socket> essentialSocketSet = new HashSet<>();
+		Set<Socket> requiredSockets = new HashSet<>();
 		System.out.println("NLPServerStarter start.");
-		System.out.println(
-				"SingleAgentPerIp = " + config.isSingleAgentPerIp() + " " + Thread.currentThread().getStackTrace()[1]);
-		this.isActive = true;
+		isRunning = true;
 		while (true) {
 			try {
-				if (existEssentialAgent)
-					System.out.println("EssentialSocket : " + essentialSocketSet);
-
-				// 受け付けたソケットを格納するMap（ソケットのIPをkey、登録時間とソケットのペアをvalue）
-				Map<String, List<Pair<Long, Socket>>> entrySocketMap = new HashMap<>();
-
-				// 受け付けたクライアント
-				Socket socket = serverSocket.accept();
-
-				// 同一IP対戦ならIPをキーに利用し、それ以外はMapのハッシュコードをキーに使用する
-				String key = String.valueOf(entrySocketMap.hashCode());
-				if (config.isSingleAgentPerIp())
-					key = socket.getInetAddress().getHostAddress();
-				else if (allWaitingSocketMap.size() != 0)
-					key = new ArrayList<String>(allWaitingSocketMap.keySet()).get(0);
-				if (allWaitingSocketMap.containsKey(key))
-					entrySocketMap = allWaitingSocketMap.get(key);
-				else
-					allWaitingSocketMap.put(key, entrySocketMap);
-				System.out.println("socket connected : " + key);
-				// System.out.println("allWaitingSocketMap = " + allWaitingSocketMap + " " +
-				// Thread.currentThread().getStackTrace()[1]);
-				// エージェント名が必須エージェントなら必須ソケットセットに加える
-				String name = getName(socket);
-				if (existEssentialAgent && name.contains(config.getRequiredAgentName()))
-					essentialSocketSet.add(socket);
-
-				// Socketの追加
-				Pair<Long, Socket> pair = new Pair<>(System.currentTimeMillis() / 3600000, socket);
-				if (entrySocketMap.containsKey(socket.getInetAddress().getHostAddress()))
-					entrySocketMap.get(socket.getInetAddress().getHostAddress()).add(pair);
-				else {
-					List<Pair<Long, Socket>> list = new ArrayList<>();
-					list.add(pair);
-					entrySocketMap.put(socket.getInetAddress().getHostAddress(), list);
+				if (isSetRequiredAgentName) {
+					System.out.println("requiredSockets: " + requiredSockets);
 				}
 
+				// クライアントのIPアドレスをキーとし、そのIPアドレスに関連付けられたソケットのリストを値とするマップ
+				Map<String, List<Pair<Long, Socket>>> entrySocketMap = new HashMap<>();
+				// クライアントからの接続を受け入れる
+				Socket socket = serverSocket.accept();
+
+				// エントリーソケットマップのキーを生成
+				String key = String.valueOf(entrySocketMap.hashCode());
+				if (config.isSingleAgentPerIp()) {
+					key = socket.getInetAddress().getHostAddress();
+				} else if (!waitingSockets.isEmpty()) {
+					key = new ArrayList<>(waitingSockets.keySet()).get(0);
+				}
+
+				// エントリーソケットマップを更新
+				entrySocketMap = waitingSockets.getOrDefault(key, new HashMap<>());
+				waitingSockets.putIfAbsent(key, entrySocketMap);
+
+				System.out.println("socket connected: " + key);
+
+				// ソケットの名前を取得
+				String name = getName(socket);
+				if (isSetRequiredAgentName && name.contains(config.getRequiredAgentName())) {
+					requiredSockets.add(socket);
+				}
+
+				// ソケットと現在の時間のペアを作成
+				Pair<Long, Socket> pair = new Pair<>(System.currentTimeMillis() / 3600000, socket);
+				entrySocketMap.computeIfAbsent(socket.getInetAddress().getHostAddress(), k -> new ArrayList<>())
+						.add(pair);
+
+				// 無効な接続を削除
 				removeInvalidConnection(config.getIdleConnectionTimeout());
+				// アクティブな接続を表示
 				printActiveConnection();
 
-				// エージェントが人数に達していなければコネクションの受付へ戻る
-				if (existEssentialAgent && essentialSocketSet.isEmpty())
+				if (isSetRequiredAgentName && requiredSockets.isEmpty()) {
 					continue;
+				}
 
-				sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), essentialSocketSet);
+				// 接続キューを送信
+				sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), requiredSockets);
 			} catch (Exception e) {
-				System.out.println();
+				e.printStackTrace();
 				continue;
 			}
 		}
 	}
 
-	/**
-	 * @author nwatanabe
-	 * @param index 何番目に接続するプレイヤーかのインデックス
-	 * @return プレイヤーサーバに接続したソケット
-	 * @throws UnknownHostException
-	 * @throws ConnectException
-	 * @throws NoRouteToHostException
-	 * @throws IOException
-	 */
+	// サーバーソケットを取得するメソッド
 	private Socket getServerSocket(int index, String line, Set<Integer> entryAgentIndex)
 			throws UnknownHostException, ConnectException, NoRouteToHostException, IOException {
-		Map<String, Object> serverInfo = new HashMap<String, Object>();
-		if (config.isContinueOtherCombinations()) {
-			while (true) {
-				Random rand = new Random();
-				index = rand.nextInt(config.getAllParticipantNum()) + 1;
+		String host = null;
+		int port = 0;
 
-				if (!entryAgentIndex.contains(index)) {
-					entryAgentIndex.add(index);
-					break;
-				}
-			}
+		// 他の組み合わせを続行する設定が有効な場合、ランダムにインデックスを選択
+		if (config.isContinueOtherCombinations()) {
+			Random rand = new Random();
+			do {
+				index = rand.nextInt(config.getAllParticipantNum()) + 1;
+			} while (entryAgentIndex.contains(index));
+			entryAgentIndex.add(index);
 		}
 
-		System.out.println("index:" + index);
+		System.out.println("index: " + index);
 
+		// インデックスに基づいてサーバー情報を設定
 		switch (index) {
 			case 1:
-				serverInfo.put("HOST", config.getPlayer1Ip());
-				serverInfo.put("PORT", config.getPlayer1Port());
+				host = config.getPlayer1Ip();
+				port = config.getPlayer1Port();
 				break;
 			case 2:
-				serverInfo.put("HOST", config.getPlayer2Ip());
-				serverInfo.put("PORT", config.getPlayer2Port());
+				host = config.getPlayer2Ip();
+				port = config.getPlayer2Port();
 				break;
 			case 3:
-				serverInfo.put("HOST", config.getPlayer3Ip());
-				serverInfo.put("PORT", config.getPlayer3Port());
+				host = config.getPlayer3Ip();
+				port = config.getPlayer3Port();
 				break;
 			case 4:
-				serverInfo.put("HOST", config.getPlayer4Ip());
-				serverInfo.put("PORT", config.getPlayer4Port());
+				host = config.getPlayer4Ip();
+				port = config.getPlayer4Port();
 				break;
 			case 5:
-				serverInfo.put("HOST", config.getPlayer5Ip());
-				serverInfo.put("PORT", config.getPlayer5Port());
+				host = config.getPlayer5Ip();
+				port = config.getPlayer5Port();
 				break;
 			case 6:
-				serverInfo.put("HOST", config.getPlayer6Ip());
-				serverInfo.put("PORT", config.getPlayer6Port());
+				host = config.getPlayer6Ip();
+				port = config.getPlayer6Port();
 				break;
 			case 7:
-				serverInfo.put("HOST", config.getPlayer7Ip());
-				serverInfo.put("PORT", config.getPlayer7Port());
+				host = config.getPlayer7Ip();
+				port = config.getPlayer7Port();
 				break;
 			case 8:
-				serverInfo.put("HOST", config.getPlayer8Ip());
-				serverInfo.put("PORT", config.getPlayer8Port());
+				host = config.getPlayer8Ip();
+				port = config.getPlayer8Port();
 				break;
 			case 9:
-				serverInfo.put("HOST", config.getPlayer9Ip());
-				serverInfo.put("PORT", config.getPlayer9Port());
+				host = config.getPlayer9Ip();
+				port = config.getPlayer9Port();
 				break;
 			case 10:
-				serverInfo.put("HOST", config.getPlayer10Ip());
-				serverInfo.put("PORT", config.getPlayer10Port());
+				host = config.getPlayer10Ip();
+				port = config.getPlayer10Port();
 				break;
 			case 10000:
 			case 10001:
@@ -220,167 +210,126 @@ public class NLPServerStarter extends ServerStarter {
 			case 10003:
 			case 10004:
 				String[] portList = line.split("\\s");
-				// serverInfo.put("HOST","133.167.32.100");
-				serverInfo.put("HOST", "localhost");
-				serverInfo.put("PORT", Integer.parseInt(portList[index % 10000]));
+				host = "localhost";
+				port = Integer.parseInt(portList[index % 10000]);
 				break;
+			default:
+				throw new IllegalArgumentException("Invalid index: " + index);
 		}
 
-		System.out.println("HOST:" + serverInfo.get("HOST").toString() + " PORT:" + serverInfo.get("PORT"));
-		Socket sock = new Socket(serverInfo.get("HOST").toString(), (int) serverInfo.get("PORT"));
+		System.out.println("HOST: " + host + " PORT: " + port);
+		Socket sock = new Socket(host, port);
 
 		try {
 			String name = getName(sock);
-			System.out.println("NAME:" + name);
+			System.out.println("NAME: " + name);
 		} catch (Exception e) {
 			throw new UnknownHostException();
 		}
 		return sock;
 	}
 
-	/**
-	 * サーバとして待ち受ける時はclientがまばらに来るのでwhileで来た順に受け付けたが、こちらをclientとするときは全てのサーバは既に待ち受けしている物として進める。
-	 * 
-	 * @author nwatanabe
-	 */
 	private void connectToPlayerServer() {
-		Set<Socket> essentialSocketSet = new HashSet<>(); // essentialAgentはこちらから繋ぎに行く都合上いらない気がするので今は入れてない。(引数として必要なため定義)
+		// サーバースターターの初期化
 		System.out.println("NLPServerStarter start.");
-		// System.out.println("onlyConnection = " + onlyConnection + " " +
-		// Thread.currentThread().getStackTrace()[1]);
-		this.isActive = true;
+		isRunning = true;
 		int index = 1;
 		String line = "";
 
 		try {
-
+			// サーバーがポートをリッスンするかどうかを確認
 			if (config.isListenPort()) {
-				// 接続先のポートを聞く。
-				System.out.println("Port Listening...");
-				ServerSocket serverSocket = new ServerSocket(config.getPort());
-				Socket socket = serverSocket.accept();
-				line = getHostNameAndPort(socket);
-				index = 10000;
+				System.out.println("Port listening...");
+				try (ServerSocket serverSocket = new ServerSocket(config.getPort())) {
+					Socket socket = serverSocket.accept();
+					line = getHostNameAndPort(socket);
+					index = 10000;
+				}
 			}
 
+			// IPアドレスに基づいてエントリーソケットを格納するマップ
 			Map<String, List<Pair<Long, Socket>>> entrySocketMap = new HashMap<>();
-			// key:ip value:
-			// list[pair(entrytime, socket)]
 			Set<Integer> entryAgentIndex = new HashSet<>();
+
+			// 指定された数のエージェントに接続
 			for (int i = 0; i < config.getConnectAgentNum(); i++) {
 				Socket socket = getServerSocket(index, line, entryAgentIndex);
-
-				// Socketの追加
 				Pair<Long, Socket> pair = new Pair<>(System.currentTimeMillis() / 3600000, socket);
-				if (entrySocketMap.containsKey(socket.getInetAddress().getHostAddress())) {
-					// 同一IPなら同じKeyの場所に格納する
-					entrySocketMap.get(socket.getInetAddress().getHostAddress()).add(pair);
-				} else {
-					List<Pair<Long, Socket>> list = new ArrayList<>();
-					list.add(pair);
-					entrySocketMap.put(socket.getInetAddress().getHostAddress(), list);
-					System.out.println("Address:" + socket.getInetAddress().getHostAddress());
-				}
+				String ipAddress = socket.getInetAddress().getHostAddress();
 
-				// IPが異なる場合にIPをKeyとしない理由が今のところ分からないのでIPをkeyにする(グローバルIPとローカルIPがぶつかる可能性を考慮した？)
-				String key = socket.getInetAddress().getHostAddress();
+				// IPアドレスに基づいてソケットをマップに追加
+				entrySocketMap.computeIfAbsent(ipAddress, k -> new ArrayList<>()).add(pair);
+				System.out.println("Address:" + ipAddress);
 
-				allWaitingSocketMap.put(key, entrySocketMap);
+				// 待機中のソケットマップにエントリーソケットマップを格納
+				waitingSockets.put(ipAddress, entrySocketMap);
 				index++;
 			}
 
+			// アイドルタイムアウトに基づいて無効な接続を削除
 			removeInvalidConnection(config.getIdleConnectionTimeout());
-
+			// アクティブな接続を表示
 			try {
 				printActiveConnection();
 			} catch (Exception e) {
-				System.out.println();
+				e.printStackTrace();
 				return;
 			}
 
-			sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), essentialSocketSet);
-
+			// 接続キューを送信
+			sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), new HashSet<>());
 		} catch (UnknownHostException e) {
-			// check spelling of hostname
+			// 未知のホスト例外を処理
 			System.out.println("Player" + index + " host is not found.\nPlease check spelling of hostname");
 		} catch (ConnectException e) {
-			// connection refused - is server down? Try another port.
+			// 接続拒否例外を処理
 			System.out.println("Player" + index + " connection refused.");
 		} catch (NoRouteToHostException e) {
-			// The connect attempt timed out. Try connecting through a proxy
-			System.out.println("Player" + index + "time out.");
+			// ホストへのルートがない例外を処理
+			System.out.println("Player" + index + " time out.");
 		} catch (IOException e) {
-			// another error occurred
-			System.out.println("Player" + index + "some error occured.");
+			// その他のIO例外を処理
+			System.out.println("Player" + index + " some error occurred.");
 		}
 	}
 
-	/**
-	 * ソケットが生きているかの確認も兼ねているため現在はとりあえずconnectionのgetNameと同じ内容をここでも再実装<br>
-	 * getName自体はconnectionクラスに実装しているのでソケット通信が生きているかの確認はもっと簡略化した内容で実装し直してもよいと思う<br>
-	 * 
-	 * @param socket
-	 * @return
-	 * @throws IOException
-	 * @throws InterruptedException
-	 * @throws ExecutionException
-	 * @throws TimeoutException
-	 * @throws SocketException
-	 */
 	private String getName(Socket socket) throws IOException, InterruptedException,
 			ExecutionException, TimeoutException, SocketException {
 		NLPAIWolfConnection connection = new NLPAIWolfConnection(socket, config);
 		ExecutorService pool = Executors.newSingleThreadExecutor();
-		// clientにrequestを送信し、結果を受け取る
-		BufferedWriter bw = connection.getBufferedWriter();
-		bw.append(DataConverter.getInstance().convert(new Packet(Request.NAME)));
-		bw.append("\n");
-		bw.flush();
+		try (BufferedWriter bw = connection.getBufferedWriter()) {
+			bw.append(DataConverter.getInstance().convert(new Packet(Request.NAME)));
+			bw.append("\n");
+			bw.flush();
 
-		System.out.println("Send getName");
-
-		// 結果の受け取りとタイムアウト
-		BRCallable task = new BRCallable(connection.getBufferedReader());
-		Future<String> future = pool.submit(task);
-		String line = config.getResponseTimeout() > 0 ? future.get(config.getResponseTimeout(), TimeUnit.MILLISECONDS)
-				: future.get();
-		if (!task.isSuccess()) {
-			throw task.getIOException();
+			BRCallable task = new BRCallable(connection.getBufferedReader());
+			Future<String> future = pool.submit(task);
+			String line = config.getResponseTimeout() > 0
+					? future.get(config.getResponseTimeout(), TimeUnit.MILLISECONDS)
+					: future.get();
+			if (!task.isSuccess()) {
+				throw task.getIOException();
+			}
+			return (line == null || line.isEmpty()) ? null : line;
+		} finally {
+			pool.shutdown();
 		}
-		return (line == null || line.isEmpty()) ? null : line;
 	}
 
 	private String getHostNameAndPort(Socket socket) throws IOException {
-		BufferedReader reader = new BufferedReader(
-				new InputStreamReader(socket.getInputStream()));
-
-		String line = reader.readLine();
-
-		System.out.println("--------------------");
-		System.out.println(line);
-
-		// 通信の終了
-		socket.close();
-		reader.close();
-
-		return line;
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+			String line = reader.readLine();
+			System.out.println("--------------------");
+			System.out.println(line);
+			return line;
+		} finally {
+			socket.close();
+		}
 	}
 
-	/**
-	 * 無効なConnetionを削除する
-	 * 
-	 * @param allWaitingSocketMap
-	 * @param deleteTime
-	 * @param entrySocketMap
-	 * @throws TimeoutException
-	 * @throws ExecutionException
-	 * @throws InterruptedException
-	 * @throws IOException
-	 * @throws SocketException
-	 */
 	private void removeInvalidConnection(int deleteTime) {
 		Map<Pair<String, String>, Pair<Long, Socket>> lostMap = new HashMap<>();
-		for (Entry<String, Map<String, List<Pair<Long, Socket>>>> sMapEntry : allWaitingSocketMap.entrySet()) {
+		for (Entry<String, Map<String, List<Pair<Long, Socket>>>> sMapEntry : waitingSockets.entrySet()) {
 			for (Entry<String, List<Pair<Long, Socket>>> entry : sMapEntry.getValue().entrySet()) {
 				// ロストしているSocket・deleteTimeより長時間対戦が行われずに接続が継続しているSocketを削除リストに追加
 				for (Pair<Long, Socket> socketPair : entry.getValue()) {
@@ -398,35 +347,24 @@ public class NLPServerStarter extends ServerStarter {
 		// 問題のあるコネクションを削除
 		for (Entry<Pair<String, String>, Pair<Long, Socket>> lostPair : lostMap.entrySet()) {
 			Pair<String, String> keyPair = lostPair.getKey();
-			allWaitingSocketMap.get(keyPair.getKey()).get(keyPair.getValue()).remove(lostPair.getValue());
-			if (allWaitingSocketMap.get(keyPair.getKey()).get(keyPair.getValue()).isEmpty())
-				allWaitingSocketMap.get(keyPair.getKey()).remove(keyPair.getValue());
-			if (allWaitingSocketMap.get(keyPair.getKey()).isEmpty())
-				allWaitingSocketMap.remove(keyPair.getKey());
+			waitingSockets.get(keyPair.getKey()).get(keyPair.getValue()).remove(lostPair.getValue());
+			if (waitingSockets.get(keyPair.getKey()).get(keyPair.getValue()).isEmpty())
+				waitingSockets.get(keyPair.getKey()).remove(keyPair.getValue());
+			if (waitingSockets.get(keyPair.getKey()).isEmpty())
+				waitingSockets.remove(keyPair.getKey());
 		}
 		removeEmptyMap();
 	}
 
-	/**
-	 * 空のMapを削除する
-	 */
 	private void removeEmptyMap() {
-		Iterator<Entry<String, Map<String, List<Pair<Long, Socket>>>>> outsideIterator = allWaitingSocketMap.entrySet()
-				.iterator();
-		while (outsideIterator.hasNext()) {
-			Entry<String, Map<String, List<Pair<Long, Socket>>>> entry = outsideIterator.next();
-			if (entry.getValue().isEmpty())
-				outsideIterator.remove();
-			else {
-				Iterator<Entry<String, List<Pair<Long, Socket>>>> insideIterator = entry.getValue().entrySet()
-						.iterator();
-				while (insideIterator.hasNext()) {
-					Entry<String, List<Pair<Long, Socket>>> insideEntry = insideIterator.next();
-					if (insideEntry.getValue().isEmpty())
-						insideIterator.remove();
-				}
+		waitingSockets.entrySet().removeIf(entry -> {
+			if (entry.getValue().isEmpty()) {
+				return true;
+			} else {
+				entry.getValue().entrySet().removeIf(insideEntry -> insideEntry.getValue().isEmpty());
+				return false;
 			}
-		}
+		});
 	}
 
 	/**
@@ -440,11 +378,11 @@ public class NLPServerStarter extends ServerStarter {
 	 */
 	private void printActiveConnection() throws SocketException, IOException,
 			InterruptedException, ExecutionException, TimeoutException {
-		if (allWaitingSocketMap.isEmpty()) {
+		if (waitingSockets.isEmpty()) {
 			System.out.println("connecting : connection is empty.");
 			return;
 		}
-		for (Map<String, List<Pair<Long, Socket>>> map : allWaitingSocketMap.values()) {
+		for (Map<String, List<Pair<Long, Socket>>> map : waitingSockets.values()) {
 			System.out.println("------------------------------------------------------------------");
 			for (List<Pair<Long, Socket>> list : map.values()) {
 				System.out.print("connecting : ");
@@ -470,7 +408,7 @@ public class NLPServerStarter extends ServerStarter {
 		// Thread.currentThread().getStackTrace()[1]);
 		// 人数が揃っていればセット開始待機リストに追加
 		boolean send = false;
-		Iterator<Entry<String, Map<String, List<Pair<Long, Socket>>>>> iterator = allWaitingSocketMap.entrySet()
+		Iterator<Entry<String, Map<String, List<Pair<Long, Socket>>>>> iterator = waitingSockets.entrySet()
 				.iterator();
 		Set<Socket> set = new HashSet<>(essentialSocketSet);
 		while (iterator.hasNext()) {
@@ -510,7 +448,7 @@ public class NLPServerStarter extends ServerStarter {
 	 * ServerStarterの起動
 	 */
 	public void start() {
-		if (isActive)
+		if (isRunning)
 			return;
 
 		// ゲーム開始スレッドの起動
