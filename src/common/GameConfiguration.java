@@ -7,11 +7,7 @@ import org.ini4j.Profile.Section;
 
 public class GameConfiguration {
     public enum HumanRole {
-        VILLAGER,
-        SEER,
-        POSSESSED,
-        WEREWOLF,
-        NULL,
+        VILLAGER, SEER, POSSESSED, WEREWOLF, NULL,
     }
 
     private String logDir = "./log/";
@@ -247,6 +243,63 @@ public class GameConfiguration {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        System.out.println("Configuration loaded from " + path);
+        System.out.println("logDir: " + logDir);
+        System.out.println("port: " + port);
+        System.out.println("battleAgentNum: " + battleAgentNum);
+        System.out.println("connectAgentNum: " + connectAgentNum);
+        System.out.println("gameNum: " + gameNum);
+        System.out.println("maxTalkNum: " + maxTalkNum);
+        System.out.println("maxTalkTurn: " + maxTalkTurn);
+        System.out.println("parallelRunningGameNum: " + parallelRunningGameNum);
+        System.out.println("responseTimeout: " + responseTimeout);
+        System.out.println("actionTimeout: " + actionTimeout);
+        System.out.println("saveLog: " + saveLog);
+        System.out.println("continueExceptionAgent: " + continueExceptionAgent);
+        System.out.println("matchSameIpOnly: " + matchSameIpOnly);
+        System.out.println("talkOnFirstDay: " + talkOnFirstDay);
+        System.out.println("singleAgentPerIp: " + singleAgentPerIp);
+        System.out.println("idleConnectionTimeout: " + idleConnectionTimeout);
+        System.out.println("requiredAgentName: " + requiredAgentName);
+        System.out.println("prioritizeCombinations: " + prioritizeCombinations);
+        System.out.println("guiIp: " + guiIp);
+        System.out.println("guiPort: " + guiPort);
+        System.out.println("useGui: " + useGui);
+        System.out.println("debugMode: " + debugMode);
+        System.out.println("synchronousMode: " + synchronousMode);
+        System.out.println("joinHuman: " + joinHuman);
+        System.out.println("humanName: " + humanName);
+        System.out.println("humanRole: " + humanRole);
+        System.out.println("humanAgentNum: " + humanAgentNum);
+        System.out.println("isServer: " + isServer);
+        System.out.println("listenPort: " + listenPort);
+        System.out.println("saveRoleCombination: " + saveRoleCombination);
+        System.out.println("roleCombinationDir: " + roleCombinationDir);
+        System.out.println("roleCombinationFilename: " + roleCombinationFilename);
+        System.out.println("allParticipantNum: " + allParticipantNum);
+        System.out.println("continueOtherCombinations: " + continueOtherCombinations);
+        System.out.println("continueCombinationsNum: " + continueCombinationsNum);
+        System.out.println("player1Ip: " + player1Ip);
+        System.out.println("player1Port: " + player1Port);
+        System.out.println("player2Ip: " + player2Ip);
+        System.out.println("player2Port: " + player2Port);
+        System.out.println("player3Ip: " + player3Ip);
+        System.out.println("player3Port: " + player3Port);
+        System.out.println("player4Ip: " + player4Ip);
+        System.out.println("player4Port: " + player4Port);
+        System.out.println("player5Ip: " + player5Ip);
+        System.out.println("player5Port: " + player5Port);
+        System.out.println("player6Ip: " + player6Ip);
+        System.out.println("player6Port: " + player6Port);
+        System.out.println("player7Ip: " + player7Ip);
+        System.out.println("player7Port: " + player7Port);
+        System.out.println("player8Ip: " + player8Ip);
+        System.out.println("player8Port: " + player8Port);
+        System.out.println("player9Ip: " + player9Ip);
+        System.out.println("player9Port: " + player9Port);
+        System.out.println("player10Ip: " + player10Ip);
+        System.out.println("player10Port: " + player10Port);
     }
 
     public String getLogDir() {
