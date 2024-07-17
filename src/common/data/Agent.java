@@ -27,64 +27,37 @@ import java.util.Map;
  *
  */
 final public class Agent implements Comparable<Agent> {
-
 	private static final Map<Integer, Agent> agentIndexMap = new HashMap<>();
 
-	/**
-	 * <div lang="ja">指定されたインデックスのエージェントを取得します。</div>
-	 * 
-	 * <div lang="en">Get agent of idx</div>
-	 * 
-	 * @param idx
-	 *            <div lang="ja">エージェントのインデックス</div>
-	 * 
-	 *            <div lang="en">agent's idx</div>
-	 * @return
-	 * 
-	 *         <div lang="ja">エージェント</div>
-	 *
-	 *         <div lang="en">Agent</div>
-	 */
 	static public Agent getAgent(int idx) {
+		return getAgent(idx, "UNDEFINED");
+	}
+
+	static public Agent getAgent(int idx, String name) {
 		if (idx < 0) {
 			return null;
 		}
 		if (!agentIndexMap.containsKey(idx)) {
-			Agent agent = new Agent(idx);
+			Agent agent = new Agent(idx, name);
 			agentIndexMap.put(idx, agent);
 		}
 		return agentIndexMap.get(idx);
 	}
 
-	int agentIdx;
+	private final int agentIdx;
+	private final String agentName;
 
-	/**
-	 * <div lang="ja">新しいエージェントを構築します。</div>
-	 * 
-	 * <div lang="en">Create new agent.</div>
-	 * 
-	 * @param idx
-	 *            <div lang="ja">エージェントのインデックス</div>
-	 * 
-	 *            <div lang="en">Agent's index</div>
-	 */
-	private Agent(int idx) {
+	private Agent(int idx, String name) {
 		this.agentIdx = idx;
+		this.agentName = name;
 	}
 
-	/**
-	 * <div lang="ja">エージェントのインデックスを返します。</div>
-	 * 
-	 * <div lang="en">Get agent's index.</div>
-	 * 
-	 * @return
-	 * 
-	 *         <div lang="ja">エージェントのインデックス</div>
-	 * 
-	 *         <div lang="en">Agent's index</div>
-	 */
 	public int getAgentIdx() {
 		return agentIdx;
+	}
+
+	public String getAgentName() {
+		return agentName;
 	}
 
 	@Override
@@ -119,5 +92,4 @@ final public class Agent implements Comparable<Agent> {
 		}
 		return getAgentIdx() - target.getAgentIdx();
 	}
-
 }

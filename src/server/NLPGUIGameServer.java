@@ -138,7 +138,13 @@ public class NLPGUIGameServer extends AbstractNLPServer {
 						// 接続が切れたかどうかを確認
 						String line = getResponse(connection, pool, agent, Request.NAME,
 								responseTimeout - actionTimeout);
-						return convertRequestData(request, line);
+						// 名前が一致するかを確認
+						String expectedName = agent.getAgentName();
+						if (expectedName.equals(line)) {
+							return null; // 一致した場合に何も返さない
+						} else {
+							return catchException(agent, request, new IOException("Name mismatch"));
+						}
 					} catch (TimeoutException e1) {
 						// 再度タイムアウトした場合
 						return catchException(agent, request, e1);

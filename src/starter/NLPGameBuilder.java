@@ -91,7 +91,7 @@ public class NLPGameBuilder extends Thread {
 					agentNum++;
 			}
 			usedNumberSet.add(agentNum);
-			Agent agent = Agent.getAgent(agentNum);
+			Agent agent = Agent.getAgent(agentNum, name);
 			this.agentConnectionMap.put(Agent.getAgent(agentNum), connection);
 			connection.setAgent(agent);
 		}
