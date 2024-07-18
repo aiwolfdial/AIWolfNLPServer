@@ -222,14 +222,12 @@ public class NLPServerStarter extends ServerStarter {
 				throw new IllegalArgumentException("Invalid index: " + index);
 		}
 
-		System.out.println("HOST: " + host + " PORT: " + port);
+		System.out.println("hostname: " + host + " port: " + port);
 		Socket sock = new Socket(host, port);
 
 		try {
 			String name = getName(sock);
-			System.out.println("NAME: " + name);
-			name = getName(sock);
-			System.out.println("NAME: " + name);
+			System.out.println("name: " + name);
 		} catch (Exception e) {
 			throw new UnknownHostException();
 		}
@@ -266,7 +264,7 @@ public class NLPServerStarter extends ServerStarter {
 
 				// IPアドレスに基づいてソケットをマップに追加
 				entrySocketMap.computeIfAbsent(ipAddress, k -> new ArrayList<>()).add(pair);
-				System.out.println("Address:" + ipAddress);
+				System.out.println("address:" + ipAddress);
 
 				// 待機中のソケットマップにエントリーソケットマップを格納
 				waitingSockets.put(ipAddress, entrySocketMap);
