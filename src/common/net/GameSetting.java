@@ -35,6 +35,7 @@ public class GameSetting implements Cloneable {
 			throw new IllegalArgumentException("The number of agents must be between 3 and 18.");
 		}
 		Role[] roles = Role.values();
+		roleNumMap = new java.util.HashMap<>();
 		for (int i = 0; i < roles.length; i++) {
 			roleNumMap.put(roles[i], ROLES_NUM[agentNum][i]);
 		}
