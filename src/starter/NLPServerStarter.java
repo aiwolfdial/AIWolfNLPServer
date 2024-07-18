@@ -66,16 +66,21 @@ public class NLPServerStarter extends ServerStarter {
 		String configPath = DEFAULT_CONFIG_PATH;
 		if (args.length > 0)
 			configPath = args[0];
-		NLPServerStarter starter = new NLPServerStarter(configPath);
-		starter.start();
+		NLPServerStarter starter;
+		try {
+			starter = new NLPServerStarter(configPath);
+			starter.start();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	public NLPServerStarter() {
-		this.config = new GameConfiguration(DEFAULT_CONFIG_PATH);
+	public NLPServerStarter() throws Exception {
+		this.config = GameConfiguration.load(DEFAULT_CONFIG_PATH);
 	}
 
-	public NLPServerStarter(String path) {
-		this.config = new GameConfiguration(path);
+	public NLPServerStarter(String path) throws Exception {
+		this.config = GameConfiguration.load(path);
 	}
 
 	private void acceptClients() {
@@ -300,22 +305,22 @@ public class NLPServerStarter extends ServerStarter {
 		NLPAIWolfConnection connection = new NLPAIWolfConnection(socket, config);
 		ExecutorService pool = Executors.newSingleThreadExecutor();
 		BufferedWriter bw = connection.getBufferedWriter();
-			bw.append(DataConverter.getInstance().convert(new Packet(Request.NAME)));
-			bw.append("\n");
-			bw.flush();
+		bw.append(DataConverter.getInstance().convert(new Packet(Request.NAME)));
+		bw.append("\n");
+		bw.flush();
 
-			BRCallable task = new BRCallable(connection.getBufferedReader());
-			Future<String> future = pool.submit(task);
-			String line = config.getResponseTimeout() > 0
-					? future.get(config.getResponseTimeout(), TimeUnit.MILLISECONDS)
-					: future.get();
-			if (!task.isSuccess()) {
-				throw task.getIOException();
-			}
+		BRCallable task = new BRCallable(connection.getBufferedReader());
+		Future<String> future = pool.submit(task);
+		String line = config.getResponseTimeout() > 0
+				? future.get(config.getResponseTimeout(), TimeUnit.MILLISECONDS)
+				: future.get();
+		if (!task.isSuccess()) {
+			throw task.getIOException();
+		}
 
-			pool.shutdown();
+		pool.shutdown();
 
-			return (line == null || line.isEmpty()) ? null : line;
+		return (line == null || line.isEmpty()) ? null : line;
 	}
 
 	private String getHostNameAndPort(Socket socket) throws IOException {
