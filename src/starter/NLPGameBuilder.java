@@ -118,16 +118,7 @@ public class NLPGameBuilder extends Thread {
 	 * @return
 	 */
 	private GameSetting createGameSetting() {
-		GameSetting gameSetting = GameSetting.getDefaultGame(config.getBattleAgentNum());
-		gameSetting.setResponseTimeout((int) config.getResponseTimeout());
-		gameSetting.setActionTimeout((int) config.getActionTimeout());
-		gameSetting.setValidateUtterance(false);
-		gameSetting.setMaxTalk(config.getMaxTalkNum());
-		gameSetting.setMaxTalkTurn(config.getMaxTalkTurn());
-		gameSetting.setMaxWhisper(config.getMaxTalkNum());
-		gameSetting.setMaxWhisperTurn(config.getMaxTalkTurn());
-		gameSetting.setTalkOnFirstDay(config.isTalkOnFirstDay());
-		return gameSetting;
+		return GameSetting.FromGameConfiguration(config);
 	}
 
 	/**
