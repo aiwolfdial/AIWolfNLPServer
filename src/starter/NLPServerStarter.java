@@ -223,6 +223,8 @@ public class NLPServerStarter extends ServerStarter {
 		try {
 			String name = getName(sock);
 			System.out.println("NAME: " + name);
+			name = getName(sock);
+			System.out.println("NAME: " + name);
 		} catch (Exception e) {
 			throw new UnknownHostException();
 		}
@@ -297,7 +299,7 @@ public class NLPServerStarter extends ServerStarter {
 			ExecutionException, TimeoutException, SocketException {
 		NLPAIWolfConnection connection = new NLPAIWolfConnection(socket, config);
 		ExecutorService pool = Executors.newSingleThreadExecutor();
-		try (BufferedWriter bw = connection.getBufferedWriter()) {
+		BufferedWriter bw = connection.getBufferedWriter();
 			bw.append(DataConverter.getInstance().convert(new Packet(Request.NAME)));
 			bw.append("\n");
 			bw.flush();
@@ -310,10 +312,10 @@ public class NLPServerStarter extends ServerStarter {
 			if (!task.isSuccess()) {
 				throw task.getIOException();
 			}
-			return (line == null || line.isEmpty()) ? null : line;
-		} finally {
+
 			pool.shutdown();
-		}
+
+			return (line == null || line.isEmpty()) ? null : line;
 	}
 
 	private String getHostNameAndPort(Socket socket) throws IOException {
