@@ -43,7 +43,7 @@ public class ServerStarter {
 		}
 
 		System.out.printf("Start AiWolf Server port:%d playerNum:%d\n", port, playerNum);
-		GameSetting gameSetting = GameSetting.getDefaultGame(playerNum);
+		GameSetting gameSetting = GameSetting.DefaultGameSetting(playerNum);
 
 		TcpipServer gameServer = new TcpipServer(port, playerNum, gameSetting);
 		gameServer.waitForConnection();

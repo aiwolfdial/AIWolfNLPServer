@@ -85,7 +85,7 @@ public class DirectStarter {
 		File logFile = new File(String.format("%s/aiwolfGame%s.log", logDir, timeString));
 
 		GameServer gameServer = new DirectConnectServer(playerList);
-		GameSetting gameSetting = GameSetting.getDefaultGame(playerNum);
+		GameSetting gameSetting = GameSetting.DefaultGameSetting(playerNum);
 		AIWolfGame game = new AIWolfGame(gameSetting, gameServer);
 		// game.setLogFile(logFile);
 		game.setRand(new Random(gameSetting.getRandomSeed()));

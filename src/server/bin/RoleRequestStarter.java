@@ -142,7 +142,7 @@ public class RoleRequestStarter {
 		String timeString = CalendarTools.toDateTime(System.currentTimeMillis()).replaceAll("[\\s-/:]", "");
 
 		DirectConnectServer gameServer = new DirectConnectServer(playerMap);
-		GameSetting gameSetting = GameSetting.getDefaultGame(playerMap.size());
+		GameSetting gameSetting = GameSetting.DefaultGameSetting(playerMap.size());
 		AIWolfGame game = new AIWolfGame(gameSetting, gameServer);
 		if (logDir != null) {
 			File logFile = new File(String.format("%s/contest%s.log", logDir, timeString));
@@ -166,7 +166,7 @@ public class RoleRequestStarter {
 		String timeString = CalendarTools.toDateTime(System.currentTimeMillis()).replaceAll("[\\s-/:]", "");
 
 		DirectConnectServer gameServer = new DirectConnectServer(playerMap);
-		GameSetting gameSetting = GameSetting.getDefaultGame(playerMap.size());
+		GameSetting gameSetting = GameSetting.DefaultGameSetting(playerMap.size());
 		AIWolfGame game = new AIWolfGame(gameSetting, gameServer);
 		game.setGameLogger(logger);
 		game.setRand(new Random());
