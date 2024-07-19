@@ -1,6 +1,7 @@
 package common.bin;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.SocketTimeoutException;
 
 import common.data.Player;
@@ -68,15 +69,21 @@ public class ClientStarter {
 			return;
 		}
 
-		Player player = (Player) Class.forName(clsName).newInstance();
-		// 引数にRoleRequestを追加
-		TcpipClient client = new TcpipClient(host, port, roleRequest);
-		if (playerName != null) {
-			client.setName(playerName);
-			// System.out.println("Set name "+client.getName());
-		}
-		if (client.connect(player)) {
-			// System.out.println("Player connected to server:"+player);
+		Player player;
+		try {
+			player = (Player) Class.forName(clsName).getDeclaredConstructor().newInstance();
+			// 引数にRoleRequestを追加
+			TcpipClient client = new TcpipClient(host, port, roleRequest);
+			if (playerName != null) {
+				client.setName(playerName);
+				// System.out.println("Set name "+client.getName());
+			}
+			if (client.connect(player)) {
+				// System.out.println("Player connected to server:"+player);
+			}
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException | ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 

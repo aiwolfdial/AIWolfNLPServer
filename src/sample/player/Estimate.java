@@ -6,7 +6,6 @@
 package sample.player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import client.lib.AndContentBuilder;

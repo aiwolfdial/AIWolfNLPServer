@@ -235,33 +235,33 @@ public class TcpipServer implements GameServer {
 				lastTalkIdxMap.clear();
 				lastWhisperIdxMap.clear();
 				Packet packet = new Packet(request, gameData.getGameInfoToSend(agent), gameSetting);
-				message = DataConverter.getInstance().convert(packet);
+				message = DataConverter.convert(packet);
 			} else if (request == Request.DAILY_INITIALIZE) {
 				lastTalkIdxMap.clear();
 				lastWhisperIdxMap.clear();
 				Packet packet = new Packet(request, gameData.getGameInfoToSend(agent));
-				message = DataConverter.getInstance().convert(packet);
+				message = DataConverter.convert(packet);
 			} else if (request == Request.NAME || request == Request.ROLE) {
 				Packet packet = new Packet(request);
-				message = DataConverter.getInstance().convert(packet);
+				message = DataConverter.convert(packet);
 			} else if (request != Request.FINISH) {
 				// Packet packet = new Packet(request, gameData.getGameInfoToSend(agent),
 				// gameSetting);
-				// message = DataConverter.getInstance().convert(packet);
+				// message = DataConverter.convert(packet);
 				if (request == Request.VOTE && !gameData.getLatestVoteList().isEmpty()) {
 					// 追放再投票の場合，latestVoteListで直前の投票状況を知らせるためGameInfo入りのパケットにする
 					Packet packet = new Packet(request, gameData.getGameInfoToSend(agent));
-					message = DataConverter.getInstance().convert(packet);
+					message = DataConverter.convert(packet);
 				} else if (request == Request.ATTACK && !gameData.getLatestAttackVoteList().isEmpty()) {
 					// 襲撃再投票の場合，latestAttackVoteListで直前の投票状況を知らせるためGameInfo入りのパケットにする
 					Packet packet = new Packet(request, gameData.getGameInfoToSend(agent));
-					message = DataConverter.getInstance().convert(packet);
+					message = DataConverter.convert(packet);
 				} else if (gameData.getExecuted() != null
 						&& (request == Request.DIVINE || request == Request.GUARD || request == Request.WHISPER
 								|| request == Request.ATTACK)) {
 					// 追放後の各リクエストではlatestExecutedAgentで追放者を知らせるためGameInfo入りのパケットにする
 					Packet packet = new Packet(request, gameData.getGameInfoToSend(agent));
-					message = DataConverter.getInstance().convert(packet);
+					message = DataConverter.convert(packet);
 				} else {
 					List<TalkToSend> talkList = gameData.getGameInfoToSend(agent).getTalkList();
 					List<TalkToSend> whisperList = gameData.getGameInfoToSend(agent).getWhisperList();
@@ -270,11 +270,11 @@ public class TcpipServer implements GameServer {
 					whisperList = minimize(agent, whisperList, lastWhisperIdxMap);
 
 					Packet packet = new Packet(request, talkList, whisperList);
-					message = DataConverter.getInstance().convert(packet);
+					message = DataConverter.convert(packet);
 				}
 			} else {
 				Packet packet = new Packet(request, gameData.getFinalGameInfoToSend(agent));
-				message = DataConverter.getInstance().convert(packet);
+				message = DataConverter.convert(packet);
 			}
 			// serverLogger.info("=>"+agent+":"+message);
 
@@ -350,7 +350,7 @@ public class TcpipServer implements GameServer {
 				return line;
 			} else if (request == Request.ATTACK || request == Request.DIVINE || request == Request.GUARD
 					|| request == Request.VOTE) {
-				Agent target = DataConverter.getInstance().toAgent(line);
+				Agent target = DataConverter.toAgent(line);
 				if (gameData.contains(target)) {
 					return target;
 				} else {

@@ -121,7 +121,7 @@ public abstract class AbstractNLPServer implements GameServer {
 			case DIVINE:
 			case GUARD:
 			case VOTE:
-				return DataConverter.getInstance().toAgent(line);
+				return DataConverter.toAgent(line);
 			default:
 				return null;
 		}
@@ -184,14 +184,14 @@ public abstract class AbstractNLPServer implements GameServer {
 		if (flag)
 			packet = new Packet(request, gameData.getGameInfoToSend(agent));
 		if (packet != null)
-			return DataConverter.getInstance().convert(packet);
+			return DataConverter.convert(packet);
 
 		List<TalkToSend> talkList = gameData.getGameInfoToSend(agent).getTalkList();
 		List<TalkToSend> whisperList = gameData.getGameInfoToSend(agent).getWhisperList();
 		talkList = minimize(agent, talkList, lastTalkIdxMap);
 		whisperList = minimize(agent, whisperList, lastWhisperIdxMap);
 		packet = new Packet(request, talkList, whisperList);
-		return DataConverter.getInstance().convert(packet);
+		return DataConverter.convert(packet);
 	}
 
 	public String getName(Agent agent) {

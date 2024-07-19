@@ -43,7 +43,7 @@ public class NLPAIWolfConnection {
 			ExecutorService pool = Executors.newSingleThreadExecutor();
 			// clientにrequestを送信し、結果を受け取る
 			BufferedWriter bw = getBufferedWriter();
-			bw.append(DataConverter.getInstance().convert(new Packet(Request.NAME)));
+			bw.append(DataConverter.convert(new Packet(Request.NAME)));
 			bw.append("\n");
 			bw.flush();
 

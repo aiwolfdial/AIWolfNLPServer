@@ -101,7 +101,7 @@ public class TcpipClient implements Runnable, GameClient {
 			String line;
 			while ((line = br.readLine()) != null) {
 				// System.out.println(line);
-				Packet packet = DataConverter.getInstance().toPacket(line);
+				Packet packet = DataConverter.toPacket(line);
 
 				Object obj = recieve(packet);
 				if (packet.getRequest().hasReturn()) {
@@ -112,7 +112,7 @@ public class TcpipClient implements Runnable, GameClient {
 						bw.append(obj + "\n");
 					} else {
 						// System.err.println(packet.getRequest());
-						bw.append(DataConverter.getInstance().convert(obj) + "\n");
+						bw.append(DataConverter.convert(obj) + "\n");
 					}
 					bw.flush();
 				}
@@ -275,7 +275,8 @@ public class TcpipClient implements Runnable, GameClient {
 	}
 
 	/**
-	 * @param host セットする host
+	 * @param host
+	 *            セットする host
 	 */
 	public void setHost(String host) {
 		this.host = host;
@@ -289,7 +290,8 @@ public class TcpipClient implements Runnable, GameClient {
 	}
 
 	/**
-	 * @param port セットする port
+	 * @param port
+	 *            セットする port
 	 */
 	public void setPort(int port) {
 		this.port = port;
@@ -303,7 +305,8 @@ public class TcpipClient implements Runnable, GameClient {
 	}
 
 	/**
-	 * @param requestRole セットする requestRole
+	 * @param requestRole
+	 *            セットする requestRole
 	 */
 	public void setRequestRole(Role requestRole) {
 		this.requestRole = requestRole;
@@ -331,7 +334,8 @@ public class TcpipClient implements Runnable, GameClient {
 	}
 
 	/**
-	 * @param name セットする name
+	 * @param name
+	 *            セットする name
 	 */
 	public void setName(String name) {
 		this.playerName = name;

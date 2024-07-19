@@ -1,8 +1,6 @@
 package common.net;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -12,72 +10,48 @@ import common.data.Agent;
 import common.data.Request;
 import net.arnx.jsonic.JSON;
 
-/**
- * AIWolfのObjectを送信形式にEncode,Decodeする．<br>
- * Singleton
- * 
- * @author tori
- *
- */
 public class DataConverter {
-	private static DataConverter converter;
-
-	/**
-	 * 唯一のConverterを取得するクラス
-	 * 
-	 * @return
-	 */
-	static public DataConverter getInstance() {
-		if (converter == null) {
-			converter = new DataConverter();
-		}
-		return converter;
-	}
-
-	private DataConverter() {
-	}
-
-	public String convert(Object obj) {
-		// System.out.println(obj);
+	public static String convert(Object obj) {
 		return JSON.encode(obj);
 	}
 
-	public Packet toPacket(String line) {
-		LinkedHashMap<String, Object> map = JSON.decode(line);
-
+	public static Packet toPacket(String line) {
+		Map<String, Object> map = JSON.decode(line);
 		Request request = Request.valueOf((String) map.get("request"));
-		GameInfoToSend gameInfoToSend = null;
-		if (map.get("gameInfo") != null) {
-			gameInfoToSend = JSON.decode(JSON.encode(map.get("gameInfo")), GameInfoToSend.class);
-			if (map.get("gameSetting") != null) {
+		GameInfoToSend gameInfoToSend = map.containsKey("gameInfo")
+				? JSON.decode(JSON.encode(map.get("gameInfo")), GameInfoToSend.class)
+				: null;
+
+		if (gameInfoToSend != null) {
+			if (map.containsKey("gameSetting")) {
 				GameSetting gameSetting = JSON.decode(JSON.encode(map.get("gameSetting")), GameSetting.class);
 				return new Packet(request, gameInfoToSend, gameSetting);
 			} else {
 				return new Packet(request, gameInfoToSend);
 			}
-		} else if (map.get("talkHistory") != null) {
-			List<TalkToSend> talkHistoryList = toTalkList((List<LinkedHashMap<String, String>>) map.get("talkHistory"));
-			List<TalkToSend> whisperHistoryList = toTalkList(
-					(List<LinkedHashMap<String, String>>) map.get("whisperHistory"));
-			// List<TalkToSend> whisperHistoryList =
-			// JSON.decode(JSON.encode(map.get("whisperHistoryList")), ArrayList.class);
+		} else if (map.containsKey("talkHistory")) {
+			List<TalkToSend> talkHistoryList = toTalkList(map.get("talkHistory"));
+			List<TalkToSend> whisperHistoryList = toTalkList(map.get("whisperHistory"));
 			return new Packet(request, talkHistoryList, whisperHistoryList);
 		} else {
 			return new Packet(request);
 		}
 	}
 
-	private List<TalkToSend> toTalkList(List<LinkedHashMap<String, String>> mapList) {
+	private static List<TalkToSend> toTalkList(Object obj) {
 		List<TalkToSend> list = new ArrayList<>();
-		for (LinkedHashMap<String, String> value : mapList) {
-			TalkToSend talk = JSON.decode(JSON.encode(value), TalkToSend.class);
-			list.add(talk);
+		if (obj instanceof List<?>) {
+			for (Object item : (List<?>) obj) {
+				if (item instanceof Map<?, ?>) {
+					TalkToSend talk = JSON.decode(JSON.encode(item), TalkToSend.class);
+					list.add(talk);
+				}
+			}
 		}
 		return list;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Agent toAgent(Object obj) {
+	public static Agent toAgent(Object obj) {
 		if (obj == null) {
 			return null;
 		}
@@ -86,17 +60,15 @@ public class DataConverter {
 			if (m.find()) {
 				return Agent.getAgent(Integer.parseInt(m.group(1)));
 			}
-		}
-		if (obj instanceof Agent) {
+		} else if (obj instanceof Agent) {
 			return (Agent) obj;
-		} else if (obj instanceof Map) {
-			return Agent.getAgent(((BigDecimal) ((Map) obj).get("agentIdx")).intValue());
-		} else {
-			return null;
-			// throw new RuntimeException("Can not convert to agent
-			// "+obj.getClass()+"\t"+obj );
-			// return JSON.decode(JSON.encode(obj), Agent.class);
+		} else if (obj instanceof Map<?, ?>) {
+			Map<?, ?> map = (Map<?, ?>) obj;
+			Object agentIdx = map.get("agentIdx");
+			if (agentIdx instanceof Number) {
+				return Agent.getAgent(((Number) agentIdx).intValue());
+			}
 		}
+		return null;
 	}
-
 }

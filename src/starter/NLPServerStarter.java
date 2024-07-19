@@ -297,23 +297,23 @@ public class NLPServerStarter extends ServerStarter {
 			ExecutionException, TimeoutException, SocketException {
 		NLPAIWolfConnection connection = new NLPAIWolfConnection(socket, config);
 		ExecutorService pool = Executors.newSingleThreadExecutor();
-		try (BufferedWriter bw = connection.getBufferedWriter()) {
-			bw.append(DataConverter.getInstance().convert(new Packet(Request.NAME)));
-			bw.append("\n");
-			bw.flush();
+		BufferedWriter bw = connection.getBufferedWriter();
+		bw.append(DataConverter.convert(new Packet(Request.NAME)));
+		bw.append("\n");
+		bw.flush();
 
-			BRCallable task = new BRCallable(connection.getBufferedReader());
-			Future<String> future = pool.submit(task);
-			String line = config.getResponseTimeout() > 0
-					? future.get(config.getResponseTimeout(), TimeUnit.MILLISECONDS)
-					: future.get();
-			if (!task.isSuccess()) {
-				throw task.getIOException();
-			}
-			return (line == null || line.isEmpty()) ? null : line;
-		} finally {
-			pool.shutdown();
+		BRCallable task = new BRCallable(connection.getBufferedReader());
+		Future<String> future = pool.submit(task);
+		String line = config.getResponseTimeout() > 0
+				? future.get(config.getResponseTimeout(), TimeUnit.MILLISECONDS)
+				: future.get();
+		if (!task.isSuccess()) {
+			throw task.getIOException();
 		}
+
+		pool.shutdown();
+
+		return (line == null || line.isEmpty()) ? null : line;
 	}
 
 	private String getHostNameAndPort(Socket socket) throws IOException {
