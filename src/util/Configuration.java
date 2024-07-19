@@ -23,8 +23,8 @@ public class Configuration {
         if (section == null) {
             throw new IOException("Section not found: " + sectionName);
         }
-        Configuration.loadSection(section, configObject);
         loadSection(section, configObject);
+        logger.info("Loaded configuration from " + path);
     }
 
     public static void loadSection(Section section, Object configObject)
@@ -56,7 +56,6 @@ public class Configuration {
             } else {
                 field.set(configObject, value);
             }
-            // System.out.println("Loaded: " + key + " = " + value);
             logger.debug("Loaded: " + key + " = " + value);
         }
     }
