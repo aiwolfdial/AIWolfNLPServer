@@ -6,6 +6,7 @@ build:
 	@make build-server
 	@make build-starter
 	@make build-automatic
+	@cp ./src/log4j2.xml ./out/
 
 clean:
 	@make clean-gui

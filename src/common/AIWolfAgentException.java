@@ -36,17 +36,17 @@ public class AIWolfAgentException extends AIWolfRuntimeException {
 	 * <div lang="en">Create new AI wolf game's exception.</div>
 	 *
 	 * @param agent
-	 *                  <div lang="ja">例外を起こしたエージェント</div>
+	 *            <div lang="ja">例外を起こしたエージェント</div>
 	 *
-	 *                  <div lang="en">Agent</div>
+	 *            <div lang="en">Agent</div>
 	 * @param method
-	 *                  <div lang="ja">例外が発生しているメソッド名</div>
+	 *            <div lang="ja">例外が発生しているメソッド名</div>
 	 *
-	 *                  <div lang="en">Method</div>
+	 *            <div lang="en">Method</div>
 	 * @param exception
-	 *                  <div lang="ja">発生した例外</div>
+	 *            <div lang="ja">発生した例外</div>
 	 *
-	 *                  <div lang="en">Exception</div>
+	 *            <div lang="en">Exception</div>
 	 */
 	public AIWolfAgentException(Agent agent, String method, Throwable exception) {
 		super();

@@ -28,17 +28,17 @@ public class Guard {
 	 * <div lang="en"> Create new information of guard.</div>
 	 * 
 	 * @param day
-	 *               <div lang="ja">護衛する日</div>
+	 *            <div lang="ja">護衛する日</div>
 	 * 
-	 *               <div lang="en">Day</div>
+	 *            <div lang="en">Day</div>
 	 * @param agent
-	 *               <div lang="ja">護衛するエージェント</div>
+	 *            <div lang="ja">護衛するエージェント</div>
 	 * 
-	 *               <div lang="en">Agent as bodyguard</div>
+	 *            <div lang="en">Agent as bodyguard</div>
 	 * @param target
-	 *               <div lang="ja">護衛の対象となるエージェント</div>
+	 *            <div lang="ja">護衛の対象となるエージェント</div>
 	 * 
-	 *               <div lang="en">Agent of guard target</div>
+	 *            <div lang="en">Agent of guard target</div>
 	 */
 	public Guard(int day, Agent agent, Agent target) {
 		super();

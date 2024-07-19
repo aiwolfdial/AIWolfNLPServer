@@ -51,7 +51,8 @@ public class LostClientException extends AIWolfRuntimeException {
 	}
 
 	/**
-	 * @param agent セットする agent
+	 * @param agent
+	 *            セットする agent
 	 */
 	public void setAgent(Agent agent) {
 		this.agent = agent;

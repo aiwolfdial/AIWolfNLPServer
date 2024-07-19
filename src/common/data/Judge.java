@@ -29,21 +29,21 @@ public class Judge {
 	 * <div lang="en">Create new information of judge. </div>
 	 * 
 	 * @param day
-	 *               <div lang="ja">占いもしくは霊媒をする日</div>
+	 *            <div lang="ja">占いもしくは霊媒をする日</div>
 	 * 
-	 *               <div lang="en">Day</div>
+	 *            <div lang="en">Day</div>
 	 * @param agent
-	 *               <div lang="ja">占いもしくは霊媒をするエージェント</div>
+	 *            <div lang="ja">占いもしくは霊媒をするエージェント</div>
 	 * 
-	 *               <div lang="en">Agent as seer or medium</div>
+	 *            <div lang="en">Agent as seer or medium</div>
 	 * @param target
-	 *               <div lang="ja">占いもしくは霊媒の対象となるエージェント</div>
+	 *            <div lang="ja">占いもしくは霊媒の対象となるエージェント</div>
 	 * 
-	 *               <div lang="en">Agent of judge target</div>
+	 *            <div lang="en">Agent of judge target</div>
 	 * @param result
-	 *               <div lang="ja">占いもしくは霊媒の結果</div>
+	 *            <div lang="ja">占いもしくは霊媒の結果</div>
 	 * 
-	 *               <div lang="en">Result of divine or medium</div>
+	 *            <div lang="en">Result of divine or medium</div>
 	 */
 	public Judge(int day, Agent agent, Agent target, Species result) {
 		super();

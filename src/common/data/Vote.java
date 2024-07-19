@@ -30,17 +30,17 @@ public class Vote {
 	 * <div lang="en">Create new vote.</div>
 	 *
 	 * @param day
-	 *               <div lang="ja">投票する日</div>
+	 *            <div lang="ja">投票する日</div>
 	 *
-	 *               <div lang="en">Day</div>
+	 *            <div lang="en">Day</div>
 	 * @param agent
-	 *               <div lang="ja">投票するエージェント</div>
+	 *            <div lang="ja">投票するエージェント</div>
 	 *
-	 *               <div lang="en">Agent</div>
+	 *            <div lang="en">Agent</div>
 	 * @param target
-	 *               <div lang="ja">投票の対象となるエージェント</div>
+	 *            <div lang="ja">投票の対象となるエージェント</div>
 	 *
-	 *               <div lang="en">Target</div>
+	 *            <div lang="en">Target</div>
 	 */
 	public Vote(int day, Agent agent, Agent target) {
 		super();

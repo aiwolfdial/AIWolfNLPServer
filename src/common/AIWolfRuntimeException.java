@@ -44,9 +44,9 @@ public class AIWolfRuntimeException extends RuntimeException {
 	 *
 	 * @param message
 	 *
-	 *                <div lang="ja">詳細メッセージ</div>
+	 *            <div lang="ja">詳細メッセージ</div>
 	 *
-	 *                <div lang="en">Detail message</div>
+	 *            <div lang="en">Detail message</div>
 	 */
 	public AIWolfRuntimeException(String message) {
 		super(message);
@@ -70,13 +70,13 @@ public class AIWolfRuntimeException extends RuntimeException {
 	 * </div>
 	 *
 	 * @param message
-	 *                <div lang="ja">詳細メッセージ</div>
+	 *            <div lang="ja">詳細メッセージ</div>
 	 *
-	 *                <div lang="en">Detail message</div>
+	 *            <div lang="en">Detail message</div>
 	 * @param cause
-	 *                <div lang="ja">原因</div>
+	 *            <div lang="ja">原因</div>
 	 *
-	 *                <div lang="en">Cause</div>
+	 *            <div lang="en">Cause</div>
 	 */
 	public AIWolfRuntimeException(String message, Throwable cause) {
 		super(message, cause);
@@ -104,29 +104,29 @@ public class AIWolfRuntimeException extends RuntimeException {
 	 * </div>
 	 *
 	 * @param message
-	 *                           <div lang="ja">詳細メッセージ</div>
+	 *            <div lang="ja">詳細メッセージ</div>
 	 *
-	 *                           <div lang="en">Detail message</div>
+	 *            <div lang="en">Detail message</div>
 	 * @param cause
-	 *                           <div lang="ja">原因</div>
+	 *            <div lang="ja">原因</div>
 	 *
-	 *                           <div lang="en">Cause</div>
+	 *            <div lang="en">Cause</div>
 	 * @param enableSuppression
-	 *                           <div lang="ja">抑制の有効化または無効化</div>
+	 *            <div lang="ja">抑制の有効化または無効化</div>
 	 *
-	 *                           <div lang="en">
+	 *            <div lang="en">
 	 *
-	 *                           Whether or not suppression is enabled or disabled
+	 *            Whether or not suppression is enabled or disabled
 	 *
-	 *                           </div>
+	 *            </div>
 	 * @param writableStackTrace
-	 *                           <div lang="ja">書込み可能スタック・トレースの有効化または 無効化</div>
+	 *            <div lang="ja">書込み可能スタック・トレースの有効化または 無効化</div>
 	 *
-	 *                           <div lang="en">
+	 *            <div lang="en">
 	 *
-	 *                           Whether or not the stack trace should be writable
+	 *            Whether or not the stack trace should be writable
 	 *
-	 *                           </div>
+	 *            </div>
 	 */
 	public AIWolfRuntimeException(String message, Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace) {
@@ -155,9 +155,9 @@ public class AIWolfRuntimeException extends RuntimeException {
 	 * </div>
 	 *
 	 * @param cause
-	 *              <div lang="ja">原因</div>
+	 *            <div lang="ja">原因</div>
 	 *
-	 *              <div lang="en">Cause</div>
+	 *            <div lang="en">Cause</div>
 	 */
 	public AIWolfRuntimeException(Throwable cause) {
 		super(cause);

@@ -64,9 +64,9 @@ public class CalendarTools {
 	 * </div>
 	 *
 	 * @param date
-	 *             <div lang="ja">対象とするDateオブジェクト</div>
+	 *            <div lang="ja">対象とするDateオブジェクト</div>
 	 *
-	 *             <div lang="en">Date object</div>
+	 *            <div lang="en">Date object</div>
 	 * @return
 	 *
 	 *         <div lang="ja">文字列フォーマット</div>
@@ -92,9 +92,9 @@ public class CalendarTools {
 	 * </div>
 	 *
 	 * @param time
-	 *             <div lang="ja">対象とするlong型の値</div>
+	 *            <div lang="ja">対象とするlong型の値</div>
 	 *
-	 *             <div lang="en">Long value</div>
+	 *            <div lang="en">Long value</div>
 	 * @return
 	 *
 	 *         <div lang="ja">文字列フォーマット</div>
@@ -123,9 +123,9 @@ public class CalendarTools {
 	 * </div>
 	 *
 	 * @param dateTimeString
-	 *                       <div lang="ja">年-月-日-時-分-秒の順で並んだ日付</div>
+	 *            <div lang="ja">年-月-日-時-分-秒の順で並んだ日付</div>
 	 *
-	 *                       <div lang="en">Date time string</div>
+	 *            <div lang="en">Date time string</div>
 	 * @return
 	 *
 	 *         <div lang="ja">変換されたCalendarオブジェクト</div>
@@ -177,9 +177,9 @@ public class CalendarTools {
 	 * </div>
 	 *
 	 * @param date
-	 *             <div lang="ja">Date型のオブジェクト</div>
+	 *            <div lang="ja">Date型のオブジェクト</div>
 	 *
-	 *             <div lang="en">Date object</div>
+	 *            <div lang="en">Date object</div>
 	 * @return
 	 *
 	 *         <div lang="ja">Calendar型のオブジェクト</div>
@@ -206,9 +206,9 @@ public class CalendarTools {
 	 * </div>
 	 *
 	 * @param timeInMillis
-	 *                     <div lang="ja">ミリ秒</div>
+	 *            <div lang="ja">ミリ秒</div>
 	 *
-	 *                     <div lang="en">Millis</div>
+	 *            <div lang="en">Millis</div>
 	 * @return
 	 *
 	 *         <div lang="ja">Calendar型のオブジェクト</div>
@@ -235,9 +235,9 @@ public class CalendarTools {
 	 * </div>
 	 *
 	 * @param calendar
-	 *                 <div lang="ja">深夜に時間を設定するCalendar</div>
+	 *            <div lang="ja">深夜に時間を設定するCalendar</div>
 	 *
-	 *                 <div lang="en">Calendar</div>
+	 *            <div lang="en">Calendar</div>
 	 * @return
 	 *
 	 *         <div lang="ja">深夜に時間を設定したカレンダー</div>
@@ -295,9 +295,9 @@ public class CalendarTools {
 	 * </div>
 	 *
 	 * @param date
-	 *             <div lang="ja">対象となるDateオブジェクト</div>
+	 *            <div lang="ja">対象となるDateオブジェクト</div>
 	 *
-	 *             <div lang="en">Date object</div>
+	 *            <div lang="en">Date object</div>
 	 * @return
 	 *
 	 *         <div lang="ja">文字列フォーマット</div>
@@ -315,13 +315,13 @@ public class CalendarTools {
 	 * <div lang="en">Is same day?</div>
 	 *
 	 * @param date1
-	 *              <div lang="ja">date2と比較するCalendarオブジェクト</div>
+	 *            <div lang="ja">date2と比較するCalendarオブジェクト</div>
 	 *
-	 *              <div lang="en">Calendar object which compares date2</div>
+	 *            <div lang="en">Calendar object which compares date2</div>
 	 * @param date2
-	 *              <div lang="ja">date1と比較するCalendarオブジェクト</div>
+	 *            <div lang="ja">date1と比較するCalendarオブジェクト</div>
 	 *
-	 *              <div lang="en">Calendar object which compares date1</div>
+	 *            <div lang="en">Calendar object which compares date1</div>
 	 * @return
 	 *
 	 *         <div lang="ja">同一日かどうか</div>

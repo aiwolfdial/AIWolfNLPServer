@@ -42,9 +42,9 @@ public interface Player {
 	 * <div lang="en">Called when the game information updated.</div>
 	 * 
 	 * @param gameInfo
-	 *                 <div lang="ja">ゲームの情報</div>
+	 *            <div lang="ja">ゲームの情報</div>
 	 * 
-	 *                 <div lang="en">Information of game</div>
+	 *            <div lang="en">Information of game</div>
 	 */
 	void update(GameInfo gameInfo);
 
@@ -55,14 +55,14 @@ public interface Player {
 	 * 
 	 * @param gameInfo
 	 * 
-	 *                    <div lang="ja">ゲームの情報</div>
+	 *            <div lang="ja">ゲームの情報</div>
 	 * 
-	 *                    <div lang="en">Game informations</div>
+	 *            <div lang="en">Game informations</div>
 	 * @param gameSetting
 	 * 
-	 *                    <div lang="ja">ゲームの設定</div>
+	 *            <div lang="ja">ゲームの設定</div>
 	 * 
-	 *                    <div lang="en">Game settings</div>
+	 *            <div lang="en">Game settings</div>
 	 */
 	void initialize(GameInfo gameInfo, GameSetting gameSetting);
 

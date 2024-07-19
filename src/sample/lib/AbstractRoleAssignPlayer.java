@@ -60,9 +60,9 @@ public abstract class AbstractRoleAssignPlayer implements Player {
 	 * <div lang="en">Sets the player actually used in case of villager.</div>
 	 * 
 	 * @param villagerPlayer
-	 *                       <div lang="ja">実際の村人プレイヤー</div>
+	 *            <div lang="ja">実際の村人プレイヤー</div>
 	 *
-	 *                       <div lang="en">the actual villager player</div>
+	 *            <div lang="en">the actual villager player</div>
 	 */
 	public final void setVillagerPlayer(Player villagerPlayer) {
 		this.villagerPlayer = villagerPlayer;
@@ -87,9 +87,9 @@ public abstract class AbstractRoleAssignPlayer implements Player {
 	 * <div lang="en">Sets the player actually used in case of seer.</div>
 	 * 
 	 * @param seerPlayer
-	 *                   <div lang="ja">実際の占い師プレイヤー</div>
+	 *            <div lang="ja">実際の占い師プレイヤー</div>
 	 *
-	 *                   <div lang="en">the actual seer player</div>
+	 *            <div lang="en">the actual seer player</div>
 	 */
 	public final void setSeerPlayer(Player seerPlayer) {
 		this.seerPlayer = seerPlayer;
@@ -114,9 +114,9 @@ public abstract class AbstractRoleAssignPlayer implements Player {
 	 * <div lang="en">Sets the player actually used in case of medium.</div>
 	 * 
 	 * @param mediumPlayer
-	 *                     <div lang="ja">実際の霊媒師プレイヤー</div>
+	 *            <div lang="ja">実際の霊媒師プレイヤー</div>
 	 *
-	 *                     <div lang="en">the actual medium player</div>
+	 *            <div lang="en">the actual medium player</div>
 	 */
 	public final void setMediumPlayer(Player mediumPlayer) {
 		this.mediumPlayer = mediumPlayer;
@@ -141,9 +141,9 @@ public abstract class AbstractRoleAssignPlayer implements Player {
 	 * <div lang="en">Sets the player actually used in case of bodyguard.</div>
 	 * 
 	 * @param bodyguardPlayer
-	 *                        <div lang="ja">実際の狩人プレイヤー</div>
+	 *            <div lang="ja">実際の狩人プレイヤー</div>
 	 *
-	 *                        <div lang="en">the actual bodyguard player</div>
+	 *            <div lang="en">the actual bodyguard player</div>
 	 */
 	public final void setBodyguardPlayer(Player bodyGuardPlayer) {
 		this.bodyguardPlayer = bodyGuardPlayer;
@@ -168,9 +168,9 @@ public abstract class AbstractRoleAssignPlayer implements Player {
 	 * <div lang="en">Sets the player actually used in case of possessed.</div>
 	 * 
 	 * @param possessedPlayer
-	 *                        <div lang="ja">実際の裏切り者プレイヤー</div>
+	 *            <div lang="ja">実際の裏切り者プレイヤー</div>
 	 *
-	 *                        <div lang="en">the actual possessed player</div>
+	 *            <div lang="en">the actual possessed player</div>
 	 */
 	public final void setPossessedPlayer(Player possesedPlayer) {
 		this.possessedPlayer = possesedPlayer;
@@ -195,9 +195,9 @@ public abstract class AbstractRoleAssignPlayer implements Player {
 	 * <div lang="en">Sets the player actually used in case of werewolf.</div>
 	 * 
 	 * @param werewolfPlayer
-	 *                       <div lang="ja">実際の人狼プレイヤー</div>
+	 *            <div lang="ja">実際の人狼プレイヤー</div>
 	 *
-	 *                       <div lang="en">the actual werewolf player</div>
+	 *            <div lang="en">the actual werewolf player</div>
 	 */
 	public final void setWerewolfPlayer(Player werewolfPlayer) {
 		this.werewolfPlayer = werewolfPlayer;

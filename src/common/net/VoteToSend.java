@@ -44,7 +44,8 @@ public class VoteToSend {
 	}
 
 	/**
-	 * @param day セットする day
+	 * @param day
+	 *            セットする day
 	 */
 	public void setDay(int day) {
 		this.day = day;
@@ -58,7 +59,8 @@ public class VoteToSend {
 	}
 
 	/**
-	 * @param agent セットする agent
+	 * @param agent
+	 *            セットする agent
 	 */
 	public void setAgent(int agent) {
 		this.agent = agent;
@@ -72,7 +74,8 @@ public class VoteToSend {
 	}
 
 	/**
-	 * @param target セットする target
+	 * @param target
+	 *            セットする target
 	 */
 	public void setTarget(int target) {
 		this.target = target;

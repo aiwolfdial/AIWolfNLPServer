@@ -29,6 +29,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import common.BRCallable;
 import common.GameConfiguration;
 import common.NLPAIWolfConnection;
@@ -39,19 +42,12 @@ import common.util.Pair;
 import server.bin.ServerStarter;
 
 /**
- * aiwolf server
- * https://github.com/aiwolf/AIWolfServer/blob/0.6.x/src/org/aiwolf/server/net/TcpipServer.java
- * 
- * 
- * aiwolf client
- * https://github.com/aiwolf/AIWolfCommon/blob/0.6.x/src/org/aiwolf/common/net/TcpipClient.java
- */
-
-/**
  * 継続してクライアントからの接続を受け付ける人狼知能対戦用サーバ
  * 人狼知能プラットフォーム標準のままだとAgent.getAgentが並列対応しておらず、バグるためgetAgentメソッドを並列処理できるようにする必要がある
  */
 public class NLPServerStarter extends ServerStarter {
+	private static final Logger logger = LogManager.getLogger(NLPServerStarter.class);
+
 	private static final String DEFAULT_CONFIG_PATH = "./res/AIWolfGameServer.ini";
 
 	private final GameConfiguration config;

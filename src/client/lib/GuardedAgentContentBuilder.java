@@ -24,9 +24,9 @@ public class GuardedAgentContentBuilder extends ContentBuilder {
 	 * (with no subject specified).</div>
 	 * 
 	 * @param target
-	 *               <div lang="ja">被護衛エージェント</div>
+	 *            <div lang="ja">被護衛エージェント</div>
 	 * 
-	 *               <div lang="en">The guarded agent.</div>
+	 *            <div lang="en">The guarded agent.</div>
 	 * 
 	 */
 	public GuardedAgentContentBuilder(Agent target) {
@@ -40,13 +40,13 @@ public class GuardedAgentContentBuilder extends ContentBuilder {
 	 * guard.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">護衛を行ったエージェント</div>
+	 *            <div lang="ja">護衛を行ったエージェント</div>
 	 * 
-	 *                <div lang="en">The agent who guarded.</div>
+	 *            <div lang="en">The agent who guarded.</div>
 	 * @param target
-	 *                <div lang="ja">被護衛エージェント</div>
+	 *            <div lang="ja">被護衛エージェント</div>
 	 * 
-	 *                <div lang="en">The guarded agent.</div>
+	 *            <div lang="en">The guarded agent.</div>
 	 * 
 	 */
 	public GuardedAgentContentBuilder(Agent subject, Agent target) {

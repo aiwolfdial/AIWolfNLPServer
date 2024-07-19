@@ -135,9 +135,9 @@ public class Content implements Cloneable {
 	 * <div lang="en">Constructs a Content by the given ContentBuilder.</div>
 	 * 
 	 * @param builder
-	 *                <div lang="ja">発話内容に応じたContentBuilder</div>
+	 *            <div lang="ja">発話内容に応じたContentBuilder</div>
 	 *
-	 *                <div lang="en">ContentBuilder for the content.</div>
+	 *            <div lang="en">ContentBuilder for the content.</div>
 	 */
 	public Content(ContentBuilder builder) {
 		operator = builder.getOperator();
@@ -183,9 +183,9 @@ public class Content implements Cloneable {
 	 * <div lang="en">Constructs a Content from the uttered text.</div>
 	 * 
 	 * @param input
-	 *              <div lang="ja">発話テキスト</div>
+	 *            <div lang="ja">発話テキスト</div>
 	 *
-	 *              <div lang="en">The uttered text.</div>
+	 *            <div lang="en">The uttered text.</div>
 	 */
 	public Content(String input) {
 		this(input, false);
@@ -452,9 +452,9 @@ public class Content implements Cloneable {
 	 * <div lang="en">Returns whether or not the uttered text is valid.</div>
 	 * 
 	 * @param input
-	 *              <div lang="ja">被チェックテキスト</div>
+	 *            <div lang="ja">被チェックテキスト</div>
 	 *
-	 *              <div lang="en">The text to be checked.</div>
+	 *            <div lang="en">The text to be checked.</div>
 	 * 
 	 * @return <div lang="ja">有効である場合{@code true}，そうでなければ{@code false}</div>
 	 *
@@ -617,9 +617,9 @@ public class Content implements Cloneable {
 	 * <div lang="en">Strips subject off the given string and returns it.</div>
 	 * 
 	 * @param input
-	 *              <div lang="ja">入力文字列</div>
+	 *            <div lang="ja">入力文字列</div>
 	 *
-	 *              <div lang="en">Input string.</div>
+	 *            <div lang="en">Input string.</div>
 	 * @return <div lang="ja">発話文字列からsubjectの部分を除いた文字列</div>
 	 *
 	 *         <div lang="en">String with no subject prefix.</div>

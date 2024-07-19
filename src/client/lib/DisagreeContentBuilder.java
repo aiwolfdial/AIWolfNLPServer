@@ -24,18 +24,18 @@ public class DisagreeContentBuilder extends ContentBuilder {
 	 * with the other utterance (with no subject specified).</div>
 	 * 
 	 * @param talkType
-	 *                 <div lang="ja">被不同意発話のタイプ。TALKあるいはWHISPER</div>
+	 *            <div lang="ja">被不同意発話のタイプ。TALKあるいはWHISPER</div>
 	 *
-	 *                 <div lang="en">Type of the utterance disagreed with. TALK or
-	 *                 WHISPER.</div>
+	 *            <div lang="en">Type of the utterance disagreed with. TALK or
+	 *            WHISPER.</div>
 	 * @param talkDay
-	 *                 <div lang="ja">被不同意発話の日</div>
+	 *            <div lang="ja">被不同意発話の日</div>
 	 *
-	 *                 <div lang="en">The day of the utterance disagreed with.</div>
+	 *            <div lang="en">The day of the utterance disagreed with.</div>
 	 * @param talkID
-	 *                 <div lang="ja">被不同意発話のID</div>
+	 *            <div lang="ja">被不同意発話のID</div>
 	 *
-	 *                 <div lang="en">The ID of the utterance disagreed with.</div>
+	 *            <div lang="en">The ID of the utterance disagreed with.</div>
 	 * 
 	 */
 	public DisagreeContentBuilder(TalkType talkType, int talkDay, int talkID) {
@@ -49,22 +49,22 @@ public class DisagreeContentBuilder extends ContentBuilder {
 	 * with the other utterance.</div>
 	 * 
 	 * @param subject
-	 *                 <div lang="ja">不同意を表明しているエージェント</div>
+	 *            <div lang="ja">不同意を表明しているエージェント</div>
 	 *
-	 *                 <div lang="en">Type agent who disagrees.</div>
+	 *            <div lang="en">Type agent who disagrees.</div>
 	 * @param talkType
-	 *                 <div lang="ja">被不同意発話のタイプ。TALKあるいはWHISPER</div>
+	 *            <div lang="ja">被不同意発話のタイプ。TALKあるいはWHISPER</div>
 	 *
-	 *                 <div lang="en">Type of the utterance disagreed with. TALK or
-	 *                 WHISPER.</div>
+	 *            <div lang="en">Type of the utterance disagreed with. TALK or
+	 *            WHISPER.</div>
 	 * @param talkDay
-	 *                 <div lang="ja">被不同意発話の日</div>
+	 *            <div lang="ja">被不同意発話の日</div>
 	 *
-	 *                 <div lang="en">The day of the utterance disagreed with.</div>
+	 *            <div lang="en">The day of the utterance disagreed with.</div>
 	 * @param talkID
-	 *                 <div lang="ja">被不同意発話のID</div>
+	 *            <div lang="ja">被不同意発話のID</div>
 	 *
-	 *                 <div lang="en">The ID of the utterance disagreed with.</div>
+	 *            <div lang="en">The ID of the utterance disagreed with.</div>
 	 * 
 	 */
 	public DisagreeContentBuilder(Agent subject, TalkType talkType, int talkDay, int talkID) {

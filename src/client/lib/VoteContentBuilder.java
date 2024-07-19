@@ -24,9 +24,9 @@ public class VoteContentBuilder extends ContentBuilder {
 	 * (with no subject specified).</div>
 	 * 
 	 * @param target
-	 *               <div lang="ja">被投票エージェント</div>
+	 *            <div lang="ja">被投票エージェント</div>
 	 * 
-	 *               <div lang="en">The voted agent.</div>
+	 *            <div lang="en">The voted agent.</div>
 	 * 
 	 */
 	public VoteContentBuilder(Agent target) {
@@ -40,13 +40,13 @@ public class VoteContentBuilder extends ContentBuilder {
 	 * vote.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">投票をするエージェント</div>
+	 *            <div lang="ja">投票をするエージェント</div>
 	 * 
-	 *                <div lang="en">The agent who votes.</div>
+	 *            <div lang="en">The agent who votes.</div>
 	 * @param target
-	 *                <div lang="ja">被投票エージェント</div>
+	 *            <div lang="ja">被投票エージェント</div>
 	 * 
-	 *                <div lang="en">The voted agent.</div>
+	 *            <div lang="en">The voted agent.</div>
 	 * 
 	 */
 	public VoteContentBuilder(Agent subject, Agent target) {

@@ -55,7 +55,8 @@ public class TalkToSend {
 	}
 
 	/**
-	 * @param idx セットする idx
+	 * @param idx
+	 *            セットする idx
 	 */
 	public void setIdx(int idx) {
 		this.idx = idx;
@@ -69,7 +70,8 @@ public class TalkToSend {
 	}
 
 	/**
-	 * @param day セットする day
+	 * @param day
+	 *            セットする day
 	 */
 	public void setDay(int day) {
 		this.day = day;
@@ -83,7 +85,8 @@ public class TalkToSend {
 	}
 
 	/**
-	 * @param agent セットする agent
+	 * @param agent
+	 *            セットする agent
 	 */
 	public void setAgent(int agent) {
 		this.agent = agent;
@@ -98,7 +101,7 @@ public class TalkToSend {
 
 	/**
 	 * @param text
-	 *             セットする text
+	 *            セットする text
 	 */
 	public void setText(String text) {
 		this.text = text;
@@ -116,7 +119,8 @@ public class TalkToSend {
 	}
 
 	/**
-	 * @param time セットする time
+	 * @param time
+	 *            セットする time
 	 */
 	public void setTurn(int time) {
 		this.turn = time;

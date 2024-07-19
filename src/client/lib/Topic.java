@@ -133,9 +133,9 @@ public enum Topic {
 	 * If the string represents an operator, this returns {@code OPERATOR}.</div>
 	 * 
 	 * @param s
-	 *          <div lang="ja">TopicあるいはOperatorの文字列</div>
+	 *            <div lang="ja">TopicあるいはOperatorの文字列</div>
 	 *
-	 *          <div lang="en">String representing Topic or Operator.
+	 *            <div lang="en">String representing Topic or Operator.
 	 * @return
 	 *         <div lang="ja">与えられた文字列に対応するTopic</div>
 	 *

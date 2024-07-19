@@ -25,13 +25,13 @@ public class DivinedResultContentBuilder extends ContentBuilder {
 	 * of a divination (with no subject specified).</div>
 	 * 
 	 * @param target
-	 *               <div lang="ja">被占いエージェント</div>
+	 *            <div lang="ja">被占いエージェント</div>
 	 * 
-	 *               <div lang="en">The agent divined.</div>
+	 *            <div lang="en">The agent divined.</div>
 	 * @param result
-	 *               <div lang="ja">{@code target}の種族</div>
+	 *            <div lang="ja">{@code target}の種族</div>
 	 * 
-	 *               <div lang="en">The species of {@code target}.</div>
+	 *            <div lang="en">The species of {@code target}.</div>
 	 */
 	public DivinedResultContentBuilder(Agent target, Species result) {
 		this(Content.UNSPEC, target, result);
@@ -44,17 +44,17 @@ public class DivinedResultContentBuilder extends ContentBuilder {
 	 * of a divination.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">占いを行ったエージェント</div>
+	 *            <div lang="ja">占いを行ったエージェント</div>
 	 * 
-	 *                <div lang="en">The agent who divined.</div>
+	 *            <div lang="en">The agent who divined.</div>
 	 * @param target
-	 *                <div lang="ja">被占いエージェント</div>
+	 *            <div lang="ja">被占いエージェント</div>
 	 * 
-	 *                <div lang="en">The divined agent.</div>
+	 *            <div lang="en">The divined agent.</div>
 	 * @param result
-	 *                <div lang="ja">{@code target}の種族</div>
+	 *            <div lang="ja">{@code target}の種族</div>
 	 * 
-	 *                <div lang="en">The species of {@code target}.</div>
+	 *            <div lang="en">The species of {@code target}.</div>
 	 */
 	public DivinedResultContentBuilder(Agent subject, Agent target, Species result) {
 		topic = Topic.DIVINED;

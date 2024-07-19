@@ -46,7 +46,7 @@ class EstimateReasonMap extends HashMap<Agent, Map<Agent, Estimate>> {
 	 * contentが推測発言なら登録する．理由が付されていればそれも登録する．
 	 * 
 	 * @param content
-	 *                発言
+	 *            発言
 	 * @return 登録の成否
 	 */
 	boolean put(Content content) {

@@ -25,13 +25,13 @@ public class IdentContentBuilder extends ContentBuilder {
 	 * (with no subject specified).</div>
 	 * 
 	 * @param target
-	 *               <div lang="ja">被霊媒エージェント</div>
+	 *            <div lang="ja">被霊媒エージェント</div>
 	 * 
-	 *               <div lang="en">The identified agent.</div>
+	 *            <div lang="en">The identified agent.</div>
 	 * @param result
-	 *               <div lang="ja">霊媒の結果</div>
+	 *            <div lang="ja">霊媒の結果</div>
 	 * 
-	 *               <div lang="en">The species of {@code target}.</div>
+	 *            <div lang="en">The species of {@code target}.</div>
 	 */
 	public IdentContentBuilder(Agent target, Species result) {
 		this(Content.UNSPEC, target, result);
@@ -44,17 +44,17 @@ public class IdentContentBuilder extends ContentBuilder {
 	 * identification.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">霊能力を行使したエージェント</div>
+	 *            <div lang="ja">霊能力を行使したエージェント</div>
 	 * 
-	 *                <div lang="en">The agent who identified.</div>
+	 *            <div lang="en">The agent who identified.</div>
 	 * @param target
-	 *                <div lang="ja">被霊媒エージェント</div>
+	 *            <div lang="ja">被霊媒エージェント</div>
 	 * 
-	 *                <div lang="en">The identified agent.</div>
+	 *            <div lang="en">The identified agent.</div>
 	 * @param result
-	 *                <div lang="ja">霊媒の結果</div>
+	 *            <div lang="ja">霊媒の結果</div>
 	 * 
-	 *                <div lang="en">The species of {@code target}.</div>
+	 *            <div lang="en">The species of {@code target}.</div>
 	 */
 	public IdentContentBuilder(Agent subject, Agent target, Species result) {
 		topic = Topic.IDENTIFIED;

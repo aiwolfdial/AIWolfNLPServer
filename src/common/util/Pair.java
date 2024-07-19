@@ -31,13 +31,13 @@ public class Pair<K, V> implements Serializable {
 	 * <div lang="en">Create new key-value pair.</div>
 	 *
 	 * @param key
-	 *              <div lang="ja">キー</div>
+	 *            <div lang="ja">キー</div>
 	 *
-	 *              <div lang="en">Key</div>
+	 *            <div lang="en">Key</div>
 	 * @param value
-	 *              <div lang="ja">値</div>
+	 *            <div lang="ja">値</div>
 	 *
-	 *              <div lang="en">Value</div>
+	 *            <div lang="en">Value</div>
 	 */
 	public Pair(K key, V value) {
 		super();
@@ -95,9 +95,9 @@ public class Pair<K, V> implements Serializable {
 	 * <div lang="en">Set the value.</div>
 	 *
 	 * @param value
-	 *              <div lang="ja">設定する値</div>
+	 *            <div lang="ja">設定する値</div>
 	 *
-	 *              <div lang="en">Value</div>
+	 *            <div lang="en">Value</div>
 	 */
 	public void setValue(V value) {
 		this.value = value;

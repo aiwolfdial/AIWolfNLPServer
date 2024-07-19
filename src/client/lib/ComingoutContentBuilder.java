@@ -25,13 +25,13 @@ public class ComingoutContentBuilder extends ContentBuilder {
 	 * specified).</div>
 	 * 
 	 * @param target
-	 *               <div lang="ja">被カミングアウトエージェント</div>
+	 *            <div lang="ja">被カミングアウトエージェント</div>
 	 * 
-	 *               <div lang="en">The agent whose role is disclosed.</div>
+	 *            <div lang="en">The agent whose role is disclosed.</div>
 	 * @param role
-	 *               <div lang="ja">被カミングアウト役職</div>
+	 *            <div lang="ja">被カミングアウト役職</div>
 	 * 
-	 *               <div lang="en">The disclosed role.</div>
+	 *            <div lang="en">The disclosed role.</div>
 	 */
 	public ComingoutContentBuilder(Agent target, Role role) {
 		this(Content.UNSPEC, target, role);
@@ -43,17 +43,17 @@ public class ComingoutContentBuilder extends ContentBuilder {
 	 * <div lang="en">Constructs a ComingoutContentBuilder for a CO.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">カミングアウトをするエージェント</div>
+	 *            <div lang="ja">カミングアウトをするエージェント</div>
 	 * 
-	 *                <div lang="en">The agent who discloses.</div>
+	 *            <div lang="en">The agent who discloses.</div>
 	 * @param target
-	 *                <div lang="ja">被カミングアウトエージェント</div>
+	 *            <div lang="ja">被カミングアウトエージェント</div>
 	 * 
-	 *                <div lang="en">The agent whose role is disclosed.</div>
+	 *            <div lang="en">The agent whose role is disclosed.</div>
 	 * @param role
-	 *                <div lang="ja">被カミングアウト役職</div>
+	 *            <div lang="ja">被カミングアウト役職</div>
 	 * 
-	 *                <div lang="en">The disclosed role.</div>
+	 *            <div lang="en">The disclosed role.</div>
 	 */
 	public ComingoutContentBuilder(Agent subject, Agent target, Role role) {
 		topic = Topic.COMINGOUT;

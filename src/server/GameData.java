@@ -206,7 +206,7 @@ public class GameData {
 	/**
 	 *
 	 * @param agent
-	 *              - if null, get all information
+	 *            - if null, get all information
 	 * @return
 	 */
 	public GameInfoToSend getGameInfoToSend(Agent agent) {
@@ -573,9 +573,9 @@ public class GameData {
 	 * </div> <div lang="en">Adds the agent who died last night.</div>
 	 *
 	 * @param agent
-	 *              <div lang="ja">追加するエージェント</div>
+	 *            <div lang="ja">追加するエージェント</div>
 	 *
-	 *              <div lang="en">the agent to be added</div>
+	 *            <div lang="en">the agent to be added</div>
 	 */
 	public void addLastDeadAgent(Agent agent) {
 		if (!lastDeadAgentList.contains(agent)) {
@@ -743,7 +743,7 @@ public class GameData {
 	 * werewolf.</div>
 	 *
 	 * @param attackedDead
-	 *                     the attackedDead to set
+	 *            the attackedDead to set
 	 */
 	public void setAttackedDead(Agent attackedDead) {
 		this.attackedDead = attackedDead;
@@ -768,9 +768,9 @@ public class GameData {
 	 * <div lang="en">Sets the fox killed by curse.</div>
 	 *
 	 * @param cursedFox
-	 *                  <div lang="ja">呪殺された妖狐</div>
+	 *            <div lang="ja">呪殺された妖狐</div>
 	 *
-	 *                  <div lang="en">the fox killed by curse</div>
+	 *            <div lang="en">the fox killed by curse</div>
 	 */
 	public void setCursedFox(Agent cursedFox) {
 		this.cursedFox = cursedFox;
@@ -796,10 +796,10 @@ public class GameData {
 	 * <div lang="en">Sets the latest list of votes.</div>
 	 *
 	 * @param latestVoteList
-	 *                       <div lang="ja">投票リストを表す{@code List<Vote>}</div>
+	 *            <div lang="ja">投票リストを表す{@code List<Vote>}</div>
 	 *
-	 *                       <div lang="en">{@code List<Vote>} representing the list
-	 *                       of votes.</div>
+	 *            <div lang="en">{@code List<Vote>} representing the list
+	 *            of votes.</div>
 	 *
 	 */
 	public void setLatestVoteList(List<Vote> latestVoteList) {
@@ -826,10 +826,10 @@ public class GameData {
 	 * <div lang="en">Sets the latest list of votes for attack.</div>
 	 *
 	 * @param latestAttackVoteList
-	 *                             <div lang="ja">投票リストを表す{@code List<Vote>}</div>
+	 *            <div lang="ja">投票リストを表す{@code List<Vote>}</div>
 	 *
-	 *                             <div lang="en">{@code List<Vote>} representing
-	 *                             the list of votes.</div>
+	 *            <div lang="en">{@code List<Vote>} representing
+	 *            the list of votes.</div>
 	 *
 	 */
 	public void setLatestAttackVoteList(List<Vote> latestAttackVoteList) {
@@ -843,10 +843,10 @@ public class GameData {
 	 * <div lang="en">Check whether the agents is joining in game.</div>
 	 *
 	 * @param latestAttackVoteList
-	 *                             <div lang="ja">含まれているかどうか{@code boolean}</div>
+	 *            <div lang="ja">含まれているかどうか{@code boolean}</div>
 	 *
-	 *                             <div lang="en">{@code boolean} is contains in the
-	 *                             game.</div>
+	 *            <div lang="en">{@code boolean} is contains in the
+	 *            game.</div>
 	 */
 	public boolean contains(Agent target) {
 		return this.agentRoleMap.containsKey(target);

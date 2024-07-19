@@ -27,13 +27,13 @@ public class XorContentBuilder extends ContentBuilder {
 	 * subject specified).</div>
 	 * 
 	 * @param content1
-	 *                 <div lang="ja">1つ目の{@code Content}</div>
+	 *            <div lang="ja">1つ目の{@code Content}</div>
 	 *
-	 *                 <div lang="en">The first {@code Content}.</div>
+	 *            <div lang="en">The first {@code Content}.</div>
 	 * @param content2
-	 *                 <div lang="ja">2つ目の{@code Content}</div>
+	 *            <div lang="ja">2つ目の{@code Content}</div>
 	 *
-	 *                 <div lang="en">The second {@code Content}.</div>
+	 *            <div lang="en">The second {@code Content}.</div>
 	 */
 	public XorContentBuilder(Content content1, Content content2) {
 		this(Content.UNSPEC, content1, content2);
@@ -45,17 +45,17 @@ public class XorContentBuilder extends ContentBuilder {
 	 * <div lang="en">Constructs a XorContentBuilder for XOR operator.</div>
 	 * 
 	 * @param subject
-	 *                 <div lang="ja">発話エージェント</div>
+	 *            <div lang="ja">発話エージェント</div>
 	 *
-	 *                 <div lang="en">The agent who utters.</div>
+	 *            <div lang="en">The agent who utters.</div>
 	 * @param content1
-	 *                 <div lang="ja">1つ目の{@code Content}</div>
+	 *            <div lang="ja">1つ目の{@code Content}</div>
 	 *
-	 *                 <div lang="en">The first {@code Content}.</div>
+	 *            <div lang="en">The first {@code Content}.</div>
 	 * @param content2
-	 *                 <div lang="ja">2つ目の{@code Content}</div>
+	 *            <div lang="ja">2つ目の{@code Content}</div>
 	 *
-	 *                 <div lang="en">The second {@code Content}.</div>
+	 *            <div lang="en">The second {@code Content}.</div>
 	 */
 	public XorContentBuilder(Agent subject, Content content1, Content content2) {
 		topic = Topic.OPERATOR;

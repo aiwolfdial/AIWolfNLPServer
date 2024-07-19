@@ -24,9 +24,9 @@ public class DivinationContentBuilder extends ContentBuilder {
 	 * (with no subject specified).</div>
 	 * 
 	 * @param target
-	 *               <div lang="ja">被占いエージェント</div>
+	 *            <div lang="ja">被占いエージェント</div>
 	 * 
-	 *               <div lang="en">The agent to be divined.</div>
+	 *            <div lang="en">The agent to be divined.</div>
 	 */
 	public DivinationContentBuilder(Agent target) {
 		this(Content.UNSPEC, target);
@@ -39,13 +39,13 @@ public class DivinationContentBuilder extends ContentBuilder {
 	 * divination.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">占いをするエージェント</div>
+	 *            <div lang="ja">占いをするエージェント</div>
 	 * 
-	 *                <div lang="en">The agent who divines.</div>
+	 *            <div lang="en">The agent who divines.</div>
 	 * @param target
-	 *                <div lang="ja">被占いエージェント</div>
+	 *            <div lang="ja">被占いエージェント</div>
 	 * 
-	 *                <div lang="en">The agent to be divined.</div>
+	 *            <div lang="en">The agent to be divined.</div>
 	 */
 	public DivinationContentBuilder(Agent subject, Agent target) {
 		topic = Topic.DIVINATION;

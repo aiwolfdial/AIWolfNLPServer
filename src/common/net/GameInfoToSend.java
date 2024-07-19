@@ -68,7 +68,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param day セットする day
+	 * @param day
+	 *            セットする day
 	 */
 	public void setDay(int day) {
 		this.day = day;
@@ -82,7 +83,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param agent セットする agent
+	 * @param agent
+	 *            セットする agent
 	 */
 	public void setAgent(int agent) {
 		this.agent = agent;
@@ -110,7 +112,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param mediumResult セットする mediumResult
+	 * @param mediumResult
+	 *            セットする mediumResult
 	 */
 	public void setMediumResult(JudgeToSend mediumResult) {
 		this.mediumResult = mediumResult;
@@ -124,7 +127,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param divineResult セットする divineResult
+	 * @param divineResult
+	 *            セットする divineResult
 	 */
 	public void setDivineResult(JudgeToSend divineResult) {
 		this.divineResult = divineResult;
@@ -147,9 +151,9 @@ public class GameInfoToSend {
 	 * <div lant="en">Sets the agent executed last night.</div>
 	 * 
 	 * @param executedAgent
-	 *                      - <div lang="ja">セットするエージェント</div>
+	 *            - <div lang="ja">セットするエージェント</div>
 	 * 
-	 *                      <div lang="en">the agent to set"</div>
+	 *            <div lang="en">the agent to set"</div>
 	 */
 	public void setExecutedAgent(int executedAgent) {
 		this.executedAgent = executedAgent;
@@ -163,7 +167,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param attackedAgent セットする attackedAgent
+	 * @param attackedAgent
+	 *            セットする attackedAgent
 	 */
 	public void setAttackedAgent(int attackedAgent) {
 		this.attackedAgent = attackedAgent;
@@ -177,7 +182,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param guardedAgent セットする guardedAgent
+	 * @param guardedAgent
+	 *            セットする guardedAgent
 	 */
 	public void setGuardedAgent(int guardedAgent) {
 		this.guardedAgent = guardedAgent;
@@ -191,7 +197,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param voteList セットする voteList
+	 * @param voteList
+	 *            セットする voteList
 	 */
 	public void setVoteList(List<VoteToSend> voteList) {
 		this.voteList = voteList;
@@ -205,7 +212,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param attackVoteList セットする attackVoteList
+	 * @param attackVoteList
+	 *            セットする attackVoteList
 	 */
 	public void setAttackVoteList(List<VoteToSend> attackVoteList) {
 		this.attackVoteList = attackVoteList;
@@ -219,7 +227,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param talkList セットする talkList
+	 * @param talkList
+	 *            セットする talkList
 	 */
 	public void setTalkList(List<TalkToSend> talkList) {
 		this.talkList = talkList;
@@ -233,7 +242,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param whisperList セットする whisperList
+	 * @param whisperList
+	 *            セットする whisperList
 	 */
 	public void setWhisperList(List<TalkToSend> whisperList) {
 		this.whisperList = whisperList;
@@ -247,7 +257,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param statusMap セットする statusMap
+	 * @param statusMap
+	 *            セットする statusMap
 	 */
 	public void setStatusMap(LinkedHashMap<Integer, String> statusMap) {
 		for (int i : statusMap.keySet()) {
@@ -263,7 +274,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param roleMap セットする roleMap
+	 * @param roleMap
+	 *            セットする roleMap
 	 */
 	public void setRoleMap(LinkedHashMap<Integer, String> roleMap) {
 		this.roleMap = roleMap;
@@ -277,7 +289,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param remainTalkMap セットする remainTalkMap
+	 * @param remainTalkMap
+	 *            セットする remainTalkMap
 	 */
 	public void setRemainTalkMap(LinkedHashMap<Integer, Integer> remainTalkMap) {
 		this.remainTalkMap = remainTalkMap;
@@ -291,7 +304,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param remainWhisperMap セットする remainWhisperMap
+	 * @param remainWhisperMap
+	 *            セットする remainWhisperMap
 	 */
 	public void setRemainWhisperMap(LinkedHashMap<Integer, Integer> remainWhisperMap) {
 		this.remainWhisperMap = remainWhisperMap;
@@ -305,7 +319,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param lastDeadAgentList - the lastDeadAgentList to set
+	 * @param lastDeadAgentList
+	 *            - the lastDeadAgentList to set
 	 */
 	public void setLastDeadAgentList(List<Integer> lastDeadAgentList) {
 		this.lastDeadAgentList = lastDeadAgentList;
@@ -319,7 +334,8 @@ public class GameInfoToSend {
 	}
 
 	/**
-	 * @param existingRoleList セットする existingRoleList
+	 * @param existingRoleList
+	 *            セットする existingRoleList
 	 */
 	public void setExistingRoleList(List<String> existingRoleList) {
 		this.existingRoleList = existingRoleList;
@@ -418,10 +434,10 @@ public class GameInfoToSend {
 	 * <div lang="en">Sets the latest list of votes.</div>
 	 * 
 	 * @param latestVoteList
-	 *                       <div lang="ja">投票リストを表す{@code List<VoteToSend>}</div>
+	 *            <div lang="ja">投票リストを表す{@code List<VoteToSend>}</div>
 	 *
-	 *                       <div lang="en">{@code List<VoteToSend>} representing
-	 *                       the list of votes.</div>
+	 *            <div lang="en">{@code List<VoteToSend>} representing
+	 *            the list of votes.</div>
 	 */
 	public void setLatestVoteList(List<VoteToSend> latestVoteList) {
 		this.latestVoteList = latestVoteList;
@@ -447,11 +463,11 @@ public class GameInfoToSend {
 	 * <div lang="en">Sets the latest list of votes for attack.</div>
 	 * 
 	 * @param latestAttackVoteList
-	 *                             <div lang=
-	 *                             "ja">投票リストを表す{@code List<VoteToSend>}</div>
+	 *            <div lang=
+	 *            "ja">投票リストを表す{@code List<VoteToSend>}</div>
 	 *
-	 *                             <div lang="en">{@code List<VoteToSend>}
-	 *                             representing the list of votes.</div>
+	 *            <div lang="en">{@code List<VoteToSend>}
+	 *            representing the list of votes.</div>
 	 */
 	public void setLatestAttackVoteList(List<VoteToSend> latestAttackVoteList) {
 		this.latestAttackVoteList = latestAttackVoteList;
@@ -477,11 +493,11 @@ public class GameInfoToSend {
 	 * <div lang="en">Sets the index of latest executed agent.</div>
 	 * 
 	 * @param latestExecutedAgent
-	 *                            <div lang=
-	 *                            "ja">被追放エージェントのインデックスを表す{@code int}</div>
+	 *            <div lang=
+	 *            "ja">被追放エージェントのインデックスを表す{@code int}</div>
 	 *
-	 *                            <div lang="en">{@code int} representing the index
-	 *                            of latest executed agent.</div>
+	 *            <div lang="en">{@code int} representing the index
+	 *            of latest executed agent.</div>
 	 */
 	public void setLatestExecutedAgent(int latestExecutedAgent) {
 		this.latestExecutedAgent = latestExecutedAgent;
@@ -507,10 +523,10 @@ public class GameInfoToSend {
 	 * <div lang="en">Sets the agent index of fox killed by curse.</div>
 	 * 
 	 * @param cursedFox
-	 *                  <div lang="ja">呪殺された妖狐のインデックスを表す{@code int}</div>
+	 *            <div lang="ja">呪殺された妖狐のインデックスを表す{@code int}</div>
 	 * 
-	 *                  <div lang="en">{@code int} representing the agent index of
-	 *                  fox killed by curse.</div>
+	 *            <div lang="en">{@code int} representing the agent index of
+	 *            fox killed by curse.</div>
 	 */
 	public void setCursedFox(int cursedFox) {
 		this.cursedFox = cursedFox;

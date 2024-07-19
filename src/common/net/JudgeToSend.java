@@ -52,7 +52,8 @@ public class JudgeToSend {
 	}
 
 	/**
-	 * @param day セットする day
+	 * @param day
+	 *            セットする day
 	 */
 	public void setDay(int day) {
 		this.day = day;
@@ -66,7 +67,8 @@ public class JudgeToSend {
 	}
 
 	/**
-	 * @param agent セットする agent
+	 * @param agent
+	 *            セットする agent
 	 */
 	public void setAgent(int agent) {
 		this.agent = agent;
@@ -80,7 +82,8 @@ public class JudgeToSend {
 	}
 
 	/**
-	 * @param target セットする target
+	 * @param target
+	 *            セットする target
 	 */
 	public void setTarget(int target) {
 		this.target = target;
@@ -94,7 +97,8 @@ public class JudgeToSend {
 	}
 
 	/**
-	 * @param result セットする result
+	 * @param result
+	 *            セットする result
 	 */
 	public void setResult(String result) {
 		this.result = result;

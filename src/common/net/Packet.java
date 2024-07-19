@@ -74,7 +74,8 @@ public class Packet {
 	}
 
 	/**
-	 * @param request セットする request
+	 * @param request
+	 *            セットする request
 	 */
 	public void setRequest(Request request) {
 		this.request = request;
@@ -88,7 +89,8 @@ public class Packet {
 	}
 
 	/**
-	 * @param gameInfo セットする value
+	 * @param gameInfo
+	 *            セットする value
 	 */
 	public void setGameInfo(GameInfoToSend gameInfo) {
 		this.gameInfo = gameInfo;
@@ -106,7 +108,8 @@ public class Packet {
 	}
 
 	/**
-	 * @param talkHistoryList セットする talkHistoryList
+	 * @param talkHistoryList
+	 *            セットする talkHistoryList
 	 */
 	public void setTalkHistory(List<TalkToSend> talkHistoryList) {
 		this.talkHistory = talkHistoryList;
@@ -120,7 +123,8 @@ public class Packet {
 	}
 
 	/**
-	 * @param whisperHistoryList セットする whisperHistoryList
+	 * @param whisperHistoryList
+	 *            セットする whisperHistoryList
 	 */
 	public void setWhisperHistory(List<TalkToSend> whisperHistoryList) {
 		this.whisperHistory = whisperHistoryList;

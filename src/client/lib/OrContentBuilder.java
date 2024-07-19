@@ -27,9 +27,9 @@ public class OrContentBuilder extends ContentBuilder {
 	 * specified).</div>
 	 * 
 	 * @param contents
-	 *                 <div lang="ja">{@code Content}の並び</div>
+	 *            <div lang="ja">{@code Content}の並び</div>
 	 *
-	 *                 <div lang="en">The series of {@code Content}s.</div>
+	 *            <div lang="en">The series of {@code Content}s.</div>
 	 */
 	public OrContentBuilder(Content... contents) {
 		this(Content.UNSPEC, contents);
@@ -41,13 +41,13 @@ public class OrContentBuilder extends ContentBuilder {
 	 * <div lang="en">Constructs a OrContentBuilder for OR operator.</div>
 	 * 
 	 * @param subject
-	 *                 <div lang="ja">発話エージェント</div>
+	 *            <div lang="ja">発話エージェント</div>
 	 *
-	 *                 <div lang="en">The agent who utters.</div>
+	 *            <div lang="en">The agent who utters.</div>
 	 * @param contents
-	 *                 <div lang="ja">{@code Content}の並び</div>
+	 *            <div lang="ja">{@code Content}の並び</div>
 	 *
-	 *                 <div lang="en">The series of {@code Content}s.</div>
+	 *            <div lang="en">The series of {@code Content}s.</div>
 	 */
 	public OrContentBuilder(Agent subject, Content... contents) {
 		this(subject, Arrays.asList(contents));
@@ -60,9 +60,9 @@ public class OrContentBuilder extends ContentBuilder {
 	 * specified).</div>
 	 * 
 	 * @param contents
-	 *                 <div lang="ja">{@code Content}のリスト</div>
+	 *            <div lang="ja">{@code Content}のリスト</div>
 	 *
-	 *                 <div lang="en">The list of {@code Content}s.</div>
+	 *            <div lang="en">The list of {@code Content}s.</div>
 	 */
 	public OrContentBuilder(List<Content> contents) {
 		this(Content.UNSPEC, contents);
@@ -74,13 +74,13 @@ public class OrContentBuilder extends ContentBuilder {
 	 * <div lang="en">Constructs a OrContentBuilder for OR operator.</div>
 	 * 
 	 * @param subject
-	 *                 <div lang="ja">発話エージェント</div>
+	 *            <div lang="ja">発話エージェント</div>
 	 *
-	 *                 <div lang="en">The agent who utters.</div>
+	 *            <div lang="en">The agent who utters.</div>
 	 * @param contents
-	 *                 <div lang="ja">{@code Content}のリスト</div>
+	 *            <div lang="ja">{@code Content}のリスト</div>
 	 *
-	 *                 <div lang="en">The list of {@code Content}s.</div>
+	 *            <div lang="en">The list of {@code Content}s.</div>
 	 */
 	public OrContentBuilder(Agent subject, List<Content> contents) {
 		topic = Topic.OPERATOR;

@@ -27,13 +27,13 @@ public class BecauseContentBuilder extends ContentBuilder {
 	 * an action (with no subject specified).</div>
 	 * 
 	 * @param reason
-	 *               <div lang="ja">理由を表す{@code Content}</div>
+	 *            <div lang="ja">理由を表す{@code Content}</div>
 	 *
-	 *               <div lang="en">{@code Content} representing the reason.</div>
+	 *            <div lang="en">{@code Content} representing the reason.</div>
 	 * @param action
-	 *               <div lang="ja">行動を表す{@code Content}</div>
+	 *            <div lang="ja">行動を表す{@code Content}</div>
 	 *
-	 *               <div lang="en">{@code Content} representing the action.</div>
+	 *            <div lang="en">{@code Content} representing the action.</div>
 	 */
 	public BecauseContentBuilder(Content reason, Content action) {
 		this(Content.UNSPEC, reason, action);
@@ -46,17 +46,17 @@ public class BecauseContentBuilder extends ContentBuilder {
 	 * an action.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">理由を述べるエージェント</div>
+	 *            <div lang="ja">理由を述べるエージェント</div>
 	 *
-	 *                <div lang="en">The agent who expresses the reason.</div>
+	 *            <div lang="en">The agent who expresses the reason.</div>
 	 * @param reason
-	 *                <div lang="ja">理由を表す{@code Content}</div>
+	 *            <div lang="ja">理由を表す{@code Content}</div>
 	 *
-	 *                <div lang="en">{@code Content} representing the reason.</div>
+	 *            <div lang="en">{@code Content} representing the reason.</div>
 	 * @param action
-	 *                <div lang="ja">行動を表す{@code Content}</div>
+	 *            <div lang="ja">行動を表す{@code Content}</div>
 	 *
-	 *                <div lang="en">{@code Content} representing the action.</div>
+	 *            <div lang="en">{@code Content} representing the action.</div>
 	 */
 	public BecauseContentBuilder(Agent subject, Content reason, Content action) {
 		topic = Topic.OPERATOR;

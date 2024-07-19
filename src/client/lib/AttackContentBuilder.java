@@ -24,9 +24,9 @@ public class AttackContentBuilder extends ContentBuilder {
 	 * attack (with no subject specified).</div>
 	 * 
 	 * @param target
-	 *               <div lang="ja">被襲撃エージェント</div>
+	 *            <div lang="ja">被襲撃エージェント</div>
 	 * 
-	 *               <div lang="en">The attacked agent.</div>
+	 *            <div lang="en">The attacked agent.</div>
 	 * 
 	 */
 	public AttackContentBuilder(Agent target) {
@@ -40,13 +40,13 @@ public class AttackContentBuilder extends ContentBuilder {
 	 * attack.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">襲撃をするエージェント</div>
+	 *            <div lang="ja">襲撃をするエージェント</div>
 	 * 
-	 *                <div lang="en">The agent who attacks.</div>
+	 *            <div lang="en">The agent who attacks.</div>
 	 * @param target
-	 *                <div lang="ja">被襲撃エージェント</div>
+	 *            <div lang="ja">被襲撃エージェント</div>
 	 * 
-	 *                <div lang="en">The attacked agent.</div>
+	 *            <div lang="en">The attacked agent.</div>
 	 * 
 	 */
 	public AttackContentBuilder(Agent subject, Agent target) {

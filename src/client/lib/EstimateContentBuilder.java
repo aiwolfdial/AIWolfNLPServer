@@ -25,13 +25,13 @@ public class EstimateContentBuilder extends ContentBuilder {
 	 * (with no subject specified).</div>
 	 * 
 	 * @param target
-	 *               <div lang="ja">被推測エージェント</div>
+	 *            <div lang="ja">被推測エージェント</div>
 	 * 
-	 *               <div lang="en">The agent estimated.</div>
+	 *            <div lang="en">The agent estimated.</div>
 	 * @param role
-	 *               <div lang="ja">被推測役職</div>
+	 *            <div lang="ja">被推測役職</div>
 	 * 
-	 *               <div lang="en">The role estimated.</div>
+	 *            <div lang="en">The role estimated.</div>
 	 */
 	public EstimateContentBuilder(Agent target, Role role) {
 		this(Content.UNSPEC, target, role);
@@ -44,17 +44,17 @@ public class EstimateContentBuilder extends ContentBuilder {
 	 * estimation.</div>
 	 * 
 	 * @param subject
-	 *                <div lang="ja">推測をするエージェント</div>
+	 *            <div lang="ja">推測をするエージェント</div>
 	 * 
-	 *                <div lang="en">The agent who estimates.</div>
+	 *            <div lang="en">The agent who estimates.</div>
 	 * @param target
-	 *                <div lang="ja">被推測エージェント</div>
+	 *            <div lang="ja">被推測エージェント</div>
 	 * 
-	 *                <div lang="en">The agent estimated.</div>
+	 *            <div lang="en">The agent estimated.</div>
 	 * @param role
-	 *                <div lang="ja">被推測役職</div>
+	 *            <div lang="ja">被推測役職</div>
 	 * 
-	 *                <div lang="en">The role estimated.</div>
+	 *            <div lang="en">The role estimated.</div>
 	 */
 	public EstimateContentBuilder(Agent subject, Agent target, Role role) {
 		topic = Topic.ESTIMATE;

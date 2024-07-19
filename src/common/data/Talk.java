@@ -56,25 +56,25 @@ public class Talk {
 	 * <div lang="en">Create new talk.</div>
 	 *
 	 * @param idx
-	 *              <div lang="ja">発言のインデックス番号</div>
+	 *            <div lang="ja">発言のインデックス番号</div>
 	 *
-	 *              <div lang="en">Index number of sentence</div>
+	 *            <div lang="en">Index number of sentence</div>
 	 * @param day
-	 *              <div lang="ja">話した日</div>
+	 *            <div lang="ja">話した日</div>
 	 *
-	 *              <div lang="en">Tald day</div>
+	 *            <div lang="en">Tald day</div>
 	 * @param turn
-	 *              <div lang="ja">発言のターン</div>
+	 *            <div lang="ja">発言のターン</div>
 	 *
-	 *              <div lang="en">Turn of talk</div>
+	 *            <div lang="en">Turn of talk</div>
 	 * @param agent
-	 *              <div lang="ja">話したエージェント</div>
+	 *            <div lang="ja">話したエージェント</div>
 	 *
-	 *              <div lang="en">Agent</div>
+	 *            <div lang="en">Agent</div>
 	 * @param text
-	 *              <div lang="ja">発話内容テキスト</div>
+	 *            <div lang="ja">発話内容テキスト</div>
 	 *
-	 *              <div lang="en">Uttered text of talk</div>
+	 *            <div lang="en">Uttered text of talk</div>
 	 */
 	public Talk(int idx, int day, int turn, Agent agent, String text) {
 		super();

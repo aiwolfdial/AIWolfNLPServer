@@ -4,10 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.ini4j.Ini;
 import org.ini4j.Profile.Section;
 
 public class Configuration {
+    private static final Logger logger = LogManager.getLogger(Configuration.class);
+
     public static void loadFile(String path, String sectionName, Object configObject)
             throws NoSuchFieldException, IllegalAccessException, IOException {
         File file = new File(path);
@@ -52,7 +56,8 @@ public class Configuration {
             } else {
                 field.set(configObject, value);
             }
-            System.out.println("Loaded: " + key + " = " + value);
+            // System.out.println("Loaded: " + key + " = " + value);
+            logger.debug("Loaded: " + key + " = " + value);
         }
     }
 }

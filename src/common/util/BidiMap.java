@@ -52,15 +52,15 @@ public class BidiMap<K, V> extends HashMap<K, V> {
 	 *
 	 * @param initialCapacity
 	 *
-	 *                        <div lang="ja">初期容量</div>
+	 *            <div lang="ja">初期容量</div>
 	 *
-	 *                        <div lang="en">The initial capacity</div>
+	 *            <div lang="en">The initial capacity</div>
 	 *
 	 * @param loadFactor
 	 *
-	 *                        <div lang="ja">負荷係数</div>
+	 *            <div lang="ja">負荷係数</div>
 	 *
-	 *                        <div lang="en">The load factor</div>
+	 *            <div lang="en">The load factor</div>
 	 */
 	public BidiMap(int initialCapacity, float loadFactor) {
 		super(initialCapacity, loadFactor);
@@ -86,9 +86,9 @@ public class BidiMap<K, V> extends HashMap<K, V> {
 	 *
 	 * @param initialCapacity
 	 *
-	 *                        <div lang="ja">初期容量</div>
+	 *            <div lang="ja">初期容量</div>
 	 *
-	 *                        <div lang="en">The initial capacity</div>
+	 *            <div lang="en">The initial capacity</div>
 	 *
 	 */
 	public BidiMap(int initialCapacity) {
@@ -123,22 +123,22 @@ public class BidiMap<K, V> extends HashMap<K, V> {
 	 *
 	 * @param m
 	 *
-	 *          <div lang="ja">マッピングがこのマップに配置されるマップ</div>
+	 *            <div lang="ja">マッピングがこのマップに配置されるマップ</div>
 	 *
-	 *          <div lang="en">
+	 *            <div lang="en">
 	 *
-	 *          The map whose mappings are to be placed in
+	 *            The map whose mappings are to be placed in
 	 *
-	 *          this map
+	 *            this map
 	 *
-	 *          </div>
+	 *            </div>
 	 *
 	 * @throws NullPointerException
 	 *
-	 *                              <div lang="ja">指定されたマップがnullの場合</div>
+	 *             <div lang="ja">指定されたマップがnullの場合</div>
 	 *
-	 *                              <div lang="en">If the specified map is
-	 *                              null</div>
+	 *             <div lang="en">If the specified map is
+	 *             null</div>
 	 */
 	public BidiMap(Map<? extends K, ? extends V> m) {
 		super(m);
@@ -187,9 +187,9 @@ public class BidiMap<K, V> extends HashMap<K, V> {
 	 * </div>
 	 *
 	 * @param value
-	 *              <div lang="ja">値</div>
+	 *            <div lang="ja">値</div>
 	 *
-	 *              <div lang="en">Value</div>
+	 *            <div lang="en">Value</div>
 	 * @return
 	 *
 	 *         <div lang="ja">キー</div>
@@ -214,9 +214,9 @@ public class BidiMap<K, V> extends HashMap<K, V> {
 	 * </div>
 	 *
 	 * @param value
-	 *              <div lang="ja">値</div>
+	 *            <div lang="ja">値</div>
 	 *
-	 *              <div lang="en">Value</div>
+	 *            <div lang="en">Value</div>
 	 *
 	 * @return
 	 *

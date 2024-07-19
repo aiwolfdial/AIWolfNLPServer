@@ -24,18 +24,18 @@ public class AgreeContentBuilder extends ContentBuilder {
 	 * the other utterance (with no subject specified).</div>
 	 * 
 	 * @param talkType
-	 *                 <div lang="ja">被同意発話のタイプ。TALKあるいはWHISPER</div>
+	 *            <div lang="ja">被同意発話のタイプ。TALKあるいはWHISPER</div>
 	 *
-	 *                 <div lang="en">Type of the utterance agreed with. TALK or
-	 *                 WHISPER.</div>
+	 *            <div lang="en">Type of the utterance agreed with. TALK or
+	 *            WHISPER.</div>
 	 * @param talkDay
-	 *                 <div lang="ja">被同意発話の日</div>
+	 *            <div lang="ja">被同意発話の日</div>
 	 *
-	 *                 <div lang="en">The day of the utterance agreed with.</div>
+	 *            <div lang="en">The day of the utterance agreed with.</div>
 	 * @param talkID
-	 *                 <div lang="ja">被同意発話のID</div>
+	 *            <div lang="ja">被同意発話のID</div>
 	 *
-	 *                 <div lang="en">The ID of the utterance agreed with.</div>
+	 *            <div lang="en">The ID of the utterance agreed with.</div>
 	 * 
 	 */
 	public AgreeContentBuilder(TalkType talkType, int talkDay, int talkID) {
@@ -49,22 +49,22 @@ public class AgreeContentBuilder extends ContentBuilder {
 	 * the other utterance.</div>
 	 * 
 	 * @param subject
-	 *                 <div lang="ja">同意を表明しているエージェント</div>
+	 *            <div lang="ja">同意を表明しているエージェント</div>
 	 * 
-	 *                 <div lang="en">The agent who agrees.</div>
+	 *            <div lang="en">The agent who agrees.</div>
 	 * @param talkType
-	 *                 <div lang="ja">被同意発話のタイプ。TALKあるいはWHISPER</div>
+	 *            <div lang="ja">被同意発話のタイプ。TALKあるいはWHISPER</div>
 	 *
-	 *                 <div lang="en">Type of the utterance agreed with. TALK or
-	 *                 WHISPER.</div>
+	 *            <div lang="en">Type of the utterance agreed with. TALK or
+	 *            WHISPER.</div>
 	 * @param talkDay
-	 *                 <div lang="ja">被同意発話の日</div>
+	 *            <div lang="ja">被同意発話の日</div>
 	 *
-	 *                 <div lang="en">The day of the utterance agreed with.</div>
+	 *            <div lang="en">The day of the utterance agreed with.</div>
 	 * @param talkID
-	 *                 <div lang="ja">被同意発話のID</div>
+	 *            <div lang="ja">被同意発話のID</div>
 	 *
-	 *                 <div lang="en">The ID of the utterance agreed with.</div>
+	 *            <div lang="en">The ID of the utterance agreed with.</div>
 	 * 
 	 */
 	public AgreeContentBuilder(Agent subject, TalkType talkType, int talkDay, int talkID) {
