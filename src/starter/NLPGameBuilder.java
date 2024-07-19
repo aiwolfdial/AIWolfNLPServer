@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.iterators.PermutationIterator;
 import org.apache.commons.math3.util.Combinations;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import common.GameConfiguration;
 import common.NLPAIWolfConnection;
@@ -27,7 +29,6 @@ import common.data.Role;
 import common.data.Status;
 import common.net.GameSetting;
 import game.SynchronousNLPAIWolfGame;
-import net.kanolab.tminowa.util.Debugger;
 import server.AbstractNLPServer;
 import server.GameData;
 import server.NLPCUIGameServer;
@@ -41,6 +42,8 @@ import server.util.FileGameLogger;
  *
  */
 public class NLPGameBuilder extends Thread {
+	private static final Logger logger = LogManager.getLogger(NLPGameBuilder.class);
+
 	// ログファイル名
 	private static final String NORMAL_LOG_FILE_NAME = "%s%s_%03d_%s.log";
 
@@ -62,8 +65,6 @@ public class NLPGameBuilder extends Thread {
 
 	// 同一セット内で扱うエージェント一覧（現在、エージェント番号は固定）
 	private final Map<Agent, NLPAIWolfConnection> agentConnectionMap = new HashMap<>();
-
-	private final Debugger debugger = new Debugger();
 
 	/**
 	 * GameSettingの作成とConnectionの登録
@@ -151,7 +152,8 @@ public class NLPGameBuilder extends Thread {
 				PermutationIterator<Integer> nonVillagerPermutationIterator = new PermutationIterator<>(roleNumList);
 				while (nonVillagerPermutationIterator.hasNext()) {
 					List<Integer> giftedAgentId = nonVillagerPermutationIterator.next();
-					debugger.print(totalCount++ + " : " + giftedAgentId.toString());
+					StringBuilder sb = new StringBuilder();
+					sb.append(totalCount++).append(" : ").append(giftedAgentId.toString()).append("\n");
 					Map<Agent, Role> roleMap = new HashMap<>();
 					for (int i = 0; i < giftedAgentId.size(); i++) {
 						roleMap.put(Agent.getAgent(giftedAgentId.get(i) + 1), USED_ROLES[i]);
@@ -160,17 +162,16 @@ public class NLPGameBuilder extends Thread {
 						if (roleMap.containsKey(Agent.getAgent(i + 1)))
 							continue;
 						roleMap.put(Agent.getAgent(i + 1), Role.VILLAGER);
-						debugger.print(i + ", ");
+						sb.append(i).append(", ");
 					}
 					roleList.add(roleMap);
-					debugger.println();
+					logger.debug(sb.toString());
 				}
 			}
 		}
 
 		// デバッグモードの場合、全パターンと各エージェントがそれぞれの役職になった回数をカウントして出力
-		if (debugger.isActive())
-			printCombinationList(roleList);
+		printCombinationList(roleList);
 		return roleList;
 	}
 
@@ -181,7 +182,7 @@ public class NLPGameBuilder extends Thread {
 	 */
 	private void printCombinationList(List<Map<Agent, Role>> roleList) {
 		for (int i = 0; i < roleList.size(); i++) {
-			debugger.println(i + " : " + roleList.get(i));
+			logger.debug(i + " : " + roleList.get(i));
 		}
 		Map<Agent, Map<Role, Integer>> map = new HashMap<>();
 		for (Map<Agent, Role> roleMap : roleList) {
@@ -196,12 +197,14 @@ public class NLPGameBuilder extends Thread {
 				map.put(entry.getKey(), roleNumMap);
 			}
 		}
-		for (Entry<Agent, Map<Role, Integer>> entry : map.entrySet())
-			debugger.println(entry);
+		for (Entry<Agent, Map<Role, Integer>> entry : map.entrySet()) {
+			logger.debug(entry.getKey() + " : " + entry.getValue());
+		}
 	}
 
 	@Override
 	public void run() {
+		logger.info("GameBuilder start.");
 		// 役職リストの取得
 		List<Map<Agent, Role>> agentRoleMapList = createAgentRoleCombinations();
 
@@ -253,8 +256,7 @@ public class NLPGameBuilder extends Thread {
 
 			try {
 				// 現在の対戦数を表示
-				debugger.println("i = " + i);
-
+				logger.debug("i = " + i);
 				// ロガーを設定
 				if (config.isSaveLog()) {
 					String path = String.format(NORMAL_LOG_FILE_NAME, config.getLogDir(), subLogDirName, i,
