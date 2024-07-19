@@ -19,7 +19,8 @@ clean:
 
 build-gui:
 	@javac -d ./out ./src/gui/*.java \
-	-classpath './lib/*':./src/
+	-classpath './lib/*':./src/ \
+	-Xlint:none
 	@chmod 775 ./out/gui/*.class
 
 clean-gui:
@@ -27,7 +28,8 @@ clean-gui:
 
 build-game:
 	@javac -d ./out ./src/game/*.java \
-	-classpath './lib/*':./src/
+	-classpath './lib/*':./src/ \
+	-Xlint:none
 	@chmod 775 ./out/game/*.class
 
 clean-game:
@@ -35,7 +37,8 @@ clean-game:
 
 build-client:
 	@javac -d ./out ./src/client/*.java \
-	-classpath './lib/*':./src/
+	-classpath './lib/*':./src/ \
+	-Xlint:none
 	@chmod 775 ./out/client/*.class
 
 clean-client:
@@ -43,7 +46,8 @@ clean-client:
 
 build-common:
 	@javac -d ./out ./src/common/*.java \
-	-classpath './lib/*':./src/
+	-classpath './lib/*':./src/ \
+	-Xlint:none
 	@chmod 775 ./out/common/*.class
 
 clean-common:
@@ -51,7 +55,8 @@ clean-common:
 
 build-server:
 	@javac -d ./out ./src/server/*.java \
-	-classpath './lib/*':./src/
+	-classpath './lib/*':./src/ \
+	-Xlint:none
 	@chmod 775 ./out/server/*.class
 
 clean-server:
