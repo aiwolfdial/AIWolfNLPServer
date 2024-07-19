@@ -1,5 +1,6 @@
 package automatic;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import client.NLPTcpipClient;
@@ -13,9 +14,14 @@ public class AutomaticClientConnector {
 		String configPath = DEFAULT_CONFIG_PATH;
 		if (args.length > 0)
 			configPath = args[0];
-		AutomaticStarterConfiguration config = new AutomaticStarterConfiguration(configPath);
-		AutomaticClientConnector connector = new AutomaticClientConnector(config);
-		connector.connectClients();
+		AutomaticStarterConfiguration config;
+		try {
+			config = AutomaticStarterConfiguration.load(configPath);
+			AutomaticClientConnector connector = new AutomaticClientConnector(config);
+			connector.connectClients();
+		} catch (NoSuchFieldException | IllegalAccessException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public AutomaticClientConnector(AutomaticStarterConfiguration config) {

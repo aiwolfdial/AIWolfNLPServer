@@ -138,15 +138,15 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 	 * @author nwatanabe
 	 */
 	private void saveRoleCombinations() {
-		GameConfiguration config = new GameConfiguration(DEFAULT_INI_PATH);
-
-		if (!isWriteRoleCombinations(config)) {
-			return;
-		}
-
-		String saveText = makeRoleCombinationsText() + "\r\n";
-
 		try {
+			GameConfiguration config = GameConfiguration.load(DEFAULT_INI_PATH);
+
+			if (!isWriteRoleCombinations(config)) {
+				return;
+			}
+
+			String saveText = makeRoleCombinationsText() + "\r\n";
+
 			File file = new File(config.getRoleCombinationDir() + config.getRoleCombinationFilename());
 
 			if (!file.canWrite()) {
@@ -156,11 +156,9 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 			FileWriter fileWriter = new FileWriter(file, true);
 			fileWriter.write(saveText);
 			fileWriter.close();
-
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void setGameData(GameData gameData) {
@@ -172,18 +170,23 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 		init();
 
 		// check same pattern exist or not
-		GameConfiguration config = new GameConfiguration(DEFAULT_INI_PATH);
-		if (isWriteRoleCombinations(config)) {
-			String currentText = makeRoleCombinationsText();
+		GameConfiguration config;
+		try {
+			config = GameConfiguration.load(DEFAULT_INI_PATH);
+			if (isWriteRoleCombinations(config)) {
+				String currentText = makeRoleCombinationsText();
 
-			if (isDoneCombinations(config, currentText)) {
-				super.finish();
-				return;
+				if (isDoneCombinations(config, currentText)) {
+					super.finish();
+					return;
+				}
+
 			}
 
+			super.start();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
-		super.start();
 	}
 
 	/**

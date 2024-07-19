@@ -1,54 +1,14 @@
-/**
- * GameSetting.java
- *
- * Copyright (c) 2014 人狼知能プロジェクト
- */
 package common.net;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
+import common.GameConfiguration;
 import common.data.Role;
 
-/**
- * <div lang="ja">ゲームの設定です。</div>
- *
- * <div lang="en">Settings of game.</div>
- *
- * @author tori and otsuki
- *
- */
 public class GameSetting implements Cloneable {
-
-	/**
-	 * <div lang="ja">
-	 *
-	 * 各役職の人数です。
-	 *
-	 * 狩人、共有者、霊媒師、狂人、占い師、
-	 *
-	 * 村人、人狼の順になっています。
-	 *
-	 * <div>
-	 *
-	 * <div lang="en">
-	 *
-	 * Num of each roles.
-	 *
-	 * Bodyguard, FreeMason, Medium, Possessed, Seer,
-	 *
-	 * Villager, Werewolf.
-	 *
-	 * </div>
-	 */
-	static final private int[][] roleNumArray = {
-			// {BODYGUARD, FREEMASON, MEDIUM, POSSESSED, SEER, VILLAGER, WEREWOLF, FOX, ANY}
+	static final private int[][] ROLES_NUM = {
+			// {BODYGUARD (狩人), FREEMASON (共有者), MEDIUM (霊媒師), POSSESSED (狂人), SEER (占い師),
+			// VILLAGER (村人), WEREWOLF (人狼), FOX (妖狐), ANY (役職不定)}
 			{}, // 0
 			{}, // 1
 			{}, // 2
@@ -70,53 +30,18 @@ public class GameSetting implements Cloneable {
 			{ 1, 0, 1, 1, 1, 11, 3, 0, 0 }, // 18
 	};
 
-	/**
-	 * <div lang="ja">
-	 *
-	 * セミナー用のセットです。<br>
-	 * 村人8、人狼3、占い1、狩人1の合計13人で構成されています。
-	 *
-	 * </div>
-	 *
-	 * <div lang="en">
-	 *
-	 * Num of each roles for seminar.
-	 *
-	 * </div>
-	 *
-	 * @deprecated
-	 */
-	static final private int[] seminarArray = {
-			// {狩, 共, 霊, 狂, 占, 村, 狼}
-			1, 0, 0, 0, 1, 8, 3 // 13
-	};
-
-	/**
-	 * <div lang="ja">通常のゲーム設定を返します。</div>
-	 *
-	 * <div lang="en">Get the default game setting.</div>
-	 *
-	 * @param agentNum
-	 *
-	 *            <div lang="ja">ゲームに参加するエージェントの数</div>
-	 *
-	 *            <div lang="en">Number of agents</div>
-	 *
-	 * @return
-	 *
-	 *         <div lang="ja">通常のゲーム設定</div>
-	 *
-	 *         <div lang="en">Default game setting</div>
-	 */
-	static public GameSetting getDefaultGame(int agentNum) {
-		if (agentNum < 3) {
-			throw new IllegalArgumentException("agentNum must be bigger than 3 but " + agentNum);
+	public void setRoleNumMap(int agentNum) {
+		if (agentNum < 3 || agentNum > 18) {
+			throw new IllegalArgumentException("The number of agents must be between 3 and 18.");
 		}
-		if (agentNum > roleNumArray.length) {
-			throw new IllegalArgumentException(
-					"agentNum must be smaller than " + roleNumArray.length + " but " + agentNum);
+		Role[] roles = Role.values();
+		roleNumMap = new java.util.HashMap<>();
+		for (int i = 0; i < roles.length; i++) {
+			roleNumMap.put(roles[i], ROLES_NUM[agentNum][i]);
 		}
+	}
 
+	static public GameSetting DefaultGameSetting(int agentNum) {
 		GameSetting setting = new GameSetting();
 		setting.maxTalk = 10;
 		setting.maxTalkTurn = 20;
@@ -135,301 +60,63 @@ public class GameSetting implements Cloneable {
 		setting.maxRevote = 1;
 		setting.maxAttackRevote = 1;
 		setting.isEnableRoleRequest = true;
-
-		Role[] roles = Role.values();
-		for (int i = 0; i < roles.length; i++) {
-			setting.roleNumMap.put(roles[i], roleNumArray[agentNum][i]);
-		}
+		setting.setRoleNumMap(agentNum);
 		return setting;
 	}
 
-	/**
-	 * <div lang="ja">ファイルから設定を読み込んで返します</div>
-	 *
-	 * <div lang="en">Returns game setting read from configuration file.</div>
-	 *
-	 * @param fileName
-	 *            <div lang="ja">設定ファイルのファイル名</div>
-	 *
-	 *            <div lang="en">configuration file's name</div>
-	 *
-	 * @return <div lang="ja">読み込んだGameSetting</div>
-	 *
-	 *         <div lang="en">GameSetting read from file</div>
-	 *
-	 * @throws IOException
-	 */
-	static public GameSetting getCustomGame(String fileName, int agentNum) throws IOException {
+	static public GameSetting FromGameConfiguration(GameConfiguration config) {
 		GameSetting setting = new GameSetting();
-
-		Path src = new File(fileName).toPath();
-		for (String line : Files.readAllLines(src, StandardCharsets.UTF_8)) {
-			if (line.startsWith("#")) {
-				continue;
-			} else if (line.contains("=")) {
-				String[] data = line.split("=");
-				if (data.length < 2) {
-					continue;
-				}
-				if (data[0].trim().equalsIgnoreCase("maxtalk")) {
-					setting.maxTalk = Integer.parseInt(data[1].trim());
-				} else if (data[0].trim().equalsIgnoreCase("maxtalkturn")) {
-					setting.maxTalkTurn = Integer.parseInt(data[1].trim());
-				} else if (data[0].trim().equalsIgnoreCase("maxwhisper")) {
-					setting.maxWhisper = Integer.parseInt(data[1].trim());
-				} else if (data[0].trim().equalsIgnoreCase("maxwhisperturn")) {
-					setting.maxWhisperTurn = Integer.parseInt(data[1].trim());
-				} else if (data[0].trim().equalsIgnoreCase("maxskip")) {
-					setting.maxSkip = Integer.parseInt(data[1].trim());
-				} else if (data[0].trim().equalsIgnoreCase("randomseed")) {
-					setting.randomSeed = Integer.parseInt(data[1].trim());
-				} else if (data[0].trim().equalsIgnoreCase("responsetimeout")) {
-					setting.responseTimeout = Integer.parseInt(data[1].trim());
-				} else if (data[0].trim().equalsIgnoreCase("actiontimeout")) {
-					setting.actionTimeout = Integer.parseInt(data[1].trim());
-				} else if (data[0].trim().equalsIgnoreCase("maxrevote")) {
-					setting.maxRevote = Integer.parseInt(data[1].trim());
-				} else if (data[0].trim().equalsIgnoreCase("maxattackrevote")) {
-					setting.maxAttackRevote = Integer.parseInt(data[1].trim());
-				} else if (data[0].trim().equalsIgnoreCase("isenablenoattack")) {
-					if (data[1].trim().matches("^[YyTt].*")) {
-						setting.isEnableNoAttack = true;
-					}
-				} else if (data[0].trim().equalsIgnoreCase("isvotevisible")) {
-					if (data[1].trim().matches("^[YyTt].*")) {
-						setting.isVoteVisible = true;
-					}
-				} else if (data[0].trim().equalsIgnoreCase("isvotableinfirstday")) {
-					if (data[1].trim().matches("^[YyTt].*")) {
-						setting.isVotableInFirstDay = true;
-					}
-				} else if (data[0].trim().equalsIgnoreCase("isenablenoexecution")) {
-					if (data[1].trim().matches("^[YyTt].*")) {
-						setting.isEnableNoExecution = true;
-					}
-				} else if (data[0].trim().equalsIgnoreCase("istalkonfirstday")) {
-					if (data[1].trim().matches("^[YyTt].*")) {
-						setting.isTalkOnFirstDay = true;
-					}
-				} else if (data[0].trim().equalsIgnoreCase("isvalidateutterance")) {
-					if (data[1].trim().matches("^[YyTt].*")) {
-						setting.isValidateUtterance = true;
-					}
-				} else if (data[0].trim().equalsIgnoreCase("iswhisperbeforerevote")) {
-					if (data[1].trim().matches("^[YyTt].*")) {
-						setting.isWhisperBeforeRevote = true;
-					}
-				} else if (data[0].trim().equalsIgnoreCase("isenablerolerequest")) {
-					if (data[1].trim().matches("^[YyTt].*")) {
-						setting.isEnableRoleRequest = true;
-					}
-				}
-			}
-		}
-
-		Role[] roles = Role.values();
-		for (int i = 0; i < roles.length; i++) {
-			setting.roleNumMap.put(roles[i], roleNumArray[agentNum][i]);
-		}
-
+		setting.responseTimeout = (int) config.getResponseTimeout();
+		setting.actionTimeout = (int) config.getActionTimeout();
+		setting.isValidateUtterance = false;
+		setting.maxTalk = config.getMaxTalkNum();
+		setting.maxTalkTurn = config.getMaxTalkTurn();
+		setting.maxWhisper = config.getMaxTalkNum();
+		setting.maxWhisperTurn = config.getMaxTalkTurn();
+		setting.isTalkOnFirstDay = config.isTalkOnFirstDay();
+		setting.setRoleNumMap(config.getBattleAgentNum());
 		return setting;
 	}
 
-	/**
-	 * <div lang="ja">セミナー用のゲーム設定を返します。</div>
-	 *
-	 * <div lang="en">Get the game setting for seminar.</div>
-	 *
-	 * @return <div lang="ja">セミナー用のゲーム設定</div>
-	 *
-	 *         <div lang="en">Game setting for seminar</div>
-	 *
-	 * @deprecated
-	 */
-	static public GameSetting getSeminarGame() {
-		GameSetting setting = new GameSetting();
-		setting.maxTalk = 10;
-		setting.isEnableNoAttack = false;
-		setting.isVoteVisible = true;
-
-		Role[] roles = Role.values();
-		for (int i = 0; i < roles.length; i++) {
-			setting.roleNumMap.put(roles[i], seminarArray[i]);
-		}
-		return setting;
-	}
-
-	/**
-	 * <div lang="ja">各役職が何人かを関連付けたマップ</div>
-	 *
-	 * <div lang="en">Number of each charactors</div>
-	 */
+	// 各役職が何人かを関連付けたマップ
 	Map<Role, Integer> roleNumMap;
-
-	/**
-	 * <div lang="ja">1日あたりの発言の最大数</div>
-	 *
-	 * <div lang="en">Max number of talk</div>
-	 */
+	// 1日あたりの発言の最大数
 	int maxTalk;
-
-	/**
-	 * <div lang="ja">1日あたりの発言時間の最大数</div>
-	 *
-	 * <div lang="en">Max number of talk time</div>
-	 */
+	// 1日あたりの発言時間の最大数
 	int maxTalkTurn;
-
-	/**
-	 * <div lang="ja">1日あたりの発言の最大数</div>
-	 *
-	 * <div lang="en">Max number of talk</div>
-	 */
+	// 1日あたりの発言の最大数
 	int maxWhisper;
-
-	/**
-	 * <div lang="ja">1日あたりの発言時間の最大数</div>
-	 *
-	 * <div lang="en">Max number of talk time</div>
-	 */
+	// 1日あたりの発言時間の最大数
 	int maxWhisperTurn;
-
-	/**
-	 * <div lang="ja">連続Skipの最大数</div>
-	 *
-	 * <div lang="en">Max number of contunious skip</div>
-	 */
-
+	// 連続Skipの最大数
 	int maxSkip;
-
-	/**
-	 * <div lang="ja">誰も襲撃しないのを許すかどうか</div>
-	 *
-	 * <div lang="en">Is the game permit to attack no one?</div>
-	 */
+	// 誰も襲撃しないのを許すかどうか
 	boolean isEnableNoAttack;
-
-	/**
-	 * <div lang="ja">誰が誰に投票したかをエージェントが確認できるかどうか</div>
-	 *
-	 * <div lang="en">Can agents see who vote to who?</div>
-	 */
+	// 誰が誰に投票したかをエージェントが確認できるかどうか
 	boolean isVoteVisible;
-
-	/**
-	 * <div lang="ja">初日の投票をできるようにするかどうか</div>
-	 *
-	 * <div lang="en">Are there vote in first day?</div>
-	 */
+	// 初日の投票をできるようにするかどうか
 	private boolean isVotableInFirstDay;
-
-	/**
-	 * <div lang="ja">得票数同数で決まらなかった場合「追放なし」とするかどうか。falseの場合はランダム</div>
-	 *
-	 * <div lang="en">Whether or not executing nobody is allowed when the vote ends
-	 * in a tie.</div>
-	 */
+	// 得票数同数で決まらなかった場合「追放なし」とするかどうか。falseの場合はランダム
 	private boolean isEnableNoExecution;
-
-	/**
-	 * <div lang="ja">Day 0にtalkがあるかどうか</div>
-	 *
-	 * <div lang="en">Whether of not there are talks on day 0
-	 */
+	// Day 0にtalkがあるかどうか
 	private boolean isTalkOnFirstDay;
-
-	/**
-	 * <div lang="ja">発話文字列の違反チェックを行うかどうか</div>
-	 *
-	 * <div lang="en">Whether or not the text in talk/whisper is validated
-	 */
+	// 発話文字列の違反チェックを行うかどうか
 	private boolean isValidateUtterance;
-
-	/**
-	 * <div lang="ja">再襲撃投票前にwhisperするかどうか</div>
-	 *
-	 * <div lang="en">whether or not there is whisper before the revote for
-	 * attack</div>
-	 */
+	// 再襲撃投票前にwhisperするかどうか
 	private boolean isWhisperBeforeRevote;
-
-	/**
-	 * <div lang="ja">ランダムシード(乱数種)</div>
-	 *
-	 * <div lang="en">Random Seed</div>
-	 */
+	// ランダムシード(乱数種)
 	long randomSeed = System.currentTimeMillis();
-
-	/**
-	 * <div lang="ja">リクエスト応答時間の上限</div>
-	 *
-	 * <div lang="en">Time limit for the response to the request</div>
-	 */
+	// リクエスト応答時間の上限
 	int responseTimeout;
 	int actionTimeout;
-
-	/**
-	 * <div lang="ja">最大再投票回数</div>
-	 *
-	 * <div lang="en">Maximum number of revotes</div>
-	 */
+	// 最大再投票回数
 	int maxRevote;
-
-	/**
-	 * <div lang="ja">最大再襲撃投票回数</div>
-	 *
-	 * <div lang="en">Maximum number of revotes for attack</div>
-	 */
+	// 最大再襲撃投票回数
 	int maxAttackRevote;
-
-	/**
-	 * <div lang="ja">役職要求の可否</div>
-	 *
-	 * <div lang="en">Can request role</div>
-	 */
-
+	// 役職要求の可否
 	boolean isEnableRoleRequest;
 
-	/**
-	 * <div lang="ja">
-	 *
-	 * 新しいゲーム設定を構築します。
-	 *
-	 * </div>
-	 *
-	 * <div lang="en">
-	 *
-	 * Create new game setting.
-	 *
-	 * </div>
-	 */
-	public GameSetting() {
-		roleNumMap = new HashMap<>();
-		randomSeed = new Random().nextLong();
-	}
-
-	/**
-	 * <div lang="ja">
-	 *
-	 * 指定された役職の人数を返します。
-	 *
-	 * </div>
-	 *
-	 * <div lang="en">
-	 *
-	 * Get the number of roles.
-	 *
-	 * </div>
-	 *
-	 * @param role
-	 *            <div lang="ja">役職</div>
-	 *
-	 *            <div lang="en">Role</div>
-	 *
-	 * @return <div lang="ja">指定された役職の人数</div>
-	 *
-	 *         <div lang="en">Number of roles</div>
-	 */
+	// 指定された役職の人数を返します。
 	public int getRoleNum(Role role) {
 		if (roleNumMap.containsKey(role)) {
 			return roleNumMap.get(role);
@@ -438,147 +125,24 @@ public class GameSetting implements Cloneable {
 		}
 	}
 
-	/**
-	 * <div lang="ja">1日あたりの発言の最大数を返します。</div>
-	 *
-	 * <div lang="en">Get the max number of talks.</div>
-	 *
-	 * @return <div lang="ja">1日あたりの発言の最大数</div>
-	 *
-	 *         <div lang="en">Max number of talk</div>
-	 */
 	public int getMaxTalk() {
 		return maxTalk;
 	}
 
-	/**
-	 * <div lang="ja"> 1日あたりの発言の最大数を設定します。 </div>
-	 *
-	 * <div lang="en"> Set max number of talks. </div>
-	 *
-	 * @param maxTalk
-	 *            <div lang="ja">1日あたりの発言の最大数</div>
-	 *
-	 *            <div lang="en">Max number of talks</div>
-	 */
-	public void setMaxTalk(int maxTalk) {
-		this.maxTalk = maxTalk;
-	}
-
-	/**
-	 * <div lang="ja">1日あたりの発言ターンの最大数を返します。</div>
-	 *
-	 * <div lang="en">Get the max turn of talks.</div>
-	 *
-	 * @return <div lang="ja">1日あたりの発言ターン最大数</div>
-	 *
-	 *         <div lang="en">Max turn of talk</div>
-	 */
 	public int getMaxTalkTurn() {
 		return this.maxTalkTurn;
 	}
 
-	/**
-	 * <div lang="ja">1日あたりの発言ターンの最大数をセットする</div>
-	 *
-	 * <div lang="en">Sets the maximum number of turns of talk.</div>
-	 *
-	 * @param maxTalkTurn
-	 *            <div lang="ja">1日あたりの発言ターン最大数を表す{@code int}</div>
-	 *
-	 *            <div lang="en">{@code int} representing the maximum number
-	 *            of turns of talk</div>
-	 */
-	public void setMaxTalkTurn(int maxTalkTurn) {
-		this.maxTalkTurn = maxTalkTurn;
-	}
-
-	/**
-	 * <div lang="ja">1日あたりの囁きの最大数を返します。</div>
-	 *
-	 * <div lang="en">Get the max number of Whispers.</div>
-	 *
-	 * @return <div lang="ja">1日あたりの囁きの最大数</div>
-	 *
-	 *         <div lang="en">Max number of Whisper</div>
-	 */
 	public int getMaxWhisper() {
 		return maxWhisper;
 	}
 
-	/**
-	 * <div lang="ja"> 1日あたりの囁きの最大数を設定します。 </div>
-	 *
-	 * <div lang="en"> Sets the maximum number of whispers a day. </div>
-	 *
-	 * @param maxWhisper
-	 *            <div lang="ja">1日あたりの囁きの最大数を表す{@code int}</div>
-	 *
-	 *            <div lang="en">{@code int} representing the maximum number
-	 *            of whispers a day.</div>
-	 */
-	public void setMaxWhisper(int maxWhisper) {
-		this.maxWhisper = maxWhisper;
-	}
-
-	/**
-	 * <div lang="ja">1日あたりの囁きターンの最大数を返します。</div>
-	 *
-	 * <div lang="en">Get the max turn of Whispers.</div>
-	 *
-	 * @return <div lang="ja">1日あたりの囁きターン最大数</div>
-	 *
-	 *         <div lang="en">Max turn of Whisper</div>
-	 */
 	public int getMaxWhisperTurn() {
 		return this.maxWhisperTurn;
 	}
 
-	/**
-	 * <div lang="ja">1日あたりの囁きターンの最大数をセットする</div>
-	 *
-	 * <div lang="en">Sets the maximum number of turns of whisper.</div>
-	 *
-	 * @param maxWhisperTurn
-	 *            <div lang="ja">1日あたりの囁きターン最大数を表す{@code int}</div>
-	 *
-	 *            <div lang="en">{@code int} representing the maximum
-	 *            number of turns of whisper.</div>
-	 */
-	public void setMaxWhisperTurn(int maxWhisperTurn) {
-		this.maxWhisperTurn = maxWhisperTurn;
-	}
-
-	/**
-	 * <div lang="ja">連続Skipの最大許容長。これを超える数のSKIPの連続はOVERに変換される</div>
-	 *
-	 * <div lang="en">The maximum permissible length of the succession of Skips. The
-	 * returned Skip is converted to Over
-	 * if the succession is longer than this.</div>
-	 *
-	 * @return <div lang="ja">最大許容長を表す{@code int}</div>
-	 *
-	 *         <div lang="en">{@code int} representing the maximum permissible
-	 *         length.</div>
-	 */
 	public int getMaxSkip() {
 		return maxSkip;
-	}
-
-	/**
-	 * <div lang="ja">連続Skipの最大許容長をセットする</div>
-	 *
-	 * <div lang="en">Sets the maximum permissible length of the succession of
-	 * Skips.</div>
-	 *
-	 * @param maxSkip
-	 *            <div lang="ja">最大許容長を表す{@code int}</div>
-	 *
-	 *            <div lang="en">{@code int} representing the maximum
-	 *            permissible length.</div>
-	 */
-	public void setMaxSkip(int maxSkip) {
-		this.maxSkip = maxSkip;
 	}
 
 	/**
@@ -613,30 +177,6 @@ public class GameSetting implements Cloneable {
 	/**
 	 * <div lang="ja">
 	 *
-	 * 誰も襲撃しないのを許すかどうかを設定します。
-	 *
-	 * </div>
-	 *
-	 * <div lang="en">
-	 *
-	 * Set permission for werewolfs attack no one.
-	 *
-	 * </div>
-	 *
-	 * @param isEnableNoAttack
-	 *
-	 *            <div lang="ja">誰も襲撃しないのを許すかどうか</div>
-	 *
-	 *            <div lang="en">Permission for werewolfs attack no
-	 *            one</div>
-	 */
-	public void setEnableNoAttack(boolean isEnableNoAttack) {
-		this.isEnableNoAttack = isEnableNoAttack;
-	}
-
-	/**
-	 * <div lang="ja">
-	 *
 	 * 誰が誰に投票したかをエージェントが確認できるかを返します。
 	 *
 	 * </div>
@@ -661,37 +201,6 @@ public class GameSetting implements Cloneable {
 	 */
 	public boolean isVoteVisible() {
 		return isVoteVisible;
-	}
-
-	/**
-	 * <div lang="ja">
-	 *
-	 * 誰が誰に投票したかをエージェントが確認できるかどうかを設定します。
-	 *
-	 * </div>
-	 *
-	 * <div lang="en">
-	 *
-	 * Set permission for agents see who vote to who.
-	 *
-	 * </div>
-	 *
-	 * @param isVoteVisible
-	 *
-	 *            <div lang="ja">
-	 *
-	 *            誰が誰に投票したかをエージェントが確認できるかどうか
-	 *
-	 *            </div>
-	 *
-	 *            <div lang="en">
-	 *
-	 *            Permission for agents see who vote to who
-	 *
-	 *            </div>
-	 */
-	public void setVoteVisible(boolean isVoteVisible) {
-		this.isVoteVisible = isVoteVisible;
 	}
 
 	/**
@@ -724,22 +233,6 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
-	 * <div lang="ja"> 初日の投票ができるかどうかをセットする </div>
-	 *
-	 * <div lang="en"> Sets whether or not there is vote on first day. </div>
-	 *
-	 * @param isVotableInFirstDay
-	 *            <div lang="ja">初日の投票ができるかどうかを表す{@code boolean}
-	 *            </div>
-	 *
-	 *            <div lang="en"> {@code boolean} representing
-	 *            whether or not there is vote on first day. </div>
-	 */
-	public void setVotableInFirstDay(boolean isVotableInFirstDay) {
-		this.isVotableInFirstDay = isVotableInFirstDay;
-	}
-
-	/**
 	 * <div lang="ja">同票数の場合に追放なしとするかどうかを返します。</div>
 	 *
 	 * <div lang="en">Returns whether or not executing nobody is allowed.</div>
@@ -750,21 +243,6 @@ public class GameSetting implements Cloneable {
 	 */
 	public boolean isEnableNoExecution() {
 		return isEnableNoExecution;
-	}
-
-	/**
-	 * <div lang="ja">同票数の場合に追放なしとするかどうかをセットします。</div>
-	 *
-	 * <div lang="en">Sets whether or not executing nobody is allowed.</div>
-	 *
-	 * @param isEnableNoExecution
-	 *            <div lang="ja">同票数の場合に追放なしとするかどうか </div>
-	 *
-	 *            <div lang="en">whether or not executing nobody is
-	 *            allowed</div>
-	 */
-	public void setEnableNoExecution(boolean isEnableNoExecution) {
-		this.isEnableNoExecution = isEnableNoExecution;
 	}
 
 	/**
@@ -789,20 +267,6 @@ public class GameSetting implements Cloneable {
 	}
 
 	/**
-	 * <div lang="ja">Day 0にtalkがあるかどうかをセットします。</div>
-	 *
-	 * <div lang="en">Sets whether or not there are talks on day 0.</div>
-	 *
-	 * @param isTalkOnFirstDay
-	 *            - <div lang="ja">Day 0にtalkがあるかどうか</div>
-	 *            <div lang="en">whether or not there are talks on day
-	 *            0</div>
-	 */
-	public void setTalkOnFirstDay(boolean isTalkOnFirstDay) {
-		this.isTalkOnFirstDay = isTalkOnFirstDay;
-	}
-
-	/**
 	 * <div lang="ja">発話文字列の違反チェックを行うかどうかを返します。</div>
 	 *
 	 * <div lang="en">Returns whether or not the text in talk/whisper is
@@ -814,22 +278,6 @@ public class GameSetting implements Cloneable {
 	 */
 	public boolean isValidateUtterance() {
 		return isValidateUtterance;
-	}
-
-	/**
-	 * <div lang="ja">発話文字列の違反チェックを行うかどうかをセットします。</div>
-	 *
-	 * <div lang="en">Sets whether or not the text in talk/whisper is
-	 * validated.</div>
-	 *
-	 * @param isValidateUtterance
-	 *            <div lang="ja">発話文字列の違反チェックを行うかどうか</div>
-	 *
-	 *            <div lang="en">whether or not the text in
-	 *            talk/whisper is validated</div>
-	 */
-	public void setValidateUtterance(boolean isValidateUtterance) {
-		this.isValidateUtterance = isValidateUtterance;
 	}
 
 	/**
@@ -845,22 +293,6 @@ public class GameSetting implements Cloneable {
 	 */
 	public boolean isWhisperBeforeRevote() {
 		return isWhisperBeforeRevote;
-	}
-
-	/**
-	 * <div lang="ja">再襲撃投票前にwhisperするかどうかをセットします。</div>
-	 *
-	 * <div lang="en">Sets whether or not there is whisper before the revote for
-	 * attack.</div> *
-	 *
-	 * @param isWhisperBeforeRevote
-	 *            <div lang="ja">再襲撃投票前にwhisperするかどうか</div>
-	 *
-	 *            <div lang="en">whether or not there is whisper
-	 *            before the revote for attack</div>
-	 */
-	public void setWhisperBeforeRevote(boolean isWhisperBeforeRevote) {
-		this.isWhisperBeforeRevote = isWhisperBeforeRevote;
 	}
 
 	/**
@@ -919,29 +351,6 @@ public class GameSetting implements Cloneable {
 	 */
 	public Map<Role, Integer> getRoleNumMap() {
 		return roleNumMap;
-	}
-
-	/**
-	 * <div lang="ja">
-	 *
-	 * 役職に対する人数を関連付けたマップを設定します。
-	 *
-	 * </div>
-	 *
-	 * <div lang="en">
-	 *
-	 * Set number of each charactors.
-	 *
-	 * </div>
-	 *
-	 * @param roleNumMap
-	 *
-	 *            <div lang="ja">役職に対する人数を関連付けたマップ</div>
-	 *
-	 *            <div lang="en">Number of each charactors</div>
-	 */
-	public void setRoleNumMap(Map<Role, Integer> roleNumMap) {
-		this.roleNumMap = roleNumMap;
 	}
 
 	/**

@@ -104,7 +104,8 @@ public class AIWolfGame {
 	// }
 
 	/**
-	 * @param logFile セットする logFile
+	 * @param logFile
+	 *            セットする logFile
 	 * @throws IOException
 	 */
 	public void setLogFile(File logFile) throws IOException {
@@ -891,7 +892,8 @@ public class AIWolfGame {
 	}
 
 	/**
-	 * @param isShowConsoleLog isShowConsoleLog
+	 * @param isShowConsoleLog
+	 *            isShowConsoleLog
 	 */
 	public void setShowConsoleLog(boolean isShowConsoleLog) {
 		this.isShowConsoleLog = isShowConsoleLog;
