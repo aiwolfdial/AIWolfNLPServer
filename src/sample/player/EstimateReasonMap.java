@@ -95,7 +95,8 @@ class EstimateReasonMap extends HashMap<Agent, Map<Agent, Estimate>> {
 	 */
 	Content getReason(Agent estimater, Agent estimated) {
 		Content content = getContent(estimater, estimated);
-		return content != null && content.getOperator() == Operator.BECAUSE ? content.getContentList().getFirst() : null;
+		return content != null && content.getOperator() == Operator.BECAUSE ? content.getContentList().getFirst()
+				: null;
 	}
 
 }

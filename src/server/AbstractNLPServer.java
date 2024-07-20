@@ -171,6 +171,9 @@ public abstract class AbstractNLPServer implements GameServer {
 			case ATTACK:
 				flag = !gameData.getLatestAttackVoteList().isEmpty() || gameData.getExecuted() != null;
 				break;
+			case DAILY_FINISH:
+			case TALK:
+				break;
 		}
 		if (flag)
 			packet = new Packet(request, gameData.getGameInfoToSend(agent));

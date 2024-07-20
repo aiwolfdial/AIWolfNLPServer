@@ -5,12 +5,12 @@
  */
 package sample.player;
 
+import java.io.Serial;
+
 import client.Content;
 import client.Operator;
 import client.Topic;
 import common.data.Agent;
-
-import java.io.Serial;
 
 /**
  * 各プレイヤーが宣言した襲撃投票先とその理由

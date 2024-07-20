@@ -35,7 +35,8 @@ class VoteReasonMap extends HashMap<Agent, Entry<Agent, Content>> {
 
 	// 得票数をカウント
 	private void countVote() {
-		keySet().stream().map(voter -> get(voter).getKey()).distinct().forEach(voted -> voteCountMap.put(voted, (int) keySet().stream().filter(a -> get(a).getKey() == voted).count()));
+		keySet().stream().map(voter -> get(voter).getKey()).distinct().forEach(voted -> voteCountMap.put(voted,
+				(int) keySet().stream().filter(a -> get(a).getKey() == voted).count()));
 	}
 
 	/**

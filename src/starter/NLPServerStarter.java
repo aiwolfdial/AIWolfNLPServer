@@ -162,8 +162,8 @@ public class NLPServerStarter extends ServerStarter {
 			case 8 -> getSocket(config.getPlayer8Ip(), config.getPlayer8Port());
 			case 9 -> getSocket(config.getPlayer9Ip(), config.getPlayer9Port());
 			case 10 -> getSocket(config.getPlayer10Ip(), config.getPlayer10Port());
-			case 10000, 10001, 10002, 10003, 10004 ->
-					getSocket("localhost", Integer.parseInt(line.split("\\s")[index % 10000]));
+			case 10000, 10001, 10002, 10003, 10004 -> getSocket("localhost",
+					Integer.parseInt(line.split("\\s")[index % 10000]));
 			default -> throw new IllegalArgumentException("Invalid index: " + index);
 		};
 	}
@@ -334,7 +334,6 @@ public class NLPServerStarter extends ServerStarter {
 
 	private void sendConnectionQueue(int connectAgentNum, boolean onlyConnection, Set<Socket> essentialSocketSet) {
 		logger.info("Send connection queue.");
-		boolean send = false;
 		Iterator<Entry<String, Map<String, List<Pair<Long, Socket>>>>> iterator = waitingSockets.entrySet()
 				.iterator();
 		Set<Socket> set = new HashSet<>(essentialSocketSet);
@@ -362,7 +361,6 @@ public class NLPServerStarter extends ServerStarter {
 					socketQue.add(new ArrayList<>(set));
 				}
 				iterator.remove();
-				send = true;
 			}
 		}
 	}
