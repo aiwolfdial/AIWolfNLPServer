@@ -9,15 +9,6 @@ import common.data.Role;
 import common.net.TcpClient;
 
 public class ClientStarter {
-
-	/**
-	 * @param args
-	 * @throws IOException
-	 * @throws SocketTimeoutException
-	 * @throws ClassNotFoundException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 */
 	public static void main(String[] args) throws SocketTimeoutException, IOException, InstantiationException,
 			IllegalAccessException, ClassNotFoundException {
 		String host = null;
@@ -27,9 +18,6 @@ public class ClientStarter {
 		// Add RoleRequest
 		Role roleRequest = null;
 
-		/**
-		 * 
-		 */
 		String playerName = null;
 
 		for (int i = 0; i < args.length; i++) {
@@ -90,5 +78,4 @@ public class ClientStarter {
 			e.printStackTrace();
 		}
 	}
-
 }
