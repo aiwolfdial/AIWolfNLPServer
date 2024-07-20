@@ -47,7 +47,7 @@ class Estimate {
 					estimates.add(new Estimate(c.getSubject(), c.getTarget(), c.getRole()));
 				}
 			}
-			if (estimates.size() == 0) {
+			if (estimates.isEmpty()) {
 				return null;
 			}
 			return estimates;

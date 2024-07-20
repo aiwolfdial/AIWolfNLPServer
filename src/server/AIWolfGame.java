@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -454,7 +453,7 @@ public class AIWolfGame {
 
 			// attackVote and attack except day 0
 			Agent attacked = null;
-			if (getAliveWolfList().size() > 0) {
+			if (!getAliveWolfList().isEmpty()) {
 				for (int i = 0; i <= gameSetting.getMaxAttackRevote(); i++) {
 					if (i > 0 && gameSetting.isWhisperBeforeRevote()) {
 						whisper();
@@ -731,7 +730,6 @@ public class AIWolfGame {
 	 *
 	 */
 	protected void divine() {
-		List<Agent> agentList = getAliveAgentList();
 		for (Agent agent : getAliveAgentList()) {
 			if (gameData.getRole(agent) == Role.SEER) {
 				Agent target = gameServer.requestDivineTarget(agent);
@@ -761,7 +759,6 @@ public class AIWolfGame {
 	 *
 	 */
 	protected void guard() {
-		List<Agent> agentList = getAliveAgentList();
 		for (Agent agent : getAliveAgentList()) {
 			if (gameData.getRole(agent) == Role.BODYGUARD) {
 				if (agent == gameData.getExecuted()) {
@@ -786,9 +783,7 @@ public class AIWolfGame {
 
 	protected void attackVote() {
 		gameData.getAttackVoteList().clear();
-		List<Agent> voters = getAliveWolfList();
-		List<Agent> candidates = getAliveHumanList();
-		for (Agent agent : voters) {
+		for (Agent agent : getAliveWolfList()) {
 			Agent target = gameServer.requestAttackTarget(agent);
 			if (target == null || gameData.getStatus(target) == null || gameData.getStatus(target) == Status.DEAD
 					|| gameData.getRole(target) == Role.WEREWOLF) {
@@ -808,7 +803,6 @@ public class AIWolfGame {
 			latestAttackVoteList.add(v);
 		}
 		gameData.setLatestAttackVoteList(latestAttackVoteList);
-
 	}
 
 	/**

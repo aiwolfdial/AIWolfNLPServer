@@ -1,6 +1,5 @@
 package server.bin;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.Random;
 import common.bin.ClientStarter;
 import common.data.Player;
 import common.net.GameSetting;
-import common.util.CalendarTools;
 import common.util.Counter;
 import server.AIWolfGame;
 import server.net.DirectConnectServer;
@@ -80,9 +78,6 @@ public class DirectStarter {
 				playerList.add((Player) Class.forName(clsName).newInstance());
 			}
 		}
-
-		String timeString = CalendarTools.toDateTime(System.currentTimeMillis()).replaceAll("[\\s-/:]", "");
-		File logFile = new File(String.format("%s/aiwolfGame%s.log", logDir, timeString));
 
 		GameServer gameServer = new DirectConnectServer(playerList);
 		GameSetting gameSetting = GameSetting.DefaultGameSetting(playerNum);

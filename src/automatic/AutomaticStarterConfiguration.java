@@ -13,9 +13,8 @@ public class AutomaticStarterConfiguration {
 
 	public static AutomaticStarterConfiguration load(String path)
 			throws IOException, NoSuchFieldException, IllegalAccessException {
-		AutomaticStarterConfiguration config = new AutomaticStarterConfiguration();
-		Configuration.loadFile(path, "automaticStarter", config);
-		return config;
+		return (AutomaticStarterConfiguration) Configuration.loadFile(path, "automaticStarter",
+				new AutomaticStarterConfiguration());
 	}
 
 	public String getHostname() {

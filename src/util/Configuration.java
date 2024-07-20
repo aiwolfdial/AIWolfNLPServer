@@ -12,7 +12,7 @@ import org.ini4j.Profile.Section;
 public class Configuration {
     private static final Logger logger = LogManager.getLogger(Configuration.class);
 
-    public static void loadFile(String path, String sectionName, Object configObject)
+    public static Object loadFile(String path, String sectionName, Object object)
             throws NoSuchFieldException, IllegalAccessException, IOException {
         File file = new File(path);
         if (!file.exists()) {
@@ -23,13 +23,14 @@ public class Configuration {
         if (section == null) {
             throw new IOException("Section not found: " + sectionName);
         }
-        loadSection(section, configObject);
+        loadSection(section, object);
         logger.info("Loaded configuration from " + path);
+        return object;
     }
 
-    public static void loadSection(Section section, Object configObject)
+    public static Object loadSection(Section section, Object object)
             throws NoSuchFieldException, IllegalAccessException {
-        for (Field field : configObject.getClass().getDeclaredFields()) {
+        for (Field field : object.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             String key = field.getName();
             if (!section.containsKey(key)) {
@@ -40,23 +41,24 @@ public class Configuration {
             }
             String value = section.get(key);
             if (field.getType() == int.class) {
-                field.setInt(configObject, Integer.parseInt(value));
+                field.setInt(object, Integer.parseInt(value));
             } else if (field.getType() == long.class) {
-                field.setLong(configObject, Long.parseLong(value));
+                field.setLong(object, Long.parseLong(value));
             } else if (field.getType() == common.GameConfiguration.HumanRole.class) {
-                field.set(configObject, common.GameConfiguration.HumanRole.valueOf(value));
+                field.set(object, common.GameConfiguration.HumanRole.valueOf(value));
             } else if (field.getType() == Class.class) {
                 try {
-                    field.set(configObject, Class.forName(value));
+                    field.set(object, Class.forName(value));
                 } catch (ClassNotFoundException e) {
                     throw new IllegalArgumentException("Invalid class name: " + value, e);
                 }
             } else if (field.getType() == boolean.class) {
-                field.setBoolean(configObject, Boolean.parseBoolean(value));
+                field.setBoolean(object, Boolean.parseBoolean(value));
             } else {
-                field.set(configObject, value);
+                field.set(object, value);
             }
             logger.debug("Loaded: " + key + " = " + value);
         }
+        return object;
     }
 }

@@ -2,7 +2,6 @@ package starter;
 
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 
@@ -38,7 +37,7 @@ public class GameStarter extends Thread {
 
 			// 同時起動数未満なら待機Listから1グループ取得してゲームを開始する
 			synchronized (socketQue) {
-				if (socketQue.size() > 0 && gameList.size() < config.getParallelRunningGameNum()) {
+				if (!socketQue.isEmpty() && gameList.size() < config.getParallelRunningGameNum()) {
 					NLPGameBuilder builder = new NLPGameBuilder(socketQue.poll(), config);
 					gameList.add(builder);
 					builder.start();
@@ -55,11 +54,11 @@ public class GameStarter extends Thread {
 	}
 
 	public boolean isWaitingGame() {
-		return socketQue.size() != 0;
+		return !socketQue.isEmpty();
 	}
 
 	public boolean isGameRunning() {
-		return gameList.size() != 0;
+		return !gameList.isEmpty();
 	}
 
 }

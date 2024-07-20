@@ -114,7 +114,6 @@ public class TcpipServer implements GameServer {
 		}
 
 		socketAgentMap = new BidiMap<Socket, Agent>();
-		String loggerName = this.getClass().getSimpleName();
 		// serverLogger = Logger.getLogger(loggerName);
 		nameMap = new HashMap<>();
 		serverListenerSet = new HashSet<>();

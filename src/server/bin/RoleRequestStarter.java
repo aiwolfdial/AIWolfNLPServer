@@ -169,8 +169,6 @@ public class RoleRequestStarter {
 	 * @throws IOException
 	 */
 	public static AIWolfGame start(Map<Player, Role> playerMap, GameLogger logger) throws IOException {
-		String timeString = CalendarTools.toDateTime(System.currentTimeMillis()).replaceAll("[\\s-/:]", "");
-
 		DirectConnectServer gameServer = new DirectConnectServer(playerMap);
 		GameSetting gameSetting = GameSetting.DefaultGameSetting(playerMap.size());
 		AIWolfGame game = new AIWolfGame(gameSetting, gameServer);

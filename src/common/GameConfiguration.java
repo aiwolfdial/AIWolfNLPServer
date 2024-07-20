@@ -64,9 +64,7 @@ public class GameConfiguration {
     private int player10Port = 10000;
 
     public static GameConfiguration load(String path) throws Exception {
-        GameConfiguration config = new GameConfiguration();
-        Configuration.loadFile(path, "game", config);
-        return config;
+        return (GameConfiguration) Configuration.loadFile(path, "game", new GameConfiguration());
     }
 
     public String getLogDir() {
