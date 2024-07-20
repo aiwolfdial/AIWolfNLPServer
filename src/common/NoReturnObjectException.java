@@ -6,7 +6,7 @@ import java.io.Serial;
  * <div lang="ja">
  *
  * オブジェクトが返ってこないときにスローされる例外です。<br>
- * TCP/IP通信時に使用されます。
+ * Tcp/IP通信時に使用されます。
  *
  * </div>
  *

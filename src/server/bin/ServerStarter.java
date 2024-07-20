@@ -7,7 +7,7 @@ import java.util.Random;
 
 import common.net.GameSetting;
 import server.AIWolfGame;
-import server.net.TcpipServer;
+import server.net.TcpServer;
 
 /**
  * Main Class to start server application
@@ -49,7 +49,7 @@ public class ServerStarter {
 		System.out.printf("Start AiWolf Server port:%d playerNum:%d\n", port, playerNum);
 		GameSetting gameSetting = GameSetting.DefaultGameSetting(playerNum);
 
-		TcpipServer gameServer = new TcpipServer(port, playerNum, gameSetting);
+		TcpServer gameServer = new TcpServer(port, playerNum, gameSetting);
 		gameServer.waitForConnection();
 
 		AIWolfGame game = new AIWolfGame(gameSetting, gameServer);

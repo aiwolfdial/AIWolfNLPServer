@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import common.data.Player;
-import common.net.TcpipClient;
+import common.net.TcpClient;
 
 public class AutomaticClientConnector {
 	private static final String DEFAULT_CONFIG_PATH = "./res/AIWolfGameServer.ini";
@@ -36,7 +36,7 @@ public class AutomaticClientConnector {
 	public void connectClients() {
 		for (int i = 0; i < config.getPlayerNum(); i++) {
 			Runnable r = () -> {
-				TcpipClient client = new TcpipClient(config.getHostname(), config.getPort());
+				TcpClient client = new TcpClient(config.getHostname(), config.getPort());
 				try {
 					Player player = (Player) config.getPlayerClass().getConstructor().newInstance();
 					String playerInfo = player.getName() + " (" + config.getPlayerClass().getName() + ")";

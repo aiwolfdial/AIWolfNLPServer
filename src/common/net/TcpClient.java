@@ -15,12 +15,12 @@ import common.data.Talk;
 //import net.arnx.jsonic.JSON;
 
 /**
- * Client Using TCP/IP Connection
+ * Client Using Tcp/IP Connection
  * 
  * @author tori
  *
  */
-public class TcpipClient implements Runnable, GameClient {
+public class TcpClient implements Runnable, GameClient {
 
 	String host;
 	int port;
@@ -37,13 +37,13 @@ public class TcpipClient implements Runnable, GameClient {
 
 	String playerName;
 
-	public TcpipClient(String host, int port) {
+	public TcpClient(String host, int port) {
 		this.host = host;
 		this.port = port;
 		isRunning = false;
 	}
 
-	public TcpipClient(String host, int port, Role requestRole) {
+	public TcpClient(String host, int port, Role requestRole) {
 		this.host = host;
 		this.port = port;
 		this.requestRole = requestRole;

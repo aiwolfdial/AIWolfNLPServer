@@ -6,7 +6,7 @@ import java.net.SocketTimeoutException;
 
 import common.data.Player;
 import common.data.Role;
-import common.net.TcpipClient;
+import common.net.TcpClient;
 
 public class ClientStarter {
 
@@ -77,7 +77,7 @@ public class ClientStarter {
 		try {
 			player = (Player) Class.forName(clsName).getDeclaredConstructor().newInstance();
 			// 引数にRoleRequestを追加
-			TcpipClient client = new TcpipClient(host, port, roleRequest);
+			TcpClient client = new TcpClient(host, port, roleRequest);
 			if (playerName != null) {
 				client.setName(playerName);
 				// System.out.println("Set name "+client.getName());

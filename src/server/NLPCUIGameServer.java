@@ -15,7 +15,7 @@ import common.data.Role;
 import common.net.GameSetting;
 
 /**
- * mamo: https://github.com/aiwolf/AIWolfServer/blob/0.6.x/src/org/aiwolf/server/net/TcpipServer.java#L418
+ * mamo: https://github.com/aiwolf/AIWolfServer/blob/0.6.x/src/org/aiwolf/server/net/TcpServer.java#L418
  * 	https://github.com/aiwolf/AIWolfServer/blob/0.6.x/src/org/aiwolf/server/AIWolfGame.java#L614
  */
 

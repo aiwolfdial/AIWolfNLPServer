@@ -1,5 +1,5 @@
 /**
- * TcpipServer.java
+ * TcpServer.java
  *
  * Copyright (c) 2014 人狼知能プロジェクト
  */
@@ -41,12 +41,12 @@ import server.IllegalPlayerNumException;
 import server.LostClientException;
 
 /**
- * Game server which communicates with clients via TCP/IP connections.
+ * Game server which communicates with clients via Tcp/IP connections.
  *
  * @author tori and otsuki
  *
  */
-public class TcpipServer implements GameServer {
+public class TcpServer implements GameServer {
 
 	/**
 	 * Server Port
@@ -105,7 +105,7 @@ public class TcpipServer implements GameServer {
 	 * @param port
 	 * @param limit
 	 */
-	public TcpipServer(int port, int limit, GameSetting gameSetting) {
+	public TcpServer(int port, int limit, GameSetting gameSetting) {
 		this.gameSetting = gameSetting;
 		this.port = port;
 		this.limit = limit;
