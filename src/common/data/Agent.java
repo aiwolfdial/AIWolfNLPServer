@@ -1,31 +1,8 @@
-/**
- * Agent.java
- * 
- * Copyright (c) 2014 人狼知能プロジェクト
- */
 package common.data;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * <div lang="ja">
- * 
- * プレイヤーのエージェントです。 各プレイヤーは、エージェントとして他のプレイヤーを識別することができます。
- * 各エージェントは、一意のインデックスを持っています。
- * 
- * </div>
- * 
- * <div lang="en">
- * 
- * Player Agent. Each players can identify other players as Agent. Each agent
- * has unique index.
- * 
- * </div>
- * 
- * @author tori and otsuki
- *
- */
 final public class Agent implements Comparable<Agent> {
 	private static final Map<Integer, Agent> agentIndexMap = new HashMap<>();
 
@@ -67,10 +44,7 @@ final public class Agent implements Comparable<Agent> {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + agentIdx;
-		return result;
+		return Integer.hashCode(agentIdx);
 	}
 
 	@Override

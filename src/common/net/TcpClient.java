@@ -12,16 +12,8 @@ import common.AIWolfRuntimeException;
 import common.data.Player;
 import common.data.Role;
 import common.data.Talk;
-//import net.arnx.jsonic.JSON;
 
-/**
- * Client Using Tcp/IP Connection
- * 
- * @author tori
- *
- */
 public class TcpClient implements Runnable, GameClient {
-
 	String host;
 	int port;
 
@@ -102,12 +94,6 @@ public class TcpClient implements Runnable, GameClient {
 		}
 	}
 
-	/*
-	 * (非 Javadoc)
-	 * 
-	 * @see
-	 * org.aiwolf.server.sc.LocalConnectServer#recieve(org.aiwolf.server.sc.Packet)
-	 */
 	@Override
 	public Object receive(Packet packet) {
 		GameInfo gameInfo = lastGameInfo;
@@ -211,14 +197,6 @@ public class TcpClient implements Runnable, GameClient {
 		return returnObject;
 	}
 
-	/**
-	 * Check is talk after lastTalk.<br>
-	 * If it is same, return false;
-	 * 
-	 * @param talk
-	 * @param lastTalk
-	 * @return
-	 */
 	private boolean isAfter(TalkToSend talk, Talk lastTalk) {
 		if (lastTalk != null) {
 			if (talk.getDay() < lastTalk.getDay()) {
