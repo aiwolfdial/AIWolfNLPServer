@@ -52,21 +52,26 @@ public class DataConverter {
 	}
 
 	public static Agent toAgent(Object obj) {
-		if (obj == null) {
-			return null;
-		}
-		if (obj instanceof String) {
-			Matcher m = Pattern.compile("\\{\"agentIdx\":(\\d+)\\}").matcher((String) obj);
-			if (m.find()) {
-				return Agent.getAgent(Integer.parseInt(m.group(1)));
+		switch (obj) {
+			case null -> {
+				return null;
 			}
-		} else if (obj instanceof Agent) {
-			return (Agent) obj;
-		} else if (obj instanceof Map<?, ?>) {
-			Map<?, ?> map = (Map<?, ?>) obj;
-			Object agentIdx = map.get("agentIdx");
-			if (agentIdx instanceof Number) {
-				return Agent.getAgent(((Number) agentIdx).intValue());
+			case String s -> {
+				Matcher m = Pattern.compile("\\{\"agentIdx\":(\\d+)\\}").matcher(s);
+				if (m.find()) {
+					return Agent.getAgent(Integer.parseInt(m.group(1)));
+				}
+			}
+			case Agent agent -> {
+				return agent;
+			}
+			case Map<?, ?> map -> {
+				Object agentIdx = map.get("agentIdx");
+				if (agentIdx instanceof Number) {
+					return Agent.getAgent(((Number) agentIdx).intValue());
+				}
+			}
+			default -> {
 			}
 		}
 		return null;

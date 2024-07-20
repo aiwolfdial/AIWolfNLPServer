@@ -245,7 +245,7 @@ public class SampleBasePlayer implements Player {
 				parseSentence(content.getContentList().get(1));
 				break;
 			case DAY:
-				parseSentence(content.getContentList().get(0));
+				parseSentence(content.getContentList().getFirst());
 				break;
 			case AND:
 			case OR:
@@ -280,7 +280,7 @@ public class SampleBasePlayer implements Player {
 		addExecutedAgent(currentGameInfo.getExecutedAgent());
 		// 昨夜死亡した（襲撃された）エージェントを登録
 		if (!currentGameInfo.getLastDeadAgentList().isEmpty()) {
-			addKilledAgent(currentGameInfo.getLastDeadAgentList().get(0));
+			addKilledAgent(currentGameInfo.getLastDeadAgentList().getFirst());
 		}
 	}
 

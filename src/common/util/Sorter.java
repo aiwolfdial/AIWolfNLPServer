@@ -89,7 +89,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 	 */
 	public List<V> getSortedList() {
 		List<V> list = new ArrayList<V>(itemMap.keySet());
-		Collections.sort(list, new ItemComparator());
+		list.sort(new ItemComparator());
 		return list;
 	}
 
@@ -100,7 +100,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 	 */
 	public List<V> getReverseList() {
 		List<V> list = new ArrayList<V>(itemMap.keySet());
-		Collections.sort(list, new ItemComparator());
+		list.sort(new ItemComparator());
 		Collections.reverse(list);
 		return list;
 	}
@@ -177,7 +177,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 		if (isEmpty()) {
 			return null;
 		}
-		return getSortedList().get(0);
+		return getSortedList().getFirst();
 	}
 
 	/**
@@ -190,7 +190,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 			return null;
 		}
 		List<V> list = getSortedList();
-		return list.get(list.size() - 1);
+		return list.getLast();
 	}
 
 	/**

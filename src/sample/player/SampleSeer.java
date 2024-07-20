@@ -93,7 +93,7 @@ public final class SampleSeer extends SampleBasePlayer {
 		Content iAm = isCameout ? coContent(me, me, Role.SEER) : coContent(me, me, Role.VILLAGER);
 
 		// 生存人狼がいれば当然投票
-		aliveWolves = blackList.stream().filter(a -> isAlive(a)).collect(Collectors.toList());
+		aliveWolves = blackList.stream().filter(this::isAlive).collect(Collectors.toList());
 		// 既定の投票先が生存人狼でない場合投票先を変える
 		if (!aliveWolves.isEmpty()) {
 			if (!aliveWolves.contains(voteCandidate)) {
@@ -251,7 +251,7 @@ public final class SampleSeer extends SampleBasePlayer {
 			if (candidates.isEmpty()) {
 				voteCandidate = randomSelect(aliveOthers);
 			} else {
-				voteCandidate = candidates.get(0);
+				voteCandidate = candidates.getFirst();
 			}
 		}
 	}
@@ -262,21 +262,21 @@ public final class SampleSeer extends SampleBasePlayer {
 		// あるいは占い師カミングアウトが出たらカミングアウト
 		if (!isCameout && (day >= comingoutDay || isCo(Role.SEER)
 				|| (!myDivinationList.isEmpty()
-						&& myDivinationList.get(myDivinationList.size() - 1).getResult() == Species.WEREWOLF))) {
+						&& myDivinationList.getLast().getResult() == Species.WEREWOLF))) {
 			enqueueTalk(coContent(me, me, Role.SEER));
 			isCameout = true;
 		}
 		// カミングアウトしたらこれまでの占い結果をすべて公開
 		if (isCameout) {
 			Content[] judges = myDivinationList.stream().map(j -> dayContent(me, j.getDay(),
-					divinedContent(me, j.getTarget(), j.getResult()))).toArray(size -> new Content[size]);
+					divinedContent(me, j.getTarget(), j.getResult()))).toArray(Content[]::new);
 			if (judges.length == 1) {
 				enqueueTalk(judges[0]);
-				enqueueTalk(judges[0].getContentList().get(0));
+				enqueueTalk(judges[0].getContentList().getFirst());
 			} else if (judges.length > 1) {
 				enqueueTalk(andContent(me, judges));
 				for (Content c : judges) {
-					enqueueTalk(c.getContentList().get(0));
+					enqueueTalk(c.getContentList().getFirst());
 				}
 			}
 			myDivinationList.clear();
@@ -291,7 +291,7 @@ public final class SampleSeer extends SampleBasePlayer {
 			return randomSelect(wolfCandidates);
 		}
 		// 人狼候補がいない場合，まだ占っていない生存者からランダムに占う
-		List<Agent> candidates = grayList.stream().filter(a -> isAlive(a)).collect(Collectors.toList());
+		List<Agent> candidates = grayList.stream().filter(this::isAlive).collect(Collectors.toList());
 		if (candidates.isEmpty()) {
 			return null;
 		}

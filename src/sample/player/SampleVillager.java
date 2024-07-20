@@ -95,7 +95,7 @@ public final class SampleVillager extends SampleBasePlayer {
 			if (candidates.isEmpty()) {
 				voteCandidate = randomSelect(aliveOthers);
 			} else {
-				voteCandidate = candidates.get(0);
+				voteCandidate = candidates.getFirst();
 			}
 		}
 	}

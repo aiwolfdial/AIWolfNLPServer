@@ -21,14 +21,12 @@ public class AutoGameStarter {
 		try {
 			AutomaticStarterConfiguration config = AutomaticStarterConfiguration.load(configPath);
 			if (config.isStartServer()) {
-				Runnable r = new Runnable() {
-					public void run() {
-						try {
-							NLPServerStarter starter = new NLPServerStarter();
-							starter.start();
-						} catch (Exception e) {
-							logger.error(e);
-						}
+				Runnable r = () -> {
+					try {
+						NLPServerStarter starter = new NLPServerStarter();
+						starter.start();
+					} catch (Exception e) {
+						logger.error(e);
 					}
 				};
 				Thread thread = new Thread(r);

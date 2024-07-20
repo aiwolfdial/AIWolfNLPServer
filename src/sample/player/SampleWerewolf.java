@@ -305,7 +305,7 @@ public final class SampleWerewolf extends SampleBasePlayer {
 					.filter(a -> isAlive(a) && !possessedList.contains(a)).collect(Collectors.toList());
 			if (aliveFakeWolves.isEmpty()) {
 				aliveFakeWolves = fakeBlackList.stream()
-						.filter(a -> isAlive(a)).collect(Collectors.toList());
+						.filter(this::isAlive).collect(Collectors.toList());
 			}
 			// 既定の投票先が生存偽人狼でない場合投票先を変える
 			if (!aliveFakeWolves.isEmpty()) {
@@ -496,7 +496,7 @@ public final class SampleWerewolf extends SampleBasePlayer {
 			if (candidates.isEmpty()) {
 				voteCandidate = randomSelect(aliveOthers);
 			} else {
-				voteCandidate = candidates.get(0);
+				voteCandidate = candidates.getFirst();
 			}
 		}
 	}
@@ -531,12 +531,12 @@ public final class SampleWerewolf extends SampleBasePlayer {
 					}
 				}
 				if (judges.size() == 1) {
-					enqueueTalk(judges.get(0));
-					enqueueTalk(judges.get(0).getContentList().get(0));
+					enqueueTalk(judges.getFirst());
+					enqueueTalk(judges.getFirst().getContentList().getFirst());
 				} else if (judges.size() > 1) {
 					enqueueTalk(andContent(me, judges.toArray(new Content[0])));
 					for (Content c : judges) {
-						enqueueTalk(c.getContentList().get(0));
+						enqueueTalk(c.getContentList().getFirst());
 					}
 				}
 			}
@@ -547,7 +547,7 @@ public final class SampleWerewolf extends SampleBasePlayer {
 	/** 襲撃先候補を選ぶ */
 	void chooseAttackVoteCandidate() {
 		// カミングアウトした村人陣営は襲撃先候補
-		List<Agent> candidates = villagers.stream().filter(a -> isCo(a)).collect(Collectors.toList());
+		List<Agent> candidates = villagers.stream().filter(this::isCo).collect(Collectors.toList());
 		for (Agent a : candidates) {
 			attackVoteReasonMap.put(me, a, coContent(a, a, comingoutMap.get(a)));
 		}

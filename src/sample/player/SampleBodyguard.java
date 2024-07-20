@@ -121,7 +121,7 @@ public final class SampleBodyguard extends SampleBasePlayer {
 			if (candidates.isEmpty()) {
 				voteCandidate = randomSelect(aliveOthers);
 			} else {
-				voteCandidate = candidates.get(0);
+				voteCandidate = candidates.getFirst();
 			}
 		}
 	}

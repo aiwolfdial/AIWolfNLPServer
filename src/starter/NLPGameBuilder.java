@@ -81,8 +81,8 @@ public class NLPGameBuilder extends Thread {
 		// コネクションとエージェントの紐付け
 		Set<Integer> usedNumberSet = new HashSet<>();
 		int humanNum = config.isJoinHuman() ? config.getHumanAgentNum() : -1;
-		for (int i = 0; i < socketList.size(); i++) {
-			NLPAIWolfConnection connection = new NLPAIWolfConnection(socketList.get(i), config);
+		for (Socket socket : socketList) {
+			NLPAIWolfConnection connection = new NLPAIWolfConnection(socket, config);
 			int agentNum = 1;
 			String name = connection.getName();
 			if (name != null && name.equals(config.getHumanName()) && humanNum > 0) {

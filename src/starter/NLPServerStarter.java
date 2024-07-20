@@ -109,7 +109,7 @@ public class NLPServerStarter extends ServerStarter {
 				if (config.isSingleAgentPerIp()) {
 					key = socket.getInetAddress().getHostAddress();
 				} else if (!waitingSockets.isEmpty()) {
-					key = new ArrayList<>(waitingSockets.keySet()).get(0);
+					key = new ArrayList<>(waitingSockets.keySet()).getFirst();
 				}
 				// エントリーソケットマップを更新
 				entrySocketMap = waitingSockets.getOrDefault(key, new HashMap<>());
@@ -154,36 +154,21 @@ public class NLPServerStarter extends ServerStarter {
 		}
 		logger.debug("Index: " + index);
 		// インデックスに基づいてサーバー情報を設定
-		switch (index) {
-			case 1:
-				return getSocket(config.getPlayer1Ip(), config.getPlayer1Port());
-			case 2:
-				return getSocket(config.getPlayer2Ip(), config.getPlayer2Port());
-			case 3:
-				return getSocket(config.getPlayer3Ip(), config.getPlayer3Port());
-			case 4:
-				return getSocket(config.getPlayer4Ip(), config.getPlayer4Port());
-			case 5:
-				return getSocket(config.getPlayer5Ip(), config.getPlayer5Port());
-			case 6:
-				return getSocket(config.getPlayer6Ip(), config.getPlayer6Port());
-			case 7:
-				return getSocket(config.getPlayer7Ip(), config.getPlayer7Port());
-			case 8:
-				return getSocket(config.getPlayer8Ip(), config.getPlayer8Port());
-			case 9:
-				return getSocket(config.getPlayer9Ip(), config.getPlayer9Port());
-			case 10:
-				return getSocket(config.getPlayer10Ip(), config.getPlayer10Port());
-			case 10000:
-			case 10001:
-			case 10002:
-			case 10003:
-			case 10004:
-				return getSocket("localhost", Integer.parseInt(line.split("\\s")[index % 10000]));
-			default:
-				throw new IllegalArgumentException("Invalid index: " + index);
-		}
+		return switch (index) {
+			case 1 -> getSocket(config.getPlayer1Ip(), config.getPlayer1Port());
+			case 2 -> getSocket(config.getPlayer2Ip(), config.getPlayer2Port());
+			case 3 -> getSocket(config.getPlayer3Ip(), config.getPlayer3Port());
+			case 4 -> getSocket(config.getPlayer4Ip(), config.getPlayer4Port());
+			case 5 -> getSocket(config.getPlayer5Ip(), config.getPlayer5Port());
+			case 6 -> getSocket(config.getPlayer6Ip(), config.getPlayer6Port());
+			case 7 -> getSocket(config.getPlayer7Ip(), config.getPlayer7Port());
+			case 8 -> getSocket(config.getPlayer8Ip(), config.getPlayer8Port());
+			case 9 -> getSocket(config.getPlayer9Ip(), config.getPlayer9Port());
+			case 10 -> getSocket(config.getPlayer10Ip(), config.getPlayer10Port());
+			case 10000, 10001, 10002, 10003, 10004 ->
+					getSocket("localhost", Integer.parseInt(line.split("\\s")[index % 10000]));
+			default -> throw new IllegalArgumentException("Invalid index: " + index);
+		};
 	}
 
 	private Socket getSocket(String hostname, int port) throws UnknownHostException, IOException {
@@ -360,11 +345,11 @@ public class NLPServerStarter extends ServerStarter {
 			Entry<String, Map<String, List<Pair<Long, Socket>>>> entry = iterator.next();
 			boolean canStartGame = false;
 			for (Entry<String, List<Pair<Long, Socket>>> socketEntry : entry.getValue().entrySet()) {
-				List<Socket> l = socketEntry.getValue().stream().map(p -> p.getValue()).collect(Collectors.toList());
+				List<Socket> l = socketEntry.getValue().stream().map(Pair::getValue).collect(Collectors.toList());
 				if (l.isEmpty())
 					continue;
 				if (onlyConnection) {
-					set.add(l.get(0));
+					set.add(l.getFirst());
 					continue;
 				} else {
 					for (Socket s : l) {

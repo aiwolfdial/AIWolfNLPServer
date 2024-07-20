@@ -55,36 +55,42 @@ public class RoleRequestStarter {
 		String logDir = "./log/";
 		for (int i = 0; i < args.length; i++) {
 			if (args[i].startsWith("-")) {
-				if (args[i].equals("-c")) {
-					i++;
-					String clsName = args[i];
-					i++;
-					try {
-						if (i > args.length - 1 || args[i].startsWith("-")) {
-							i--;
-							playerRoleList.add(new Pair<String, Role>(clsName, null));
-							continue;
+				switch (args[i]) {
+					case "-c" -> {
+						i++;
+						String clsName = args[i];
+						i++;
+						try {
+							if (i > args.length - 1 || args[i].startsWith("-")) {
+								i--;
+								playerRoleList.add(new Pair<String, Role>(clsName, null));
+								continue;
+							}
+							Role role = Role.valueOf(args[i].toUpperCase());
+							playerRoleList.add(new Pair<String, Role>(clsName, role));
+						} catch (IllegalArgumentException e) {
+							System.err.println("No such role as " + args[i]);
+							return;
 						}
-						Role role = Role.valueOf(args[i].toUpperCase());
-						playerRoleList.add(new Pair<String, Role>(clsName, role));
-					} catch (IllegalArgumentException e) {
-						System.err.println("No such role as " + args[i]);
-						return;
 					}
-				} else if (args[i].equals("-n")) {
-					i++;
-					playerNum = Integer.parseInt(args[i]);
-				} else if (args[i].equals("-d")) {
-					i++;
-					defaultClsName = args[i];
-				} else if (args[i].equals("-l")) {
-					i++;
-					logDir = args[i];
-				} else if (args[i].equals("-h")) {
-					System.out.println(description);
-					System.out.println("利用可能な役職");
-					for (Role role : Role.values()) {
-						System.out.println(role);
+					case "-n" -> {
+						i++;
+						playerNum = Integer.parseInt(args[i]);
+					}
+					case "-d" -> {
+						i++;
+						defaultClsName = args[i];
+					}
+					case "-l" -> {
+						i++;
+						logDir = args[i];
+					}
+					case "-h" -> {
+						System.out.println(description);
+						System.out.println("利用可能な役職");
+						for (Role role : Role.values()) {
+							System.out.println(role);
+						}
 					}
 				}
 			}

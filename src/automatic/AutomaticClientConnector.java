@@ -35,21 +35,19 @@ public class AutomaticClientConnector {
 	 */
 	public void connectClients() {
 		for (int i = 0; i < config.getPlayerNum(); i++) {
-			Runnable r = new Runnable() {
-				public void run() {
-					TcpipClient client = new TcpipClient(config.getHostname(), config.getPort());
-					try {
-						Player player = (Player) config.getPlayerClass().getConstructor().newInstance();
-						String playerInfo = player.getName() + " (" + config.getPlayerClass().getName() + ")";
-						if (client.connect(player)) {
-							System.out.println("Player connected to server : " + playerInfo);
-						} else {
-							System.err.println("This Player missed connecting to server : " + playerInfo);
-						}
-					} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-							| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-						e.printStackTrace();
+			Runnable r = () -> {
+				TcpipClient client = new TcpipClient(config.getHostname(), config.getPort());
+				try {
+					Player player = (Player) config.getPlayerClass().getConstructor().newInstance();
+					String playerInfo = player.getName() + " (" + config.getPlayerClass().getName() + ")";
+					if (client.connect(player)) {
+						System.out.println("Player connected to server : " + playerInfo);
+					} else {
+						System.err.println("This Player missed connecting to server : " + playerInfo);
 					}
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+					e.printStackTrace();
 				}
 			};
 

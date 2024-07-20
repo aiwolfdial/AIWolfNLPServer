@@ -111,20 +111,11 @@ public abstract class AbstractNLPServer implements GameServer {
 			line = null;
 		}
 		// 返す内容の決定
-		switch (request) {
-			case TALK:
-			case NAME:
-			case ROLE:
-			case WHISPER:
-				return line;
-			case ATTACK:
-			case DIVINE:
-			case GUARD:
-			case VOTE:
-				return DataConverter.toAgent(line);
-			default:
-				return null;
-		}
+		return switch (request) {
+			case TALK, NAME, ROLE, WHISPER -> line;
+			case ATTACK, DIVINE, GUARD, VOTE -> DataConverter.toAgent(line);
+			default -> null;
+		};
 	}
 
 	protected abstract Object request(Agent agent, Request request);

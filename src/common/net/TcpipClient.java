@@ -121,7 +121,7 @@ public class TcpipClient implements Runnable, GameClient {
 		if (packet.getTalkHistory() != null) {
 			Talk lastTalk = null;
 			if (gameInfo.getTalkList() != null && !gameInfo.getTalkList().isEmpty()) {
-				lastTalk = gameInfo.getTalkList().get(gameInfo.getTalkList().size() - 1);
+				lastTalk = gameInfo.getTalkList().getLast();
 			}
 			for (TalkToSend talk : packet.getTalkHistory()) {
 				if (isAfter(talk, lastTalk)) {
@@ -133,7 +133,7 @@ public class TcpipClient implements Runnable, GameClient {
 		if (packet.getWhisperHistory() != null) {
 			Talk lastWhisper = null;
 			if (gameInfo.getWhisperList() != null && !gameInfo.getWhisperList().isEmpty()) {
-				lastWhisper = gameInfo.getWhisperList().get(gameInfo.getWhisperList().size() - 1);
+				lastWhisper = gameInfo.getWhisperList().getLast();
 			}
 			for (TalkToSend whisper : packet.getWhisperHistory()) {
 				if (isAfter(whisper, lastWhisper)) {

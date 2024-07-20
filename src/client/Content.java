@@ -246,7 +246,7 @@ public class Content implements Cloneable {
 				operator = Operator.valueOf(m.group(2));
 				contentList = getContents(m.group(3), true);
 				if (operator == Operator.REQUEST) {
-					target = contentList.get(0).subject == UNSPEC ? ANY : contentList.get(0).subject;
+					target = contentList.getFirst().subject == UNSPEC ? ANY : contentList.getFirst().subject;
 				}
 			}
 			// DAY
@@ -518,9 +518,9 @@ public class Content implements Cloneable {
 								+ operator
 								+ " " + (target == ANY ? "ANY" : target.toString())
 								+ " ("
-								+ (contentList.get(0).getSubject() == target
-										? stripSubject(contentList.get(0).getText())
-										: contentList.get(0).getText())
+								+ (contentList.getFirst().getSubject() == target
+										? stripSubject(contentList.getFirst().getText())
+										: contentList.getFirst().getText())
 								+ ")";
 						break;
 					case BECAUSE:
@@ -549,9 +549,9 @@ public class Content implements Cloneable {
 						text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject + " ")
 								+ operator
 								+ " ("
-								+ (contentList.get(0).getSubject() == subject
-										? stripSubject(contentList.get(0).getText())
-										: contentList.get(0).getText())
+								+ (contentList.getFirst().getSubject() == subject
+										? stripSubject(contentList.getFirst().getText())
+										: contentList.getFirst().getText())
 								+ ")";
 						break;
 					case DAY:
@@ -559,9 +559,9 @@ public class Content implements Cloneable {
 								+ operator
 								+ " " + day
 								+ " ("
-								+ (contentList.get(0).getSubject() == subject
-										? stripSubject(contentList.get(0).getText())
-										: contentList.get(0).getText())
+								+ (contentList.getFirst().getSubject() == subject
+										? stripSubject(contentList.getFirst().getText())
+										: contentList.getFirst().getText())
 								+ ")";
 						break;
 					default:

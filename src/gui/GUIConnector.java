@@ -40,6 +40,4 @@ public class GUIConnector {
 		}
 	}
 
-	public void destroy() {
-	}
 }

@@ -118,11 +118,7 @@ public class GameSetting implements Cloneable {
 
 	// 指定された役職の人数を返します。
 	public int getRoleNum(Role role) {
-		if (roleNumMap.containsKey(role)) {
-			return roleNumMap.get(role);
-		} else {
-			return 0;
-		}
+		return roleNumMap.getOrDefault(role, 0);
 	}
 
 	public int getMaxTalk() {

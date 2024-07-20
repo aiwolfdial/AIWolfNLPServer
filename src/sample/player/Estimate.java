@@ -133,7 +133,7 @@ class Estimate {
 
 	Content getEstimateContent() {
 		Content[] estimates = roles.stream().map(r -> new Content(new EstimateContentBuilder(estimater, estimated, r)))
-				.toArray(size -> new Content[size]);
+				.toArray(Content[]::new);
 		if (estimates.length == 0) {
 			return null;
 		}
@@ -148,7 +148,7 @@ class Estimate {
 			return null;
 		}
 		if (reasons.size() == 1) {
-			return reasons.get(0);
+			return reasons.getFirst();
 		}
 		return new Content(new AndContentBuilder(estimater, reasons));
 	}

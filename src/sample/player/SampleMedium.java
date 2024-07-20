@@ -164,7 +164,7 @@ public final class SampleMedium extends SampleBasePlayer {
 			if (candidates.isEmpty()) {
 				voteCandidate = randomSelect(aliveOthers);
 			} else {
-				voteCandidate = candidates.get(0);
+				voteCandidate = candidates.getFirst();
 			}
 		}
 	}
@@ -175,21 +175,21 @@ public final class SampleMedium extends SampleBasePlayer {
 		// あるいは霊媒師カミングアウトが出たらカミングアウト
 		if (!isCameout && (day >= comingoutDay || isCo(Role.MEDIUM)
 				|| (!myIdentList.isEmpty()
-						&& myIdentList.get(myIdentList.size() - 1).getResult() == Species.WEREWOLF))) {
+						&& myIdentList.getLast().getResult() == Species.WEREWOLF))) {
 			enqueueTalk(coContent(me, me, Role.MEDIUM));
 			isCameout = true;
 		}
 		// カミングアウトしたらこれまでの霊媒結果をすべて公開
 		if (isCameout) {
 			Content[] judges = myIdentList.stream().map(j -> dayContent(me, j.getDay(),
-					identContent(me, j.getTarget(), j.getResult()))).toArray(size -> new Content[size]);
+					identContent(me, j.getTarget(), j.getResult()))).toArray(Content[]::new);
 			if (judges.length == 1) {
 				enqueueTalk(judges[0]);
-				enqueueTalk(judges[0].getContentList().get(0));
+				enqueueTalk(judges[0].getContentList().getFirst());
 			} else if (judges.length > 1) {
 				enqueueTalk(andContent(me, judges));
 				for (Content c : judges) {
-					enqueueTalk(c.getContentList().get(0));
+					enqueueTalk(c.getContentList().getFirst());
 				}
 			}
 			myIdentList.clear();

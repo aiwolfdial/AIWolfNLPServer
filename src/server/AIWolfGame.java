@@ -184,9 +184,9 @@ public class AIWolfGame {
 			List<Agent> requestedAgentList = requestRoleMap.get(role);
 			for (int i = 0; i < gameSetting.getRoleNum(role); i++) {
 				if (requestedAgentList.isEmpty()) {
-					gameData.addAgent(noRequestAgentList.remove(0), Status.ALIVE, role);
+					gameData.addAgent(noRequestAgentList.removeFirst(), Status.ALIVE, role);
 				} else {
-					gameData.addAgent(requestedAgentList.remove(0), Status.ALIVE, role);
+					gameData.addAgent(requestedAgentList.removeFirst(), Status.ALIVE, role);
 				}
 			}
 		}
@@ -354,12 +354,7 @@ public class AIWolfGame {
 		}
 		System.out.println("======");
 		List<Agent> agentList = gameData.getAgentList();
-		Collections.sort(agentList, new Comparator<Agent>() {
-			@Override
-			public int compare(Agent o1, Agent o2) {
-				return o1.getAgentIdx() - o2.getAgentIdx();
-			}
-		});
+		agentList.sort((o1, o2) -> o1.getAgentIdx() - o2.getAgentIdx());
 		for (Agent agent : agentList) {
 			System.out.printf("%s\t%s\t%s\t%s", agent, agentNameMap.get(agent), gameData.getStatus(agent),
 					gameData.getRole(agent));
@@ -431,14 +426,14 @@ public class AIWolfGame {
 				vote();
 				candidates = getVotedCandidates(gameData.getVoteList());
 				if (candidates.size() == 1) {
-					executed = candidates.get(0);
+					executed = candidates.getFirst();
 					break;
 				}
 			}
 
 			if (executed == null && !gameSetting.isEnableNoExecution()) {
 				Collections.shuffle(candidates, rand);
-				executed = candidates.get(0);
+				executed = candidates.getFirst();
 			}
 
 			if (executed != null) {
@@ -475,14 +470,14 @@ public class AIWolfGame {
 					}
 					candidates = getAttackVotedCandidates(attackCandidateList);
 					if (candidates.size() == 1) {
-						attacked = candidates.get(0);
+						attacked = candidates.getFirst();
 						break;
 					}
 				}
 
 				if (attacked == null && !gameSetting.isEnableNoAttack()) {
 					Collections.shuffle(candidates, rand);
-					attacked = candidates.get(0);
+					attacked = candidates.getFirst();
 				}
 
 				gameData.setAttackedTarget(attacked);

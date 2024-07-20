@@ -52,7 +52,7 @@ class VoteRequestCounter extends ArrayList<Content> {
 	public boolean add(Content content) {
 		Agent requester = content.getSubject();
 		if (content.getOperator() == Operator.REQUEST) {
-			Content c = content.getContentList().get(0);
+			Content c = content.getContentList().getFirst();
 			if (c != null && c.getTopic() == Topic.VOTE) {
 				super.add(content);
 				Agent voted = c.getTarget();
@@ -74,7 +74,7 @@ class VoteRequestCounter extends ArrayList<Content> {
 	}
 
 	int getCount(Agent agent) {
-		return agentCountMap.containsKey(agent) ? agentCountMap.get(agent) : 0;
+		return agentCountMap.getOrDefault(agent, 0);
 	}
 
 	List<Agent> getOrderedAgentList() {
@@ -83,7 +83,7 @@ class VoteRequestCounter extends ArrayList<Content> {
 
 	List<Agent> getTopAgentList() {
 		if (orderedAgentList != null && !orderedAgentList.isEmpty()) {
-			int max = getCount(orderedAgentList.get(0));
+			int max = getCount(orderedAgentList.getFirst());
 			return orderedAgentList.stream().filter(a -> getCount(a) == max).collect(Collectors.toList());
 		}
 		return null;

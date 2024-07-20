@@ -34,13 +34,7 @@ public class GameStarter extends Thread {
 	public void run() {
 		while (true) {
 			// 実行が終了しているサーバの削除
-			Iterator<NLPGameBuilder> serverIterator = gameList.iterator();
-			while (serverIterator.hasNext()) {
-				NLPGameBuilder server = serverIterator.next();
-				if (!server.isAlive()) {
-					serverIterator.remove();
-				}
-			}
+			gameList.removeIf(server -> !server.isAlive());
 
 			// 同時起動数未満なら待機Listから1グループ取得してゲームを開始する
 			synchronized (socketQue) {

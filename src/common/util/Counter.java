@@ -140,11 +140,7 @@ public class Counter<V> implements Iterable<V>, Map<V, Integer> {
 	 * @return
 	 */
 	public Integer get(Object v) {
-		if (sorter.containsKey(v)) {
-			return sorter.get(v);
-		} else {
-			return 0;
-		}
+		return sorter.getOrDefault(v, 0);
 	}
 
 	/**
@@ -157,7 +153,7 @@ public class Counter<V> implements Iterable<V>, Map<V, Integer> {
 		if (sorter.isEmpty()) {
 			return null;
 		} else {
-			return sorter.getReverseList().get(0);
+			return sorter.getReverseList().getFirst();
 		}
 	}
 
@@ -171,7 +167,7 @@ public class Counter<V> implements Iterable<V>, Map<V, Integer> {
 		if (sorter.isEmpty()) {
 			return null;
 		} else {
-			return sorter.getSortedList().get(0);
+			return sorter.getSortedList().getFirst();
 		}
 	}
 

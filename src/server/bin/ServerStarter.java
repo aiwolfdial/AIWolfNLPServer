@@ -29,15 +29,19 @@ public class ServerStarter {
 
 		for (int i = 0; i < args.length; i++) {
 			if (args[i].startsWith("-")) {
-				if (args[i].equals("-p")) {
-					i++;
-					port = Integer.parseInt(args[i]);
-				} else if (args[i].equals("-n")) {
-					i++;
-					playerNum = Integer.parseInt(args[i]);
-				} else if (args[i].equals("-l")) {
-					i++;
-					logFileName = args[i];
+				switch (args[i]) {
+					case "-p" -> {
+						i++;
+						port = Integer.parseInt(args[i]);
+					}
+					case "-n" -> {
+						i++;
+						playerNum = Integer.parseInt(args[i]);
+					}
+					case "-l" -> {
+						i++;
+						logFileName = args[i];
+					}
 				}
 			}
 		}

@@ -136,12 +136,12 @@ public class CalendarTools {
 		String[] ary = dateTimeString.split("[\\D\\s]+");
 		int[] dateAry = new int[ary.length];
 		int idx = 0;
-		for (int i = 0; i < ary.length; i++) {
+		for (String s : ary) {
 			try {
 				if (idx == 1) {
-					dateAry[idx++] = Integer.parseInt(ary[i]) - 1;
+					dateAry[idx++] = Integer.parseInt(s) - 1;
 				} else {
-					dateAry[idx++] = Integer.parseInt(ary[i]);
+					dateAry[idx++] = Integer.parseInt(s);
 				}
 			} catch (NumberFormatException e) {
 				// TODO コメントアウトされたソースコード(continue;が適していると思われる。)

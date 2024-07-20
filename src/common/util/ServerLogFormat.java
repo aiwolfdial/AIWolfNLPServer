@@ -17,7 +17,7 @@ public class ServerLogFormat extends Formatter {
 
 	@Override
 	public String format(LogRecord record) {
-		final StringBuffer buf = new StringBuffer();
+		final StringBuilder buf = new StringBuilder();
 
 		if (isDetail) {
 			buf.append(record.getLevel());

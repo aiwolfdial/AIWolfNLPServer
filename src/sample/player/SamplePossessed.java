@@ -72,7 +72,7 @@ public final class SamplePossessed extends SampleBasePlayer {
 		// CO後は毎日偽の白判定
 		if (isCameout) {
 			Agent divined = randomSelect(fakeGrayList.stream()
-					.filter(a -> isAlive(a)).collect(Collectors.toList()));
+					.filter(this::isAlive).collect(Collectors.toList()));
 			if (divined == null) {
 				divined = me;
 			}
@@ -89,7 +89,7 @@ public final class SamplePossessed extends SampleBasePlayer {
 		Content iAm = isCameout ? coContent(me, me, Role.SEER) : coContent(me, me, Role.VILLAGER);
 
 		// 生存偽人狼がいれば当然投票
-		aliveFakeWolves = fakeBlackList.stream().filter(a -> isAlive(a)).collect(Collectors.toList());
+		aliveFakeWolves = fakeBlackList.stream().filter(this::isAlive).collect(Collectors.toList());
 		// 既定の投票先が生存偽人狼でない場合投票先を変える
 		if (!aliveFakeWolves.isEmpty()) {
 			if (!aliveFakeWolves.contains(voteCandidate)) {
@@ -247,7 +247,7 @@ public final class SamplePossessed extends SampleBasePlayer {
 			if (candidates.isEmpty()) {
 				voteCandidate = randomSelect(aliveOthers);
 			} else {
-				voteCandidate = candidates.get(0);
+				voteCandidate = candidates.getFirst();
 			}
 		}
 	}
@@ -287,14 +287,14 @@ public final class SamplePossessed extends SampleBasePlayer {
 		// カミングアウトしたらこれまでの偽占い結果をまとめて報告
 		if (isCameout) {
 			Content[] judges = fakeDivinationList.stream().map(j -> dayContent(me, j.getDay(),
-					divinedContent(me, j.getTarget(), j.getResult()))).toArray(size -> new Content[size]);
+					divinedContent(me, j.getTarget(), j.getResult()))).toArray(Content[]::new);
 			if (judges.length == 1) {
 				enqueueTalk(judges[0]);
-				enqueueTalk(judges[0].getContentList().get(0));
+				enqueueTalk(judges[0].getContentList().getFirst());
 			} else if (judges.length > 1) {
 				enqueueTalk(andContent(me, judges));
 				for (Content c : judges) {
-					enqueueTalk(c.getContentList().get(0));
+					enqueueTalk(c.getContentList().getFirst());
 				}
 			}
 			fakeDivinationList.clear();

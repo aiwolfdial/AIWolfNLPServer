@@ -34,33 +34,37 @@ public class ClientStarter {
 
 		for (int i = 0; i < args.length; i++) {
 			if (args[i].startsWith("-")) {
-				if (args[i].equals("-p")) {
-					i++;
-					port = Integer.parseInt(args[i]);
-				} else if (args[i].equals("-h")) {
-					i++;
-					host = args[i];
-				} else if (args[i].equals("-c")) {
-					i++;
-					clsName = args[i];
-
-					// RoleRequestStarterのｌ56～ｌ72を参考にして以下追加
-					i++;
-					try {
-						if (i > args.length - 1 || args[i].startsWith("-")) {
-							i--;
-							roleRequest = null;
-							continue;
-						}
-						roleRequest = Role.valueOf(args[i]);
-					} catch (IllegalArgumentException e) {
-						System.err.println("No such role as " + args[i]);
-						return;
+				switch (args[i]) {
+					case "-p" -> {
+						i++;
+						port = Integer.parseInt(args[i]);
 					}
+					case "-h" -> {
+						i++;
+						host = args[i];
+					}
+					case "-c" -> {
+						i++;
+						clsName = args[i];
 
-				} else if (args[i].equals("-n")) {
-					i++;
-					playerName = args[i];
+						// RoleRequestStarterのｌ56～ｌ72を参考にして以下追加
+						i++;
+						try {
+							if (i > args.length - 1 || args[i].startsWith("-")) {
+								i--;
+								roleRequest = null;
+								continue;
+							}
+							roleRequest = Role.valueOf(args[i]);
+						} catch (IllegalArgumentException e) {
+							System.err.println("No such role as " + args[i]);
+							return;
+						}
+					}
+					case "-n" -> {
+						i++;
+						playerName = args[i];
+					}
 				}
 			}
 		}

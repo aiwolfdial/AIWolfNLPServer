@@ -147,20 +147,10 @@ public enum Topic {
 				return topic;
 			}
 		}
-		switch (s) {
-			case "REQUEST":
-			case "BECAUSE":
-			case "INQUIRE":
-			case "AND":
-			case "OR":
-			case "XOR":
-			case "NOT":
-			case "DAY":
-				return Topic.OPERATOR;
-			default:
-				break;
-		}
-		return null;
+		return switch (s) {
+			case "REQUEST", "BECAUSE", "INQUIRE", "AND", "OR", "XOR", "NOT", "DAY" -> Topic.OPERATOR;
+			default -> null;
+		};
 	}
 
 }
