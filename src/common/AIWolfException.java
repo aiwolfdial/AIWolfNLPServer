@@ -1,5 +1,7 @@
 package common;
 
+import java.io.Serial;
+
 /**
  * <div lang="ja">人狼知能における例外を扱うクラスです。</div>
  *
@@ -7,6 +9,7 @@ package common;
  */
 public class AIWolfException extends Exception {
 
+	@Serial
 	private static final long serialVersionUID = -7643834149475507516L;
 
 	/**

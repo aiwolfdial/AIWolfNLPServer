@@ -1,5 +1,7 @@
 package common;
 
+import java.io.Serial;
+
 /**
  * <div lang="ja">
  *
@@ -18,6 +20,7 @@ package common;
  */
 public class AIWolfRuntimeException extends RuntimeException {
 
+	@Serial
 	private static final long serialVersionUID = 3533967066982907891L;
 
 	/**

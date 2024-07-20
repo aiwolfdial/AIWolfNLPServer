@@ -84,9 +84,9 @@ public class TcpipClient implements Runnable, GameClient {
 					if (obj == null) {
 						bw.append("\n");
 					} else if (obj instanceof String) {
-						bw.append(obj + "\n");
+						bw.append(String.valueOf(obj)).append("\n");
 					} else {
-						bw.append(DataConverter.convert(obj) + "\n");
+						bw.append(DataConverter.convert(obj)).append("\n");
 					}
 					bw.flush();
 				}

@@ -1,5 +1,6 @@
 package common.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -20,6 +21,7 @@ import java.io.Serializable;
  */
 public class Pair<K, V> implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = -7137802873518091301L;
 
 	K key;

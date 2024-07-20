@@ -15,7 +15,6 @@ public class VoteToSend {
 	}
 
 	public Vote toVote() {
-		Vote vote = new Vote(day, Agent.getAgent(agent), Agent.getAgent(target));
-		return vote;
+		return new Vote(day, Agent.getAgent(agent), Agent.getAgent(target));
 	}
 }

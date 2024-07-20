@@ -10,6 +10,8 @@ import client.Operator;
 import client.Topic;
 import common.data.Agent;
 
+import java.io.Serial;
+
 /**
  * 各プレイヤーが宣言した襲撃投票先とその理由
  * 
@@ -20,6 +22,7 @@ class AttackVoteReasonMap extends VoteReasonMap {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 749687176879894738L;
 
 	@Override

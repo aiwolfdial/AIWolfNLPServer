@@ -1,5 +1,7 @@
 package client;
 
+import java.io.Serial;
+
 /**
  * Thrown to indicate that the constructor of Content class has been passed an
  * illegal string.
@@ -9,6 +11,7 @@ package client;
  */
 public class IllegalContentStringException extends IllegalArgumentException {
 
+	@Serial
 	private static final long serialVersionUID = 752514963976415066L;
 
 	/**

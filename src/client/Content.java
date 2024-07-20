@@ -105,13 +105,11 @@ public class Content implements Cloneable {
 			if (c.subject == UNSPEC) {
 				// INQUIREとREQUESTでsubjectが省略された場合は外の文のtarget
 				if (operator == Operator.INQUIRE || operator == Operator.REQUEST) {
-					Content cl = c.cloneAndReplaceSubject(target);
-					return cl;
+					return c.cloneAndReplaceSubject(target);
 				}
 				// それ以外は外の文のsubject
 				if (UNSPEC != subject) { // 未指定の場合は何もしない
-					Content cl = c.cloneAndReplaceSubject(subject);
-					return cl;
+					return c.cloneAndReplaceSubject(subject);
 				}
 			}
 			c.completeInnerSubject();

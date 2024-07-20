@@ -61,11 +61,11 @@ public class TextConverter {
      * @return ソケット通信用データ
      */
     public String dead(List<Agent> deads) {
-        String line = "D";
+        StringBuilder line = new StringBuilder("D");
         for (Agent dead : deads) {
-            line += "$" + dead.getAgentIdx();
+            line.append("$").append(dead.getAgentIdx());
         }
-        return line;
+        return line.toString();
     }
 
     /**

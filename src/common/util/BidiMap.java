@@ -1,5 +1,6 @@
 package common.util;
 
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import java.util.Map;
  */
 public class BidiMap<K, V> extends HashMap<K, V> {
 
+	@Serial
 	private static final long serialVersionUID = 998600781640480300L;
 
 	Map<V, K> inverseMap;

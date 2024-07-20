@@ -24,7 +24,7 @@ public class ServerLogFormat extends Formatter {
 			buf.append(" ");
 			buf.append(CalendarTools.toDateTime(record.getMillis()));
 			buf.append("@");
-			buf.append(record.getSourceClassName() + "#" + record.getSourceMethodName());
+			buf.append(record.getSourceClassName()).append("#").append(record.getSourceMethodName());
 		}
 		buf.append(record.getLoggerName());
 		buf.append(":");

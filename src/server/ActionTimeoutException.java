@@ -1,7 +1,10 @@
 package server;
 
+import java.io.Serial;
+
 public class ActionTimeoutException extends Exception {
-    private static final long serialVersionUID = 1L;
+    @Serial
+	private static final long serialVersionUID = 1L;
 
     public ActionTimeoutException() {
         super();

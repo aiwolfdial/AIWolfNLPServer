@@ -5,6 +5,7 @@
  */
 package sample.player;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,7 @@ import common.data.Agent;
  */
 class VoteRequestCounter extends ArrayList<Content> {
 
+	@Serial
 	private static final long serialVersionUID = 3810063151532925245L;
 
 	/** リクエスト元と投票先のマップ */

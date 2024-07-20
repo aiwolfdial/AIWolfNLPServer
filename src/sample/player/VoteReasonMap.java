@@ -5,6 +5,7 @@
  */
 package sample.player;
 
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ class VoteReasonMap extends HashMap<Agent, Entry<Agent, Content>> {
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 5951357442022947347L;
 
 	// 得票数マップ

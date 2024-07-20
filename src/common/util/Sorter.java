@@ -1,5 +1,6 @@
 package common.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,6 +41,7 @@ import java.util.Set;
  */
 public class Sorter<V, S> implements Map<V, S>, Serializable {
 
+	@Serial
 	private static final long serialVersionUID = -8767639922201898076L;
 
 	protected final Map<V, S> itemMap;

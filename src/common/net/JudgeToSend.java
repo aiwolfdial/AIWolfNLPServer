@@ -22,7 +22,6 @@ public class JudgeToSend {
 	}
 
 	public Judge toJudge() {
-		Judge judge = new Judge(day, Agent.getAgent(agent), Agent.getAgent(target), Species.valueOf(result));
-		return judge;
+		return new Judge(day, Agent.getAgent(agent), Agent.getAgent(target), Species.valueOf(result));
 	}
 }

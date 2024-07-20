@@ -553,8 +553,7 @@ class RequestReadCallable implements Callable<String> {
 	@Override
 	public String call() {
 		try {
-			String line = br.readLine();
-			return line;
+			return br.readLine();
 		} catch (IOException e) {
 			ioException = e;
 			return null;

@@ -143,8 +143,7 @@ public class DirectConnectServer implements GameServer {
 	public String requestTalk(Agent agent) {
 		try {
 			agentPlayerMap.get(agent).update(gameData.getGameInfo(agent));
-			String talk = agentPlayerMap.get(agent).talk();
-			return talk;
+			return agentPlayerMap.get(agent).talk();
 			// if(talk == null){
 			// throw new NoReturnObjectException();
 			// }
@@ -160,8 +159,7 @@ public class DirectConnectServer implements GameServer {
 	public String requestWhisper(Agent agent) {
 		try {
 			agentPlayerMap.get(agent).update(gameData.getGameInfo(agent));
-			String whisper = agentPlayerMap.get(agent).whisper();
-			return whisper;
+			return agentPlayerMap.get(agent).whisper();
 			// if(whisper == null){
 			// throw new NoReturnObjectException();
 			// }
@@ -177,8 +175,7 @@ public class DirectConnectServer implements GameServer {
 	public Agent requestVote(Agent agent) {
 		try {
 			agentPlayerMap.get(agent).update(gameData.getGameInfo(agent));
-			Agent target = agentPlayerMap.get(agent).vote();
-			return target;
+			return agentPlayerMap.get(agent).vote();
 			// if(target == null){
 			// throw new NoReturnObjectException();
 			// }
@@ -194,8 +191,7 @@ public class DirectConnectServer implements GameServer {
 	public Agent requestDivineTarget(Agent agent) {
 		try {
 			agentPlayerMap.get(agent).update(gameData.getGameInfo(agent));
-			Agent target = agentPlayerMap.get(agent).divine();
-			return target;
+			return agentPlayerMap.get(agent).divine();
 			// if(target == null){
 			// throw new NoReturnObjectException();
 			// }
@@ -211,8 +207,7 @@ public class DirectConnectServer implements GameServer {
 	public Agent requestGuardTarget(Agent agent) {
 		try {
 			agentPlayerMap.get(agent).update(gameData.getGameInfo(agent));
-			Agent target = agentPlayerMap.get(agent).guard();
-			return target;
+			return agentPlayerMap.get(agent).guard();
 			// if(target == null){
 			// throw new NoReturnObjectException();
 			// }
@@ -228,8 +223,7 @@ public class DirectConnectServer implements GameServer {
 	public Agent requestAttackTarget(Agent agent) {
 		try {
 			agentPlayerMap.get(agent).update(gameData.getGameInfo(agent));
-			Agent target = agentPlayerMap.get(agent).attack();
-			return target;
+			return agentPlayerMap.get(agent).attack();
 			// if(target == null){
 			// throw new NoReturnObjectException();
 			// }

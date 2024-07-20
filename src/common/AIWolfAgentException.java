@@ -2,6 +2,7 @@ package common;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.io.Serial;
 
 import common.data.Agent;
 
@@ -24,6 +25,7 @@ import common.data.Agent;
  */
 public class AIWolfAgentException extends AIWolfRuntimeException {
 
+	@Serial
 	private static final long serialVersionUID = -5897930222916624361L;
 
 	Agent agent;

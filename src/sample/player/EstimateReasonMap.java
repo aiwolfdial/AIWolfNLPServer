@@ -5,6 +5,7 @@
  */
 package sample.player;
 
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import common.data.Agent;
  */
 class EstimateReasonMap extends HashMap<Agent, Map<Agent, Estimate>> {
 
+	@Serial
 	private static final long serialVersionUID = -7390734706630424321L;
 
 	boolean put(Estimate estimate) {
@@ -33,6 +35,7 @@ class EstimateReasonMap extends HashMap<Agent, Map<Agent, Estimate>> {
 		}
 		if (!containsKey(estimater)) {
 			put(estimater, new HashMap<Agent, Estimate>() {
+				@Serial
 				private static final long serialVersionUID = 1L;
 				{
 					put(estimated, estimate);

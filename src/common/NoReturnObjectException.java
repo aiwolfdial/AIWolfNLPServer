@@ -1,5 +1,7 @@
 package common;
 
+import java.io.Serial;
+
 /**
  * <div lang="ja">
  *
@@ -16,6 +18,7 @@ package common;
  */
 public class NoReturnObjectException extends RuntimeException {
 
+	@Serial
 	private static final long serialVersionUID = 6672785062337881971L;
 
 	/**
