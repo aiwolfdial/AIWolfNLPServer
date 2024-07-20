@@ -30,7 +30,7 @@ public class DirectStarter {
 	 */
 	public static void main(String[] args)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-		Counter<String> clsCountMap = new Counter<String>();
+		Counter<String> clsCountMap = new Counter<>();
 		String logDir = "./log/";
 		for (int i = 0; i < args.length; i++) {
 			if (args[i].startsWith("-")) {
@@ -68,7 +68,7 @@ public class DirectStarter {
 	public static void start(Counter<String> clsCountMap, String logDir)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
 		int playerNum = clsCountMap.getTotalCount();
-		List<Player> playerList = new ArrayList<Player>();
+		List<Player> playerList = new ArrayList<>();
 		// for(int i = 0; i < playerNum; i++){
 		// playerList.add((Player) Class.forName(clsName).newInstance());
 		// }

@@ -14,11 +14,11 @@ public class MultiGameLogger implements GameLogger {
 	protected Set<GameLogger> gameLoggerSet;
 
 	public MultiGameLogger() {
-		gameLoggerSet = new HashSet<GameLogger>();
+		gameLoggerSet = new HashSet<>();
 	}
 
 	public MultiGameLogger(GameLogger... loggers) {
-		gameLoggerSet = new HashSet<GameLogger>();
+		gameLoggerSet = new HashSet<>();
 		Collections.addAll(gameLoggerSet, loggers);
 	}
 

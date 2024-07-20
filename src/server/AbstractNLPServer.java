@@ -199,7 +199,7 @@ public abstract class AbstractNLPServer implements GameServer {
 		for (Agent agent : usingAgentList) {
 			set.add(getName(agent));
 		}
-		return new HashSet<String>(set);
+		return new HashSet<>(set);
 	}
 
 	/**

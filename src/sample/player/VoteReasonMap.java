@@ -49,7 +49,7 @@ class VoteReasonMap extends HashMap<Agent, Entry<Agent, Content>> {
 		if (voter == null || voted == null) {
 			return false;
 		}
-		put(voter, new SimpleEntry<Agent, Content>(voted, reason));
+		put(voter, new SimpleEntry<>(voted, reason));
 		countVote();
 		return true;
 	}

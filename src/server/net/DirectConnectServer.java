@@ -44,22 +44,22 @@ public class DirectConnectServer implements GameServer {
 	protected GameSetting gameSetting;
 
 	public DirectConnectServer(List<Player> playerList) {
-		agentPlayerMap = new LinkedHashMap<Agent, Player>();
-		playerAgentMap = new LinkedHashMap<Player, Agent>();
+		agentPlayerMap = new LinkedHashMap<>();
+		playerAgentMap = new LinkedHashMap<>();
 		int idx = 1;
 		for (Player player : playerList) {
 			Agent agent = Agent.getAgent(idx++);
 			agentPlayerMap.put(agent, player);
 			playerAgentMap.put(player, agent);
 		}
-		requestRoleMap = new HashMap<Agent, Role>();
+		requestRoleMap = new HashMap<>();
 
 	}
 
 	public DirectConnectServer(Map<Player, Role> playerMap) {
-		agentPlayerMap = new LinkedHashMap<Agent, Player>();
-		playerAgentMap = new LinkedHashMap<Player, Agent>();
-		requestRoleMap = new HashMap<Agent, Role>();
+		agentPlayerMap = new LinkedHashMap<>();
+		playerAgentMap = new LinkedHashMap<>();
+		requestRoleMap = new HashMap<>();
 
 		int idx = 1;
 		for (Player player : playerMap.keySet()) {
@@ -73,7 +73,7 @@ public class DirectConnectServer implements GameServer {
 
 	@Override
 	public List<Agent> getConnectedAgentList() {
-		return new ArrayList<Agent>(agentPlayerMap.keySet());
+		return new ArrayList<>(agentPlayerMap.keySet());
 	}
 
 	@Override

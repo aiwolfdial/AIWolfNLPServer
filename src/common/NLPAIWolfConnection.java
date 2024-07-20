@@ -157,7 +157,7 @@ public class NLPAIWolfConnection {
 		this.subException = e;
 		LostClientException exception = new LostClientException("Lost connection with " + agent + "\t" + name, e,
 				agent);
-		this.exception = new Pair<Exception, Request>(exception, request);
+		this.exception = new Pair<>(exception, request);
 
 		close();
 	}

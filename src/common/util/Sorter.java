@@ -48,7 +48,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 	protected Comparator<S> scoreComparator;
 
 	public Sorter() {
-		itemMap = new LinkedHashMap<V, S>();
+		itemMap = new LinkedHashMap<>();
 	}
 
 	public Sorter(Comparator<S> comparator) {
@@ -61,7 +61,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 	 * @param map
 	 */
 	public Sorter(Map<? extends V, ? extends S> map) {
-		itemMap = new LinkedHashMap<V, S>(map);
+		itemMap = new LinkedHashMap<>(map);
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 	 * @return 昇順にソートされたリスト
 	 */
 	public List<V> getSortedList() {
-		List<V> list = new ArrayList<V>(itemMap.keySet());
+		List<V> list = new ArrayList<>(itemMap.keySet());
 		list.sort(new ItemComparator());
 		return list;
 	}
@@ -101,7 +101,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 	 * @return 降順にソートされたリスト
 	 */
 	public List<V> getReverseList() {
-		List<V> list = new ArrayList<V>(itemMap.keySet());
+		List<V> list = new ArrayList<>(itemMap.keySet());
 		list.sort(new ItemComparator());
 		Collections.reverse(list);
 		return list;
@@ -142,7 +142,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 	 * ソートされたkeySetを返す
 	 */
 	public Set<V> keySet() {
-		return new LinkedHashSet<V>(getSortedList());
+		return new LinkedHashSet<>(getSortedList());
 	}
 
 	public S remove(Object key) {
@@ -202,7 +202,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 	 * @return
 	 */
 	public Sorter<V, S> largerThan(S s) {
-		Sorter<V, S> sorter = new Sorter<V, S>();
+		Sorter<V, S> sorter = new Sorter<>();
 		for (V v : keySet()) {
 			if (compare(get(v), s) > 0) {
 				sorter.put(v, get(v));
@@ -218,7 +218,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 	 * @return
 	 */
 	public Sorter<V, S> smallerThan(S s) {
-		Sorter<V, S> sorter = new Sorter<V, S>();
+		Sorter<V, S> sorter = new Sorter<>();
 		for (V v : keySet()) {
 			if (compare(get(v), s) < 0) {
 				sorter.put(v, get(v));
@@ -234,7 +234,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 	 * @return
 	 */
 	public Sorter<V, S> largerEqual(S s) {
-		Sorter<V, S> sorter = new Sorter<V, S>();
+		Sorter<V, S> sorter = new Sorter<>();
 		for (V v : keySet()) {
 			if (compare(get(v), s) >= 0) {
 				sorter.put(v, get(v));
@@ -250,7 +250,7 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 	 * @return
 	 */
 	public Sorter<V, S> smallerEqual(S s) {
-		Sorter<V, S> sorter = new Sorter<V, S>();
+		Sorter<V, S> sorter = new Sorter<>();
 		for (V v : keySet()) {
 			if (compare(get(v), s) <= 0) {
 				sorter.put(v, get(v));

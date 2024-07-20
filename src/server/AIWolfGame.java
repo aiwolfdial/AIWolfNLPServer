@@ -141,9 +141,9 @@ public class AIWolfGame {
 	 * Initialize Game
 	 */
 	protected void init() {
-		gameDataMap = new TreeMap<Integer, GameData>();
+		gameDataMap = new TreeMap<>();
 		gameData = new GameData(gameSetting);
-		agentNameMap = new HashMap<Agent, String>();
+		agentNameMap = new HashMap<>();
 		gameServer.setGameData(gameData);
 
 		List<Agent> agentList = gameServer.getConnectedAgentList();
@@ -155,11 +155,11 @@ public class AIWolfGame {
 
 		Collections.shuffle(agentList, rand);
 
-		Map<Role, List<Agent>> requestRoleMap = new HashMap<Role, List<Agent>>();
+		Map<Role, List<Agent>> requestRoleMap = new HashMap<>();
 		for (Role role : Role.values()) {
-			requestRoleMap.put(role, new ArrayList<Agent>());
+			requestRoleMap.put(role, new ArrayList<>());
 		}
-		List<Agent> noRequestAgentList = new ArrayList<Agent>();
+		List<Agent> noRequestAgentList = new ArrayList<>();
 		for (Agent agent : agentList) {
 			if (gameSetting.isEnableRoleRequest()) {
 				Role requestedRole = gameServer.requestRequestRole(agent);
@@ -240,7 +240,7 @@ public class AIWolfGame {
 
 	public void finish() {
 		if (gameLogger != null) {
-			for (Agent agent : new TreeSet<Agent>(gameData.getAgentList())) {
+			for (Agent agent : new TreeSet<>(gameData.getAgentList())) {
 				gameLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.getAgentIdx(),
 						gameData.getRole(agent), gameData.getStatus(agent), agentNameMap.get(agent)));
 			}
@@ -521,7 +521,7 @@ public class AIWolfGame {
 	 * @return
 	 */
 	protected List<Agent> getVotedCandidates(List<Vote> voteList) {
-		Counter<Agent> counter = new Counter<Agent>();
+		Counter<Agent> counter = new Counter<>();
 		for (Vote vote : voteList) {
 			if (gameData.getStatus(vote.getTarget()) == Status.ALIVE) {
 				counter.add(vote.getTarget());
@@ -529,7 +529,7 @@ public class AIWolfGame {
 		}
 
 		int max = counter.get(counter.getLargest());
-		List<Agent> candidateList = new ArrayList<Agent>();
+		List<Agent> candidateList = new ArrayList<>();
 		for (Agent agent : counter) {
 			if (counter.get(agent) == max) {
 				candidateList.add(agent);
@@ -544,7 +544,7 @@ public class AIWolfGame {
 	 * @return
 	 */
 	protected List<Agent> getAttackVotedCandidates(List<Vote> voteList) {
-		Counter<Agent> counter = new Counter<Agent>();
+		Counter<Agent> counter = new Counter<>();
 		for (Vote vote : voteList) {
 			if (gameData.getStatus(vote.getTarget()) == Status.ALIVE
 					&& gameData.getRole(vote.getTarget()) != Role.WEREWOLF) {
@@ -558,7 +558,7 @@ public class AIWolfGame {
 		}
 
 		int max = counter.get(counter.getLargest());
-		List<Agent> candidateList = new ArrayList<Agent>();
+		List<Agent> candidateList = new ArrayList<>();
 		for (Agent agent : counter) {
 			if (counter.get(agent) == max) {
 				candidateList.add(agent);
@@ -572,7 +572,7 @@ public class AIWolfGame {
 	 */
 	protected void dayStart() {
 		if (gameLogger != null) {
-			for (Agent agent : new TreeSet<Agent>(gameData.getAgentList())) {
+			for (Agent agent : new TreeSet<>(gameData.getAgentList())) {
 				gameLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.getAgentIdx(),
 						gameData.getRole(agent), gameData.getStatus(agent), agentNameMap.get(agent)));
 			}
@@ -811,7 +811,7 @@ public class AIWolfGame {
 	 */
 	protected Agent getRandomAgent(List<Agent> agentList, Agent... without) {
 		Agent target;
-		List<Agent> list = new ArrayList<Agent>(agentList);
+		List<Agent> list = new ArrayList<>(agentList);
 		for (Agent agent : without) {
 			list.remove(agent);
 		}
@@ -825,7 +825,7 @@ public class AIWolfGame {
 	 * @return
 	 */
 	protected List<Agent> getAliveAgentList() {
-		List<Agent> agentList = new ArrayList<Agent>();
+		List<Agent> agentList = new ArrayList<>();
 		for (Agent agent : gameData.getAgentList()) {
 			if (gameData.getStatus(agent) == Status.ALIVE) {
 				agentList.add(agent);

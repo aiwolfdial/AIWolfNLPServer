@@ -32,7 +32,7 @@ public class BidiMap<K, V> extends HashMap<K, V> {
 	 */
 	public BidiMap() {
 		super();
-		inverseMap = new HashMap<V, K>();
+		inverseMap = new HashMap<>();
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class BidiMap<K, V> extends HashMap<K, V> {
 	 */
 	public BidiMap(int initialCapacity, float loadFactor) {
 		super(initialCapacity, loadFactor);
-		inverseMap = new HashMap<V, K>();
+		inverseMap = new HashMap<>();
 	}
 
 	/**
@@ -95,7 +95,7 @@ public class BidiMap<K, V> extends HashMap<K, V> {
 	 */
 	public BidiMap(int initialCapacity) {
 		super(initialCapacity);
-		inverseMap = new HashMap<V, K>();
+		inverseMap = new HashMap<>();
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class BidiMap<K, V> extends HashMap<K, V> {
 	 */
 	public BidiMap(Map<? extends K, ? extends V> m) {
 		super(m);
-		inverseMap = new HashMap<V, K>();
+		inverseMap = new HashMap<>();
 		putAll(m);
 	}
 

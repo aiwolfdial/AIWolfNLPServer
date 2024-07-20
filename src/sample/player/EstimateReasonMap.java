@@ -34,9 +34,10 @@ class EstimateReasonMap extends HashMap<Agent, Map<Agent, Estimate>> {
 			return false;
 		}
 		if (!containsKey(estimater)) {
-			put(estimater, new HashMap<Agent, Estimate>() {
+			put(estimater, new HashMap<>() {
 				@Serial
 				private static final long serialVersionUID = 1L;
+
 				{
 					put(estimated, estimate);
 				}

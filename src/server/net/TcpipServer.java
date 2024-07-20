@@ -113,7 +113,7 @@ public class TcpipServer implements GameServer {
 			this.responseTimeout = gameSetting.getResponseTimeout();
 		}
 
-		socketAgentMap = new BidiMap<Socket, Agent>();
+		socketAgentMap = new BidiMap<>();
 		// serverLogger = Logger.getLogger(loggerName);
 		nameMap = new HashMap<>();
 		serverListenerSet = new HashSet<>();
@@ -128,8 +128,8 @@ public class TcpipServer implements GameServer {
 		// serverLogger = AiWolfLoggerFactory.getLogger(loggerName);
 		// }
 
-		lastTalkIdxMap = new HashMap<Agent, Integer>();
-		lastWhisperIdxMap = new HashMap<Agent, Integer>();
+		lastTalkIdxMap = new HashMap<>();
+		lastWhisperIdxMap = new HashMap<>();
 	}
 
 	/**
@@ -216,7 +216,7 @@ public class TcpipServer implements GameServer {
 	@Override
 	public List<Agent> getConnectedAgentList() {
 		synchronized (socketAgentMap) {
-			return new ArrayList<Agent>(socketAgentMap.values());
+			return new ArrayList<>(socketAgentMap.values());
 		}
 	}
 

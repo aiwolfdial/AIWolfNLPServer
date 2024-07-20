@@ -21,7 +21,7 @@ public class Counter<V> implements Iterable<V>, Map<V, Integer> {
 	 * カウンタを作成
 	 */
 	public Counter() {
-		sorter = new Sorter<V, Integer>();
+		sorter = new Sorter<>();
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class Counter<V> implements Iterable<V>, Map<V, Integer> {
 	 * @return
 	 */
 	public Counter<V> getOver(int min) {
-		Counter<V> c = new Counter<V>();
+		Counter<V> c = new Counter<>();
 		for (V v : getReverseList()) {
 			if (get(v) >= min) {
 				c.put(v, get(v));
@@ -82,7 +82,7 @@ public class Counter<V> implements Iterable<V>, Map<V, Integer> {
 	 * @return
 	 */
 	public Counter<V> getUnder(int max) {
-		Counter<V> c = new Counter<V>();
+		Counter<V> c = new Counter<>();
 		for (V v : getSortedList()) {
 			if (get(v) <= max) {
 				c.put(v, get(v));
@@ -97,7 +97,7 @@ public class Counter<V> implements Iterable<V>, Map<V, Integer> {
 	 * @param map
 	 */
 	public Counter(Map<? extends V, Integer> map) {
-		sorter = new Sorter<V, Integer>(map);
+		sorter = new Sorter<>(map);
 	}
 
 	/**
@@ -240,11 +240,11 @@ public class Counter<V> implements Iterable<V>, Map<V, Integer> {
 	 * @return
 	 */
 	public Map<Integer, Integer> toHistogram() {
-		Counter<Integer> counter = new Counter<Integer>();
+		Counter<Integer> counter = new Counter<>();
 		for (int val : values()) {
 			counter.add(val, 1);
 		}
-		return new TreeMap<Integer, Integer>(counter);
+		return new TreeMap<>(counter);
 	}
 
 	/**

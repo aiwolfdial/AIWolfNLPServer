@@ -276,7 +276,7 @@ public class GameData {
 					gi.setAttackedAgent(attacked.getAgentIdx());
 				}
 
-				List<VoteToSend> attackVoteList = new ArrayList<VoteToSend>();
+				List<VoteToSend> attackVoteList = new ArrayList<>();
 				for (Vote vote : yesterday.getAttackVoteList()) {
 					attackVoteList.add(new VoteToSend(vote));
 				}
@@ -294,19 +294,19 @@ public class GameData {
 				}
 			}
 		}
-		List<TalkToSend> talkList = new ArrayList<TalkToSend>();
+		List<TalkToSend> talkList = new ArrayList<>();
 		for (Talk talk : today.getTalkList()) {
 			talkList.add(new TalkToSend(talk));
 		}
 		gi.setTalkList(talkList);
 
-		LinkedHashMap<Integer, String> statusMap = new LinkedHashMap<Integer, String>();
+		LinkedHashMap<Integer, String> statusMap = new LinkedHashMap<>();
 		for (Agent a : agentStatusMap.keySet()) {
 			statusMap.put(a.getAgentIdx(), agentStatusMap.get(a).toString());
 		}
 		gi.setStatusMap(statusMap);
 
-		LinkedHashMap<Integer, String> roleMap = new LinkedHashMap<Integer, String>();
+		LinkedHashMap<Integer, String> roleMap = new LinkedHashMap<>();
 		Role role = agentRoleMap.get(agent);
 
 		Set<String> existingRoleSet = new TreeSet<>();
@@ -315,13 +315,13 @@ public class GameData {
 		}
 		gi.setExistingRoleList(new ArrayList<>(existingRoleSet));
 
-		LinkedHashMap<Integer, Integer> remainTalkMap = new LinkedHashMap<Integer, Integer>();
+		LinkedHashMap<Integer, Integer> remainTalkMap = new LinkedHashMap<>();
 		for (Agent a : this.remainTalkMap.keySet()) {
 			remainTalkMap.put(a.getAgentIdx(), this.remainTalkMap.get(a));
 		}
 		gi.setRemainTalkMap(remainTalkMap);
 
-		LinkedHashMap<Integer, Integer> remainWhisperMap = new LinkedHashMap<Integer, Integer>();
+		LinkedHashMap<Integer, Integer> remainWhisperMap = new LinkedHashMap<>();
 		if (role == Role.WEREWOLF) {
 			for (Agent a : this.remainWhisperMap.keySet()) {
 				remainWhisperMap.put(a.getAgentIdx(), this.remainWhisperMap.get(a));
@@ -371,7 +371,7 @@ public class GameData {
 	public GameInfoToSend getFinalGameInfoToSend(Agent agent) {
 		GameInfoToSend gi = getGameInfoToSend(agent);
 
-		LinkedHashMap<Integer, String> roleMap = new LinkedHashMap<Integer, String>();
+		LinkedHashMap<Integer, String> roleMap = new LinkedHashMap<>();
 		for (Agent a : agentRoleMap.keySet()) {
 			roleMap.put(a.getAgentIdx(), agentRoleMap.get(a).toString());
 		}
@@ -402,7 +402,7 @@ public class GameData {
 	 * @return
 	 */
 	public List<Agent> getAgentList() {
-		return new ArrayList<Agent>(agentRoleMap.keySet());
+		return new ArrayList<>(agentRoleMap.keySet());
 	}
 
 	/**
@@ -622,12 +622,12 @@ public class GameData {
 		GameData gameData = new GameData(gameSetting);
 
 		gameData.day = this.day + 1;
-		gameData.agentStatusMap = new HashMap<Agent, Status>(agentStatusMap);
+		gameData.agentStatusMap = new HashMap<>(agentStatusMap);
 
 		for (Agent a : lastDeadAgentList) {
 			gameData.agentStatusMap.put(a, Status.DEAD);
 		}
-		gameData.agentRoleMap = new HashMap<Agent, Role>(agentRoleMap);
+		gameData.agentRoleMap = new HashMap<>(agentRoleMap);
 
 		for (Agent a : gameData.getAgentList()) {
 			if (gameData.getStatus(a) == Status.ALIVE) {
@@ -677,7 +677,7 @@ public class GameData {
 	// }
 
 	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Species species) {
-		List<Agent> resultList = new ArrayList<Agent>();
+		List<Agent> resultList = new ArrayList<>();
 		for (Agent agent : agentList) {
 			if (getRole(agent).getSpecies() == species) {
 				resultList.add(agent);
@@ -687,7 +687,7 @@ public class GameData {
 	}
 
 	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Status status) {
-		List<Agent> resultList = new ArrayList<Agent>();
+		List<Agent> resultList = new ArrayList<>();
 		for (Agent agent : agentList) {
 			if (getStatus(agent) == status) {
 				resultList.add(agent);
@@ -697,7 +697,7 @@ public class GameData {
 	}
 
 	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Role role) {
-		List<Agent> resultList = new ArrayList<Agent>();
+		List<Agent> resultList = new ArrayList<>();
 		for (Agent agent : agentList) {
 			if (getRole(agent) == role) {
 				resultList.add(agent);
@@ -707,7 +707,7 @@ public class GameData {
 	}
 
 	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Team team) {
-		List<Agent> resultList = new ArrayList<Agent>();
+		List<Agent> resultList = new ArrayList<>();
 		for (Agent agent : agentList) {
 			if (getRole(agent).getTeam() == team) {
 				resultList.add(agent);

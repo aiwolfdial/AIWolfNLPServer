@@ -53,7 +53,7 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 												// (保存時にエージェントの識別番号を取るか取らないか。本質的に同じ配役を排除したいけど、前ゲームkanolab1、次ゲームkanolab2みたいな状況を排除するかしないか)
 		ArrayList<String> combinationText = new ArrayList<>();
 
-		for (Agent agent : new TreeSet<Agent>(gameData.getAgentList())) {
+		for (Agent agent : new TreeSet<>(gameData.getAgentList())) {
 			String agentName = agentNameMap.get(agent);
 
 			if (!includeAgentNameNum) {
@@ -117,8 +117,8 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 	 *         isWriteRoleCombinations = true なら重複が無いか確認する
 	 */
 	protected void init() {
-		gameDataMap = new TreeMap<Integer, GameData>();
-		agentNameMap = new HashMap<Agent, String>();
+		gameDataMap = new TreeMap<>();
+		agentNameMap = new HashMap<>();
 		gameServer.setGameData(gameData);
 
 		List<Agent> agentList = gameServer.getConnectedAgentList();

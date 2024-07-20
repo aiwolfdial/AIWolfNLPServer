@@ -49,7 +49,7 @@ public class RoleRequestStarter {
 	public static void main(String[] args)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
 
-		List<Pair<String, Role>> playerRoleList = new ArrayList<Pair<String, Role>>();
+		List<Pair<String, Role>> playerRoleList = new ArrayList<>();
 		String defaultClsName = Class.forName("org.aiwolf.client.base.smpl.SampleRoleAssignPlayer").getName();
 		int playerNum = -1;
 		String logDir = "./log/";
@@ -101,7 +101,7 @@ public class RoleRequestStarter {
 			return;
 		}
 
-		Map<Player, Role> playerMap = new HashMap<Player, Role>();
+		Map<Player, Role> playerMap = new HashMap<>();
 		for (Pair<String, Role> pair : playerRoleList) {
 			playerMap.put((Player) Class.forName(pair.getKey()).newInstance(), pair.getValue());
 		}
@@ -127,7 +127,7 @@ public class RoleRequestStarter {
 	 */
 	public static AIWolfGame start(Player player, Role role, int playerNum, String defaultClsName, String logDir)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
-		Map<Player, Role> playerMap = new LinkedHashMap<Player, Role>();
+		Map<Player, Role> playerMap = new LinkedHashMap<>();
 
 		playerMap.put(player, role);
 		while (playerMap.size() < playerNum) {

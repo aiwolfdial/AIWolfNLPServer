@@ -135,7 +135,6 @@ public class NLPServerStarter extends ServerStarter {
 				sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), requiredSockets);
 			} catch (Exception e) {
 				logger.error(e);
-				continue;
 			}
 		}
 	}
