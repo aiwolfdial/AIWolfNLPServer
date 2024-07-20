@@ -28,7 +28,7 @@ public class Configuration {
         return object;
     }
 
-    public static Object loadSection(Section section, Object object)
+    public static void loadSection(Section section, Object object)
             throws NoSuchFieldException, IllegalAccessException {
         for (Field field : object.getClass().getDeclaredFields()) {
             field.setAccessible(true);
@@ -59,6 +59,5 @@ public class Configuration {
             }
             logger.debug("Loaded: " + key + " = " + value);
         }
-        return object;
     }
 }

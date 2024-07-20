@@ -215,9 +215,6 @@ public abstract class AbstractRoleAssignPlayer implements Player {
 	public final void initialize(GameInfo gameInfo, GameSetting gameSetting) {
 		Role myRole = gameInfo.getRole();
 		switch (myRole) {
-			case VILLAGER:
-				rolePlayer = villagerPlayer;
-				break;
 			case SEER:
 				rolePlayer = seerPlayer;
 				break;

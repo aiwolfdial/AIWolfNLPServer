@@ -27,7 +27,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -52,7 +51,6 @@ public class NLPServerStarter extends ServerStarter {
 
 	private final GameConfiguration config;
 	private final Queue<List<Socket>> socketQue = new ArrayDeque<>();
-	private GameStarter gameStarter;
 
 	private final Map<String, Map<String, List<Pair<Long, Socket>>>> waitingSockets = new HashMap<>();
 
@@ -334,7 +332,7 @@ public class NLPServerStarter extends ServerStarter {
 		}
 	}
 
-	private boolean sendConnectionQueue(int connectAgentNum, boolean onlyConnection, Set<Socket> essentialSocketSet) {
+	private void sendConnectionQueue(int connectAgentNum, boolean onlyConnection, Set<Socket> essentialSocketSet) {
 		logger.info("Send connection queue.");
 		boolean send = false;
 		Iterator<Entry<String, Map<String, List<Pair<Long, Socket>>>>> iterator = waitingSockets.entrySet()
@@ -344,7 +342,7 @@ public class NLPServerStarter extends ServerStarter {
 			Entry<String, Map<String, List<Pair<Long, Socket>>>> entry = iterator.next();
 			boolean canStartGame = false;
 			for (Entry<String, List<Pair<Long, Socket>>> socketEntry : entry.getValue().entrySet()) {
-				List<Socket> l = socketEntry.getValue().stream().map(Pair::getValue).collect(Collectors.toList());
+				List<Socket> l = socketEntry.getValue().stream().map(Pair::getValue).toList();
 				if (l.isEmpty())
 					continue;
 				if (onlyConnection) {
@@ -367,7 +365,6 @@ public class NLPServerStarter extends ServerStarter {
 				send = true;
 			}
 		}
-		return send;
 	}
 
 	public void start() {
@@ -375,7 +372,7 @@ public class NLPServerStarter extends ServerStarter {
 		if (isRunning)
 			return;
 		// ゲーム開始スレッドの起動
-		gameStarter = new GameStarter(socketQue, config);
+		GameStarter gameStarter = new GameStarter(socketQue, config);
 		gameStarter.start();
 		if (config.isServer()) {
 			// サーバとして待ち受け

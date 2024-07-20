@@ -290,7 +290,7 @@ public class NLPGameBuilder extends Thread {
 			}
 
 			// 全てのコネクションがロストした場合対戦を終了する
-			if (agentConnectionMap.values().stream().allMatch(connection -> !connection.isAlive()))
+			if (agentConnectionMap.values().stream().noneMatch(connection -> connection.isAlive()))
 				break;
 		}
 		System.err.println("All Game was finished.");

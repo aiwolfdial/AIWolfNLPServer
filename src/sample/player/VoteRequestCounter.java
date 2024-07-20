@@ -43,7 +43,7 @@ class VoteRequestCounter extends ArrayList<Content> {
 	private void count() {
 		// 指定されなくなる場合があるので毎回クリア
 		agentCountMap.clear();
-		List<Agent> votedAgents = agentRequestMap.values().stream().distinct().collect(Collectors.toList());
+		List<Agent> votedAgents = agentRequestMap.values().stream().distinct().toList();
 		for (Agent agent : votedAgents) {
 			int count = (int) agentRequestMap.values().stream().filter(a -> a == agent).count();
 			agentCountMap.put(agent, count);

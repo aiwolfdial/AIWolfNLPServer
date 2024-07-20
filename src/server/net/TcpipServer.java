@@ -324,8 +324,6 @@ public class TcpipServer implements GameServer {
 				Future<String> future = pool.submit(task);
 				try {
 					line = future.get(responseTimeout, TimeUnit.MILLISECONDS); // 1秒でタイムアウト
-				} catch (InterruptedException | ExecutionException e) {
-					throw e;
 				} catch (TimeoutException e) {
 					sock.close();
 					throw e;

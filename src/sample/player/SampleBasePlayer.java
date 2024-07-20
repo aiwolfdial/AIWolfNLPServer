@@ -259,8 +259,6 @@ public class SampleBasePlayer implements Player {
 					return; // 投票リクエストと解析できた
 				}
 				break;
-			case INQUIRE:
-				break;
 			default:
 				break;
 		}

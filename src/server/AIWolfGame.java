@@ -797,8 +797,7 @@ public class AIWolfGame {
 				}
 			}
 		}
-		List<Vote> latestAttackVoteList = new ArrayList<>();
-		latestAttackVoteList.addAll(gameData.getAttackVoteList());
+		List<Vote> latestAttackVoteList = new ArrayList<>(gameData.getAttackVoteList());
 		gameData.setLatestAttackVoteList(latestAttackVoteList);
 	}
 

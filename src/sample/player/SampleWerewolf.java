@@ -5,16 +5,12 @@
  */
 package sample.player;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import client.Content;
+import client.Topic;
 import common.data.Agent;
 import common.data.Judge;
 import common.data.Role;
@@ -127,7 +123,7 @@ public final class SampleWerewolf extends SampleBasePlayer {
 	}
 
 	private Role randomFakeRole() {
-		return randomSelect(Arrays.asList(Role.VILLAGER, Role.SEER, Role.MEDIUM).stream()
+		return randomSelect(Stream.of(Role.VILLAGER, Role.SEER, Role.MEDIUM)
 				.filter(r -> currentGameInfo.getExistingRoles().contains(r)).collect(Collectors.toList()));
 	}
 
@@ -212,12 +208,9 @@ public final class SampleWerewolf extends SampleBasePlayer {
 		if (attackVoteReasonMap.put(content)) {
 			return; // 襲撃投票宣言と解析
 		}
-		switch (content.getTopic()) {
-			case COMINGOUT: // Declaration of FCO
-				fakeComingoutMap.put(content.getSubject(), content.getRole());
-				return;
-			default:
-				break;
+		if (Objects.requireNonNull(content.getTopic()) == Topic.COMINGOUT) { // Declaration of FCO
+			fakeComingoutMap.put(content.getSubject(), content.getRole());
+			return;
 		}
 	}
 
@@ -468,9 +461,7 @@ public final class SampleWerewolf extends SampleBasePlayer {
 					&& fakeGrayList.isEmpty()) {
 				List<Agent> candidates = voteRequestCounter.getRequestMap().values().stream()
 						.filter(a -> !werewolves.contains(a)).collect(Collectors.toList());
-				if (candidates != null && !candidates.isEmpty()) {
-					voteCandidate = randomSelect(candidates);
-				} else {
+				if (candidates == null || candidates.isEmpty()) {
 					candidates = aliveOthers;
 					List<Agent> candidates0 = candidates.stream()
 							.filter(a -> !werewolves.contains(a)).collect(Collectors.toList());
@@ -482,8 +473,8 @@ public final class SampleWerewolf extends SampleBasePlayer {
 							candidates = candidates1;
 						}
 					}
-					voteCandidate = randomSelect(candidates);
 				}
+				voteCandidate = randomSelect(candidates);
 			}
 		} else {
 			// 再投票の場合は自分以外の前回最多得票に入れる
