@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import client.lib.Content;
-import client.lib.Operator;
-import client.lib.Topic;
+import client.Content;
+import client.Operator;
+import client.Topic;
 import common.data.Agent;
 
 /**

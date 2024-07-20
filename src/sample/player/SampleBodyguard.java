@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import client.lib.Content;
+import client.Content;
 import common.data.Agent;
 import common.data.Judge;
 import common.data.Role;

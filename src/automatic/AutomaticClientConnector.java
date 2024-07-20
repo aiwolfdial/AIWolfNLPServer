@@ -3,8 +3,8 @@ package automatic;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import client.NLPTcpipClient;
 import common.data.Player;
+import common.net.TcpipClient;
 
 public class AutomaticClientConnector {
 	private static final String DEFAULT_CONFIG_PATH = "./res/AIWolfGameServer.ini";
@@ -37,7 +37,7 @@ public class AutomaticClientConnector {
 		for (int i = 0; i < config.getPlayerNum(); i++) {
 			Runnable r = new Runnable() {
 				public void run() {
-					NLPTcpipClient client = new NLPTcpipClient(config.getHostname(), config.getPort());
+					TcpipClient client = new TcpipClient(config.getHostname(), config.getPort());
 					try {
 						Player player = (Player) config.getPlayerClass().getConstructor().newInstance();
 						String playerInfo = player.getName() + " (" + config.getPlayerClass().getName() + ")";

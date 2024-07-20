@@ -37,23 +37,12 @@ public class TcpipClient implements Runnable, GameClient {
 
 	String playerName;
 
-	/**
-	 * 
-	 * @param host
-	 * @param port
-	 */
 	public TcpipClient(String host, int port) {
 		this.host = host;
 		this.port = port;
 		isRunning = false;
 	}
 
-	/**
-	 * 
-	 * @param host
-	 * @param port
-	 * @param requestRole
-	 */
 	public TcpipClient(String host, int port, Role requestRole) {
 		this.host = host;
 		this.port = port;
@@ -63,9 +52,6 @@ public class TcpipClient implements Runnable, GameClient {
 
 	public boolean connect(Player player) {
 		this.player = player;
-
-		// String name = "Agent"+System.currentTimeMillis()%1000;
-
 		try {
 			// ソケットを作成してサーバに接続する。
 			socket = new Socket();
@@ -74,26 +60,16 @@ public class TcpipClient implements Runnable, GameClient {
 
 			Thread th = new Thread(this);
 			th.start();
-
-			// サーバと接続されたソケットを利用して処理を行う。
-			// BufferedWriter bw = new BufferedWriter(new
-			// OutputStreamWriter(socket.getOutputStream()));
-			// bw.append("test "+name);
-			// bw.close();
-
 			return true;
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			isConnecting = false;
 			return false;
 		}
-
 	}
 
 	@Override
 	public void run() {
-
 		try {
 			// サーバと接続されたソケットを利用して処理を行う。
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -103,29 +79,22 @@ public class TcpipClient implements Runnable, GameClient {
 				// System.out.println(line);
 				Packet packet = DataConverter.toPacket(line);
 
-				Object obj = recieve(packet);
+				Object obj = receive(packet);
 				if (packet.getRequest().hasReturn()) {
 					if (obj == null) {
 						bw.append("\n");
-						// throw new NoReturnObjectException(player+" "+obj);
 					} else if (obj instanceof String) {
 						bw.append(obj + "\n");
 					} else {
-						// System.err.println(packet.getRequest());
 						bw.append(DataConverter.convert(obj) + "\n");
 					}
 					bw.flush();
 				}
 			}
-			// System.out.println("Close connection of "+player);
-			// br.close();
-			// bw.close();
-			// socket.close();
-			// System.out.println("Finish game");
 		} catch (IOException e) {
 			if (isConnecting) {
 				isConnecting = false;
-				if (isRunning()) {
+				if (isRunning) {
 					isRunning = false;
 					throw new AIWolfRuntimeException(e);
 				}
@@ -140,8 +109,7 @@ public class TcpipClient implements Runnable, GameClient {
 	 * org.aiwolf.server.sc.LocalConnectServer#recieve(org.aiwolf.server.sc.Packet)
 	 */
 	@Override
-	public Object recieve(Packet packet) {
-
+	public Object receive(Packet packet) {
 		GameInfo gameInfo = lastGameInfo;
 		GameSetting gameSetting = packet.getGameSetting();
 
@@ -179,7 +147,6 @@ public class TcpipClient implements Runnable, GameClient {
 			case INITIALIZE:
 				isRunning = true;
 				player.initialize(gameInfo, gameSetting);
-				// player.update(gameInfo);
 				break;
 			case DAILY_INITIALIZE:
 				player.update(gameInfo);
@@ -267,78 +234,7 @@ public class TcpipClient implements Runnable, GameClient {
 		isRunning = false;
 	}
 
-	/**
-	 * @return host
-	 */
-	public String getHost() {
-		return host;
-	}
-
-	/**
-	 * @param host
-	 *            セットする host
-	 */
-	public void setHost(String host) {
-		this.host = host;
-	}
-
-	/**
-	 * @return port
-	 */
-	public int getPort() {
-		return port;
-	}
-
-	/**
-	 * @param port
-	 *            セットする port
-	 */
-	public void setPort(int port) {
-		this.port = port;
-	}
-
-	/**
-	 * @return requestRole
-	 */
-	public Role getRequestRole() {
-		return requestRole;
-	}
-
-	/**
-	 * @param requestRole
-	 *            セットする requestRole
-	 */
-	public void setRequestRole(Role requestRole) {
-		this.requestRole = requestRole;
-	}
-
-	/**
-	 * @return isRunning
-	 */
-	public boolean isRunning() {
-		return isRunning;
-	}
-
-	/**
-	 * @return isConnecting
-	 */
-	public boolean isConnecting() {
-		return isConnecting;
-	}
-
-	/**
-	 * @return name
-	 */
-	public String getName() {
-		return playerName;
-	}
-
-	/**
-	 * @param name
-	 *            セットする name
-	 */
 	public void setName(String name) {
 		this.playerName = name;
 	}
-
 }

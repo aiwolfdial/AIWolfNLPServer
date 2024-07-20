@@ -5,9 +5,9 @@
  */
 package sample.player;
 
-import client.lib.Content;
-import client.lib.Operator;
-import client.lib.Topic;
+import client.Content;
+import client.Operator;
+import client.Topic;
 import common.data.Agent;
 
 /**

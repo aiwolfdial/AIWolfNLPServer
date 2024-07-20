@@ -8,13 +8,13 @@ package sample.player;
 import java.util.ArrayList;
 import java.util.List;
 
-import client.lib.AndContentBuilder;
-import client.lib.BecauseContentBuilder;
-import client.lib.Content;
-import client.lib.EstimateContentBuilder;
-import client.lib.Operator;
-import client.lib.Topic;
-import client.lib.XorContentBuilder;
+import client.AndContentBuilder;
+import client.BecauseContentBuilder;
+import client.Content;
+import client.EstimateContentBuilder;
+import client.Operator;
+import client.Topic;
+import client.XorContentBuilder;
 import common.data.Agent;
 import common.data.Role;
 

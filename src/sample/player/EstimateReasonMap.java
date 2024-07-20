@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import client.lib.Content;
-import client.lib.Operator;
+import client.Content;
+import client.Operator;
 import common.data.Agent;
 
 /**

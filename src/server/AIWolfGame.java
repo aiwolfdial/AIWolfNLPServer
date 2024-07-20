@@ -18,7 +18,7 @@ import java.util.Random;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import client.lib.Content;
+import client.Content;
 import common.data.Agent;
 import common.data.Guard;
 import common.data.Judge;
