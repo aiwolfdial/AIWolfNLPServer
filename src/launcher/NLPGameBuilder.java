@@ -21,11 +21,10 @@ import org.apache.commons.math3.util.Combinations;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import core.AbstractNLPServer;
 import core.GameConfiguration;
 import core.GameData;
+import core.GameServer;
 import core.NLPAIWolfConnection;
-import core.NLPCUIGameServer;
 import core.model.Agent;
 import core.model.Role;
 import core.model.Status;
@@ -158,7 +157,7 @@ public class NLPGameBuilder extends Thread {
 		List<Map<Agent, Role>> agentRoleMapList = createAgentRoleCombinations();
 
 		// ゲームサーバの生成
-		AbstractNLPServer nlpServer = new NLPCUIGameServer(gameSetting, gameConfiguration, agentConnectionMap);
+		GameServer gameServer = new GameServer(gameSetting, gameConfiguration, agentConnectionMap);
 
 		int limit = gameConfiguration.isPrioritizeCombinations() ? agentRoleMapList.size()
 				: gameConfiguration.getGameNum();
@@ -167,7 +166,7 @@ public class NLPGameBuilder extends Thread {
 		Agent human = null;
 		if (gameConfiguration.isJoinHuman()) {
 			for (Entry<Agent, NLPAIWolfConnection> entry : agentConnectionMap.entrySet()) {
-				if (nlpServer.getName(entry.getKey()).equals(gameConfiguration.getHumanName())) {
+				if (gameServer.getName(entry.getKey()).equals(gameConfiguration.getHumanName())) {
 					human = entry.getKey();
 				}
 			}
@@ -182,11 +181,11 @@ public class NLPGameBuilder extends Thread {
 			if (gameConfiguration.isJoinHuman()
 					&& !agentRoleMap.get(human).name().equals(gameConfiguration.getHumanRole().name()))
 				continue;
-			SynchronousNLPAIWolfGame game = new SynchronousNLPAIWolfGame(gameSetting, nlpServer);
+			SynchronousAIWolfGame game = new SynchronousAIWolfGame(gameSetting, gameServer);
 			GameData gameData = new GameData(gameSetting);
 
 			// 現在対戦に使用しているエージェントの更新
-			nlpServer.updateUsingAgentList(agentRoleMap.keySet());
+			gameServer.updateUsingAgentList(agentRoleMap.keySet());
 
 			// 今回マッチングするエージェントのいずれかがロストしているならスキップする
 			if (agentRoleMap.keySet().stream().anyMatch(agent -> !agentConnectionMap.get(agent).isAlive()))
@@ -197,7 +196,7 @@ public class NLPGameBuilder extends Thread {
 				gameData.addAgent(entry.getKey(), Status.ALIVE, entry.getValue());
 			}
 
-			String clientNames = String.join("_", nlpServer.getNames());
+			String clientNames = String.join("_", gameServer.getNames());
 			String subLogDirName = new SimpleDateFormat("MMddHHmmss").format(Calendar.getInstance().getTime());
 
 			try {

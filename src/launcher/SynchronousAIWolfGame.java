@@ -22,12 +22,12 @@ import core.GameServer;
 import core.model.Agent;
 import core.packet.GameSetting;
 
-public class SynchronousNLPAIWolfGame extends AIWolfGame {
-	private static final Logger logger = LogManager.getLogger(SynchronousNLPAIWolfGame.class);
+public class SynchronousAIWolfGame extends AIWolfGame {
+	private static final Logger logger = LogManager.getLogger(SynchronousAIWolfGame.class);
 
 	private static final String DEFAULT_INI_PATH = "./config/AIWolfGameServer.ini";
 
-	public SynchronousNLPAIWolfGame(GameSetting gameSetting, GameServer gameServer) {
+	public SynchronousAIWolfGame(GameSetting gameSetting, GameServer gameServer) {
 		super(gameSetting, gameServer);
 	}
 
@@ -133,12 +133,8 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 		}
 	}
 
-	public void setGameData(GameData gameData) {
-		this.gameData = gameData;
-	}
-
 	public void start(GameData gameData) {
-		setGameData(gameData);
+		this.gameData = gameData;
 		init();
 
 		// check same pattern exist or not
