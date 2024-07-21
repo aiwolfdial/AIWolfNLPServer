@@ -12,6 +12,7 @@ import common.NLPAIWolfConnection;
 import common.data.Agent;
 import common.data.Request;
 import common.data.Role;
+import common.data.Talk;
 import common.net.GameSetting;
 
 /**
@@ -64,6 +65,9 @@ public class NLPCUIGameServer extends AbstractNLPServer {
 			try {
 				// 短いタイムアウト内にレスポンスを取得
 				String line = getResponse(connection, pool, agent, request, Math.min(responseTimeout, actionTimeout));
+				if (line.equals(Talk.FORCE_SKIP)) {
+					line = Talk.SKIP;
+				}
 				return convertRequestData(request, line);
 			} catch (TimeoutException e) {
 				// アクションのタイムアウトを超えた場合
@@ -75,7 +79,7 @@ public class NLPCUIGameServer extends AbstractNLPServer {
 						// 名前が一致するかを確認
 						String expectedName = agent.getAgentName();
 						if (expectedName.equals(line)) {
-							return null; // 一致した場合に何も返さない
+							return convertRequestData(Request.TALK, Talk.FORCE_SKIP);
 						} else {
 							return catchException(agent, request, new IOException("Name mismatch"));
 						}

@@ -554,14 +554,12 @@ public class AIWolfGame {
 		for (Agent agent : gameData.getAgentList()) {
 			gameServer.dayStart(agent);
 		}
-
 	}
 
 	/**
 	 * 
 	 */
 	protected void talk() {
-
 		List<Agent> aliveList = getAliveAgentList();
 		for (Agent agent : aliveList) {
 			gameData.remainTalkMap.put(agent, gameSetting.getMaxTalk());
@@ -590,6 +588,8 @@ public class AIWolfGame {
 					if (skipCounter.get(agent) > gameSetting.getMaxSkip()) {
 						talkText = Talk.OVER;
 					}
+				} else if (talkText.equals(Talk.FORCE_SKIP)) {
+					talkText = Talk.SKIP;
 				}
 				Talk talk = new Talk(gameData.nextTalkIdx(), gameData.getDay(), time, agent, talkText);
 				gameData.addTalk(talk.getAgent(), talk);

@@ -3,6 +3,7 @@ package common.data;
 public class Talk {
 	final static public String OVER = "Over";
 	final static public String SKIP = "Skip";
+	final static public String FORCE_SKIP = "ForceSkip";
 
 	int idx;
 	int day;
