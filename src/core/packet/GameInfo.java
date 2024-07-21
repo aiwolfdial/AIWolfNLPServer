@@ -40,8 +40,9 @@ public class GameInfo {
 	List<Role> existingRoleList = new ArrayList<>();
 	List<Agent> lastDeadAgentList = new ArrayList<>();
 
-	public GameInfo(int day) {
+	public GameInfo(int day, Agent agent) {
 		this.day = day;
+		this.agent = agent;
 	}
 
 	public void setLatestVoteList(List<Vote> latestVoteList) {

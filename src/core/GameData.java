@@ -52,7 +52,7 @@ public class GameData {
 
 	public GameInfo getGameInfo(Agent agent) {
 		GameData today = this;
-		GameInfo gameInfo = new GameInfo(today.getDay());
+		GameInfo gameInfo = new GameInfo(today.getDay(), agent);
 		Role role = getRole(agent);
 
 		if (gameSetting.isVoteVisible()) {
