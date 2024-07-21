@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
 
 import common.AIWolfRuntimeException;
@@ -19,372 +18,128 @@ import common.data.Talk;
 import common.data.Team;
 import common.data.Vote;
 import common.net.GameInfo;
-import common.net.GameInfoToSend;
 import common.net.GameSetting;
-import common.net.JudgeToSend;
 
-/**
- * Record game information of a day
- * 
- * @author tori
- *
- */
 public class GameData {
-	static final int firstDay = 1;
-
-	/**
-	 * The day of the data
-	 */
 	protected int day;
-
-	/**
-	 * status of each agents
-	 */
-	protected Map<Agent, Status> agentStatusMap;
-
-	/**
-	 * roles of each agents
-	 */
-	protected Map<Agent, Role> agentRoleMap;
-
-	/**
-	 *
-	 */
-	protected List<Talk> talkList;
-
-	/**
-	 *
-	 */
-	protected List<Talk> whisperList;
-
-	/**
-	 *
-	 */
-	protected List<Vote> voteList;
-
-	/**
-	 * <div lang="ja">直近の投票リスト</div>
-	 *
-	 * <div lang="en">The latest list of votes.</div>
-	 */
-	protected List<Vote> latestVoteList;
-
-	/**
-	 *
-	 */
-	protected List<Vote> attackVoteList;
-
-	/**
-	 * <div lang="ja">直近の襲撃投票リスト</div>
-	 *
-	 * <div lang="en">The latest list of votes for attack.</div>
-	 */
-	protected List<Vote> latestAttackVoteList;
-
-	/**
-	 *
-	 */
-	protected Map<Agent, Integer> remainTalkMap;
-
-	/**
-	 *
-	 */
-	protected Map<Agent, Integer> remainWhisperMap;
-
-	/**
-	 * Result of divination
-	 */
+	protected Map<Agent, Status> agentStatusMap = new LinkedHashMap<>();
+	protected Map<Agent, Role> agentRoleMap = new HashMap<>();
+	protected List<Talk> talkList = new ArrayList<>();
+	protected List<Talk> whisperList = new ArrayList<>();
+	protected List<Vote> voteList = new ArrayList<>();
+	protected List<Vote> latestVoteList = new ArrayList<>();
+	protected List<Vote> attackVoteList = new ArrayList<>();
+	protected List<Vote> latestAttackVoteList = new ArrayList<>();
+	protected Map<Agent, Integer> remainTalkMap = new HashMap<>();
+	protected Map<Agent, Integer> remainWhisperMap = new HashMap<>();
 	protected Judge divine;
-
-	/**
-	 * Guard
-	 */
 	protected Guard guard;
-
-	/**
-	 * executed agent
-	 */
 	protected Agent executed;
-
-	/**
-	 * <div lang="ja">昨夜人狼に襲われ死亡したエージェント</div>
-	 *
-	 * <div lang="en">the agent who died last night because of the attack by
-	 * werewolf.</div>
-	 */
 	protected Agent attackedDead;
-
-	/**
-	 * <div lang="ja">昨夜人狼が襲ったエージェント（成否は問わない）</div>
-	 *
-	 * <div lang="en">the agent werewolves attacked last night (no matter whether or
-	 * not the attack succeeded)</div>
-	 */
 	protected Agent attacked;
-
-	/**
-	 * <div lang="ja">呪殺された妖狐</div>
-	 *
-	 * <div lang="en">the fox killed by curse</div>
-	 */
 	protected Agent cursedFox;
-
-	/**
-	 * <div lang="ja">昨夜死亡したエージェントのリスト</div>
-	 *
-	 * <div lang="en">the list of agents who died last night</div>
-	 */
-	protected List<Agent> lastDeadAgentList;
-
-	/**
-	 * agents who sudden death
-	 */
-	protected List<Agent> suddendeathList;
-
-	/**
-	 * game data of one day before
-	 */
+	protected List<Agent> lastDeadAgentList = new ArrayList<>();
+	protected List<Agent> suddenDeathList = new ArrayList<>();
 	protected GameData dayBefore;
-
 	protected int talkIdx;
+	protected int whisperIdx;
 
-	protected int wisperIdx;
-
-	/**
-	 * ゲームの設定
-	 */
 	protected GameSetting gameSetting;
 
 	public GameData(GameSetting gameSetting) {
-		agentStatusMap = new LinkedHashMap<>();
-		agentRoleMap = new HashMap<>();
-		remainTalkMap = new HashMap<>();
-		remainWhisperMap = new HashMap<>();
-		talkList = new ArrayList<>();
-		whisperList = new ArrayList<>();
-		voteList = new ArrayList<>();
-		latestVoteList = new ArrayList<>();
-		attackVoteList = new ArrayList<>();
-		latestAttackVoteList = new ArrayList<>();
-		lastDeadAgentList = new ArrayList<>();
-		suddendeathList = new ArrayList<>();
-
 		this.gameSetting = gameSetting;
 	}
 
-	/**
-	 * get specific game information
-	 * 
-	 * @param agent
-	 * @return
-	 */
 	public GameInfo getGameInfo(Agent agent) {
-		return getGameInfoToSend(agent).toGameInfo();
-	}
-
-	/**
-	 * get final game information
-	 * 
-	 * @param agent
-	 * @return
-	 */
-	public GameInfo getFinalGameInfo(Agent agent) {
-		return getFinalGameInfoToSend(agent).toGameInfo();
-	}
-
-	/**
-	 * get game info with all information
-	 * 
-	 * @return
-	 */
-	public GameInfo getGameInfo() {
-		return getFinalGameInfo(null);
-	}
-
-	/**
-	 *
-	 * @param agent
-	 *            - if null, get all information
-	 * @return
-	 */
-	public GameInfoToSend getGameInfoToSend(Agent agent) {
 		GameData today = this;
-		GameInfoToSend gi = new GameInfoToSend();
+		GameInfo gameInfo = new GameInfo(today.getDay());
+		Role role = getRole(agent);
 
-		int day = today.getDay();
-		if (agent != null) {
-			gi.setAgent(agent.getAgentIdx());
-		}
 		if (gameSetting.isVoteVisible()) {
-			List<Vote> latestVoteList = new ArrayList<>();
-			for (Vote vote : getLatestVoteList()) {
-				latestVoteList.add(vote);
-			}
-			gi.setLatestVoteList(latestVoteList);
+			gameInfo.setLatestVoteList(latestVoteList);
 		}
-		if (getExecuted() != null) {
-			gi.setLatestExecutedAgent(getExecuted().getAgentIdx());
+		if (executed != null) {
+			gameInfo.setLatestExecutedAgent(executed);
 		}
-		if (agent == null || getRole(agent) == Role.WEREWOLF) {
-			List<Vote> latestAttackVoteList = new ArrayList<>();
-			for (Vote vote : getLatestAttackVoteList()) {
-				latestAttackVoteList.add(vote);
-			}
-			gi.setLatestAttackVoteList(latestAttackVoteList);
+		if (agent == null || role == Role.WEREWOLF) {
+			gameInfo.setLatestAttackVoteList(latestAttackVoteList);
 		}
 
 		GameData yesterday = today.getDayBefore();
-
 		if (yesterday != null) {
-			Agent executed = yesterday.getExecuted();
-			if (executed != null) {
-				gi.setExecutedAgent(executed.getAgentIdx());
+			if (yesterday.getExecuted() != null) {
+				gameInfo.setExecutedAgent(yesterday.getExecuted());
 			}
-
-			ArrayList<Integer> lastDeadAgentList = new ArrayList<>();
-			for (Agent a : yesterday.getLastDeadAgentList()) {
-				lastDeadAgentList.add(a.getAgentIdx());
-			}
-			gi.setLastDeadAgentList(lastDeadAgentList);
-
+			gameInfo.setLastDeadAgentList(yesterday.getLastDeadAgentList());
 			if (gameSetting.isVoteVisible()) {
-				List<Vote> voteList = new ArrayList<>();
-				for (Vote vote : yesterday.getVoteList()) {
-					voteList.add(vote);
-				}
-				gi.setVoteList(voteList);
+				gameInfo.setVoteList(yesterday.getVoteList());
 			}
-
 			if (agent != null && today.getRole(agent) == Role.MEDIUM && executed != null) {
-				Species result = yesterday.getRole(executed).getSpecies();
-				gi.setMediumResult(new JudgeToSend(new Judge(day, agent, executed, result)));
+				gameInfo.setMediumResult(new Judge(day, agent, executed, yesterday.getRole(executed).getSpecies()));
 			}
-
 			if (agent == null || today.getRole(agent) == Role.SEER) {
 				Judge divine = yesterday.getDivine();
 				if (divine != null && divine.getTarget() != null) {
-					Species result = yesterday.getRole(divine.getTarget()).getSpecies();
-					gi.setDivineResult(new JudgeToSend(new Judge(day, divine.getAgent(), divine.getTarget(), result)));
+					gameInfo.setDivineResult(new Judge(day, divine.getAgent(), divine.getTarget(),
+							yesterday.getRole(divine.getTarget()).getSpecies()));
 				}
 			}
-
 			if (agent == null || today.getRole(agent) == Role.WEREWOLF) {
-				Agent attacked = yesterday.getAttacked();
-				if (attacked != null) {
-					gi.setAttackedAgent(attacked.getAgentIdx());
+				if (yesterday.getAttacked() != null) {
+					gameInfo.setAttackedAgent(yesterday.getAttacked());
 				}
-
-				List<Vote> attackVoteList = new ArrayList<>();
-				for (Vote vote : yesterday.getAttackVoteList()) {
-					attackVoteList.add(vote);
-				}
-				gi.setAttackVoteList(attackVoteList);
+				gameInfo.setAttackVoteList(yesterday.getAttackVoteList());
 			}
 			if (agent == null || today.getRole(agent) == Role.BODYGUARD) {
-				Guard guard = yesterday.getGuard();
-				if (guard != null) {
-					gi.setGuardedAgent(guard.getTarget().getAgentIdx());
+				if (yesterday.getGuard() != null) {
+					gameInfo.setGuardedAgent(yesterday.getGuard().getTarget());
 				}
 			}
 			if (agent == null) {
 				if (yesterday.cursedFox != null) {
-					gi.setCursedFox(yesterday.cursedFox.getAgentIdx());
+					gameInfo.setCursedFox(yesterday.cursedFox);
 				}
 			}
 		}
-		List<Talk> talkList = new ArrayList<>();
-		for (Talk talk : today.getTalkList()) {
-			talkList.add(talk);
-		}
-		gi.setTalkList(talkList);
-
-		LinkedHashMap<Integer, String> statusMap = new LinkedHashMap<>();
-		for (Agent a : agentStatusMap.keySet()) {
-			statusMap.put(a.getAgentIdx(), agentStatusMap.get(a).toString());
-		}
-		gi.setStatusMap(statusMap);
-
-		LinkedHashMap<Integer, String> roleMap = new LinkedHashMap<>();
-		Role role = agentRoleMap.get(agent);
-
-		Set<String> existingRoleSet = new TreeSet<>();
-		for (Role r : agentRoleMap.values()) {
-			existingRoleSet.add(r.toString());
-		}
-		gi.setExistingRoleList(new ArrayList<>(existingRoleSet));
-
-		LinkedHashMap<Integer, Integer> remainTalkMap = new LinkedHashMap<>();
-		for (Agent a : this.remainTalkMap.keySet()) {
-			remainTalkMap.put(a.getAgentIdx(), this.remainTalkMap.get(a));
-		}
-		gi.setRemainTalkMap(remainTalkMap);
-
-		LinkedHashMap<Integer, Integer> remainWhisperMap = new LinkedHashMap<>();
-		if (role == Role.WEREWOLF) {
-			for (Agent a : this.remainWhisperMap.keySet()) {
-				remainWhisperMap.put(a.getAgentIdx(), this.remainWhisperMap.get(a));
-			}
-		}
-		gi.setRemainWhisperMap(remainWhisperMap);
+		gameInfo.setTalkList(today.getTalkList());
+		gameInfo.setStatusMap(agentStatusMap);
+		gameInfo.setExistingRoleList(new ArrayList<>(new TreeSet<>(agentRoleMap.values())));
+		gameInfo.setRemainTalkMap(remainTalkMap);
+		gameInfo.setRemainWhisperMap(remainWhisperMap);
 
 		if (role == Role.WEREWOLF || agent == null) {
-			List<Talk> whisperList = new ArrayList<>();
-			for (Talk talk : today.getWhisperList()) {
-				whisperList.add(talk);
-			}
-			gi.setWhisperList(whisperList);
+			gameInfo.setWhisperList(today.getWhisperList());
 		}
 
+		Map<Agent, Role> roleMap = new LinkedHashMap<>();
 		if (role != null) {
-			roleMap.put(agent.getAgentIdx(), role.toString());
+			roleMap.put(agent, role);
 			if (today.getRole(agent) == Role.WEREWOLF) {
-				// List<TalkToSend> whisperList = new ArrayList<TalkToSend>();
-				// for(Talk talk:today.getWhisperList()){
-				// whisperList.add(new TalkToSend(talk));
-				// }
-				// gi.setWhisperList(whisperList);
-
 				for (Agent target : today.getAgentList()) {
 					if (today.getRole(target) == Role.WEREWOLF) {
-						// wolfList.add(target);
-						roleMap.put(target.getAgentIdx(), Role.WEREWOLF.toString());
+						roleMap.put(target, Role.WEREWOLF);
 					}
 				}
 			}
 			if (today.getRole(agent) == Role.FREEMASON) {
 				for (Agent target : today.getAgentList()) {
 					if (today.getRole(target) == Role.FREEMASON) {
-						roleMap.put(target.getAgentIdx(), Role.FREEMASON.toString());
+						roleMap.put(target, Role.FREEMASON);
 					}
 				}
 			}
 		}
-		gi.setRoleMap(roleMap);
-		gi.setRemainTalkMap(remainTalkMap);
-		gi.setDay(day);
-
-		return gi;
+		gameInfo.setRoleMap(roleMap);
+		gameInfo.setRemainTalkMap(remainTalkMap);
+		return gameInfo;
 	}
 
-	public GameInfoToSend getFinalGameInfoToSend(Agent agent) {
-		GameInfoToSend gi = getGameInfoToSend(agent);
-
-		LinkedHashMap<Integer, String> roleMap = new LinkedHashMap<>();
-		for (Agent a : agentRoleMap.keySet()) {
-			roleMap.put(a.getAgentIdx(), agentRoleMap.get(a).toString());
-		}
-		gi.setRoleMap(roleMap);
-
-		return gi;
+	public GameInfo getFinalGameInfo(Agent agent) {
+		GameInfo gameInfo = getGameInfo(agent);
+		gameInfo.setRoleMap(agentRoleMap);
+		return gameInfo;
 	}
 
-	/**
-	 * Add new agent with their role
-	 *
-	 * @param agent
-	 * @param status
-	 * @param role
-	 */
 	public void addAgent(Agent agent, Status status, Role role) {
 		agentRoleMap.put(agent, role);
 		agentStatusMap.put(agent, status);
@@ -394,38 +149,18 @@ public class GameData {
 		}
 	}
 
-	/**
-	 * get agents
-	 * 
-	 * @return
-	 */
 	public List<Agent> getAgentList() {
 		return new ArrayList<>(agentRoleMap.keySet());
 	}
 
-	/**
-	 * get status of agent
-	 * 
-	 * @param agent
-	 */
 	public Status getStatus(Agent agent) {
 		return agentStatusMap.get(agent);
 	}
 
-	/**
-	 *
-	 * @param agent
-	 * @return
-	 */
 	public Role getRole(Agent agent) {
 		return agentRoleMap.get(agent);
 	}
 
-	/**
-	 *
-	 * @param agent
-	 * @param talk
-	 */
 	public void addTalk(Agent agent, Talk talk) {
 		int remainTalk = remainTalkMap.get(agent);
 		if (!talk.isOver() && !talk.isSkip()) {
@@ -450,25 +185,15 @@ public class GameData {
 		whisperList.add(whisper);
 	}
 
-	/**
-	 * Add vote data
-	 *
-	 * @param vote
-	 */
 	public void addVote(Vote vote) {
 		voteList.add(vote);
 	}
 
-	/**
-	 * Add divine
-	 *
-	 * @param divine
-	 */
-	public void addDivine(Judge divine) {
+	public void setDivine(Judge divine) {
 		this.divine = divine;
 	}
 
-	public void addGuard(Guard guard) {
+	public void setGuard(Guard guard) {
 		this.guard = guard;
 	}
 
@@ -480,11 +205,6 @@ public class GameData {
 		return voteList;
 	}
 
-	/**
-	 * set executed
-	 *
-	 * @param target
-	 */
 	public void setExecutedTarget(Agent executed) {
 		this.executed = executed;
 		if (executed != null) {
@@ -492,130 +212,64 @@ public class GameData {
 		}
 	}
 
-	/**
-	 *
-	 * @param attacked
-	 */
 	public void setAttackedTarget(Agent attacked) {
 		this.attacked = attacked;
 	}
 
-	/**
-	 *
-	 * @return
-	 */
 	public List<Vote> getAttackVoteList() {
 		return attackVoteList;
 	}
 
-	/**
-	 *
-	 * @return
-	 */
 	public Guard getGuard() {
 		return guard;
 	}
 
-	/**
-	 * @return day
-	 */
 	public int getDay() {
 		return day;
 	}
 
-	/**
-	 * @return talkList
-	 */
 	public List<Talk> getTalkList() {
 		return talkList;
 	}
 
-	/**
-	 * @return wisperList
-	 */
 	public List<Talk> getWhisperList() {
 		return whisperList;
 	}
 
-	/**
-	 * @return divine
-	 */
 	public Judge getDivine() {
 		return divine;
 	}
 
-	/**
-	 * @return executed
-	 */
 	public Agent getExecuted() {
 		return executed;
 	}
 
-	/**
-	 * <div lang="ja">昨夜人狼が襲ったエージェント（成否は問わない）を返す</div>
-	 *
-	 * <div lang="en">Returns the agent werewolves attacked last night (no
-	 * matter whether or not the attack succeeded).</div>
-	 *
-	 * @return attackedAgent - <div lang="ja">昨夜人狼が襲ったエージェント</div>
-	 *
-	 *         <div lang="en">the agent werewolves attacked last night</div>
-	 */
 	public Agent getAttacked() {
 		return attacked;
 	}
 
-	/**
-	 * <div lang="ja">昨夜死亡したエージェントを追加する
-	 *
-	 * </div> <div lang="en">Adds the agent who died last night.</div>
-	 *
-	 * @param agent
-	 *            <div lang="ja">追加するエージェント</div>
-	 *
-	 *            <div lang="en">the agent to be added</div>
-	 */
 	public void addLastDeadAgent(Agent agent) {
 		if (!lastDeadAgentList.contains(agent)) {
 			lastDeadAgentList.add(agent);
 		}
 	}
 
-	/**
-	 * @return <div lang="ja">昨夜死亡したエージェントのリスト</div>
-	 *
-	 *         <div lang="en">the list of agents who died last night</div>
-	 */
 	public List<Agent> getLastDeadAgentList() {
 		return lastDeadAgentList;
 	}
 
-	/**
-	 * @return suddendeathList
-	 */
-	public List<Agent> getSuddendeathList() {
-		return suddendeathList;
+	public List<Agent> getSuddenDeathList() {
+		return suddenDeathList;
 	}
 
-	/**
-	 * @return remainTalkMap
-	 */
 	public Map<Agent, Integer> getRemainTalkMap() {
 		return remainTalkMap;
 	}
 
-	/**
-	 * @return remainTalkMap
-	 */
 	public Map<Agent, Integer> getRemainWhisperMap() {
 		return remainWhisperMap;
 	}
 
-	/**
-	 * Create GameData of next day
-	 * 
-	 * @return
-	 */
 	public GameData nextDay() {
 		GameData gameData = new GameData(gameSetting);
 
@@ -641,38 +295,9 @@ public class GameData {
 		return gameData;
 	}
 
-	/**
-	 * get game data of one day before
-	 * 
-	 * @return
-	 */
 	public GameData getDayBefore() {
 		return dayBefore;
 	}
-
-	// /**
-	// * get wolf agents
-	// * @return
-	// */
-	// public List<Agent> getWolfList(){
-	// List<Agent> wolfList = new ArrayList<>();
-	// for(Agent agent:getAgentList()){
-	// if(getRole(agent).getSpecies() == Species.Werewolf){
-	// wolfList.add(agent);
-	// }
-	// }
-	// return wolfList;
-	// }
-	//
-	// /**
-	// * get human agents
-	// * @return
-	// */
-	// public List<Agent> getHumanList(){
-	// List<Agent> humanList = new ArrayList<>(getAgentList());
-	// humanList.removeAll(getWolfList());
-	// return humanList;
-	// }
 
 	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Species species) {
 		List<Agent> resultList = new ArrayList<>();
@@ -719,135 +344,42 @@ public class GameData {
 	}
 
 	public int nextWhisperIdx() {
-		return wisperIdx++;
+		return whisperIdx++;
 	}
 
-	/**
-	 * <div lang="ja">昨夜人狼に襲われ死亡したエージェントを返す．</div>
-	 *
-	 * <div lang="en">Returns the agent who died last night because of the attack by
-	 * werewolf.</div>
-	 *
-	 * @return the attackedDead
-	 */
 	public Agent getAttackedDead() {
 		return attackedDead;
 	}
 
-	/**
-	 * <div lang="ja">昨夜人狼に襲われ死亡したエージェントをセットする．</div>
-	 *
-	 * <div lang="en">Sets the agent who died last night because of the attack by
-	 * werewolf.</div>
-	 *
-	 * @param attackedDead
-	 *            the attackedDead to set
-	 */
 	public void setAttackedDead(Agent attackedDead) {
 		this.attackedDead = attackedDead;
 	}
 
-	/**
-	 * <div lang="ja">呪殺された妖狐を返す．</div>
-	 *
-	 * <div lang="en">Returns the fox killed by curse.</div>
-	 *
-	 * @return <div lang="ja">呪殺された妖狐</div>
-	 *
-	 *         <div lang="en">the fox killed by curse</div>
-	 */
 	public Agent getCursedFox() {
 		return cursedFox;
 	}
 
-	/**
-	 * <div lang="ja">呪殺された妖狐をセットする．</div>
-	 *
-	 * <div lang="en">Sets the fox killed by curse.</div>
-	 *
-	 * @param cursedFox
-	 *            <div lang="ja">呪殺された妖狐</div>
-	 *
-	 *            <div lang="en">the fox killed by curse</div>
-	 */
 	public void setCursedFox(Agent cursedFox) {
 		this.cursedFox = cursedFox;
 	}
 
-	/**
-	 * <div lang="ja">直近の投票リストを返す</div>
-	 *
-	 * <div lang="en">Returns the latest list of votes.</div>
-	 *
-	 * @return <div lang="ja">投票リストを表す{@code List<Vote>}</div>
-	 *
-	 *         <div lang="en">{@code List<Vote>} representing the list of
-	 *         votes.</div>
-	 */
 	public List<Vote> getLatestVoteList() {
 		return latestVoteList;
 	}
 
-	/**
-	 * <div lang="ja">直近の投票リストをセットする</div>
-	 *
-	 * <div lang="en">Sets the latest list of votes.</div>
-	 *
-	 * @param latestVoteList
-	 *            <div lang="ja">投票リストを表す{@code List<Vote>}</div>
-	 *
-	 *            <div lang="en">{@code List<Vote>} representing the list
-	 *            of votes.</div>
-	 *
-	 */
 	public void setLatestVoteList(List<Vote> latestVoteList) {
 		this.latestVoteList = latestVoteList;
 	}
 
-	/**
-	 * <div lang="ja">直近の襲撃投票リストを返す</div>
-	 *
-	 * <div lang="en">Returns the latest list of votes for attack.</div>
-	 *
-	 * @return <div lang="ja">投票リストを表す{@code List<Vote>}</div>
-	 *
-	 *         <div lang="en">{@code List<Vote>} representing the list of
-	 *         votes.</div>
-	 */
 	public List<Vote> getLatestAttackVoteList() {
 		return latestAttackVoteList;
 	}
 
-	/**
-	 * <div lang="ja">直近の襲撃投票リストをセットする</div>
-	 *
-	 * <div lang="en">Sets the latest list of votes for attack.</div>
-	 *
-	 * @param latestAttackVoteList
-	 *            <div lang="ja">投票リストを表す{@code List<Vote>}</div>
-	 *
-	 *            <div lang="en">{@code List<Vote>} representing
-	 *            the list of votes.</div>
-	 *
-	 */
 	public void setLatestAttackVoteList(List<Vote> latestAttackVoteList) {
 		this.latestAttackVoteList = latestAttackVoteList;
 	}
 
-	/**
-	 *
-	 * <div lang="ja">指定エージェントがゲームに含まれているかどうかを調べる</div>
-	 *
-	 * <div lang="en">Check whether the agents is joining in game.</div>
-	 *
-	 * @param latestAttackVoteList
-	 *            <div lang="ja">含まれているかどうか{@code boolean}</div>
-	 *
-	 *            <div lang="en">{@code boolean} is contains in the
-	 *            game.</div>
-	 */
 	public boolean contains(Agent target) {
 		return this.agentRoleMap.containsKey(target);
 	}
-
 }

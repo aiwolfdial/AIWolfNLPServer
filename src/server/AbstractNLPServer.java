@@ -152,14 +152,14 @@ public abstract class AbstractNLPServer implements GameServer {
 			case INITIALIZE:
 				lastTalkIdxMap.clear();
 				lastWhisperIdxMap.clear();
-				packet = new Packet(request, gameData.getGameInfoToSend(agent), gameSetting);
+				packet = new Packet(request, gameData.getGameInfo(agent), gameSetting);
 				break;
 			case NAME:
 			case ROLE:
 				packet = new Packet(request);
 				break;
 			case FINISH:
-				packet = new Packet(request, gameData.getFinalGameInfoToSend(agent));
+				packet = new Packet(request, gameData.getFinalGameInfo(agent));
 				break;
 			case DIVINE:
 			case GUARD:
@@ -177,12 +177,12 @@ public abstract class AbstractNLPServer implements GameServer {
 				break;
 		}
 		if (flag)
-			packet = new Packet(request, gameData.getGameInfoToSend(agent));
+			packet = new Packet(request, gameData.getGameInfo(agent));
 		if (packet != null)
 			return JSONParser.encode(packet);
 
-		List<Talk> talkList = gameData.getGameInfoToSend(agent).getTalkList();
-		List<Talk> whisperList = gameData.getGameInfoToSend(agent).getWhisperList();
+		List<Talk> talkList = gameData.getTalkList();
+		List<Talk> whisperList = gameData.getGameInfo(agent).getWhisperList();
 		talkList = minimize(agent, talkList, lastTalkIdxMap);
 		whisperList = minimize(agent, whisperList, lastWhisperIdxMap);
 		packet = new Packet(request, talkList, whisperList);

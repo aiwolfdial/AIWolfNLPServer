@@ -8,7 +8,7 @@ import common.data.Talk;
 
 public class Packet {
 	Request request;
-	GameInfoToSend gameInfo;
+	GameInfo gameInfo;
 	GameSetting gameSetting;
 	List<Talk> talkHistory;
 	List<Talk> whisperHistory;
@@ -17,12 +17,12 @@ public class Packet {
 		this.request = request;
 	}
 
-	public Packet(Request request, GameInfoToSend gameInfo) {
+	public Packet(Request request, GameInfo gameInfo) {
 		this.request = request;
 		this.gameInfo = gameInfo;
 	}
 
-	public Packet(Request request, GameInfoToSend gameInfo, GameSetting gameSetting) {
+	public Packet(Request request, GameInfo gameInfo, GameSetting gameSetting) {
 		this.request = request;
 		this.gameInfo = gameInfo;
 		this.gameSetting = gameSetting;
@@ -38,7 +38,7 @@ public class Packet {
 		return request;
 	}
 
-	public GameInfoToSend getGameInfo() {
+	public GameInfo getGameInfo() {
 		return gameInfo;
 	}
 

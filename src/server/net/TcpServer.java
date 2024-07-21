@@ -134,12 +134,12 @@ public class TcpServer implements GameServer {
 			if (request == Request.INITIALIZE) {
 				lastTalkIdxMap.clear();
 				lastWhisperIdxMap.clear();
-				Packet packet = new Packet(request, gameData.getGameInfoToSend(agent), gameSetting);
+				Packet packet = new Packet(request, gameData.getGameInfo(agent), gameSetting);
 				message = JSONParser.encode(packet);
 			} else if (request == Request.DAILY_INITIALIZE) {
 				lastTalkIdxMap.clear();
 				lastWhisperIdxMap.clear();
-				Packet packet = new Packet(request, gameData.getGameInfoToSend(agent));
+				Packet packet = new Packet(request, gameData.getGameInfo(agent));
 				message = JSONParser.encode(packet);
 			} else if (request == Request.NAME || request == Request.ROLE) {
 				Packet packet = new Packet(request);
@@ -150,21 +150,21 @@ public class TcpServer implements GameServer {
 				// message = DataConverter.convert(packet);
 				if (request == Request.VOTE && !gameData.getLatestVoteList().isEmpty()) {
 					// 追放再投票の場合，latestVoteListで直前の投票状況を知らせるためGameInfo入りのパケットにする
-					Packet packet = new Packet(request, gameData.getGameInfoToSend(agent));
+					Packet packet = new Packet(request, gameData.getGameInfo(agent));
 					message = JSONParser.encode(packet);
 				} else if (request == Request.ATTACK && !gameData.getLatestAttackVoteList().isEmpty()) {
 					// 襲撃再投票の場合，latestAttackVoteListで直前の投票状況を知らせるためGameInfo入りのパケットにする
-					Packet packet = new Packet(request, gameData.getGameInfoToSend(agent));
+					Packet packet = new Packet(request, gameData.getGameInfo(agent));
 					message = JSONParser.encode(packet);
 				} else if (gameData.getExecuted() != null
 						&& (request == Request.DIVINE || request == Request.GUARD || request == Request.WHISPER
 								|| request == Request.ATTACK)) {
 					// 追放後の各リクエストではlatestExecutedAgentで追放者を知らせるためGameInfo入りのパケットにする
-					Packet packet = new Packet(request, gameData.getGameInfoToSend(agent));
+					Packet packet = new Packet(request, gameData.getGameInfo(agent));
 					message = JSONParser.encode(packet);
 				} else {
-					List<Talk> talkList = gameData.getGameInfoToSend(agent).getTalkList();
-					List<Talk> whisperList = gameData.getGameInfoToSend(agent).getWhisperList();
+					List<Talk> talkList = gameData.getGameInfo(agent).getTalkList();
+					List<Talk> whisperList = gameData.getGameInfo(agent).getWhisperList();
 
 					talkList = minimize(agent, talkList, lastTalkIdxMap);
 					whisperList = minimize(agent, whisperList, lastWhisperIdxMap);
@@ -173,7 +173,7 @@ public class TcpServer implements GameServer {
 					message = JSONParser.encode(packet);
 				}
 			} else {
-				Packet packet = new Packet(request, gameData.getFinalGameInfoToSend(agent));
+				Packet packet = new Packet(request, gameData.getFinalGameInfo(agent));
 				message = JSONParser.encode(packet);
 			}
 

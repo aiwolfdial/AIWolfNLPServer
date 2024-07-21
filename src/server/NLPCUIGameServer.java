@@ -15,19 +15,7 @@ import common.data.Role;
 import common.data.Talk;
 import common.net.GameSetting;
 
-/**
- * mamo: https://github.com/aiwolf/AIWolfServer/blob/0.6.x/src/org/aiwolf/server/net/TcpServer.java#L418
- * 	https://github.com/aiwolf/AIWolfServer/blob/0.6.x/src/org/aiwolf/server/AIWolfGame.java#L614
- */
-
-/**
- * ゲームの進行
- * 
- * @author tminowa
- *
- */
 public class NLPCUIGameServer extends AbstractNLPServer {
-
 	public NLPCUIGameServer(GameSetting gameSetting, GameConfiguration config,
 			Map<Agent, NLPAIWolfConnection> agentConnectionMap) {
 		super(gameSetting, config, agentConnectionMap);

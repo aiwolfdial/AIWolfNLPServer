@@ -698,7 +698,7 @@ public class AIWolfGame {
 					// target = getRandomAgent(agentList, agent);
 				} else {
 					Judge divine = new Judge(gameData.getDay(), agent, target, targetRole.getSpecies());
-					gameData.addDivine(divine);
+					gameData.setDivine(divine);
 
 					// FOX
 					if (gameData.getRole(target) == Role.FOX) {
@@ -726,10 +726,9 @@ public class AIWolfGame {
 				}
 				Agent target = gameServer.requestGuardTarget(agent);
 				if (target == null || gameData.getStatus(target) == null || agent == target) {
-					// target = getRandomAgent(agentList, agent);
 				} else {
 					Guard guard = new Guard(gameData.getDay(), agent, target);
-					gameData.addGuard(guard);
+					gameData.setGuard(guard);
 
 					if (gameLogger != null) {
 						gameLogger.log(
