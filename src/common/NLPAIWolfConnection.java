@@ -97,7 +97,7 @@ public class NLPAIWolfConnection {
 		}
 		if (subException == null)
 			return;
-		logger.log(subException.getClass() + " : " + subException.getMessage());
+		logger.log(subException.getClass() + ": " + subException.getMessage());
 		for (StackTraceElement stackTraceElement : subException.getStackTrace()) {
 			logger.log(stackTraceElement.toString());
 			logger.flush();

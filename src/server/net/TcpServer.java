@@ -278,7 +278,6 @@ public class TcpServer implements GameServer {
 				Packet packet = new Packet(request, gameData.getFinalGameInfoToSend(agent));
 				message = DataConverter.convert(packet);
 			}
-			// serverLogger.info("=>"+agent+":"+message);
 
 			Socket sock = socketAgentMap.getKey(agent);
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
@@ -286,7 +285,6 @@ public class TcpServer implements GameServer {
 			bw.append("\n");
 			bw.flush();
 		} catch (IOException e) {
-			// serverLogger.severe(e.getMessage());
 			throw new LostClientException(e, agent);
 		}
 	}
@@ -339,7 +337,6 @@ public class TcpServer implements GameServer {
 			if (!task.isSuccess()) {
 				throw task.getIOException();
 			}
-			// serverLogger.info("<="+agent+":"+line);
 
 			if (line != null && line.isEmpty()) {
 				line = null;

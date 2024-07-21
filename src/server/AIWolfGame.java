@@ -215,7 +215,7 @@ public class AIWolfGame {
 			}
 			consoleLog();
 			finish();
-			logger.info(String.format("Winner:%s", getWinner()));
+			logger.info(String.format("Winner: %s", getWinner()));
 		} catch (LostClientException e) {
 			if (gameLogger != null) {
 				gameLogger.log("Lost Connection of " + e.getAgent());
@@ -303,25 +303,25 @@ public class AIWolfGame {
 			}
 			logger.info("========Actions========");
 			for (Vote vote : yesterday.getVoteList()) {
-				logger.info(String.format("Vote:%s->%s", vote.getAgent(), vote.getTarget()));
+				logger.info(String.format("Vote: %s->%s", vote.getAgent(), vote.getTarget()));
 			}
 			for (Vote vote : yesterday.getAttackVoteList()) {
-				logger.info(String.format("AttackVote:%s->%s", vote.getAgent(), vote.getTarget()));
+				logger.info(String.format("AttackVote: %s->%s", vote.getAgent(), vote.getTarget()));
 			}
-			logger.info(String.format("Executed:%s", yesterday.getExecuted()));
+			logger.info(String.format("Executed: %s", yesterday.getExecuted()));
 			Judge divine = yesterday.getDivine();
 			if (divine != null) {
-				logger.info(String.format("Divine:%s->%s", divine.getAgent(), divine.getTarget()));
+				logger.info(String.format("Divine: %s->%s", divine.getAgent(), divine.getTarget()));
 			}
 			Guard guard = yesterday.getGuard();
 			if (guard != null) {
-				logger.info(String.format("Guard:%s->%s", guard.getAgent(), guard.getTarget()));
+				logger.info(String.format("Guard: %s->%s", guard.getAgent(), guard.getTarget()));
 			}
 			if (yesterday.getAttackedDead() != null) {
-				logger.info(String.format("Attacked:%s", yesterday.getAttackedDead()));
+				logger.info(String.format("Attacked: %s", yesterday.getAttackedDead()));
 			}
 			if (yesterday.getCursedFox() != null) {
-				logger.info(String.format("Cursed:%s", yesterday.getCursedFox()));
+				logger.info(String.format("Cursed: %s", yesterday.getCursedFox()));
 			}
 		}
 		logger.info("======");
@@ -352,10 +352,10 @@ public class AIWolfGame {
 			}
 			logger.info(logBuilder.toString());
 		}
-		logger.info(String.format("Human:%d", getAliveHumanList().size()));
-		logger.info(String.format("Werewolf:%d", getAliveWolfList().size()));
+		logger.info(String.format("Human: %d", getAliveHumanList().size()));
+		logger.info(String.format("Werewolf: %d", getAliveWolfList().size()));
 		if (gameSetting.getRoleNum(Role.FOX) != 0) {
-			logger.info(String.format("Others:%d",
+			logger.info(String.format("Others: %d",
 					gameData.getFilteredAgentList(getAliveAgentList(), Team.OTHERS).size()));
 		}
 		logger.info("=============================================");
