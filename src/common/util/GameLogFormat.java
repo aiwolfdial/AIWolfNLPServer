@@ -9,9 +9,7 @@ public class GameLogFormat extends Formatter {
 
 	@Override
 	public String format(LogRecord record) {
-
 		return record.getMessage() +
 				"\n";
 	}
-
 }
