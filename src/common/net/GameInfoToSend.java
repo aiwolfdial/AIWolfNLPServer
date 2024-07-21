@@ -136,7 +136,7 @@ public class GameInfoToSend {
 		gi.agent = Agent.getAgent(agent);
 
 		if (mediumResult != null) {
-			gi.mediumResult = this.mediumResult.toJudge();
+			gi.mediumResult = mediumResult.toJudge();
 		}
 		if (divineResult != null) {
 			gi.divineResult = divineResult.toJudge();
@@ -144,7 +144,7 @@ public class GameInfoToSend {
 		gi.executedAgent = Agent.getAgent(executedAgent);
 		gi.latestExecutedAgent = Agent.getAgent(latestExecutedAgent);
 		gi.attackedAgent = Agent.getAgent(attackedAgent);
-		gi.cursedFox = Agent.getAgent(this.cursedFox);
+		gi.cursedFox = Agent.getAgent(cursedFox);
 		gi.guardedAgent = Agent.getAgent(guardedAgent);
 
 		gi.voteList = new ArrayList<>();
