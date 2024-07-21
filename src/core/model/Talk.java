@@ -5,11 +5,11 @@ public class Talk {
 	final static public String SKIP = "Skip";
 	final static public String FORCE_SKIP = "ForceSkip";
 
-	private final int idx;
-	private final int day;
-	private final int turn;
-	private final Agent agent;
-	private final String text;
+	public final int idx;
+	public final int day;
+	public final int turn;
+	public final Agent agent;
+	public final String text;
 
 	public Talk(int idx, int day, int turn, Agent agent, String text) {
 		this.idx = idx;
@@ -17,26 +17,6 @@ public class Talk {
 		this.turn = turn;
 		this.agent = agent;
 		this.text = text;
-	}
-
-	public int getIdx() {
-		return idx;
-	}
-
-	public int getDay() {
-		return day;
-	}
-
-	public int getTurn() {
-		return turn;
-	}
-
-	public Agent getAgent() {
-		return agent;
-	}
-
-	public String getText() {
-		return text;
 	}
 
 	public boolean isSkip() {

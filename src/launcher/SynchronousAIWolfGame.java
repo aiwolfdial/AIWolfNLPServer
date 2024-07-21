@@ -52,7 +52,7 @@ public class SynchronousAIWolfGame extends AIWolfGame {
 			}
 
 			if (includeAgentNum) {
-				combinationText.add(String.format("%d,%s,%s", agent.getAgentIdx(), gameData.getRole(agent), agentName));
+				combinationText.add(String.format("%d,%s,%s", agent.agentIdx, gameData.getRole(agent), agentName));
 			} else {
 				combinationText.add(String.format("%s,%s", gameData.getRole(agent), agentName));
 			}

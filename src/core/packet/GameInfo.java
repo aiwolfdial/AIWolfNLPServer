@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import core.model.Agent;
 import core.model.Judge;
 import core.model.Role;
@@ -14,14 +16,31 @@ import core.model.Vote;
 
 public class GameInfo {
 	public int day;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public Agent agent;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public Judge mediumResult;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public Judge divineResult;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public Agent executedAgent;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public Agent latestExecutedAgent;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public Agent attackedAgent;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public Agent cursedFox;
+
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public Agent guardedAgent;
+
 	public List<Vote> voteList = new ArrayList<>();
 	public List<Vote> latestVoteList = new ArrayList<>();
 	public List<Vote> attackVoteList = new ArrayList<>();

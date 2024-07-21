@@ -75,13 +75,13 @@ public class GameData {
 				gameInfo.voteList = yesterday.getVoteList();
 			}
 			if (agent != null && today.getRole(agent) == Role.MEDIUM && executed != null) {
-				gameInfo.mediumResult = new Judge(day, agent, executed, yesterday.getRole(executed).getSpecies());
+				gameInfo.mediumResult = new Judge(day, agent, executed, yesterday.getRole(executed).species);
 			}
 			if (agent == null || today.getRole(agent) == Role.SEER) {
 				Judge divine = yesterday.getDivine();
-				if (divine != null && divine.getTarget() != null) {
-					gameInfo.divineResult = new Judge(day, divine.getAgent(), divine.getTarget(),
-							yesterday.getRole(divine.getTarget()).getSpecies());
+				if (divine != null && divine.target != null) {
+					gameInfo.divineResult = new Judge(day, divine.agent, divine.target,
+							yesterday.getRole(divine.target).species);
 				}
 			}
 			if (agent == null || today.getRole(agent) == Role.WEREWOLF) {
@@ -92,7 +92,7 @@ public class GameData {
 			}
 			if (agent == null || today.getRole(agent) == Role.BODYGUARD) {
 				if (yesterday.getGuard() != null) {
-					gameInfo.guardedAgent = yesterday.getGuard().getTarget();
+					gameInfo.guardedAgent = yesterday.getGuard().target;
 				}
 			}
 			if (agent == null) {
@@ -302,7 +302,7 @@ public class GameData {
 	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Species species) {
 		List<Agent> resultList = new ArrayList<>();
 		for (Agent agent : agentList) {
-			if (getRole(agent).getSpecies() == species) {
+			if (getRole(agent).species == species) {
 				resultList.add(agent);
 			}
 		}
@@ -332,7 +332,7 @@ public class GameData {
 	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Team team) {
 		List<Agent> resultList = new ArrayList<>();
 		for (Agent agent : agentList) {
-			if (getRole(agent).getTeam() == team) {
+			if (getRole(agent).team == team) {
 				resultList.add(agent);
 			}
 		}

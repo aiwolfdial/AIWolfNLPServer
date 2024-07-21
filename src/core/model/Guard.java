@@ -1,22 +1,14 @@
 package core.model;
 
 public class Guard {
-	int day;
-	Agent agent;
-	Agent target;
+	public final int day;
+	public final Agent agent;
+	public final Agent target;
 
 	public Guard(int day, Agent agent, Agent target) {
 		this.day = day;
 		this.agent = agent;
 		this.target = target;
-	}
-
-	public Agent getAgent() {
-		return agent;
-	}
-
-	public Agent getTarget() {
-		return target;
 	}
 
 	@Override

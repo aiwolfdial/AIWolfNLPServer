@@ -124,7 +124,7 @@ public class AIWolfGame {
 			logger.info(String.format("Winner: %s", getWinner()));
 		} catch (LostAgentConnectionException e) {
 			if (gameLogger != null) {
-				gameLogger.log("Lost Connection of " + e.getAgent());
+				gameLogger.log("Lost Connection of " + e.agent);
 			}
 			throw e;
 		}
@@ -133,7 +133,7 @@ public class AIWolfGame {
 	public void finish() {
 		if (gameLogger != null) {
 			for (Agent agent : new TreeSet<>(gameData.getAgentList())) {
-				gameLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.getAgentIdx(),
+				gameLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.agentIdx,
 						gameData.getRole(agent), gameData.getStatus(agent), agentNameMap.get(agent)));
 			}
 			gameLogger.log(String.format("%d,result,%d,%d,%s", gameData.getDay(), getAliveHumanList().size(),
@@ -155,10 +155,10 @@ public class AIWolfGame {
 				continue;
 			}
 
-			if (gameData.getRole(agent).getTeam() == Team.OTHERS) {
+			if (gameData.getRole(agent).team == Team.OTHERS) {
 				otherSide++;
 			}
-			if (gameData.getRole(agent).getSpecies() == Species.HUMAN) {
+			if (gameData.getRole(agent).species == Species.HUMAN) {
 				humanSide++;
 			} else {
 				wolfSide++;
@@ -195,19 +195,19 @@ public class AIWolfGame {
 			}
 			logger.info("========Actions========");
 			for (Vote vote : yesterday.getVoteList()) {
-				logger.info(String.format("Vote: %s->%s", vote.getAgent(), vote.getTarget()));
+				logger.info(String.format("Vote: %s->%s", vote.agent, vote.target));
 			}
 			for (Vote vote : yesterday.getAttackVoteList()) {
-				logger.info(String.format("AttackVote: %s->%s", vote.getAgent(), vote.getTarget()));
+				logger.info(String.format("AttackVote: %s->%s", vote.agent, vote.target));
 			}
 			logger.info(String.format("Executed: %s", yesterday.getExecuted()));
 			Judge divine = yesterday.getDivine();
 			if (divine != null) {
-				logger.info(String.format("Divine: %s->%s", divine.getAgent(), divine.getTarget()));
+				logger.info(String.format("Divine: %s->%s", divine.agent, divine.target));
 			}
 			Guard guard = yesterday.getGuard();
 			if (guard != null) {
-				logger.info(String.format("Guard: %s->%s", guard.getAgent(), guard.getTarget()));
+				logger.info(String.format("Guard: %s->%s", guard.agent, guard.target));
 			}
 			if (yesterday.getAttackedDead() != null) {
 				logger.info(String.format("Attacked: %s", yesterday.getAttackedDead()));
@@ -218,7 +218,7 @@ public class AIWolfGame {
 		}
 		logger.info("======");
 		List<Agent> agentList = gameData.getAgentList();
-		agentList.sort((o1, o2) -> o1.getAgentIdx() - o2.getAgentIdx());
+		agentList.sort((o1, o2) -> o1.agentIdx - o2.agentIdx);
 		for (Agent agent : agentList) {
 			StringBuilder logBuilder = new StringBuilder();
 			logBuilder.append(String.format("%s\t%s\t%s\t%s", agent, agentNameMap.get(agent), gameData.getStatus(agent),
@@ -231,11 +231,11 @@ public class AIWolfGame {
 					logBuilder.append("\tAttacked");
 				}
 				Judge divine = yesterday.getDivine();
-				if (divine != null && divine.getTarget() == agent) {
+				if (divine != null && divine.target == agent) {
 					logBuilder.append("\tDivined");
 				}
 				Guard guard = yesterday.getGuard();
-				if (guard != null && guard.getTarget() == agent) {
+				if (guard != null && guard.target == agent) {
 					logBuilder.append("\tGuarded");
 				}
 				if (agent == yesterday.getCursedFox()) {
@@ -294,7 +294,7 @@ public class AIWolfGame {
 			if (executed != null) {
 				gameData.setExecutedTarget(executed);
 				if (gameLogger != null) {
-					gameLogger.log(String.format("%d,execute,%d,%s", gameData.getDay(), executed.getAgentIdx(),
+					gameLogger.log(String.format("%d,execute,%d,%s", gameData.getDay(), executed.agentIdx,
 							gameData.getRole(executed)));
 				}
 			}
@@ -314,7 +314,7 @@ public class AIWolfGame {
 					Iterator<Vote> it = attackCandidateList.iterator();
 					while (it.hasNext()) {
 						Vote vote = it.next();
-						if (vote.getAgent() == executed) {
+						if (vote.agent == executed) {
 							it.remove();
 						}
 					}
@@ -334,9 +334,9 @@ public class AIWolfGame {
 
 				boolean isGuarded = false;
 				if (gameData.getGuard() != null) {
-					if (gameData.getGuard().getTarget() == attacked && attacked != null) {
+					if (gameData.getGuard().target == attacked && attacked != null) {
 						if (gameData.getExecuted() == null
-								|| !(gameData.getExecuted() == gameData.getGuard().getAgent())) {
+								|| !(gameData.getExecuted() == gameData.getGuard().agent)) {
 							isGuarded = true;
 						}
 					}
@@ -346,11 +346,11 @@ public class AIWolfGame {
 					gameData.addLastDeadAgent(attacked);
 
 					if (gameLogger != null) {
-						gameLogger.log(String.format("%d,attack,%d,true", gameData.getDay(), attacked.getAgentIdx()));
+						gameLogger.log(String.format("%d,attack,%d,true", gameData.getDay(), attacked.agentIdx));
 					}
 				} else if (attacked != null) {
 					if (gameLogger != null) {
-						gameLogger.log(String.format("%d,attack,%d,false", gameData.getDay(), attacked.getAgentIdx()));
+						gameLogger.log(String.format("%d,attack,%d,false", gameData.getDay(), attacked.agentIdx));
 					}
 				} else {
 					if (gameLogger != null) {
@@ -368,8 +368,8 @@ public class AIWolfGame {
 	protected List<Agent> getVotedCandidates(List<Vote> voteList) {
 		Counter<Agent> counter = new Counter<>();
 		for (Vote vote : voteList) {
-			if (gameData.getStatus(vote.getTarget()) == Status.ALIVE) {
-				counter.add(vote.getTarget());
+			if (gameData.getStatus(vote.target) == Status.ALIVE) {
+				counter.add(vote.target);
 			}
 		}
 
@@ -386,9 +386,9 @@ public class AIWolfGame {
 	protected List<Agent> getAttackVotedCandidates(List<Vote> voteList) {
 		Counter<Agent> counter = new Counter<>();
 		for (Vote vote : voteList) {
-			if (gameData.getStatus(vote.getTarget()) == Status.ALIVE
-					&& gameData.getRole(vote.getTarget()) != Role.WEREWOLF) {
-				counter.add(vote.getTarget());
+			if (gameData.getStatus(vote.target) == Status.ALIVE
+					&& gameData.getRole(vote.target) != Role.WEREWOLF) {
+				counter.add(vote.target);
 			}
 		}
 		if (!gameSetting.isEnableNoAttack()) {
@@ -410,7 +410,7 @@ public class AIWolfGame {
 	protected void dayStart() {
 		if (gameLogger != null) {
 			for (Agent agent : new TreeSet<>(gameData.getAgentList())) {
-				gameLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.getAgentIdx(),
+				gameLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.agentIdx,
 						gameData.getRole(agent), gameData.getStatus(agent), agentNameMap.get(agent)));
 			}
 		}
@@ -448,10 +448,10 @@ public class AIWolfGame {
 					talkText = Talk.SKIP;
 				}
 				Talk talk = new Talk(gameData.nextTalkIdx(), gameData.getDay(), time, agent, talkText);
-				gameData.addTalk(talk.getAgent(), talk);
+				gameData.addTalk(talk.agent, talk);
 				if (gameLogger != null) {
-					gameLogger.log(String.format("%d,talk,%d,%d,%d,%s", gameData.getDay(), talk.getIdx(),
-							talk.getTurn(), talk.getAgent().getAgentIdx(), talk.getText()));
+					gameLogger.log(String.format("%d,talk,%d,%d,%d,%s", gameData.getDay(), talk.idx,
+							talk.turn, talk.agent.agentIdx, talk.text));
 				}
 
 				if (!talk.isOver() && !talk.isSkip()) {
@@ -498,10 +498,10 @@ public class AIWolfGame {
 					}
 				}
 				Talk whisper = new Talk(gameData.nextWhisperIdx(), gameData.getDay(), turn, agent, whisperText);
-				gameData.addWhisper(whisper.getAgent(), whisper);
+				gameData.addWhisper(whisper.agent, whisper);
 				if (gameLogger != null) {
-					gameLogger.log(String.format("%d,whisper,%d,%d,%d,%s", gameData.getDay(), whisper.getIdx(),
-							whisper.getTurn(), whisper.getAgent().getAgentIdx(), whisper.getText()));
+					gameLogger.log(String.format("%d,whisper,%d,%d,%d,%s", gameData.getDay(), whisper.idx,
+							whisper.turn, whisper.agent.agentIdx, whisper.text));
 				}
 
 				if (!whisper.isOver() && !whisper.isSkip()) {
@@ -536,8 +536,8 @@ public class AIWolfGame {
 
 		for (Vote vote : latestVoteList) {
 			if (gameLogger != null) {
-				gameLogger.log(String.format("%d,vote,%d,%d", gameData.getDay(), vote.getAgent().getAgentIdx(),
-						vote.getTarget().getAgentIdx()));
+				gameLogger.log(String.format("%d,vote,%d,%d", gameData.getDay(), vote.agent.agentIdx,
+						vote.target.agentIdx));
 			}
 		}
 	}
@@ -549,7 +549,7 @@ public class AIWolfGame {
 				Role targetRole = gameData.getRole(target);
 				if (gameData.getStatus(target) == Status.DEAD || target == null || targetRole == null) {
 				} else {
-					Judge divine = new Judge(gameData.getDay(), agent, target, targetRole.getSpecies());
+					Judge divine = new Judge(gameData.getDay(), agent, target, targetRole.species);
 					gameData.setDivine(divine);
 
 					if (gameData.getRole(target) == Role.FOX) {
@@ -559,7 +559,7 @@ public class AIWolfGame {
 
 					if (gameLogger != null) {
 						gameLogger.log(String.format("%d,divine,%d,%d,%s", gameData.getDay(),
-								divine.getAgent().getAgentIdx(), divine.getTarget().getAgentIdx(), divine.getResult()));
+								divine.agent.agentIdx, divine.target.agentIdx, divine.result));
 					}
 				}
 			}
@@ -580,8 +580,8 @@ public class AIWolfGame {
 
 					if (gameLogger != null) {
 						gameLogger.log(
-								String.format("%d,guard,%d,%d,%s", gameData.getDay(), guard.getAgent().getAgentIdx(),
-										guard.getTarget().getAgentIdx(), gameData.getRole(guard.getTarget())));
+								String.format("%d,guard,%d,%d,%s", gameData.getDay(), guard.agent.agentIdx,
+										guard.target.agentIdx, gameData.getRole(guard.target)));
 					}
 				}
 			}
@@ -600,7 +600,7 @@ public class AIWolfGame {
 
 				if (gameLogger != null) {
 					gameLogger.log(String.format("%d,attackVote,%d,%d", gameData.getDay(),
-							attackVote.getAgent().getAgentIdx(), attackVote.getTarget().getAgentIdx()));
+							attackVote.agent.agentIdx, attackVote.target.agentIdx));
 				}
 			}
 		}

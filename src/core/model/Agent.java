@@ -12,6 +12,9 @@ import utils.AgentSerializer;
 @JsonSerialize(using = AgentSerializer.class)
 @JsonDeserialize(using = AgentDeserializer.class)
 final public class Agent implements Comparable<Agent> {
+	public final int agentIdx;
+	public final String agentName;
+
 	private static final Map<Integer, Agent> agentIndexMap = new HashMap<>();
 
 	static public Agent getAgent(int idx) {
@@ -29,20 +32,9 @@ final public class Agent implements Comparable<Agent> {
 		return agentIndexMap.get(idx);
 	}
 
-	private final int agentIdx;
-	private final String agentName;
-
 	private Agent(int idx, String name) {
 		this.agentIdx = idx;
 		this.agentName = name;
-	}
-
-	public int getAgentIdx() {
-		return agentIdx;
-	}
-
-	public String getAgentName() {
-		return agentName;
 	}
 
 	@Override
@@ -72,6 +64,6 @@ final public class Agent implements Comparable<Agent> {
 		if (target == null) {
 			return 1;
 		}
-		return getAgentIdx() - target.getAgentIdx();
+		return agentIdx - target.agentIdx;
 	}
 }

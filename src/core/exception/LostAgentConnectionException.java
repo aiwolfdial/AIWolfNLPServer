@@ -3,7 +3,7 @@ package core.exception;
 import core.model.Agent;
 
 public class LostAgentConnectionException extends AIWolfException {
-	Agent agent;
+	public final Agent agent;
 
 	public LostAgentConnectionException(Throwable arg0, Agent agent) {
 		super(arg0);
@@ -13,9 +13,5 @@ public class LostAgentConnectionException extends AIWolfException {
 	public LostAgentConnectionException(String arg0, Throwable arg1, Agent agent) {
 		super(arg0, arg1);
 		this.agent = agent;
-	}
-
-	public Agent getAgent() {
-		return agent;
 	}
 }

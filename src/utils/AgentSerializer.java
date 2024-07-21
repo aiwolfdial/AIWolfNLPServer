@@ -19,9 +19,8 @@ public class AgentSerializer extends StdSerializer<core.model.Agent> {
             com.fasterxml.jackson.databind.SerializerProvider serializerProvider)
             throws java.io.IOException {
         if (agent == null) {
-            jsonGenerator.writeNumber(-1);
         } else {
-            jsonGenerator.writeNumber(agent.getAgentIdx());
+            jsonGenerator.writeString(agent.toString());
         }
     }
 }

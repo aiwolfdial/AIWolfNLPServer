@@ -117,7 +117,7 @@ public class GameServer {
 						String line = getResponse(connection, pool, agent, Request.NAME,
 								responseTimeout - actionTimeout);
 						// 名前が一致するかを確認
-						String expectedName = agent.getAgentName();
+						String expectedName = agent.agentName;
 						if (expectedName.equals(line)) {
 							return convertRequestData(Request.TALK, Talk.FORCE_SKIP);
 						} else {
