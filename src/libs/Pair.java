@@ -7,8 +7,8 @@ public class Pair<K, V> implements Serializable {
 	@Serial
 	private static final long serialVersionUID = -7137802873518091301L;
 
-	private K key;
-	private V value;
+	private final K key;
+	private final V value;
 
 	public Pair(K key, V value) {
 		this.key = key;

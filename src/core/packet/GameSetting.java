@@ -46,12 +46,8 @@ public class GameSetting {
 	boolean isEnableNoAttack;
 	// 誰が誰に投票したかをエージェントが確認できるかどうか
 	boolean isVoteVisible;
-	// 得票数同数で決まらなかった場合「追放なし」とするかどうか。falseの場合はランダム
-	private boolean isEnableNoExecution;
 	// Day 0にtalkがあるかどうか
-	private boolean isTalkOnFirstDay;
-	// 再襲撃投票前にwhisperするかどうか
-	private boolean isWhisperBeforeRevote;
+	boolean isTalkOnFirstDay;
 	// リクエスト応答時間の上限
 	int responseTimeout;
 	int actionTimeout;
@@ -116,20 +112,12 @@ public class GameSetting {
 		return isVoteVisible;
 	}
 
-	public boolean isEnableNoExecution() {
-		return isEnableNoExecution;
-	}
-
 	public boolean isTalkOnFirstDay() {
 		return isTalkOnFirstDay;
 	}
 
 	public boolean isEnableRoleRequest() {
 		return isEnableRoleRequest;
-	}
-
-	public boolean isWhisperBeforeRevote() {
-		return isWhisperBeforeRevote;
 	}
 
 	public int getPlayerNum() {

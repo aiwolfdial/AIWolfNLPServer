@@ -50,12 +50,11 @@ public class BidiMap<K, V> extends HashMap<K, V> {
 		return inverseMap.get(value);
 	}
 
-	public K removeValue(V value) {
+	public void removeValue(V value) {
 		K key = inverseMap.remove(value);
 		if (key != null) {
 			super.remove(key);
 		}
-		return key;
 	}
 
 	@Override

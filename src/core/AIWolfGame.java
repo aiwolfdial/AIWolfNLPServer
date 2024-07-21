@@ -286,7 +286,7 @@ public class AIWolfGame {
 				}
 			}
 
-			if (executed == null && !gameSetting.isEnableNoExecution()) {
+			if (executed == null) {
 				Collections.shuffle(candidates, rand);
 				executed = candidates.getFirst();
 			}
@@ -309,9 +309,6 @@ public class AIWolfGame {
 			Agent attacked = null;
 			if (!getAliveWolfList().isEmpty()) {
 				for (int i = 0; i <= gameSetting.getMaxAttackRevote(); i++) {
-					if (i > 0 && gameSetting.isWhisperBeforeRevote()) {
-						whisper();
-					}
 					attackVote();
 					List<Vote> attackCandidateList = gameData.getAttackVoteList();
 					Iterator<Vote> it = attackCandidateList.iterator();

@@ -25,7 +25,7 @@ public class Counter<V> implements Iterable<V>, Map<V, Integer> {
 	}
 
 	public V getLargest() {
-		return sorter.isEmpty() ? null : sorter.getReverseList().get(0);
+		return sorter.isEmpty() ? null : sorter.getReverseList().getFirst();
 	}
 
 	public void clear() {
