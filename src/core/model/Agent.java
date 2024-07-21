@@ -18,18 +18,32 @@ final public class Agent implements Comparable<Agent> {
 	private static final Map<Integer, Agent> agentIndexMap = new HashMap<>();
 
 	static public Agent getAgent(int idx) {
-		return getAgent(idx, "UNDEFINED");
+		return agentIndexMap.getOrDefault(idx, null);
 	}
 
-	static public Agent getAgent(int idx, String name) {
-		if (idx < 0) {
+	static public Agent getAgent(String name) {
+		if (name == null) {
 			return null;
 		}
-		if (!agentIndexMap.containsKey(idx)) {
-			Agent agent = new Agent(idx, name);
+		if (name.matches("Agent\\[\\d{2}\\]")) {
+			int idx = Integer.parseInt(name.substring(6, 8));
+			return getAgent(idx);
+		}
+		for (Agent agent : agentIndexMap.values()) {
+			if (agent.agentName.equals(name)) {
+				return agent;
+			}
+		}
+		return null;
+	}
+
+	static public Agent setAgent(int idx, String name) {
+		Agent agent = agentIndexMap.getOrDefault(idx, null);
+		if (agent == null) {
+			agent = new Agent(idx, name);
 			agentIndexMap.put(idx, agent);
 		}
-		return agentIndexMap.get(idx);
+		return agent;
 	}
 
 	private Agent(int idx, String name) {
