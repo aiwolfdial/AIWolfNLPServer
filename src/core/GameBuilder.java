@@ -1,4 +1,4 @@
-package launcher;
+package core;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,18 +21,15 @@ import org.apache.commons.math3.util.Combinations;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import core.GameConfiguration;
-import core.GameData;
-import core.GameServer;
-import core.NLPAIWolfConnection;
 import core.model.Agent;
 import core.model.Role;
 import core.model.Status;
 import core.packet.GameSetting;
+import launcher.SynchronousAIWolfGame;
 import libs.FileGameLogger;
 
-public class NLPGameBuilder extends Thread {
-	private static final Logger logger = LogManager.getLogger(NLPGameBuilder.class);
+public class GameBuilder extends Thread {
+	private static final Logger logger = LogManager.getLogger(GameBuilder.class);
 
 	private static final String NORMAL_LOG_FILE_NAME = "%s%s_%03d_%s.log";
 	private static final String ERROR_LOG_FILE_NAME = "%s%s_%03d_err_%s.log";
@@ -45,9 +42,9 @@ public class NLPGameBuilder extends Thread {
 
 	private final GameConfiguration gameConfiguration;
 	private final GameSetting gameSetting;
-	private final Map<Agent, NLPAIWolfConnection> agentConnectionMap = new HashMap<>();
+	private final Map<Agent, AIWolfConnection> agentConnectionMap = new HashMap<>();
 
-	public NLPGameBuilder(List<Socket> socketList, GameConfiguration gameConfiguration) {
+	public GameBuilder(List<Socket> socketList, GameConfiguration gameConfiguration) {
 		// 順番が固定にならないように念のためシャッフル
 		Collections.shuffle(socketList);
 
@@ -55,7 +52,7 @@ public class NLPGameBuilder extends Thread {
 		Set<Integer> usedNumberSet = new HashSet<>();
 		int humanNum = gameConfiguration.isJoinHuman() ? gameConfiguration.getHumanAgentNum() : -1;
 		for (Socket socket : socketList) {
-			NLPAIWolfConnection connection = new NLPAIWolfConnection(socket, gameConfiguration);
+			AIWolfConnection connection = new AIWolfConnection(socket, gameConfiguration);
 			int agentNum = 1;
 			String name = connection.getName();
 			if (name != null && name.equals(gameConfiguration.getHumanName()) && humanNum > 0) {
@@ -74,7 +71,7 @@ public class NLPGameBuilder extends Thread {
 	}
 
 	private void close() {
-		for (Entry<Agent, NLPAIWolfConnection> entry : agentConnectionMap.entrySet()) {
+		for (Entry<Agent, AIWolfConnection> entry : agentConnectionMap.entrySet()) {
 			try {
 				entry.getValue().getSocket().close();
 			} catch (IOException e) {
@@ -165,7 +162,7 @@ public class NLPGameBuilder extends Thread {
 		// 人間対戦時
 		Agent human = null;
 		if (gameConfiguration.isJoinHuman()) {
-			for (Entry<Agent, NLPAIWolfConnection> entry : agentConnectionMap.entrySet()) {
+			for (Entry<Agent, AIWolfConnection> entry : agentConnectionMap.entrySet()) {
 				if (gameServer.getName(entry.getKey()).equals(gameConfiguration.getHumanName())) {
 					human = entry.getKey();
 				}
@@ -215,14 +212,14 @@ public class NLPGameBuilder extends Thread {
 
 				// 今回のゲームでエラーが発生したエージェントがいた場合はエラーログを出力する
 				if (gameConfiguration.isSaveLog()) {
-					Set<Entry<Agent, NLPAIWolfConnection>> newLostConnectionSet = agentConnectionMap.entrySet()
+					Set<Entry<Agent, AIWolfConnection>> newLostConnectionSet = agentConnectionMap.entrySet()
 							.stream().filter(entry -> entry.getValue().haveNewError())
 							.collect(Collectors.toSet());
 					String errPath = String.format(ERROR_LOG_FILE_NAME, gameConfiguration.getLogDir(), subLogDirName, i,
 							clientNames);
 					File errorLogFile = new File(errPath);
 					FileGameLogger logger = new FileGameLogger(errorLogFile);
-					for (Entry<Agent, NLPAIWolfConnection> entry : newLostConnectionSet) {
+					for (Entry<Agent, AIWolfConnection> entry : newLostConnectionSet) {
 						entry.getValue().reportError(logger, entry.getKey(), agentRoleMap.get(entry.getKey()));
 					}
 

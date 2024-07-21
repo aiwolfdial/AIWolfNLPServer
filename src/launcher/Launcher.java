@@ -31,8 +31,8 @@ import java.util.concurrent.TimeoutException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import core.AIWolfConnection;
 import core.GameConfiguration;
-import core.NLPAIWolfConnection;
 import core.model.Request;
 import core.packet.Packet;
 import libs.CallableBufferedReader;
@@ -229,7 +229,7 @@ public class Launcher {
 	private String getName(Socket socket) throws IOException, InterruptedException,
 			ExecutionException, TimeoutException, SocketException {
 		logger.info("Get name.");
-		NLPAIWolfConnection connection = new NLPAIWolfConnection(socket, config);
+		AIWolfConnection connection = new AIWolfConnection(socket, config);
 		ExecutorService pool = Executors.newSingleThreadExecutor();
 		BufferedWriter bw = connection.getBufferedWriter();
 		bw.append(JsonParser.encode(new Packet(Request.NAME)));

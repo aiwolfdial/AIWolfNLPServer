@@ -24,8 +24,8 @@ import libs.FileGameLogger;
 import libs.Pair;
 import utils.JsonParser;
 
-public class NLPAIWolfConnection {
-	private static final Logger logger = LogManager.getLogger(NLPAIWolfConnection.class);
+public class AIWolfConnection {
+	private static final Logger logger = LogManager.getLogger(AIWolfConnection.class);
 
 	private static final String LOST_CONNECTION_MESSAGE = "%s(%s:%s)_[Request:%s] lostConnection";
 
@@ -71,7 +71,7 @@ public class NLPAIWolfConnection {
 		return name;
 	}
 
-	public NLPAIWolfConnection(Socket socket, GameConfiguration config) {
+	public AIWolfConnection(Socket socket, GameConfiguration config) {
 		try {
 			this.isAlive = true;
 			this.haveNewError = false;

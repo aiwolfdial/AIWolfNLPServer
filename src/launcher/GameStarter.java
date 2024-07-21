@@ -8,12 +8,13 @@ import java.util.Queue;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import core.GameBuilder;
 import core.GameConfiguration;
 
 public class GameStarter extends Thread {
 	private static final Logger logger = LogManager.getLogger(GameStarter.class);
 
-	private final List<NLPGameBuilder> gameList = new ArrayList<>();
+	private final List<GameBuilder> gameList = new ArrayList<>();
 	private final Queue<List<Socket>> socketQue;
 	private final GameConfiguration config;
 
@@ -31,7 +32,7 @@ public class GameStarter extends Thread {
 			// 同時起動数未満なら待機Listから1グループ取得してゲームを開始する
 			synchronized (socketQue) {
 				if (!socketQue.isEmpty() && gameList.size() < config.getParallelRunningGameNum()) {
-					NLPGameBuilder builder = new NLPGameBuilder(socketQue.poll(), config);
+					GameBuilder builder = new GameBuilder(socketQue.poll(), config);
 					gameList.add(builder);
 					builder.start();
 				}
