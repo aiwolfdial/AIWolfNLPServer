@@ -34,7 +34,7 @@ import common.util.BidiMap;
 import server.GameData;
 import server.exception.IllegalPlayerNumException;
 import server.exception.LostClientException;
-import utility.parser.JSONParser;
+import utility.parser.JsonParser;
 
 public class TcpServer implements GameServer {
 	private static final Logger logger = LogManager.getLogger(TcpServer.class);
@@ -135,15 +135,15 @@ public class TcpServer implements GameServer {
 				lastTalkIdxMap.clear();
 				lastWhisperIdxMap.clear();
 				Packet packet = new Packet(request, gameData.getGameInfo(agent), gameSetting);
-				message = JSONParser.encode(packet);
+				message = JsonParser.encode(packet);
 			} else if (request == Request.DAILY_INITIALIZE) {
 				lastTalkIdxMap.clear();
 				lastWhisperIdxMap.clear();
 				Packet packet = new Packet(request, gameData.getGameInfo(agent));
-				message = JSONParser.encode(packet);
+				message = JsonParser.encode(packet);
 			} else if (request == Request.NAME || request == Request.ROLE) {
 				Packet packet = new Packet(request);
-				message = JSONParser.encode(packet);
+				message = JsonParser.encode(packet);
 			} else if (request != Request.FINISH) {
 				// Packet packet = new Packet(request, gameData.getGameInfoToSend(agent),
 				// gameSetting);
@@ -151,17 +151,17 @@ public class TcpServer implements GameServer {
 				if (request == Request.VOTE && !gameData.getLatestVoteList().isEmpty()) {
 					// 追放再投票の場合，latestVoteListで直前の投票状況を知らせるためGameInfo入りのパケットにする
 					Packet packet = new Packet(request, gameData.getGameInfo(agent));
-					message = JSONParser.encode(packet);
+					message = JsonParser.encode(packet);
 				} else if (request == Request.ATTACK && !gameData.getLatestAttackVoteList().isEmpty()) {
 					// 襲撃再投票の場合，latestAttackVoteListで直前の投票状況を知らせるためGameInfo入りのパケットにする
 					Packet packet = new Packet(request, gameData.getGameInfo(agent));
-					message = JSONParser.encode(packet);
+					message = JsonParser.encode(packet);
 				} else if (gameData.getExecuted() != null
 						&& (request == Request.DIVINE || request == Request.GUARD || request == Request.WHISPER
 								|| request == Request.ATTACK)) {
 					// 追放後の各リクエストではlatestExecutedAgentで追放者を知らせるためGameInfo入りのパケットにする
 					Packet packet = new Packet(request, gameData.getGameInfo(agent));
-					message = JSONParser.encode(packet);
+					message = JsonParser.encode(packet);
 				} else {
 					List<Talk> talkList = gameData.getGameInfo(agent).getTalkList();
 					List<Talk> whisperList = gameData.getGameInfo(agent).getWhisperList();
@@ -170,11 +170,11 @@ public class TcpServer implements GameServer {
 					whisperList = minimize(agent, whisperList, lastWhisperIdxMap);
 
 					Packet packet = new Packet(request, talkList, whisperList);
-					message = JSONParser.encode(packet);
+					message = JsonParser.encode(packet);
 				}
 			} else {
 				Packet packet = new Packet(request, gameData.getFinalGameInfo(agent));
-				message = JSONParser.encode(packet);
+				message = JsonParser.encode(packet);
 			}
 
 			Socket sock = socketAgentMap.getKey(agent);
@@ -230,7 +230,7 @@ public class TcpServer implements GameServer {
 				return line;
 			} else if (request == Request.ATTACK || request == Request.DIVINE || request == Request.GUARD
 					|| request == Request.VOTE) {
-				Agent target = JSONParser.decode(line, Agent.class);
+				Agent target = JsonParser.decode(line, Agent.class);
 				if (gameData.contains(target)) {
 					return target;
 				} else {

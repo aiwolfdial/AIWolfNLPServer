@@ -32,7 +32,7 @@ import game.SynchronousNLPAIWolfGame;
 import server.AbstractNLPServer;
 import server.GameData;
 import server.NLPCUIGameServer;
-import server.utility.FileGameLogger;
+import utility.FileGameLogger;
 
 /**
  * 1セット内の対戦の管理

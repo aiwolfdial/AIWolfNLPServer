@@ -2,7 +2,7 @@ package automatic;
 
 import java.io.IOException;
 
-import utility.Configuration;
+import utility.IniLoader;
 
 public class AutomaticStarterConfiguration {
 	private String hostname;
@@ -13,7 +13,7 @@ public class AutomaticStarterConfiguration {
 
 	public static AutomaticStarterConfiguration load(String path)
 			throws IOException, NoSuchFieldException, IllegalAccessException {
-		return (AutomaticStarterConfiguration) Configuration.loadFile(path, "automaticStarter",
+		return (AutomaticStarterConfiguration) IniLoader.loadFile(path, "automaticStarter",
 				new AutomaticStarterConfiguration());
 	}
 

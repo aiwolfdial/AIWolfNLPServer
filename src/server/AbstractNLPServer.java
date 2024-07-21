@@ -26,7 +26,7 @@ import common.net.Packet;
 import common.util.BidiMap;
 import server.exception.LostClientException;
 import server.net.GameServer;
-import utility.parser.JSONParser;
+import utility.parser.JsonParser;
 
 /**
  *
@@ -114,7 +114,7 @@ public abstract class AbstractNLPServer implements GameServer {
 		// 返す内容の決定
 		return switch (request) {
 			case TALK, NAME, ROLE, WHISPER -> line;
-			case ATTACK, DIVINE, GUARD, VOTE -> JSONParser.decode(line, Agent.class);
+			case ATTACK, DIVINE, GUARD, VOTE -> JsonParser.decode(line, Agent.class);
 			default -> null;
 		};
 	}
@@ -179,14 +179,14 @@ public abstract class AbstractNLPServer implements GameServer {
 		if (flag)
 			packet = new Packet(request, gameData.getGameInfo(agent));
 		if (packet != null)
-			return JSONParser.encode(packet);
+			return JsonParser.encode(packet);
 
 		List<Talk> talkList = gameData.getTalkList();
 		List<Talk> whisperList = gameData.getGameInfo(agent).getWhisperList();
 		talkList = minimize(agent, talkList, lastTalkIdxMap);
 		whisperList = minimize(agent, whisperList, lastWhisperIdxMap);
 		packet = new Packet(request, talkList, whisperList);
-		return JSONParser.encode(packet);
+		return JsonParser.encode(packet);
 	}
 
 	public String getName(Agent agent) {

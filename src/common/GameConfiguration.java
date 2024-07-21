@@ -1,6 +1,6 @@
 package common;
 
-import utility.Configuration;
+import utility.IniLoader;
 
 public class GameConfiguration {
     public enum HumanRole {
@@ -61,7 +61,7 @@ public class GameConfiguration {
     private int player10Port = 10000;
 
     public static GameConfiguration load(String path) throws Exception {
-        return (GameConfiguration) Configuration.loadFile(path, "game", new GameConfiguration());
+        return (GameConfiguration) IniLoader.loadFile(path, "game", new GameConfiguration());
     }
 
     public String getLogDir() {

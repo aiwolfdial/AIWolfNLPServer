@@ -37,7 +37,7 @@ import common.NLPAIWolfConnection;
 import common.data.Request;
 import common.net.Packet;
 import common.util.Pair;
-import utility.parser.JSONParser;
+import utility.parser.JsonParser;
 
 /**
  * 継続してクライアントからの接続を受け付ける人狼知能対戦用サーバ
@@ -228,7 +228,7 @@ public class NLPServerStarter {
 		NLPAIWolfConnection connection = new NLPAIWolfConnection(socket, config);
 		ExecutorService pool = Executors.newSingleThreadExecutor();
 		BufferedWriter bw = connection.getBufferedWriter();
-		bw.append(JSONParser.encode(new Packet(Request.NAME)));
+		bw.append(JsonParser.encode(new Packet(Request.NAME)));
 		bw.append("\n");
 		bw.flush();
 		BRCallable task = new BRCallable(connection.getBufferedReader());

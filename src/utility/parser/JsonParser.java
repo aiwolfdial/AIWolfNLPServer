@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-public class JSONParser {
-	private static final Logger logger = LogManager.getLogger(JSONParser.class);
+public class JsonParser {
+	private static final Logger logger = LogManager.getLogger(JsonParser.class);
 
 	public static String encode(Object obj) {
 		ObjectMapper mapper = new ObjectMapper();

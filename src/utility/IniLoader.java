@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 import org.ini4j.Ini;
 import org.ini4j.Profile.Section;
 
-public class Configuration {
-    private static final Logger logger = LogManager.getLogger(Configuration.class);
+public class IniLoader {
+    private static final Logger logger = LogManager.getLogger(IniLoader.class);
 
     public static Object loadFile(String path, String sectionName, Object object)
             throws NoSuchFieldException, IllegalAccessException, IOException {
