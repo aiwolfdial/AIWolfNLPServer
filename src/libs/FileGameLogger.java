@@ -22,14 +22,16 @@ public class FileGameLogger {
 		try {
 			bw.append(text);
 			bw.append("\n");
-		} catch (IOException _) {
+		} catch (IOException e) {
+			logger.error(e);
 		}
 	}
 
 	public void flush() {
 		try {
 			bw.flush();
-		} catch (IOException _) {
+		} catch (IOException e) {
+			logger.error(e);
 		}
 	}
 
