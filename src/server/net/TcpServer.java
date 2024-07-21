@@ -1,8 +1,3 @@
-/**
- * TcpServer.java
- *
- * Copyright (c) 2014 人狼知能プロジェクト
- */
 package server.net;
 
 import java.io.BufferedReader;
@@ -32,14 +27,14 @@ import common.BRCallable;
 import common.data.Agent;
 import common.data.Request;
 import common.data.Role;
-import common.net.DataConverter;
+import common.data.Talk;
 import common.net.GameSetting;
 import common.net.Packet;
-import common.net.TalkToSend;
 import common.util.BidiMap;
 import server.GameData;
 import server.exception.IllegalPlayerNumException;
 import server.exception.LostClientException;
+import utility.parser.JSONParser;
 
 public class TcpServer implements GameServer {
 	private static final Logger logger = LogManager.getLogger(TcpServer.class);
@@ -140,15 +135,15 @@ public class TcpServer implements GameServer {
 				lastTalkIdxMap.clear();
 				lastWhisperIdxMap.clear();
 				Packet packet = new Packet(request, gameData.getGameInfoToSend(agent), gameSetting);
-				message = DataConverter.convert(packet);
+				message = JSONParser.encode(packet);
 			} else if (request == Request.DAILY_INITIALIZE) {
 				lastTalkIdxMap.clear();
 				lastWhisperIdxMap.clear();
 				Packet packet = new Packet(request, gameData.getGameInfoToSend(agent));
-				message = DataConverter.convert(packet);
+				message = JSONParser.encode(packet);
 			} else if (request == Request.NAME || request == Request.ROLE) {
 				Packet packet = new Packet(request);
-				message = DataConverter.convert(packet);
+				message = JSONParser.encode(packet);
 			} else if (request != Request.FINISH) {
 				// Packet packet = new Packet(request, gameData.getGameInfoToSend(agent),
 				// gameSetting);
@@ -156,30 +151,30 @@ public class TcpServer implements GameServer {
 				if (request == Request.VOTE && !gameData.getLatestVoteList().isEmpty()) {
 					// 追放再投票の場合，latestVoteListで直前の投票状況を知らせるためGameInfo入りのパケットにする
 					Packet packet = new Packet(request, gameData.getGameInfoToSend(agent));
-					message = DataConverter.convert(packet);
+					message = JSONParser.encode(packet);
 				} else if (request == Request.ATTACK && !gameData.getLatestAttackVoteList().isEmpty()) {
 					// 襲撃再投票の場合，latestAttackVoteListで直前の投票状況を知らせるためGameInfo入りのパケットにする
 					Packet packet = new Packet(request, gameData.getGameInfoToSend(agent));
-					message = DataConverter.convert(packet);
+					message = JSONParser.encode(packet);
 				} else if (gameData.getExecuted() != null
 						&& (request == Request.DIVINE || request == Request.GUARD || request == Request.WHISPER
 								|| request == Request.ATTACK)) {
 					// 追放後の各リクエストではlatestExecutedAgentで追放者を知らせるためGameInfo入りのパケットにする
 					Packet packet = new Packet(request, gameData.getGameInfoToSend(agent));
-					message = DataConverter.convert(packet);
+					message = JSONParser.encode(packet);
 				} else {
-					List<TalkToSend> talkList = gameData.getGameInfoToSend(agent).getTalkList();
-					List<TalkToSend> whisperList = gameData.getGameInfoToSend(agent).getWhisperList();
+					List<Talk> talkList = gameData.getGameInfoToSend(agent).getTalkList();
+					List<Talk> whisperList = gameData.getGameInfoToSend(agent).getWhisperList();
 
 					talkList = minimize(agent, talkList, lastTalkIdxMap);
 					whisperList = minimize(agent, whisperList, lastWhisperIdxMap);
 
 					Packet packet = new Packet(request, talkList, whisperList);
-					message = DataConverter.convert(packet);
+					message = JSONParser.encode(packet);
 				}
 			} else {
 				Packet packet = new Packet(request, gameData.getFinalGameInfoToSend(agent));
-				message = DataConverter.convert(packet);
+				message = JSONParser.encode(packet);
 			}
 
 			Socket sock = socketAgentMap.getKey(agent);
@@ -192,7 +187,7 @@ public class TcpServer implements GameServer {
 		}
 	}
 
-	protected List<TalkToSend> minimize(Agent agent, List<TalkToSend> list, Map<Agent, Integer> lastIdxMap) {
+	protected List<Talk> minimize(Agent agent, List<Talk> list, Map<Agent, Integer> lastIdxMap) {
 		int lastIdx = list.size();
 		if (lastIdxMap.containsKey(agent) && list.size() >= lastIdxMap.get(agent)) {
 			list = list.subList(lastIdxMap.get(agent), list.size());
@@ -235,7 +230,7 @@ public class TcpServer implements GameServer {
 				return line;
 			} else if (request == Request.ATTACK || request == Request.DIVINE || request == Request.GUARD
 					|| request == Request.VOTE) {
-				Agent target = DataConverter.toAgent(line);
+				Agent target = JSONParser.decode(line, Agent.class);
 				if (gameData.contains(target)) {
 					return target;
 				} else {

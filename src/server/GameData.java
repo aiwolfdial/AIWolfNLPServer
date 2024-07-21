@@ -22,8 +22,6 @@ import common.net.GameInfo;
 import common.net.GameInfoToSend;
 import common.net.GameSetting;
 import common.net.JudgeToSend;
-import common.net.TalkToSend;
-import common.net.VoteToSend;
 
 /**
  * Record game information of a day
@@ -218,9 +216,9 @@ public class GameData {
 			gi.setAgent(agent.getAgentIdx());
 		}
 		if (gameSetting.isVoteVisible()) {
-			List<VoteToSend> latestVoteList = new ArrayList<>();
+			List<Vote> latestVoteList = new ArrayList<>();
 			for (Vote vote : getLatestVoteList()) {
-				latestVoteList.add(new VoteToSend(vote));
+				latestVoteList.add(vote);
 			}
 			gi.setLatestVoteList(latestVoteList);
 		}
@@ -228,9 +226,9 @@ public class GameData {
 			gi.setLatestExecutedAgent(getExecuted().getAgentIdx());
 		}
 		if (agent == null || getRole(agent) == Role.WEREWOLF) {
-			List<VoteToSend> latestAttackVoteList = new ArrayList<>();
+			List<Vote> latestAttackVoteList = new ArrayList<>();
 			for (Vote vote : getLatestAttackVoteList()) {
-				latestAttackVoteList.add(new VoteToSend(vote));
+				latestAttackVoteList.add(vote);
 			}
 			gi.setLatestAttackVoteList(latestAttackVoteList);
 		}
@@ -250,9 +248,9 @@ public class GameData {
 			gi.setLastDeadAgentList(lastDeadAgentList);
 
 			if (gameSetting.isVoteVisible()) {
-				List<VoteToSend> voteList = new ArrayList<>();
+				List<Vote> voteList = new ArrayList<>();
 				for (Vote vote : yesterday.getVoteList()) {
-					voteList.add(new VoteToSend(vote));
+					voteList.add(vote);
 				}
 				gi.setVoteList(voteList);
 			}
@@ -276,9 +274,9 @@ public class GameData {
 					gi.setAttackedAgent(attacked.getAgentIdx());
 				}
 
-				List<VoteToSend> attackVoteList = new ArrayList<>();
+				List<Vote> attackVoteList = new ArrayList<>();
 				for (Vote vote : yesterday.getAttackVoteList()) {
-					attackVoteList.add(new VoteToSend(vote));
+					attackVoteList.add(vote);
 				}
 				gi.setAttackVoteList(attackVoteList);
 			}
@@ -294,9 +292,9 @@ public class GameData {
 				}
 			}
 		}
-		List<TalkToSend> talkList = new ArrayList<>();
+		List<Talk> talkList = new ArrayList<>();
 		for (Talk talk : today.getTalkList()) {
-			talkList.add(new TalkToSend(talk));
+			talkList.add(talk);
 		}
 		gi.setTalkList(talkList);
 
@@ -330,9 +328,9 @@ public class GameData {
 		gi.setRemainWhisperMap(remainWhisperMap);
 
 		if (role == Role.WEREWOLF || agent == null) {
-			List<TalkToSend> whisperList = new ArrayList<>();
+			List<Talk> whisperList = new ArrayList<>();
 			for (Talk talk : today.getWhisperList()) {
-				whisperList.add(new TalkToSend(talk));
+				whisperList.add(talk);
 			}
 			gi.setWhisperList(whisperList);
 		}

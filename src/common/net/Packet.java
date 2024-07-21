@@ -4,13 +4,14 @@ package common.net;
 import java.util.List;
 
 import common.data.Request;
+import common.data.Talk;
 
 public class Packet {
 	Request request;
 	GameInfoToSend gameInfo;
 	GameSetting gameSetting;
-	List<TalkToSend> talkHistory;
-	List<TalkToSend> whisperHistory;
+	List<Talk> talkHistory;
+	List<Talk> whisperHistory;
 
 	public Packet(Request request) {
 		this.request = request;
@@ -27,7 +28,7 @@ public class Packet {
 		this.gameSetting = gameSetting;
 	}
 
-	public Packet(Request request, List<TalkToSend> talkHistory, List<TalkToSend> whisperHistory) {
+	public Packet(Request request, List<Talk> talkHistory, List<Talk> whisperHistory) {
 		this.request = request;
 		this.talkHistory = talkHistory;
 		this.whisperHistory = whisperHistory;
@@ -45,11 +46,11 @@ public class Packet {
 		return gameSetting;
 	}
 
-	public List<TalkToSend> getTalkHistory() {
+	public List<Talk> getTalkHistory() {
 		return talkHistory;
 	}
 
-	public List<TalkToSend> getWhisperHistory() {
+	public List<Talk> getWhisperHistory() {
 		return whisperHistory;
 	}
 }

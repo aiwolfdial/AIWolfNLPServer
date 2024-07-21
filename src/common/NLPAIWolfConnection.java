@@ -14,11 +14,11 @@ import java.util.concurrent.TimeUnit;
 import common.data.Agent;
 import common.data.Request;
 import common.data.Role;
-import common.net.DataConverter;
 import common.net.Packet;
 import common.util.Pair;
 import server.exception.LostClientException;
 import server.utility.FileGameLogger;
+import utility.parser.JSONParser;
 
 public class NLPAIWolfConnection {
 	// エラーログ内のメッセージ
@@ -43,7 +43,7 @@ public class NLPAIWolfConnection {
 			ExecutorService pool = Executors.newSingleThreadExecutor();
 			// clientにrequestを送信し、結果を受け取る
 			BufferedWriter bw = getBufferedWriter();
-			bw.append(DataConverter.convert(new Packet(Request.NAME)));
+			bw.append(JSONParser.encode(new Packet(Request.NAME)));
 			bw.append("\n");
 			bw.flush();
 

@@ -9,6 +9,8 @@ import java.util.Map;
 import common.data.Agent;
 import common.data.Role;
 import common.data.Status;
+import common.data.Talk;
+import common.data.Vote;
 
 public class GameInfoToSend {
 	int day;
@@ -21,13 +23,13 @@ public class GameInfoToSend {
 	int attackedAgent = -1;
 	int cursedFox = -1;
 	int guardedAgent = -1;
-	List<VoteToSend> voteList;
-	List<VoteToSend> latestVoteList;
-	List<VoteToSend> attackVoteList;
-	List<VoteToSend> latestAttackVoteList;
+	List<Vote> voteList;
+	List<Vote> latestVoteList;
+	List<Vote> attackVoteList;
+	List<Vote> latestAttackVoteList;
 
-	List<TalkToSend> talkList;
-	List<TalkToSend> whisperList;
+	List<Talk> talkList;
+	List<Talk> whisperList;
 
 	Map<Integer, String> statusMap;
 	LinkedHashMap<Integer, String> roleMap;
@@ -80,27 +82,27 @@ public class GameInfoToSend {
 		this.guardedAgent = guardedAgent;
 	}
 
-	public void setVoteList(List<VoteToSend> voteList) {
+	public void setVoteList(List<Vote> voteList) {
 		this.voteList = voteList;
 	}
 
-	public void setAttackVoteList(List<VoteToSend> attackVoteList) {
+	public void setAttackVoteList(List<Vote> attackVoteList) {
 		this.attackVoteList = attackVoteList;
 	}
 
-	public List<TalkToSend> getTalkList() {
+	public List<Talk> getTalkList() {
 		return talkList;
 	}
 
-	public void setTalkList(List<TalkToSend> talkList) {
+	public void setTalkList(List<Talk> talkList) {
 		this.talkList = talkList;
 	}
 
-	public List<TalkToSend> getWhisperList() {
+	public List<Talk> getWhisperList() {
 		return whisperList;
 	}
 
-	public void setWhisperList(List<TalkToSend> whisperList) {
+	public void setWhisperList(List<Talk> whisperList) {
 		this.whisperList = whisperList;
 	}
 
@@ -148,29 +150,29 @@ public class GameInfoToSend {
 		gi.guardedAgent = Agent.getAgent(guardedAgent);
 
 		gi.voteList = new ArrayList<>();
-		for (VoteToSend vote : voteList) {
-			gi.voteList.add(vote.toVote());
+		for (Vote vote : voteList) {
+			gi.voteList.add(vote);
 		}
 		gi.latestVoteList = new ArrayList<>();
-		for (VoteToSend vote : latestVoteList) {
-			gi.latestVoteList.add(vote.toVote());
+		for (Vote vote : latestVoteList) {
+			gi.latestVoteList.add(vote);
 		}
 		gi.attackVoteList = new ArrayList<>();
-		for (VoteToSend vote : attackVoteList) {
-			gi.attackVoteList.add(vote.toVote());
+		for (Vote vote : attackVoteList) {
+			gi.attackVoteList.add(vote);
 		}
 		gi.latestAttackVoteList = new ArrayList<>();
-		for (VoteToSend vote : latestAttackVoteList) {
-			gi.latestAttackVoteList.add(vote.toVote());
+		for (Vote vote : latestAttackVoteList) {
+			gi.latestAttackVoteList.add(vote);
 		}
 
 		gi.talkList = new ArrayList<>();
-		for (TalkToSend talk : this.getTalkList()) {
-			gi.talkList.add(talk.toTalk());
+		for (Talk talk : this.getTalkList()) {
+			gi.talkList.add(talk);
 		}
 		gi.whisperList = new ArrayList<>();
-		for (TalkToSend whisper : this.getWhisperList()) {
-			gi.whisperList.add(whisper.toTalk());
+		for (Talk whisper : this.getWhisperList()) {
+			gi.whisperList.add(whisper);
 		}
 
 		gi.lastDeadAgentList = new ArrayList<>();
@@ -203,11 +205,11 @@ public class GameInfoToSend {
 		return gi;
 	}
 
-	public void setLatestVoteList(List<VoteToSend> latestVoteList) {
+	public void setLatestVoteList(List<Vote> latestVoteList) {
 		this.latestVoteList = latestVoteList;
 	}
 
-	public void setLatestAttackVoteList(List<VoteToSend> latestAttackVoteList) {
+	public void setLatestAttackVoteList(List<Vote> latestAttackVoteList) {
 		this.latestAttackVoteList = latestAttackVoteList;
 	}
 

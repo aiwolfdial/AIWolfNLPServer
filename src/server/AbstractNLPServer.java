@@ -20,13 +20,13 @@ import common.GameConfiguration;
 import common.NLPAIWolfConnection;
 import common.data.Agent;
 import common.data.Request;
-import common.net.DataConverter;
+import common.data.Talk;
 import common.net.GameSetting;
 import common.net.Packet;
-import common.net.TalkToSend;
 import common.util.BidiMap;
 import server.exception.LostClientException;
 import server.net.GameServer;
+import utility.parser.JSONParser;
 
 /**
  *
@@ -114,7 +114,7 @@ public abstract class AbstractNLPServer implements GameServer {
 		// 返す内容の決定
 		return switch (request) {
 			case TALK, NAME, ROLE, WHISPER -> line;
-			case ATTACK, DIVINE, GUARD, VOTE -> DataConverter.toAgent(line);
+			case ATTACK, DIVINE, GUARD, VOTE -> JSONParser.decode(line, Agent.class);
 			default -> null;
 		};
 	}
@@ -179,14 +179,14 @@ public abstract class AbstractNLPServer implements GameServer {
 		if (flag)
 			packet = new Packet(request, gameData.getGameInfoToSend(agent));
 		if (packet != null)
-			return DataConverter.convert(packet);
+			return JSONParser.encode(packet);
 
-		List<TalkToSend> talkList = gameData.getGameInfoToSend(agent).getTalkList();
-		List<TalkToSend> whisperList = gameData.getGameInfoToSend(agent).getWhisperList();
+		List<Talk> talkList = gameData.getGameInfoToSend(agent).getTalkList();
+		List<Talk> whisperList = gameData.getGameInfoToSend(agent).getWhisperList();
 		talkList = minimize(agent, talkList, lastTalkIdxMap);
 		whisperList = minimize(agent, whisperList, lastWhisperIdxMap);
 		packet = new Packet(request, talkList, whisperList);
-		return DataConverter.convert(packet);
+		return JSONParser.encode(packet);
 	}
 
 	public String getName(Agent agent) {
@@ -214,7 +214,7 @@ public abstract class AbstractNLPServer implements GameServer {
 	 * @param lastIdxMap
 	 * @return
 	 */
-	protected List<TalkToSend> minimize(Agent agent, List<TalkToSend> list, Map<Agent, Integer> lastIdxMap) {
+	protected List<Talk> minimize(Agent agent, List<Talk> list, Map<Agent, Integer> lastIdxMap) {
 		int lastIdx = list.size();
 		if (lastIdxMap.containsKey(agent) && list.size() >= lastIdxMap.get(agent)) {
 			list = list.subList(lastIdxMap.get(agent), list.size());
