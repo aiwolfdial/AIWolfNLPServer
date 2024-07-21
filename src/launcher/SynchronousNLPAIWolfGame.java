@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import core.AIWolfGame;
 import core.GameConfiguration;
 import core.GameData;
@@ -20,6 +23,8 @@ import core.model.Agent;
 import core.packet.GameSetting;
 
 public class SynchronousNLPAIWolfGame extends AIWolfGame {
+	private static final Logger logger = LogManager.getLogger(SynchronousNLPAIWolfGame.class);
+
 	private static final String DEFAULT_INI_PATH = "./config/AIWolfGameServer.ini";
 
 	public SynchronousNLPAIWolfGame(GameSetting gameSetting, GameServer gameServer) {
@@ -82,7 +87,7 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 
 			bufferReader.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 
 		return false;
@@ -124,7 +129,7 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 			fileWriter.write(saveText);
 			fileWriter.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 
@@ -152,7 +157,7 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 
 			super.start();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 

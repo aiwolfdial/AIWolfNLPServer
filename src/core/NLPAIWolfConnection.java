@@ -11,6 +11,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import core.exception.LostAgentConnectionException;
 import core.model.Agent;
 import core.model.Request;
@@ -22,6 +25,8 @@ import libs.Pair;
 import utils.JsonParser;
 
 public class NLPAIWolfConnection {
+	private static final Logger logger = LogManager.getLogger(NLPAIWolfConnection.class);
+
 	private static final String LOST_CONNECTION_MESSAGE = "%s(%s:%s)_[Request:%s] lostConnection";
 
 	private boolean isAlive;
@@ -58,8 +63,9 @@ public class NLPAIWolfConnection {
 
 			this.name = (line == null || line.isEmpty()) ? null : line;
 		} catch (Exception e) {
-			if (isAlive)
-				e.printStackTrace();
+			if (isAlive) {
+				logger.error(e);
+			}
 			catchException(agent, e, Request.NAME);
 		}
 		return name;
@@ -74,7 +80,7 @@ public class NLPAIWolfConnection {
 			this.bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			this.config = config;
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 
@@ -137,7 +143,7 @@ public class NLPAIWolfConnection {
 			this.bw.close();
 			this.socket.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 

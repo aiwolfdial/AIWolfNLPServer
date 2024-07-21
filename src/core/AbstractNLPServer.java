@@ -15,6 +15,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import core.exception.LostAgentConnectionException;
 import core.model.Agent;
 import core.model.Request;
@@ -26,6 +29,8 @@ import libs.CallableBufferedReader;
 import utils.JsonParser;
 
 public abstract class AbstractNLPServer implements GameServer {
+	private static final Logger logger = LogManager.getLogger(AbstractNLPServer.class);
+
 	// ゲーム設定
 	protected GameSetting gameSetting;
 
@@ -52,7 +57,7 @@ public abstract class AbstractNLPServer implements GameServer {
 	protected Object catchException(Agent agent, Request request, Exception e) throws LostAgentConnectionException {
 		NLPAIWolfConnection connection = allAgentConnectionMap.get(agent);
 		if (connection.isAlive()) {
-			e.printStackTrace();
+			logger.error(e);
 			connection.catchException(agent, e, request);
 		}
 		if (config.isContinueExceptionAgent())

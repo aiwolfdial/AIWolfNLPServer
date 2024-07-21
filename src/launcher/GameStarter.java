@@ -5,9 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import core.GameConfiguration;
 
 public class GameStarter extends Thread {
+	private static final Logger logger = LogManager.getLogger(GameStarter.class);
+
 	private final List<NLPGameBuilder> gameList = new ArrayList<>();
 	private final Queue<List<Socket>> socketQue;
 	private final GameConfiguration config;
@@ -36,7 +41,7 @@ public class GameStarter extends Thread {
 			try {
 				Thread.sleep(1000L);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 		}
 	}

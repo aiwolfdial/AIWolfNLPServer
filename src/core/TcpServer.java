@@ -330,14 +330,14 @@ public class TcpServer implements GameServer {
 			if (serverSocket != null && !serverSocket.isClosed()) {
 				serverSocket.close();
 			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			logger.error(e);
 		}
 		for (Socket socket : socketAgentMap.keySet()) {
 			try {
 				socket.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 		}
 		socketAgentMap.clear();

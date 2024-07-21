@@ -79,7 +79,7 @@ public class NLPGameBuilder extends Thread {
 			try {
 				entry.getValue().getSocket().close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 		}
 	}
