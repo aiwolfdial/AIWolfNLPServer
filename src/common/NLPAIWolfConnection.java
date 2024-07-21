@@ -17,8 +17,8 @@ import common.data.Role;
 import common.net.DataConverter;
 import common.net.Packet;
 import common.util.Pair;
-import server.LostClientException;
-import server.util.FileGameLogger;
+import server.exception.LostClientException;
+import server.utility.FileGameLogger;
 
 public class NLPAIWolfConnection {
 	// エラーログ内のメッセージ

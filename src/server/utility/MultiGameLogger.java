@@ -1,4 +1,4 @@
-package server.util;
+package server.utility;
 
 import java.util.Collections;
 import java.util.HashSet;

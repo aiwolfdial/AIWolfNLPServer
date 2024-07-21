@@ -25,6 +25,7 @@ import common.net.GameSetting;
 import common.net.Packet;
 import common.net.TalkToSend;
 import common.util.BidiMap;
+import server.exception.LostClientException;
 import server.net.GameServer;
 
 /**

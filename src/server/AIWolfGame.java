@@ -32,9 +32,11 @@ import common.data.Team;
 import common.data.Vote;
 import common.net.GameSetting;
 import common.util.Counter;
+import server.exception.IllegalPlayerNumException;
+import server.exception.LostClientException;
 import server.net.GameServer;
-import server.util.FileGameLogger;
-import server.util.GameLogger;
+import server.utility.FileGameLogger;
+import server.utility.GameLogger;
 
 /**
  * Game Class of AI Wolf Contest

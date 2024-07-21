@@ -40,8 +40,8 @@ import common.net.Packet;
 import common.net.TalkToSend;
 import common.util.BidiMap;
 import server.GameData;
-import server.IllegalPlayerNumException;
-import server.LostClientException;
+import server.exception.IllegalPlayerNumException;
+import server.exception.LostClientException;
 
 /**
  * Game server which communicates with clients via Tcp/IP connections.

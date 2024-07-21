@@ -1,4 +1,4 @@
-package server.util;
+package server.utility;
 
 import java.io.BufferedWriter;
 import java.io.File;

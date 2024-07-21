@@ -1,6 +1,6 @@
 package common;
 
-import util.Configuration;
+import utility.Configuration;
 
 public class GameConfiguration {
     public enum HumanRole {

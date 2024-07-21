@@ -2,7 +2,7 @@ package automatic;
 
 import java.io.IOException;
 
-import util.Configuration;
+import utility.Configuration;
 
 public class AutomaticStarterConfiguration {
 	private String hostname;

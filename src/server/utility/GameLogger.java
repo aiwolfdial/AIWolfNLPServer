@@ -1,4 +1,4 @@
-package server.util;
+package server.utility;
 
 public interface GameLogger {
 	void log(String log);
