@@ -36,7 +36,6 @@ import server.exception.IllegalPlayerNumException;
 import server.exception.LostClientException;
 import server.net.GameServer;
 import server.utility.FileGameLogger;
-import server.utility.GameLogger;
 
 /**
  * Game Class of AI Wolf Contest
@@ -77,7 +76,7 @@ public class AIWolfGame {
 	/**
 	 * Logger
 	 */
-	protected GameLogger gameLogger;
+	protected FileGameLogger gameLogger;
 
 	/**
 	 * Name of Agents
@@ -118,14 +117,14 @@ public class AIWolfGame {
 	 * 
 	 * @param gameLogger
 	 */
-	public void setGameLogger(GameLogger gameLogger) {
+	public void setGameLogger(FileGameLogger gameLogger) {
 		this.gameLogger = gameLogger;
 	}
 
 	/**
 	 * get GameLogger
 	 */
-	public GameLogger getGameLogger() {
+	public FileGameLogger getGameLogger() {
 		return this.gameLogger;
 	}
 
