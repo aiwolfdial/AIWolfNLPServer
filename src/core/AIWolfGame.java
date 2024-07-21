@@ -43,6 +43,7 @@ public class AIWolfGame {
 		rand = new Random();
 		this.gameSetting = gameSetting;
 		this.gameServer = gameServer;
+		gameData = new GameData(gameSetting);
 	}
 
 	public void setGameLogger(FileGameLogger gameLogger) {
@@ -51,7 +52,6 @@ public class AIWolfGame {
 
 	protected void init() {
 		gameDataMap = new TreeMap<>();
-		gameData = new GameData(gameSetting);
 		agentNameMap = new HashMap<>();
 		gameServer.setGameData(gameData);
 
