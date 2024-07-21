@@ -105,7 +105,7 @@ public class GameServer {
 			try {
 				// 短いタイムアウト内にレスポンスを取得
 				String line = getResponse(connection, pool, agent, request, Math.min(responseTimeout, actionTimeout));
-				if (line.equals(Talk.FORCE_SKIP)) {
+				if (line != null && line.equals(Talk.FORCE_SKIP)) {
 					line = Talk.SKIP;
 				}
 				return convertRequestData(request, line);
