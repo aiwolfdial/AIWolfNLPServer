@@ -55,22 +55,6 @@ public class NLPServerStarter {
 
 	private boolean isRunning = false;
 
-	public static void main(String[] args) {
-		logger.info("NLPServerStarter started.");
-		String configPath = DEFAULT_CONFIG_PATH;
-		if (args.length > 0) {
-			configPath = args[0];
-		}
-		logger.info(String.format("Config file path: %s", configPath));
-		NLPServerStarter starter;
-		try {
-			starter = new NLPServerStarter(configPath);
-			starter.start();
-		} catch (Exception e) {
-			logger.error(e);
-		}
-	}
-
 	public NLPServerStarter() throws Exception {
 		this.config = GameConfiguration.load(DEFAULT_CONFIG_PATH);
 	}
