@@ -225,7 +225,7 @@ public class GameServer {
 			return JsonParser.encode(packet);
 
 		List<Talk> talkList = gameData.getTalkList();
-		List<Talk> whisperList = gameData.getGameInfo(agent).getWhisperList();
+		List<Talk> whisperList = gameData.getGameInfo(agent).whisperList;
 		talkList = minimize(agent, talkList, lastTalkIdxMap);
 		whisperList = minimize(agent, whisperList, lastWhisperIdxMap);
 		packet = new Packet(request, talkList, whisperList);

@@ -56,59 +56,59 @@ public class GameData {
 		Role role = getRole(agent);
 
 		if (gameSetting.isVoteVisible()) {
-			gameInfo.setLatestVoteList(latestVoteList);
+			gameInfo.latestVoteList = latestVoteList;
 		}
 		if (executed != null) {
-			gameInfo.setLatestExecutedAgent(executed);
+			gameInfo.latestExecutedAgent = executed;
 		}
 		if (agent == null || role == Role.WEREWOLF) {
-			gameInfo.setLatestAttackVoteList(latestAttackVoteList);
+			gameInfo.latestAttackVoteList = latestAttackVoteList;
 		}
 
 		GameData yesterday = today.getDayBefore();
 		if (yesterday != null) {
 			if (yesterday.getExecuted() != null) {
-				gameInfo.setExecutedAgent(yesterday.getExecuted());
+				gameInfo.executedAgent = yesterday.getExecuted();
 			}
-			gameInfo.setLastDeadAgentList(yesterday.getLastDeadAgentList());
+			gameInfo.lastDeadAgentList = yesterday.getLastDeadAgentList();
 			if (gameSetting.isVoteVisible()) {
-				gameInfo.setVoteList(yesterday.getVoteList());
+				gameInfo.voteList = yesterday.getVoteList();
 			}
 			if (agent != null && today.getRole(agent) == Role.MEDIUM && executed != null) {
-				gameInfo.setMediumResult(new Judge(day, agent, executed, yesterday.getRole(executed).getSpecies()));
+				gameInfo.mediumResult = new Judge(day, agent, executed, yesterday.getRole(executed).getSpecies());
 			}
 			if (agent == null || today.getRole(agent) == Role.SEER) {
 				Judge divine = yesterday.getDivine();
 				if (divine != null && divine.getTarget() != null) {
-					gameInfo.setDivineResult(new Judge(day, divine.getAgent(), divine.getTarget(),
-							yesterday.getRole(divine.getTarget()).getSpecies()));
+					gameInfo.divineResult = new Judge(day, divine.getAgent(), divine.getTarget(),
+							yesterday.getRole(divine.getTarget()).getSpecies());
 				}
 			}
 			if (agent == null || today.getRole(agent) == Role.WEREWOLF) {
 				if (yesterday.getAttacked() != null) {
-					gameInfo.setAttackedAgent(yesterday.getAttacked());
+					gameInfo.attackedAgent = yesterday.getAttacked();
 				}
-				gameInfo.setAttackVoteList(yesterday.getAttackVoteList());
+				gameInfo.attackVoteList = yesterday.getAttackVoteList();
 			}
 			if (agent == null || today.getRole(agent) == Role.BODYGUARD) {
 				if (yesterday.getGuard() != null) {
-					gameInfo.setGuardedAgent(yesterday.getGuard().getTarget());
+					gameInfo.guardedAgent = yesterday.getGuard().getTarget();
 				}
 			}
 			if (agent == null) {
 				if (yesterday.cursedFox != null) {
-					gameInfo.setCursedFox(yesterday.cursedFox);
+					gameInfo.cursedFox = yesterday.cursedFox;
 				}
 			}
 		}
-		gameInfo.setTalkList(today.getTalkList());
-		gameInfo.setStatusMap(agentStatusMap);
-		gameInfo.setExistingRoleList(new ArrayList<>(new TreeSet<>(agentRoleMap.values())));
-		gameInfo.setRemainTalkMap(remainTalkMap);
-		gameInfo.setRemainWhisperMap(remainWhisperMap);
+		gameInfo.talkList = today.getTalkList();
+		gameInfo.statusMap = agentStatusMap;
+		gameInfo.existingRoleList = new ArrayList<>(new TreeSet<>(agentRoleMap.values()));
+		gameInfo.remainTalkMap = remainTalkMap;
+		gameInfo.remainWhisperMap = remainWhisperMap;
 
 		if (role == Role.WEREWOLF || agent == null) {
-			gameInfo.setWhisperList(today.getWhisperList());
+			gameInfo.whisperList = today.getWhisperList();
 		}
 
 		Map<Agent, Role> roleMap = new LinkedHashMap<>();
@@ -129,14 +129,14 @@ public class GameData {
 				}
 			}
 		}
-		gameInfo.setRoleMap(roleMap);
-		gameInfo.setRemainTalkMap(remainTalkMap);
+		gameInfo.roleMap = roleMap;
+		gameInfo.remainTalkMap = remainTalkMap;
 		return gameInfo;
 	}
 
 	public GameInfo getFinalGameInfo(Agent agent) {
 		GameInfo gameInfo = getGameInfo(agent);
-		gameInfo.setRoleMap(agentRoleMap);
+		gameInfo.roleMap = agentRoleMap;
 		return gameInfo;
 	}
 
