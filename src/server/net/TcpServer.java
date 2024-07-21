@@ -31,8 +31,8 @@ import common.data.Talk;
 import common.net.GameSetting;
 import common.net.Packet;
 import server.GameData;
-import server.exception.IllegalPlayerNumException;
-import server.exception.LostClientException;
+import server.exception.IllegalPlayerNumberException;
+import server.exception.LostAgentConnectionException;
 import utility.BidiMap;
 import utility.parser.JsonParser;
 
@@ -107,7 +107,7 @@ public class TcpServer implements GameServer {
 					}
 				}
 				if (agent == null) {
-					throw new IllegalPlayerNumException("Fail to create agent");
+					throw new IllegalPlayerNumberException("Fail to create agent");
 				}
 				socketAgentMap.put(socket, agent);
 				String name = requestName(agent);
@@ -183,7 +183,7 @@ public class TcpServer implements GameServer {
 			bw.append("\n");
 			bw.flush();
 		} catch (IOException e) {
-			throw new LostClientException(e, agent);
+			throw new LostAgentConnectionException(e, agent);
 		}
 	}
 
@@ -241,10 +241,9 @@ public class TcpServer implements GameServer {
 			}
 
 		} catch (InterruptedException | ExecutionException | IOException e) {
-			throw new LostClientException("Lost connection with " + agent + "\t" + nameMap.get(agent), e, agent);
+			throw new LostAgentConnectionException(e, agent);
 		} catch (TimeoutException e) {
-			throw new LostClientException(String.format("Timeout %s(%s) %s", agent,
-					nameMap.get(agent), request), e, agent);
+			throw new LostAgentConnectionException("Lost agent connection by timeout", e, agent);
 		}
 	}
 

@@ -5,8 +5,6 @@
  */
 package server;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,115 +28,33 @@ import common.data.Talk;
 import common.data.Team;
 import common.data.Vote;
 import common.net.GameSetting;
-import server.exception.IllegalPlayerNumException;
-import server.exception.LostClientException;
+import server.exception.IllegalPlayerNumberException;
+import server.exception.LostAgentConnectionException;
 import server.net.GameServer;
 import utility.Counter;
 import utility.FileGameLogger;
 
-/**
- * Game Class of AI Wolf Contest
- * 
- * @author tori and otsuki
- *
- */
 public class AIWolfGame {
 	private static final Logger logger = LogManager.getLogger(AIWolfGame.class);
 
-	protected Random rand;
-
-	/**
-	 * Settings of the game
-	 */
+	protected Random rand = new Random();
 	protected GameSetting gameSetting;
-
-	/**
-	 * server to connect clients
-	 */
 	protected GameServer gameServer;
-
-	/**
-	 *
-	 */
 	protected Map<Integer, GameData> gameDataMap;
-
-	/**
-	 *
-	 */
 	protected GameData gameData;
-
-	/**
-	 * ログを記録するファイル
-	 */
-	// protected File logFile;
-
-	/**
-	 * Logger
-	 */
 	protected FileGameLogger gameLogger;
-
-	/**
-	 * Name of Agents
-	 */
 	protected Map<Agent, String> agentNameMap;
 
-	/**
-	 *
-	 */
 	public AIWolfGame(GameSetting gameSetting, GameServer gameServer) {
 		rand = new Random();
 		this.gameSetting = gameSetting;
 		this.gameServer = gameServer;
-
-		// gameLogger =
-		// AiWolfLoggerFactory.getSimpleLogger(this.getClass().getSimpleName());
 	}
 
-	/**
-	 * @return logFile
-	 */
-	// public File getLogFile() {
-	// return logFile;
-	// }
-
-	/**
-	 * @param logFile
-	 *            セットする logFile
-	 * @throws IOException
-	 */
-	public void setLogFile(File logFile) throws IOException {
-		// this.logFile = logFile;
-		gameLogger = new FileGameLogger(logFile);
-	}
-
-	/**
-	 * set GameLogger
-	 * 
-	 * @param gameLogger
-	 */
 	public void setGameLogger(FileGameLogger gameLogger) {
 		this.gameLogger = gameLogger;
 	}
 
-	/**
-	 * get GameLogger
-	 */
-	public FileGameLogger getGameLogger() {
-		return this.gameLogger;
-	}
-
-	/**
-	 * Set Random Class
-	 * 
-	 * @param rand
-	 */
-	public void setRand(Random rand) {
-		this.rand = rand;
-	}
-
-	/**
-	 * Initialize Game
-	 */
 	protected void init() {
 		gameDataMap = new TreeMap<>();
 		gameData = new GameData(gameSetting);
@@ -148,7 +64,7 @@ public class AIWolfGame {
 		List<Agent> agentList = gameServer.getConnectedAgentList();
 
 		if (agentList.size() != gameSetting.getPlayerNum()) {
-			throw new IllegalPlayerNumException(
+			throw new IllegalPlayerNumberException(
 					"Player num is " + gameSetting.getPlayerNum() + " but connected agent is " + agentList.size());
 		}
 
@@ -215,7 +131,7 @@ public class AIWolfGame {
 			consoleLog();
 			finish();
 			logger.info(String.format("Winner: %s", getWinner()));
-		} catch (LostClientException e) {
+		} catch (LostAgentConnectionException e) {
 			if (gameLogger != null) {
 				gameLogger.log("Lost Connection of " + e.getAgent());
 			}
@@ -237,21 +153,8 @@ public class AIWolfGame {
 		for (Agent agent : gameData.getAgentList()) {
 			gameServer.finish(agent);
 		}
-		/*
-		 * try {
-		 * Thread.sleep(1000);
-		 * } catch (InterruptedException e) {
-		 * e.printStackTrace();
-		 * }
-		 */
 	}
 
-	/**
-	 * Get won team.
-	 * if game not finished, return null
-	 * 
-	 * @return
-	 */
 	public Team getWinner() {
 		int humanSide = 0;
 		int wolfSide = 0;
@@ -283,7 +186,6 @@ public class AIWolfGame {
 		} else {
 			return null;
 		}
-
 	}
 
 	private void consoleLog() {
@@ -372,9 +274,6 @@ public class AIWolfGame {
 		}
 	}
 
-	/**
-	 *
-	 */
 	protected void night() {
 		for (Agent agent : getGameData().getAgentList()) {
 			gameServer.dayFinish(agent);
@@ -384,7 +283,6 @@ public class AIWolfGame {
 			whisper();
 		}
 
-		// Vote and execute except day 0
 		Agent executed = null;
 		List<Agent> candidates = null;
 		if (gameData.getDay() != 0) {
@@ -411,14 +309,12 @@ public class AIWolfGame {
 			}
 		}
 
-		// every day
 		divine();
 
 		if (gameData.getDay() != 0) {
 			whisper();
 			guard();
 
-			// attackVote and attack except day 0
 			Agent attacked = null;
 			if (!getAliveWolfList().isEmpty()) {
 				for (int i = 0; i <= gameSetting.getMaxAttackRevote(); i++) {
@@ -479,14 +375,8 @@ public class AIWolfGame {
 		gameData = gameData.nextDay();
 		gameDataMap.put(gameData.getDay(), gameData);
 		gameServer.setGameData(gameData);
-
 	}
 
-	/**
-	 *
-	 * @param voteList
-	 * @return
-	 */
 	protected List<Agent> getVotedCandidates(List<Vote> voteList) {
 		Counter<Agent> counter = new Counter<>();
 		for (Vote vote : voteList) {
@@ -505,11 +395,6 @@ public class AIWolfGame {
 		return candidateList;
 	}
 
-	/**
-	 *
-	 * @param voteList
-	 * @return
-	 */
 	protected List<Agent> getAttackVotedCandidates(List<Vote> voteList) {
 		Counter<Agent> counter = new Counter<>();
 		for (Vote vote : voteList) {
@@ -534,9 +419,6 @@ public class AIWolfGame {
 		return candidateList;
 	}
 
-	/**
-	 *
-	 */
 	protected void dayStart() {
 		if (gameLogger != null) {
 			for (Agent agent : new TreeSet<>(gameData.getAgentList())) {
@@ -550,9 +432,6 @@ public class AIWolfGame {
 		}
 	}
 
-	/**
-	 * 
-	 */
 	protected void talk() {
 		List<Agent> aliveList = getAliveAgentList();
 		for (Agent agent : aliveList) {
@@ -604,7 +483,6 @@ public class AIWolfGame {
 
 	protected void whisper() {
 		List<Agent> aliveWolfList = gameData.getFilteredAgentList(getAliveAgentList(), Role.WEREWOLF);
-		// No whisper in case of lonely wolf.
 		if (aliveWolfList.size() == 1) {
 			return;
 		}
@@ -652,12 +530,6 @@ public class AIWolfGame {
 		}
 	}
 
-	/**
-	 * <div lang="ja">投票</div>
-	 *
-	 * <div lang="en">Vote</div>
-	 *
-	 */
 	protected void vote() {
 		gameData.getVoteList().clear();
 		List<Agent> voters = getAliveAgentList();
@@ -682,21 +554,16 @@ public class AIWolfGame {
 		}
 	}
 
-	/**
-	 *
-	 */
 	protected void divine() {
 		for (Agent agent : getAliveAgentList()) {
 			if (gameData.getRole(agent) == Role.SEER) {
 				Agent target = gameServer.requestDivineTarget(agent);
 				Role targetRole = gameData.getRole(target);
 				if (gameData.getStatus(target) == Status.DEAD || target == null || targetRole == null) {
-					// target = getRandomAgent(agentList, agent);
 				} else {
 					Judge divine = new Judge(gameData.getDay(), agent, target, targetRole.getSpecies());
 					gameData.setDivine(divine);
 
-					// FOX
 					if (gameData.getRole(target) == Role.FOX) {
 						gameData.addLastDeadAgent(target);
 						gameData.setCursedFox(target);
@@ -711,9 +578,6 @@ public class AIWolfGame {
 		}
 	}
 
-	/**
-	 *
-	 */
 	protected void guard() {
 		for (Agent agent : getAliveAgentList()) {
 			if (gameData.getRole(agent) == Role.BODYGUARD) {
@@ -742,7 +606,6 @@ public class AIWolfGame {
 			Agent target = gameServer.requestAttackTarget(agent);
 			if (target == null || gameData.getStatus(target) == null || gameData.getStatus(target) == Status.DEAD
 					|| gameData.getRole(target) == Role.WEREWOLF) {
-				// target = getRandomAgent(candidateList, agent);
 			} else {
 				Vote attackVote = new Vote(gameData.getDay(), agent, target);
 				gameData.addAttack(attackVote);
@@ -757,13 +620,6 @@ public class AIWolfGame {
 		gameData.setLatestAttackVoteList(latestAttackVoteList);
 	}
 
-	/**
-	 * ランダムなエージェントを獲得する．ただし，withoutを除く．
-	 * 
-	 * @param agentList
-	 * @param without
-	 * @return
-	 */
 	protected Agent getRandomAgent(List<Agent> agentList, Agent... without) {
 		Agent target;
 		List<Agent> list = new ArrayList<>(agentList);
@@ -774,11 +630,6 @@ public class AIWolfGame {
 		return target;
 	}
 
-	/**
-	 * get alive agents
-	 * 
-	 * @return
-	 */
 	protected List<Agent> getAliveAgentList() {
 		List<Agent> agentList = new ArrayList<>();
 		for (Agent agent : gameData.getAgentList()) {
@@ -797,41 +648,20 @@ public class AIWolfGame {
 		return gameData.getFilteredAgentList(getAliveAgentList(), Species.WEREWOLF);
 	}
 
-	/**
-	 * return is game finished
-	 * 
-	 * @return
-	 */
 	public boolean isGameFinished() {
 		Team winner = getWinner();
 		return winner != null;
 	}
 
-	/**
-	 * get all data of the game
-	 * 
-	 * @return
-	 */
 	public GameData getGameData() {
 		return gameData;
 	}
 
-	/**
-	 * get setting of the game
-	 * 
-	 * @return
-	 */
 	public GameSetting getGameSetting() {
 		return gameSetting;
 	}
 
-	/**
-	 *
-	 * @param agent
-	 * @return
-	 */
 	public String getAgentName(Agent agent) {
 		return agentNameMap.get(agent);
 	}
-
 }

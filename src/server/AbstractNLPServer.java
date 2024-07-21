@@ -23,7 +23,7 @@ import common.data.Request;
 import common.data.Talk;
 import common.net.GameSetting;
 import common.net.Packet;
-import server.exception.LostClientException;
+import server.exception.LostAgentConnectionException;
 import server.net.GameServer;
 import utility.BidiMap;
 import utility.parser.JsonParser;
@@ -55,15 +55,7 @@ public abstract class AbstractNLPServer implements GameServer {
 		this.allAgentConnectionMap = new BidiMap<>(agentConnectionMap);
 	}
 
-	/**
-	 * クライアントが原因の際の例外処理
-	 * 
-	 * @param agent
-	 * @param request
-	 * @param e
-	 * @throws LostClientException
-	 */
-	protected Object catchException(Agent agent, Request request, Exception e) throws LostClientException {
+	protected Object catchException(Agent agent, Request request, Exception e) throws LostAgentConnectionException {
 		NLPAIWolfConnection connection = allAgentConnectionMap.get(agent);
 		if (connection.isAlive()) {
 			e.printStackTrace();
@@ -71,22 +63,9 @@ public abstract class AbstractNLPServer implements GameServer {
 		}
 		if (config.isContinueExceptionAgent())
 			return null;
-		throw new LostClientException("Lost connection with " + agent + "\t" + getName(agent), e, agent);
+		throw new LostAgentConnectionException(e, agent);
 	}
 
-	/**
-	 * clientにリクエストを送信し、結果を受け取る
-	 * 
-	 * @param connection
-	 * @param pool
-	 * @param agent
-	 * @param request
-	 * @return
-	 * @throws InterruptedException
-	 * @throws ExecutionException
-	 * @throws TimeoutException
-	 * @throws IOException
-	 */
 	protected String getResponse(NLPAIWolfConnection connection, ExecutorService pool, Agent agent, Request request,
 			long timeout)
 			throws InterruptedException, ExecutionException, TimeoutException, IOException {
@@ -100,13 +79,6 @@ public abstract class AbstractNLPServer implements GameServer {
 		return line;
 	}
 
-	/**
-	 * 受け取ったリクエストを変換
-	 * 
-	 * @param request
-	 * @param line
-	 * @return
-	 */
 	protected Object convertRequestData(Request request, String line) {
 		if (line != null && line.isEmpty()) {
 			line = null;
@@ -135,13 +107,6 @@ public abstract class AbstractNLPServer implements GameServer {
 		return usingAgentList;
 	}
 
-	/**
-	 * Requestから対応するPacketを作成し、それをStringに変換したものを返す
-	 * 
-	 * @param agent
-	 * @param request
-	 * @return
-	 */
 	protected String getMessage(Agent agent, Request request) {
 		Packet packet = null;
 		boolean flag = false;
@@ -206,14 +171,6 @@ public abstract class AbstractNLPServer implements GameServer {
 		return new HashSet<>(set);
 	}
 
-	/**
-	 * すでに送った発話の削除
-	 * 
-	 * @param agent
-	 * @param list
-	 * @param lastIdxMap
-	 * @return
-	 */
 	protected List<Talk> minimize(Agent agent, List<Talk> list, Map<Agent, Integer> lastIdxMap) {
 		int lastIdx = list.size();
 		if (lastIdxMap.containsKey(agent) && list.size() >= lastIdxMap.get(agent)) {
@@ -223,12 +180,6 @@ public abstract class AbstractNLPServer implements GameServer {
 		return list;
 	}
 
-	/**
-	 * メッセージの送信
-	 * 
-	 * @param agent
-	 * @param request
-	 */
 	protected void send(Agent agent, Request request) {
 		String message = getMessage(agent, request);
 
@@ -243,11 +194,6 @@ public abstract class AbstractNLPServer implements GameServer {
 		}
 	}
 
-	/**
-	 * 現在対戦に使用しているエージェント一覧の更新
-	 * 
-	 * @param agentList
-	 */
 	public void updateUsingAgentList(Collection<Agent> agentCollection) {
 		this.usingAgentList = new ArrayList<>(agentCollection);
 	}

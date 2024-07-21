@@ -13,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,46 +32,23 @@ import server.GameData;
 import server.NLPCUIGameServer;
 import utility.FileGameLogger;
 
-/**
- * 1セット内の対戦の管理
- * 
- * @author tminowa
- *
- */
 public class NLPGameBuilder extends Thread {
 	private static final Logger logger = LogManager.getLogger(NLPGameBuilder.class);
 
-	// ログファイル名
 	private static final String NORMAL_LOG_FILE_NAME = "%s%s_%03d_%s.log";
-
-	// エラーログファイル名
 	private static final String ERROR_LOG_FILE_NAME = "%s%s_%03d_err_%s.log";
 
-	// 対戦で使用する能力者
 	private static final Role[] USED_ROLES = {
 			Role.SEER,
 			Role.POSSESSED,
 			Role.WEREWOLF
 	};
 
-	// iniファイルのオプション
 	private final GameConfiguration config;
-
-	// サーバに渡すGameSetting
 	private final GameSetting gameSetting;
-
-	// 同一セット内で扱うエージェント一覧（現在、エージェント番号は固定）
 	private final Map<Agent, NLPAIWolfConnection> agentConnectionMap = new HashMap<>();
 
-	/**
-	 * GameSettingの作成とConnectionの登録
-	 * 
-	 * @param port
-	 * @param socketList
-	 * @param config
-	 */
 	public NLPGameBuilder(List<Socket> socketList, GameConfiguration config) {
-
 		// 順番が固定にならないように念のためシャッフル
 		Collections.shuffle(socketList);
 
@@ -98,9 +74,6 @@ public class NLPGameBuilder extends Thread {
 		this.gameSetting = createGameSetting();
 	}
 
-	/**
-	 * ソケットを閉じる
-	 */
 	private void close() {
 		for (Entry<Agent, NLPAIWolfConnection> entry : agentConnectionMap.entrySet()) {
 			try {
@@ -111,20 +84,10 @@ public class NLPGameBuilder extends Thread {
 		}
 	}
 
-	/**
-	 * configの内容を反映したGameSettingを取得する
-	 * 
-	 * @return
-	 */
 	private GameSetting createGameSetting() {
 		return GameSetting.FromGameConfiguration(config);
 	}
 
-	/**
-	 * 同一セット内のエージェントと役職の組み合わせ一覧を生成する
-	 * 
-	 * @return
-	 */
 	private List<Map<Agent, Role>> createAgentRoleCombinations() {
 		List<Map<Agent, Role>> roleList = new ArrayList<>();
 
@@ -168,11 +131,6 @@ public class NLPGameBuilder extends Thread {
 		return roleList;
 	}
 
-	/**
-	 * エージェントと役職のマップのリストを引数にとり、その内容とエージェントが各役職に何回なっているかをカウントした結果を出力する
-	 * 
-	 * @param roleList
-	 */
 	private void printCombinationList(List<Map<Agent, Role>> roleList) {
 		for (int i = 0; i < roleList.size(); i++) {
 			logger.debug(String.format("%d: %s", i, roleList.get(i)));
@@ -239,7 +197,6 @@ public class NLPGameBuilder extends Thread {
 				gameData.addAgent(entry.getKey(), Status.ALIVE, entry.getValue());
 			}
 
-			game.setRand(new Random());
 			String clientNames = String.join("_", nlpServer.getNames());
 			String subLogDirName = new SimpleDateFormat("MMddHHmmss").format(Calendar.getInstance().getTime());
 

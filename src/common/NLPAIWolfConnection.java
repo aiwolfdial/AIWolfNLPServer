@@ -15,7 +15,7 @@ import common.data.Agent;
 import common.data.Request;
 import common.data.Role;
 import common.net.Packet;
-import server.exception.LostClientException;
+import server.exception.LostAgentConnectionException;
 import utility.FileGameLogger;
 import utility.Pair;
 import utility.parser.JsonParser;
@@ -155,10 +155,8 @@ public class NLPAIWolfConnection {
 		isAlive = false;
 		haveNewError = true;
 		this.subException = e;
-		LostClientException exception = new LostClientException("Lost connection with " + agent + "\t" + name, e,
-				agent);
-		this.exception = new Pair<>(exception, request);
-
+		this.exception = new Pair<>(new LostAgentConnectionException(e,
+				agent), request);
 		close();
 	}
 }

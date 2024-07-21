@@ -1,6 +1,6 @@
 package common;
 
-import utility.IniLoader;
+import utility.parser.IniLoader;
 
 public class GameConfiguration {
     public enum HumanRole {

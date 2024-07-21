@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
-import common.AIWolfRuntimeException;
 import common.data.Agent;
 import common.data.Guard;
 import common.data.Judge;
@@ -19,6 +18,7 @@ import common.data.Team;
 import common.data.Vote;
 import common.net.GameInfo;
 import common.net.GameSetting;
+import server.exception.AIWolfException;
 
 public class GameData {
 	protected int day;
@@ -165,7 +165,7 @@ public class GameData {
 		int remainTalk = remainTalkMap.get(agent);
 		if (!talk.isOver() && !talk.isSkip()) {
 			if (remainTalk == 0) {
-				throw new AIWolfRuntimeException(
+				throw new AIWolfException(
 						"No remain talk but try to talk. #Contact to AIWolf Platform Developer");
 			}
 			remainTalkMap.put(agent, remainTalk - 1);
@@ -177,7 +177,7 @@ public class GameData {
 		int remainWhisper = remainWhisperMap.get(agent);
 		if (!whisper.isOver() && !whisper.isSkip()) {
 			if (remainWhisper == 0) {
-				throw new AIWolfRuntimeException(
+				throw new AIWolfException(
 						"No remain whisper but try to whisper. #Contact to AIWolf Platform Developer");
 			}
 			remainWhisperMap.put(agent, remainWhisper - 1);
