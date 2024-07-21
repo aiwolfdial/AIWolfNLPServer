@@ -63,6 +63,7 @@ public class NLPServerStarter {
 		this.config = GameConfiguration.load(path);
 	}
 
+	@SuppressWarnings("resource")
 	private void acceptClients() {
 		logger.info("Accept clients.");
 		// 必要なエージェント名が設定されているかどうかを確認

@@ -8,16 +8,16 @@ public enum Role {
 							Species.HUMAN), WEREWOLF(Team.WEREWOLF,
 									Species.WEREWOLF), FOX(Team.OTHERS, Species.HUMAN), ANY(Team.ANY, Species.ANY);
 
-	private final Team teamType;
+	private final Team team;
 	private final Species species;
 
 	Role(Team teamType, Species species) {
-		this.teamType = teamType;
+		this.team = teamType;
 		this.species = species;
 	}
 
 	public Team getTeam() {
-		return teamType;
+		return team;
 	}
 
 	public Species getSpecies() {

@@ -1,8 +1,3 @@
-/**
- * Content.java
- * 
- * Copyright (c) 2016 人狼知能プロジェクト
- */
 package client;
 
 import java.util.ArrayList;
@@ -16,40 +11,11 @@ import common.data.Role;
 import common.data.Species;
 import common.data.Talk;
 
-/**
- * <div lang="ja">発話内容クラス。ContentBuilderあるいは発話テキストから生成</div>
- *
- * <div lang="en">Class for the content of a utterance. Constructed by giving a
- * ContentBuilder or the uttered text.</div>
- */
 public class Content implements Cloneable {
+	public static final Content SKIP = new Content(Topic.SKIP);
+	public static final Content OVER = new Content(Topic.OVER);
 
-	/**
-	 * <div lang="ja">SKIPを表す定数</div>
-	 * 
-	 * <div lang="en">Constant representing SKIP.</div>
-	 */
-	public static final Content SKIP = new Content(new SkipContentBuilder());
-
-	/**
-	 * <div lang="ja">OVERを表す定数</div>
-	 * 
-	 * <div lang="en">Constant representing OVER.</div>
-	 */
-	public static final Content OVER = new Content(new OverContentBuilder());
-
-	/**
-	 * <div lang="ja">不特定のエージェントを表す定数</div>
-	 * 
-	 * <div lang="en">Constant representing an arbitrary agent.</div>
-	 */
 	public static final Agent ANY = Agent.getAgent(0);
-
-	/**
-	 * <div lang="ja">エージェント未特定であることを表す定数</div>
-	 * 
-	 * <div lang="en">Constant representing an unspecified agent.</div>
-	 */
 	public static final Agent UNSPEC = null;
 
 	private String text = null;
@@ -127,28 +93,8 @@ public class Content implements Cloneable {
 		return c;
 	}
 
-	/**
-	 * <div lang="ja">指定したContentBuilderによりContentを構築する</div>
-	 *
-	 * <div lang="en">Constructs a Content by the given ContentBuilder.</div>
-	 * 
-	 * @param builder
-	 *            <div lang="ja">発話内容に応じたContentBuilder</div>
-	 *
-	 *            <div lang="en">ContentBuilder for the content.</div>
-	 */
-	public Content(ContentBuilder builder) {
-		operator = builder.getOperator();
-		topic = builder.getTopic();
-		subject = builder.getSubject();
-		target = builder.getTarget();
-		role = builder.getRole();
-		result = builder.getResult();
-		talkType = builder.getTalkType();
-		talkDay = builder.getTalkDay();
-		talkID = builder.getTalkID();
-		contentList = builder.getContentList();
-		day = builder.getDay();
+	public Content(Topic topic) {
+		this.topic = topic;
 		completeInnerSubject();
 		normalizeText();
 	}
@@ -271,33 +217,6 @@ public class Content implements Cloneable {
 	}
 
 	/**
-	 * <div lang="ja">発話テキストを返す</div>
-	 *
-	 * <div lang="en">Returns the uttered text.</div>
-	 * 
-	 * @return <div lang="ja">発話テキスト</div>
-	 *
-	 *         <div lang="en">The uttered text.</div>
-	 */
-	public String getText() {
-		return text;
-	}
-
-	/**
-	 * <div lang="ja">発話内容の演算子を返す</div>
-	 *
-	 * <div lang="en">Returns the operator of this content.</div>
-	 * 
-	 * @return <div lang="ja">演算子。単文の場合は{@code null}</div>
-	 *
-	 *         <div lang="en">The operator, or {@code null} when it is a simple
-	 *         sentence.</div>
-	 */
-	public Operator getOperator() {
-		return operator;
-	}
-
-	/**
 	 * <div lang="ja">発話内容の主語を返す</div>
 	 *
 	 * <div lang="en">Returns the subject of this content.</div>
@@ -308,140 +227,6 @@ public class Content implements Cloneable {
 	 */
 	public Agent getSubject() {
 		return subject;
-	}
-
-	/**
-	 * <div lang="ja">発話内容のトピックを返す</div>
-	 *
-	 * <div lang="en">Returns the topic of this content.</div>
-	 * 
-	 * @return <div lang="ja">トピック</div>
-	 *
-	 *         <div lang="en">The topic.</div>
-	 */
-	public Topic getTopic() {
-		return topic;
-	}
-
-	/**
-	 * <div lang="ja">発話内容中の目的エージェントを返す。発話が単文で，かつTopicが(DIS)AGREE以外で有効</div>
-	 *
-	 * <div lang="en">Returns the objective agent of this content. Valid when it is
-	 * a simple sentence and the topic is other than (DIS)AGREE.</div>
-	 * 
-	 * @return <div lang="ja">目的エージェント。無効の場合は{@code null}</div>
-	 *
-	 *         <div lang="en">The objective agent, or {@code null} when it is
-	 *         invalid.</div>
-	 */
-	public Agent getTarget() {
-		return target;
-	}
-
-	/**
-	 * <div lang=
-	 * "ja">発話内容中で言及されている役職を返す。発話が単文で，かつTopicがCOMINGOUTとESTIMATEのとき有効</div>
-	 *
-	 * <div lang="en">Returns the role referred in this content. Valid when it is a
-	 * simple sentence and the topic is COMINGOUT or ESTIMATE.</div>
-	 * 
-	 * @return <div lang="ja">言及されている役職。無効の場合は{@code null}</div>
-	 *
-	 *         <div lang="en">The referred role, or {@code null} when it is
-	 *         invalid.</div>
-	 */
-	public Role getRole() {
-		return role;
-	}
-
-	/**
-	 * <div lang=
-	 * "ja">発話内容中で言及されている判定結果を返す。発話が単文で，かつTopicがDIVINEDとINQUESTEDのとき有効</div>
-	 *
-	 * <div lang="en">Returns the result of the judgment referred in this content.
-	 * Valid when it is a simple sentence and the topic is DIVINED or
-	 * INQUESTED.</div>
-	 * 
-	 * @return <div lang="ja">言及されている判定結果。無効の場合は{@code null}</div>
-	 *
-	 *         <div lang="en">The referred result, or {@code null} when it is
-	 *         invalid.</div>
-	 */
-	public Species getResult() {
-		return result;
-	}
-
-	/**
-	 * <div lang="ja">発話内容中で言及されている発言のタイプを返す。発話が単文で，かつTopicが(DIS)AGREEのとき有効</div>
-	 *
-	 * <div lang="en">Returns the type of the utterance referred in this content.
-	 * Valid when it is a simple sentence and the topic is (DIS)AGREE.</div>
-	 * 
-	 * @return <div lang="ja">言及されている発言のタイプ。無効の場合は{@code null}</div>
-	 *
-	 *         <div lang="en">The type of utterance, or {@code null} when it is
-	 *         invalid.</div>
-	 */
-	public TalkType getTalkType() {
-		return talkType;
-	}
-
-	/**
-	 * <div lang="ja">発話内容中で言及されている発言の日を返す。発話が単文で，かつTopicが(DIS)AGREEのとき有効</div>
-	 *
-	 * <div lang="en">Returns the day of the utterance referred in this content.
-	 * Valid when it is a simple sentence and the topic is (DIS)AGREE.</div>
-	 * 
-	 * @return <div lang="ja">言及されている発言の日。無効の場合は-1</div>
-	 *
-	 *         <div lang="en">The day of the referred utterance, or -1 when it is
-	 *         invalid.</div>
-	 */
-	public int getTalkDay() {
-		return talkDay;
-	}
-
-	/**
-	 * <div lang="ja">発話内容中で言及されている発言のIDを返す。発話が単文で，かつTopicが(DIS)AGREEのとき有効</div>
-	 *
-	 * <div lang="en">Returns the ID of the utterance referred in this content.
-	 * Valid when it is a simple sentence and the topic is (DIS)AGREE.</div>
-	 * 
-	 * @return <div lang="ja">言及されている発言のID。無効の場合は-1</div>
-	 *
-	 *         <div lang="en">The ID of the referred utterance, or -1 when it is
-	 *         invalid.</div>
-	 */
-	public int getTalkID() {
-		return talkID;
-	}
-
-	/**
-	 * <div lang="ja">発話内容が複文・重文の場合，節のリストを返す</div>
-	 *
-	 * <div lang="en">Returns the list of clauses in case of complex or compound
-	 * sentence.</div>
-	 * 
-	 * @return <div lang="ja">節のリスト。単文の場合は{@code null}</div>
-	 *
-	 *         <div lang="en">The list of clauses, or {@code null} in case of simple
-	 *         sentence.</div>
-	 */
-	public List<Content> getContentList() {
-		return contentList;
-	}
-
-	/**
-	 * <div lang="ja">発話の日付を返す</div>
-	 *
-	 * <div lang="en">Returns the date of content.</div>
-	 * 
-	 * @return <div lang="ja">日付</div>
-	 *
-	 *         <div lang="en">Date.</div>
-	 */
-	public int getDay() {
-		return day;
 	}
 
 	/**
@@ -517,8 +302,8 @@ public class Content implements Cloneable {
 								+ " " + (target == ANY ? "ANY" : target.toString())
 								+ " ("
 								+ (contentList.getFirst().getSubject() == target
-										? stripSubject(contentList.getFirst().getText())
-										: contentList.getFirst().getText())
+										? stripSubject(contentList.getFirst().text)
+										: contentList.getFirst().text)
 								+ ")";
 						break;
 					case BECAUSE:
@@ -527,12 +312,12 @@ public class Content implements Cloneable {
 								+ operator
 								+ " ("
 								+ (contentList.get(0).getSubject() == subject
-										? stripSubject(contentList.get(0).getText())
-										: contentList.get(0).getText())
+										? stripSubject(contentList.get(0).text)
+										: contentList.get(0).text)
 								+ ") ("
 								+ (contentList.get(1).getSubject() == subject
-										? stripSubject(contentList.get(1).getText())
-										: contentList.get(1).getText())
+										? stripSubject(contentList.get(1).text)
+										: contentList.get(1).text)
 								+ ")";
 						break;
 					case AND:
@@ -540,7 +325,7 @@ public class Content implements Cloneable {
 						text = (subject == UNSPEC ? "" : subject == ANY ? "ANY " : subject + " ")
 								+ operator
 								+ " " + contentList.stream().map(c -> "(" +
-										(c.getSubject() == subject ? stripSubject(c.getText()) : c.getText())
+										(c.getSubject() == subject ? stripSubject(c.text) : c.text)
 										+ ")").collect(Collectors.joining(" "));
 						break;
 					case NOT:
@@ -548,8 +333,8 @@ public class Content implements Cloneable {
 								+ operator
 								+ " ("
 								+ (contentList.getFirst().getSubject() == subject
-										? stripSubject(contentList.getFirst().getText())
-										: contentList.getFirst().getText())
+										? stripSubject(contentList.getFirst().text)
+										: contentList.getFirst().text)
 								+ ")";
 						break;
 					case DAY:
@@ -558,8 +343,8 @@ public class Content implements Cloneable {
 								+ " " + day
 								+ " ("
 								+ (contentList.getFirst().getSubject() == subject
-										? stripSubject(contentList.getFirst().getText())
-										: contentList.getFirst().getText())
+										? stripSubject(contentList.getFirst().text)
+										: contentList.getFirst().text)
 								+ ")";
 						break;
 					default:
@@ -602,7 +387,7 @@ public class Content implements Cloneable {
 	@Override
 	public boolean equals(Object content) {
 		if (content instanceof Content && text != null) {
-			return text.equals(((Content) content).getText());
+			return text.equals(((Content) content).text);
 		}
 		return false;
 	}
@@ -635,5 +420,4 @@ public class Content implements Cloneable {
 	public String toString() {
 		return text;
 	}
-
 }

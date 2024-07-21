@@ -5,11 +5,11 @@ public class Talk {
 	final static public String SKIP = "Skip";
 	final static public String FORCE_SKIP = "ForceSkip";
 
-	int idx;
-	int day;
-	int turn;
-	Agent agent;
-	String text;
+	private final int idx;
+	private final int day;
+	private final int turn;
+	private final Agent agent;
+	private final String text;
 
 	public Talk(int idx, int day, int turn, Agent agent, String text) {
 		this.idx = idx;
