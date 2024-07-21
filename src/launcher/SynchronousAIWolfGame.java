@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,14 +25,15 @@ import core.packet.GameSetting;
 public class SynchronousAIWolfGame extends AIWolfGame {
 	private static final Logger logger = LogManager.getLogger(SynchronousAIWolfGame.class);
 
-	private final GameConfiguration gameConfiguration;
-	private final GameData gameData;
+	private static final String DEFAULT_INI_PATH = "./config/AIWolfGameServer.ini";
 
-	public SynchronousAIWolfGame(GameSetting gameSetting, GameServer gameServer, GameConfiguration gameConfiguration,
-			GameData gameData) {
+	public SynchronousAIWolfGame(GameSetting gameSetting, GameServer gameServer) {
 		super(gameSetting, gameServer);
-		this.gameConfiguration = gameConfiguration;
-		this.gameData = gameData;
+	}
+
+	private boolean isWriteRoleCombinations(GameConfiguration config) {
+		return config.isSaveRoleCombination()
+				&& config.getAllParticipantNum() >= config.getBattleAgentNum();
 	}
 
 	private String makeRoleCombinationsText() {
@@ -65,22 +65,27 @@ public class SynchronousAIWolfGame extends AIWolfGame {
 		return String.join(",", combinationText);
 	}
 
-	private boolean isDoneCombinations(String checkCombinationText) {
-		File file = Paths.get(gameConfiguration.getRoleCombinationDir(), gameConfiguration.getRoleCombinationFilename())
-				.toFile();
+	private boolean isDoneCombinations(GameConfiguration config, String checkCombinationText) {
+		File file = new File(config.getRoleCombinationDir()
+				+ config.getRoleCombinationFilename());
 
 		if (!file.exists()) {
 			return false;
 		}
 
-		try (BufferedReader bufferReader = new BufferedReader(new FileReader(file))) {
-			String doneCombinationText;
+		try {
+			FileReader fileReader = new FileReader(file);
+			BufferedReader bufferReader = new BufferedReader(fileReader);
+			String doneCombinationText = "";
 
 			while ((doneCombinationText = bufferReader.readLine()) != null) {
 				if (doneCombinationText.equals(checkCombinationText)) {
+					bufferReader.close();
 					return true;
 				}
 			}
+
+			bufferReader.close();
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}
@@ -101,18 +106,51 @@ public class SynchronousAIWolfGame extends AIWolfGame {
 			String requestName = gameServer.requestName(agent);
 			agentNameMap.put(agent, requestName);
 		}
+
 	}
 
-	public void start() {
-		init();
+	private void saveRoleCombinations() {
 		try {
-			if (gameConfiguration.isSaveRoleCombination()) {
+			GameConfiguration config = GameConfiguration.load(DEFAULT_INI_PATH);
+
+			if (!isWriteRoleCombinations(config)) {
+				return;
+			}
+
+			String saveText = makeRoleCombinationsText() + "\r\n";
+
+			File file = new File(config.getRoleCombinationDir() + config.getRoleCombinationFilename());
+
+			if (!file.canWrite()) {
+				file.setWritable(true);
+			}
+
+			FileWriter fileWriter = new FileWriter(file, true);
+			fileWriter.write(saveText);
+			fileWriter.close();
+		} catch (Exception e) {
+			logger.error("Exception", e);
+		}
+	}
+
+	public void start(GameData gameData) {
+		this.gameData = gameData;
+		init();
+
+		// check same pattern exist or not
+		GameConfiguration config;
+		try {
+			config = GameConfiguration.load(DEFAULT_INI_PATH);
+			if (isWriteRoleCombinations(config)) {
 				String currentText = makeRoleCombinationsText();
-				if (isDoneCombinations(currentText)) {
+
+				if (isDoneCombinations(config, currentText)) {
 					super.finish();
 					return;
 				}
+
 			}
+
 			super.start();
 		} catch (Exception e) {
 			logger.error("Exception", e);
@@ -120,24 +158,7 @@ public class SynchronousAIWolfGame extends AIWolfGame {
 	}
 
 	public void finish() {
-		try {
-			if (!gameConfiguration.isSaveRoleCombination()) {
-				return;
-			}
-			String saveText = makeRoleCombinationsText() + "\r\n";
-			File file = Paths
-					.get(gameConfiguration.getRoleCombinationDir(), gameConfiguration.getRoleCombinationFilename())
-					.toFile();
-			if (!file.canWrite()) {
-				file.setWritable(true);
-			}
-			try (FileWriter fileWriter = new FileWriter(file, true)) {
-				fileWriter.write(saveText);
-			}
-		} catch (Exception e) {
-			logger.error("Exception", e);
-		} finally {
-			super.finish();
-		}
+		saveRoleCombinations();
+		super.finish();
 	}
 }

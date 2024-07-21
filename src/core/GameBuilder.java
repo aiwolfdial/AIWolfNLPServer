@@ -178,6 +178,7 @@ public class GameBuilder extends Thread {
 			if (gameConfiguration.isJoinHuman()
 					&& !agentRoleMap.get(human).name().equals(gameConfiguration.getHumanRole().name()))
 				continue;
+			SynchronousAIWolfGame game = new SynchronousAIWolfGame(gameSetting, gameServer);
 			GameData gameData = new GameData(gameSetting);
 
 			// 現在対戦に使用しているエージェントの更新
@@ -191,9 +192,6 @@ public class GameBuilder extends Thread {
 			for (Entry<Agent, Role> entry : agentRoleMap.entrySet()) {
 				gameData.addAgent(entry.getKey(), Status.ALIVE, entry.getValue());
 			}
-
-			SynchronousAIWolfGame game = new SynchronousAIWolfGame(gameSetting, gameServer, gameConfiguration,
-					gameData);
 
 			String clientNames = String.join("_", gameServer.getNames());
 			String subLogDirName = new SimpleDateFormat("MMddHHmmss").format(Calendar.getInstance().getTime());
@@ -210,7 +208,7 @@ public class GameBuilder extends Thread {
 				}
 
 				// ゲームの実行
-				game.start();
+				game.start(gameData);
 
 				// 今回のゲームでエラーが発生したエージェントがいた場合はエラーログを出力する
 				if (gameConfiguration.isSaveLog()) {
