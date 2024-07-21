@@ -43,24 +43,28 @@ import utils.JsonParser;
  * 継続してクライアントからの接続を受け付ける人狼知能対戦用サーバ
  * 人狼知能プラットフォーム標準のままだとAgent.getAgentが並列対応しておらず、バグるためgetAgentメソッドを並列処理できるようにする必要がある
  */
-public class NLPServerStarter {
-	private static final Logger logger = LogManager.getLogger(NLPServerStarter.class);
+public class Launcher {
+	private static final Logger logger = LogManager.getLogger(Launcher.class);
 
 	private static final String DEFAULT_CONFIG_PATH = "./config/AIWolfGameServer.ini";
 
 	private final GameConfiguration config;
 	private final Queue<List<Socket>> socketQue = new ArrayDeque<>();
-
 	private final Map<String, Map<String, List<Pair<Long, Socket>>>> waitingSockets = new HashMap<>();
-
 	private boolean isRunning = false;
 
-	public NLPServerStarter() throws Exception {
-		this.config = GameConfiguration.load(DEFAULT_CONFIG_PATH);
+	public static void main(String[] args) {
+		logger.info("Launcher started.");
+		try {
+			Launcher starter = new Launcher();
+			starter.start();
+		} catch (Exception e) {
+			logger.error(e);
+		}
 	}
 
-	public NLPServerStarter(String path) throws Exception {
-		this.config = GameConfiguration.load(path);
+	public Launcher() throws Exception {
+		this.config = GameConfiguration.load(DEFAULT_CONFIG_PATH);
 	}
 
 	@SuppressWarnings("resource")

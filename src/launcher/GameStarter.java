@@ -48,5 +48,4 @@ public class GameStarter extends Thread {
 	public boolean isGameRunning() {
 		return !gameList.isEmpty();
 	}
-
 }

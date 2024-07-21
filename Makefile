@@ -6,7 +6,7 @@ build:
 	-sourcepath ./src/ \
 	-encoding UTF-8 \
 	-proc:none \
-	./src/launcher/AutoGameStarter.java
+	./src/launcher/Launcher.java
 
 clean:
 	@rm -r ./out/*
@@ -17,4 +17,4 @@ clean-log:
 run:
 	@java -cp './out':'./lib/*' \
 	-Dlog4j.configurationFile=./config/log4j2.xml \
-	launcher.AutoGameStarter
+	launcher.Launcher

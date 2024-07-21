@@ -3,10 +3,13 @@
     "configurations": [
         {
             "type": "java",
-            "name": "AutoGameStarter",
+            "name": "Launcher",
             "request": "launch",
-            "mainClass": "launcher.AutoGameStarter",
-            "projectName": "AIWolfNLPServer_56637394"
+            "mainClass": "launcher.Launcher",
+            "projectName": "AIWolfNLPServer_56637394",
+            "vmArgs": [
+                "-Dlog4j.configurationFile=./config/log4j2.xml"
+            ]
         },
     ]
 }
