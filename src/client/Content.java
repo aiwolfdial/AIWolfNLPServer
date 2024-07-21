@@ -12,15 +12,15 @@ import common.data.Species;
 import common.data.Talk;
 
 public class Content implements Cloneable {
-	public static final Content SKIP = new Content(Topic.SKIP);
-	public static final Content OVER = new Content(Topic.OVER);
+	public static final Content SKIP = new Content(TopicType.SKIP);
+	public static final Content OVER = new Content(TopicType.OVER);
 
 	public static final Agent ANY = Agent.getAgent(0);
 	public static final Agent UNSPEC = null;
 
 	private String text = null;
 	private Operator operator = null;
-	private Topic topic = null;
+	private TopicType topic = null;
 	private Agent subject = UNSPEC;
 	private Agent target = ANY;
 	private Role role = null;
@@ -93,7 +93,7 @@ public class Content implements Cloneable {
 		return c;
 	}
 
-	public Content(Topic topic) {
+	public Content(TopicType topic) {
 		this.topic = topic;
 		completeInnerSubject();
 		normalizeText();
@@ -141,16 +141,16 @@ public class Content implements Cloneable {
 		try {
 			// SKIP
 			if (trimmed.equals(Talk.SKIP)) {
-				topic = Topic.SKIP;
+				topic = TopicType.SKIP;
 			}
 			// OVER
 			else if (trimmed.equals(Talk.OVER)) {
-				topic = Topic.OVER;
+				topic = TopicType.OVER;
 			}
 			// AGREE,DISAGREE
 			else if ((m = agreePattern.matcher(trimmed)).find()) {
 				subject = toAgent(m.group(1));
-				topic = Topic.valueOf(m.group(2));
+				topic = TopicType.valueOf(m.group(2));
 				talkType = TalkType.valueOf(m.group(3));
 				talkDay = Integer.parseInt(m.group(4));
 				talkID = Integer.parseInt(m.group(5));
@@ -158,26 +158,26 @@ public class Content implements Cloneable {
 			// ESTIMATE,COMINGOUT
 			else if ((m = estimatePattern.matcher(trimmed)).find()) {
 				subject = toAgent(m.group(1));
-				topic = Topic.valueOf(m.group(2));
+				topic = TopicType.valueOf(m.group(2));
 				target = toAgent(m.group(3));
 				role = Role.valueOf(m.group(4));
 			}
 			// DIVINED,IDENTIFIED
 			else if ((m = divinedPattern.matcher(trimmed)).find()) {
 				subject = toAgent(m.group(1));
-				topic = Topic.valueOf(m.group(2));
+				topic = TopicType.valueOf(m.group(2));
 				target = toAgent(m.group(3));
 				result = Species.valueOf(m.group(4));
 			}
 			// ATTACK,ATTACKED,DIVINATION,GUARD,GUARDED,VOTE,VOTED
 			else if ((m = attackPattern.matcher(trimmed)).find()) {
 				subject = toAgent(m.group(1));
-				topic = Topic.valueOf(m.group(2));
+				topic = TopicType.valueOf(m.group(2));
 				target = toAgent(m.group(3));
 			}
 			// REQUEST,INQUIRE
 			else if ((m = requestPattern.matcher(trimmed)).find()) {
-				topic = Topic.OPERATOR;
+				topic = TopicType.OPERATOR;
 				subject = toAgent(m.group(1));
 				operator = Operator.valueOf(m.group(2));
 				target = toAgent(m.group(3));
@@ -185,7 +185,7 @@ public class Content implements Cloneable {
 			}
 			// BECAUSE,AND,OR,XOR,NOT,REQUEST(ver.2)
 			else if ((m = becausePattern.matcher(trimmed)).find()) {
-				topic = Topic.OPERATOR;
+				topic = TopicType.OPERATOR;
 				subject = toAgent(m.group(1));
 				operator = Operator.valueOf(m.group(2));
 				contentList = getContents(m.group(3), true);
@@ -195,7 +195,7 @@ public class Content implements Cloneable {
 			}
 			// DAY
 			else if ((m = dayPattern.matcher(trimmed)).find()) {
-				topic = Topic.OPERATOR;
+				topic = TopicType.OPERATOR;
 				operator = Operator.DAY;
 				subject = toAgent(m.group(1));
 				day = Integer.parseInt(m.group(2));
@@ -209,7 +209,7 @@ public class Content implements Cloneable {
 			if (isForValidation) {
 				throw new IllegalContentStringException(input);
 			} else {
-				topic = Topic.SKIP;
+				topic = TopicType.SKIP;
 			}
 		}
 		completeInnerSubject();
