@@ -7,7 +7,6 @@ build:
 	-encoding UTF-8 \
 	-proc:none \
 	./src/starter/AutoGameStarter.java
-	@cp ./src/log4j2.xml ./out/
 
 clean:
 	@rm -r ./out/*
@@ -17,5 +16,5 @@ clean-log:
 
 run:
 	@java -cp './out':'./lib/*' \
-	-Dlog4j.configurationFile=./out/log4j2.xml \
+	-Dlog4j.configurationFile=./config/log4j2.xml \
 	starter.AutoGameStarter
