@@ -3,6 +3,7 @@ package utils;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 public class AgentSerializer extends StdSerializer<core.model.Agent> {
+
     public AgentSerializer() {
         this(null);
     }
