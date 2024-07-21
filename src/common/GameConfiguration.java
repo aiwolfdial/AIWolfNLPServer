@@ -25,9 +25,6 @@ public class GameConfiguration {
     private int idleConnectionTimeout = 24;
     private String requiredAgentName = "";
     private boolean prioritizeCombinations = true;
-    private String guiIp = "127.0.0.1";
-    private int guiPort = 9999;
-    private boolean useGui = false;
     private boolean debugMode = false;
     private boolean synchronousMode = true;
     private boolean joinHuman = false;
@@ -137,18 +134,6 @@ public class GameConfiguration {
 
     public boolean isPrioritizeCombinations() {
         return prioritizeCombinations;
-    }
-
-    public String getGuiIp() {
-        return guiIp;
-    }
-
-    public int getGuiPort() {
-        return guiPort;
-    }
-
-    public boolean isUseGui() {
-        return useGui;
     }
 
     public boolean isDebugMode() {

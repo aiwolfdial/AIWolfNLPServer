@@ -32,7 +32,6 @@ import game.SynchronousNLPAIWolfGame;
 import server.AbstractNLPServer;
 import server.GameData;
 import server.NLPCUIGameServer;
-import server.NLPGUIGameServer;
 import server.util.FileGameLogger;
 
 /**
@@ -204,11 +203,7 @@ public class NLPGameBuilder extends Thread {
 		List<Map<Agent, Role>> agentRoleMapList = createAgentRoleCombinations();
 
 		// ゲームサーバの生成
-		AbstractNLPServer nlpServer;
-		if (!config.isUseGui())
-			nlpServer = new NLPCUIGameServer(gameSetting, config, agentConnectionMap);
-		else
-			nlpServer = new NLPGUIGameServer(gameSetting, config, agentConnectionMap);
+		AbstractNLPServer nlpServer = new NLPCUIGameServer(gameSetting, config, agentConnectionMap);
 
 		int limit = config.isPrioritizeCombinations() ? agentRoleMapList.size() : config.getGameNum();
 
