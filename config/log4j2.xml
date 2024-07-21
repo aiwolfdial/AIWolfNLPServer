@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>  
+<Configuration status="off">
+    <Properties>
+        <Property name="format">%d{yyyy/MM/dd HH:mm:ss.SSS} [%t] %-6p %c{10} %m%n</Property>
+        <Property name="logfile">./log/log.log</Property>
+        <Property name="logfile-archive">./log/%d{yyyy-MM-dd-HH-mm-ss-SSS}-%i.log</Property>
+    </Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout>
+				<pattern>${format}</pattern>
+			</PatternLayout>
+		</Console>
+		<RollingFile name="File" append="true" fileName="${logfile}"
+			filePattern="${logfile-archive}">
+			<PatternLayout>
+				<pattern>${format}</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="100MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="3"/>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="trace">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="File" />
+		</Root>
+	</Loggers>
+</Configuration>

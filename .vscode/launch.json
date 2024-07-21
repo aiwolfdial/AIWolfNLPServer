@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launcher",
+            "request": "launch",
+            "mainClass": "launcher.Launcher",
+            "projectName": "AIWolfNLPServer_56637394",
+            "vmArgs": [
+                "-Dlog4j.configurationFile=./config/log4j2.xml"
+            ]
+        },
+    ]
+}

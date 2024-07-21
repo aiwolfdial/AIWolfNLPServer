@@ -107,7 +107,4 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,visualstudiocode,macos,windows
 
-/tmp
-/bin
-
-/res/AIWolfGameServer.ini
+/config/AIWolfGameServer.ini
