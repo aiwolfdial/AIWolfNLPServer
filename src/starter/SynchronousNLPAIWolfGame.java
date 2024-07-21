@@ -1,4 +1,4 @@
-package game;
+package starter;
 
 import java.io.BufferedReader;
 // 役職の割り振りを保存するためのインポート
@@ -20,9 +20,6 @@ import server.AIWolfGame;
 import server.GameData;
 import server.net.GameServer;
 
-/**
- * 自然言語対戦用ゲームクラス
- */
 public class SynchronousNLPAIWolfGame extends AIWolfGame {
 	private static final String DEFAULT_INI_PATH = "./res/AIWolfGameServer.ini";
 
@@ -30,21 +27,11 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 		super(gameSetting, gameServer);
 	}
 
-	/**
-	 * 役職の組み合わせをログに残すか判断する
-	 * 
-	 * @author nwatanabe
-	 */
 	private boolean isWriteRoleCombinations(GameConfiguration config) {
 		return config.isSaveRoleCombination()
 				&& config.getAllParticipantNum() >= config.getBattleAgentNum();
 	}
 
-	/**
-	 * 現在の役職の組み合わせから1行のテキストを作成する
-	 * 
-	 * @author nwatanabe
-	 */
 	private String makeRoleCombinationsText() {
 		boolean includeAgentNum = false; // 1,VILLAGER,UECIL_3,2,VILLAGER,satozaki4
 											// みたいに同じ役職の割り振りでもエージェントのindexで区別する(本質的に同じ割り振りの配役になる可能性がある)
@@ -57,7 +44,6 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 			String agentName = agentNameMap.get(agent);
 
 			if (!includeAgentNameNum) {
-				// remove number from agent name
 				agentName = agentName.replaceAll("[0-9]", "");
 			}
 
@@ -75,11 +61,6 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 		return String.join(",", combinationText);
 	}
 
-	/**
-	 * 今までの組み合わせを保存しているログに今回のログがあるか確認する
-	 * 
-	 * @author nwatanabe
-	 */
 	private boolean isDoneCombinations(GameConfiguration config, String checkCombinationText) {
 		File file = new File(config.getRoleCombinationDir()
 				+ config.getRoleCombinationFilename());
@@ -108,14 +89,6 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 		return false;
 	}
 
-	/**
-	 * 毎ゲーム開始時の初期化
-	 * 
-	 * ・追記 2024/03/09
-	 * 
-	 * @author nwatanabe
-	 *         isWriteRoleCombinations = true なら重複が無いか確認する
-	 */
 	protected void init() {
 		gameDataMap = new TreeMap<>();
 		agentNameMap = new HashMap<>();

@@ -15,9 +15,9 @@ import common.data.Agent;
 import common.data.Request;
 import common.data.Role;
 import common.net.Packet;
-import common.util.Pair;
 import server.exception.LostClientException;
 import utility.FileGameLogger;
+import utility.Pair;
 import utility.parser.JsonParser;
 
 public class NLPAIWolfConnection {

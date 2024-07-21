@@ -36,7 +36,7 @@ import common.GameConfiguration;
 import common.NLPAIWolfConnection;
 import common.data.Request;
 import common.net.Packet;
-import common.util.Pair;
+import utility.Pair;
 import utility.parser.JsonParser;
 
 /**

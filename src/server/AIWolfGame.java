@@ -30,10 +30,10 @@ import common.data.Talk;
 import common.data.Team;
 import common.data.Vote;
 import common.net.GameSetting;
-import common.util.Counter;
 import server.exception.IllegalPlayerNumException;
 import server.exception.LostClientException;
 import server.net.GameServer;
+import utility.Counter;
 import utility.FileGameLogger;
 
 /**
@@ -376,10 +376,6 @@ public class AIWolfGame {
 	 *
 	 */
 	protected void night() {
-
-		// for (Agent agent : getAliveAgentList()) {
-		// gameServer.dayFinish(agent);
-		// }
 		for (Agent agent : getGameData().getAgentList()) {
 			gameServer.dayFinish(agent);
 		}

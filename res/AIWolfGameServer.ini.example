@@ -1,10 +1,3 @@
-[automaticStarter]
-hostname=localhost
-port=10001
-playerNum=5
-playerClass=common.data.Agent
-startServer=true
-
 [game]
 logDir=./log/
 port=10000

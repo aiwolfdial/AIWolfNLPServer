@@ -23,9 +23,9 @@ import common.data.Request;
 import common.data.Talk;
 import common.net.GameSetting;
 import common.net.Packet;
-import common.util.BidiMap;
 import server.exception.LostClientException;
 import server.net.GameServer;
+import utility.BidiMap;
 import utility.parser.JsonParser;
 
 /**

@@ -28,7 +28,6 @@ import common.data.Agent;
 import common.data.Role;
 import common.data.Status;
 import common.net.GameSetting;
-import game.SynchronousNLPAIWolfGame;
 import server.AbstractNLPServer;
 import server.GameData;
 import server.NLPCUIGameServer;

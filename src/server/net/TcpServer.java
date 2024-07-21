@@ -30,10 +30,10 @@ import common.data.Role;
 import common.data.Talk;
 import common.net.GameSetting;
 import common.net.Packet;
-import common.util.BidiMap;
 import server.GameData;
 import server.exception.IllegalPlayerNumException;
 import server.exception.LostClientException;
+import utility.BidiMap;
 import utility.parser.JsonParser;
 
 public class TcpServer implements GameServer {

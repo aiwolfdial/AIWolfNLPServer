@@ -7,11 +7,11 @@ import common.data.Request;
 import common.data.Talk;
 
 public class Packet {
-	Request request;
-	GameInfo gameInfo;
-	GameSetting gameSetting;
-	List<Talk> talkHistory;
-	List<Talk> whisperHistory;
+	public Request request;
+	public GameInfo gameInfo;
+	public GameSetting gameSetting;
+	public List<Talk> talkHistory;
+	public List<Talk> whisperHistory;
 
 	public Packet(Request request) {
 		this.request = request;
@@ -32,25 +32,5 @@ public class Packet {
 		this.request = request;
 		this.talkHistory = talkHistory;
 		this.whisperHistory = whisperHistory;
-	}
-
-	public Request getRequest() {
-		return request;
-	}
-
-	public GameInfo getGameInfo() {
-		return gameInfo;
-	}
-
-	public GameSetting getGameSetting() {
-		return gameSetting;
-	}
-
-	public List<Talk> getTalkHistory() {
-		return talkHistory;
-	}
-
-	public List<Talk> getWhisperHistory() {
-		return whisperHistory;
 	}
 }

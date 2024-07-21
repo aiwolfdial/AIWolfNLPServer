@@ -3,6 +3,14 @@ package common.data;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import utility.parser.AgentDeserializer;
+import utility.parser.AgentSerializer;
+
+@JsonSerialize(using = AgentSerializer.class)
+@JsonDeserialize(using = AgentDeserializer.class)
 final public class Agent implements Comparable<Agent> {
 	private static final Map<Integer, Agent> agentIndexMap = new HashMap<>();
 
