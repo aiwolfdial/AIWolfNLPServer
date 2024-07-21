@@ -75,7 +75,7 @@ public class GameBuilder extends Thread {
 			try {
 				entry.getValue().getSocket().close();
 			} catch (IOException e) {
-				logger.error(e);
+				logger.error("Exception", e);
 			}
 		}
 	}
@@ -228,7 +228,7 @@ public class GameBuilder extends Thread {
 						errorLogFile.delete();
 				}
 			} catch (IOException e) {
-				logger.error(e);
+				logger.error("Exception", e);
 			}
 
 			// 全てのコネクションがロストした場合対戦を終了する

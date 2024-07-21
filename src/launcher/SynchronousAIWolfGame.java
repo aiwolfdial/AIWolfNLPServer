@@ -87,7 +87,7 @@ public class SynchronousAIWolfGame extends AIWolfGame {
 
 			bufferReader.close();
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("Exception", e);
 		}
 
 		return false;
@@ -129,7 +129,7 @@ public class SynchronousAIWolfGame extends AIWolfGame {
 			fileWriter.write(saveText);
 			fileWriter.close();
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error("Exception", e);
 		}
 	}
 
@@ -153,7 +153,7 @@ public class SynchronousAIWolfGame extends AIWolfGame {
 
 			super.start();
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error("Exception", e);
 		}
 	}
 

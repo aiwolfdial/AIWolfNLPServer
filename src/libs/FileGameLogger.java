@@ -23,7 +23,7 @@ public class FileGameLogger {
 			bw.append(text);
 			bw.append("\n");
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("Exception", e);
 		}
 	}
 
@@ -31,7 +31,7 @@ public class FileGameLogger {
 		try {
 			bw.flush();
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("Exception", e);
 		}
 	}
 
@@ -39,7 +39,7 @@ public class FileGameLogger {
 		try {
 			bw.close();
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("Exception", e);
 		}
 	}
 }

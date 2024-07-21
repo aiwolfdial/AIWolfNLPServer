@@ -42,7 +42,7 @@ public class GameStarter extends Thread {
 			try {
 				Thread.sleep(1000L);
 			} catch (InterruptedException e) {
-				logger.error(e);
+				logger.error("Exception", e);
 			}
 		}
 	}

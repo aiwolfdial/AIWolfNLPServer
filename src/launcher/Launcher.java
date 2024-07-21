@@ -59,7 +59,7 @@ public class Launcher {
 			Launcher starter = new Launcher();
 			starter.start();
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error("Exception", e);
 		}
 	}
 
@@ -77,7 +77,7 @@ public class Launcher {
 			// サーバーソケットを指定されたポートで作成
 			serverSocket = new ServerSocket(config.getPort());
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("Exception", e);
 		}
 		Set<Socket> requiredSockets = new HashSet<>();
 		isRunning = true;
@@ -117,7 +117,7 @@ public class Launcher {
 				// 接続キューを送信
 				sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), requiredSockets);
 			} catch (Exception e) {
-				logger.error(e);
+				logger.error("Exception", e);
 			}
 		}
 	}
@@ -202,27 +202,23 @@ public class Launcher {
 			try {
 				printActiveConnection();
 			} catch (Exception e) {
-				logger.error(e);
+				logger.error("Exception", e);
 				return;
 			}
 			// 接続キューを送信
 			sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), new HashSet<>());
 		} catch (UnknownHostException e) {
 			// 未知のホスト例外を処理
-			logger.error(e);
-			logger.error(String.format("Player%d host is not found.", index));
+			logger.error(String.format("Player%d host is not found.", index), e);
 		} catch (ConnectException e) {
 			// 接続拒否例外を処理
-			logger.error(e);
-			logger.error(String.format("Player%d connection refused.", index));
+			logger.error(String.format("Player%d connection refused.", index), e);
 		} catch (NoRouteToHostException e) {
 			// ホストへのルートがない例外を処理
-			logger.error(e);
-			logger.error(String.format("Player%d no route to host.", index));
+			logger.error(String.format("Player%d no route to host.", index), e);
 		} catch (IOException e) {
 			// その他のIO例外を処理
-			logger.error(e);
-			logger.error(String.format("Player%d connection failed.", index));
+			logger.error(String.format("Player%d connection failed.", index), e);
 		}
 	}
 
@@ -367,7 +363,7 @@ public class Launcher {
 					try {
 						Thread.sleep(1000);
 					} catch (Exception e) {
-						logger.error(e);
+						logger.error("Exception", e);
 					}
 				}
 				// 2週目以降用
@@ -375,7 +371,7 @@ public class Launcher {
 					logger.debug("Wait 20sec before connect to player server.");
 					Thread.sleep(20000);
 				} catch (Exception e) {
-					logger.error(e);
+					logger.error("Exception", e);
 				}
 				connectToPlayerServer();
 				// connectToPlayerServerの追加待ち
@@ -383,7 +379,7 @@ public class Launcher {
 					logger.debug("Wait 20sec after connect to player server.");
 					Thread.sleep(20000);
 				} catch (Exception e) {
-					logger.error(e);
+					logger.error("Exception", e);
 				}
 			}
 		} else if (!config.isListenPort()) {

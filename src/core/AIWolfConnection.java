@@ -64,7 +64,7 @@ public class AIWolfConnection {
 			this.name = (line == null || line.isEmpty()) ? null : line;
 		} catch (Exception e) {
 			if (isAlive) {
-				logger.error(e);
+				logger.error("Exception", e);
 			}
 			catchException(agent, e, Request.NAME);
 		}
@@ -80,7 +80,7 @@ public class AIWolfConnection {
 			this.bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			this.config = config;
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("Exception", e);
 		}
 	}
 
@@ -143,7 +143,7 @@ public class AIWolfConnection {
 			this.bw.close();
 			this.socket.close();
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error("Exception", e);
 		}
 	}
 

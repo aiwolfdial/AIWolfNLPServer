@@ -13,7 +13,7 @@ public class JsonParser {
 		try {
 			return mapper.writeValueAsString(obj);
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error("Exception", e);
 			return null;
 		}
 	}
@@ -23,7 +23,7 @@ public class JsonParser {
 		try {
 			return mapper.readValue(json, clazz);
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error("Exception", e);
 			return null;
 		}
 	}

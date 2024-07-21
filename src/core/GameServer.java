@@ -61,7 +61,7 @@ public class GameServer {
 	protected Object catchException(Agent agent, Request request, Exception e) throws LostAgentConnectionException {
 		AIWolfConnection connection = allAgentConnectionMap.get(agent);
 		if (connection.isAlive()) {
-			logger.error(e);
+			logger.error("Exception", e);
 			connection.catchException(agent, e, request);
 		}
 		if (gameConfiguration.isContinueExceptionAgent())
