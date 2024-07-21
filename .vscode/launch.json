@@ -5,7 +5,7 @@
             "type": "java",
             "name": "AutoGameStarter",
             "request": "launch",
-            "mainClass": "automatic.AutoGameStarter",
+            "mainClass": "launcher.AutoGameStarter",
             "projectName": "AIWolfNLPServer_56637394"
         },
     ]

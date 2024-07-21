@@ -21,7 +21,7 @@ import core.model.Agent;
 import core.packet.GameSetting;
 
 public class SynchronousNLPAIWolfGame extends AIWolfGame {
-	private static final String DEFAULT_INI_PATH = "./res/AIWolfGameServer.ini";
+	private static final String DEFAULT_INI_PATH = "./config/AIWolfGameServer.ini";
 
 	public SynchronousNLPAIWolfGame(GameSetting gameSetting, GameServer gameServer) {
 		super(gameSetting, gameServer);

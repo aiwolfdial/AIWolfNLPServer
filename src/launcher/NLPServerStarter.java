@@ -46,7 +46,7 @@ import utils.JsonParser;
 public class NLPServerStarter {
 	private static final Logger logger = LogManager.getLogger(NLPServerStarter.class);
 
-	private static final String DEFAULT_CONFIG_PATH = "./res/AIWolfGameServer.ini";
+	private static final String DEFAULT_CONFIG_PATH = "./config/AIWolfGameServer.ini";
 
 	private final GameConfiguration config;
 	private final Queue<List<Socket>> socketQue = new ArrayDeque<>();
