@@ -143,7 +143,6 @@ public class NLPGameBuilder extends Thread {
 			}
 
 			int[] agentArray = agentCombination.next();
-			int totalCount = 0;
 			while (roleCombination.hasNext()) {
 				// 村人以外の役職の番号についてその順列を取る
 				List<Integer> roleNumList = new ArrayList<>();
@@ -152,8 +151,6 @@ public class NLPGameBuilder extends Thread {
 				PermutationIterator<Integer> nonVillagerPermutationIterator = new PermutationIterator<>(roleNumList);
 				while (nonVillagerPermutationIterator.hasNext()) {
 					List<Integer> giftedAgentId = nonVillagerPermutationIterator.next();
-					StringBuilder sb = new StringBuilder();
-					sb.append(totalCount++).append(" : ").append(giftedAgentId.toString()).append("\n");
 					Map<Agent, Role> roleMap = new HashMap<>();
 					for (int i = 0; i < giftedAgentId.size(); i++) {
 						roleMap.put(Agent.getAgent(giftedAgentId.get(i) + 1), USED_ROLES[i]);
@@ -162,10 +159,8 @@ public class NLPGameBuilder extends Thread {
 						if (roleMap.containsKey(Agent.getAgent(i + 1)))
 							continue;
 						roleMap.put(Agent.getAgent(i + 1), Role.VILLAGER);
-						sb.append(i).append(", ");
 					}
 					roleList.add(roleMap);
-					logger.debug(sb.toString());
 				}
 			}
 		}
@@ -261,7 +256,6 @@ public class NLPGameBuilder extends Thread {
 				if (config.isSaveLog()) {
 					String path = String.format(NORMAL_LOG_FILE_NAME, config.getLogDir(), subLogDirName, i,
 							clientNames);
-					// logger.debug("Log: " + path);
 					logger.debug(String.format("Path: %s", path));
 					game.setGameLogger(new FileGameLogger(new File(path)));
 				}
@@ -287,7 +281,7 @@ public class NLPGameBuilder extends Thread {
 						errorLogFile.delete();
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 
 			// 全てのコネクションがロストした場合対戦を終了する
