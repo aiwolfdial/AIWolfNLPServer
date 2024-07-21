@@ -1,7 +1,6 @@
 package launcher;
 
 import java.io.BufferedReader;
-// 役職の割り振りを保存するためのインポート
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -105,11 +104,6 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 
 	}
 
-	/**
-	 * 今回の役職の組み合わせを保存する
-	 * 
-	 * @author nwatanabe
-	 */
 	private void saveRoleCombinations() {
 		try {
 			GameConfiguration config = GameConfiguration.load(DEFAULT_INI_PATH);
@@ -162,12 +156,6 @@ public class SynchronousNLPAIWolfGame extends AIWolfGame {
 		}
 	}
 
-	/**
-	 * 2024/03/09
-	 * finishまで来たらゲームが正常終了したものとみなし、その配役をメモする
-	 * 
-	 * @author nwatanabe
-	 */
 	public void finish() {
 		saveRoleCombinations();
 		super.finish();

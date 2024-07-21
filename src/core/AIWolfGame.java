@@ -1,8 +1,3 @@
-/**
- * AIWolfGame.java
- *
- * Copyright (c) 2014 人狼知能プロジェクト
- */
 package core;
 
 import java.util.ArrayList;
@@ -112,9 +107,6 @@ public class AIWolfGame {
 		}
 	}
 
-	/**
-	 * Start game
-	 */
 	public void start() {
 		try {
 			init();

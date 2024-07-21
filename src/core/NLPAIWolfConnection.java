@@ -22,7 +22,6 @@ import libs.Pair;
 import utils.JsonParser;
 
 public class NLPAIWolfConnection {
-	// エラーログ内のメッセージ
 	private static final String LOST_CONNECTION_MESSAGE = "%s(%s:%s)_[Request:%s] lostConnection";
 
 	private boolean isAlive;
@@ -142,13 +141,6 @@ public class NLPAIWolfConnection {
 		}
 	}
 
-	/**
-	 * エラー情報の保存、コネクションの終了処理
-	 * 
-	 * @param agent
-	 * @param e
-	 * @param request
-	 */
 	public void catchException(Agent agent, Exception e, Request request) {
 		isAlive = false;
 		haveNewError = true;

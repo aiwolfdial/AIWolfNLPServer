@@ -25,9 +25,6 @@ import libs.BidiMap;
 import libs.CallableBufferedReader;
 import utils.JsonParser;
 
-/**
- *
- */
 public abstract class AbstractNLPServer implements GameServer {
 	// ゲーム設定
 	protected GameSetting gameSetting;
