@@ -20,7 +20,6 @@ import java.util.TreeSet;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import client.Content;
 import common.data.Agent;
 import common.data.Guard;
 import common.data.Judge;
@@ -577,11 +576,6 @@ public class AIWolfGame {
 				if (talkText == null || talkText.isEmpty()) {
 					talkText = Talk.SKIP;
 				}
-				if (gameSetting.isValidateUtterance()) {
-					if (!Content.validate(talkText)) {
-						talkText = Talk.SKIP;
-					}
-				}
 				if (talkText.equals(Talk.SKIP)) {
 					skipCounter.add(agent);
 					if (skipCounter.get(agent) > gameSetting.getMaxSkip()) {
@@ -634,11 +628,6 @@ public class AIWolfGame {
 				}
 				if (whisperText == null || whisperText.isEmpty()) {
 					whisperText = Talk.SKIP;
-				}
-				if (gameSetting.isValidateUtterance()) {
-					if (!Content.validate(whisperText)) {
-						whisperText = Talk.SKIP;
-					}
 				}
 				if (whisperText.equals(Talk.SKIP)) {
 					skipCounter.add(agent);

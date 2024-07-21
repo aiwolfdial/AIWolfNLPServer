@@ -41,34 +41,10 @@ public class GameSetting implements Cloneable {
 		}
 	}
 
-	static public GameSetting DefaultGameSetting(int agentNum) {
-		GameSetting setting = new GameSetting();
-		setting.maxTalk = 10;
-		setting.maxTalkTurn = 20;
-		setting.maxWhisper = 10;
-		setting.maxWhisperTurn = 20;
-		setting.maxSkip = 2;
-		setting.isEnableNoAttack = false;
-		setting.isVoteVisible = true;
-		setting.isVotableInFirstDay = false;
-		setting.isEnableNoExecution = false;
-		setting.isTalkOnFirstDay = false;
-		setting.isValidateUtterance = true;
-		setting.isWhisperBeforeRevote = false;
-		setting.responseTimeout = -1;
-		setting.actionTimeout = -1;
-		setting.maxRevote = 1;
-		setting.maxAttackRevote = 1;
-		setting.isEnableRoleRequest = true;
-		setting.setRoleNumMap(agentNum);
-		return setting;
-	}
-
 	static public GameSetting FromGameConfiguration(GameConfiguration config) {
 		GameSetting setting = new GameSetting();
 		setting.responseTimeout = (int) config.getResponseTimeout();
 		setting.actionTimeout = (int) config.getActionTimeout();
-		setting.isValidateUtterance = false;
 		setting.maxTalk = config.getMaxTalkNum();
 		setting.maxTalkTurn = config.getMaxTalkTurn();
 		setting.maxWhisper = config.getMaxTalkNum();
@@ -100,8 +76,6 @@ public class GameSetting implements Cloneable {
 	private boolean isEnableNoExecution;
 	// Day 0にtalkがあるかどうか
 	private boolean isTalkOnFirstDay;
-	// 発話文字列の違反チェックを行うかどうか
-	private boolean isValidateUtterance;
 	// 再襲撃投票前にwhisperするかどうか
 	private boolean isWhisperBeforeRevote;
 	// ランダムシード(乱数種)
@@ -260,20 +234,6 @@ public class GameSetting implements Cloneable {
 	 */
 	public boolean isEnableRoleRequest() {
 		return isEnableRoleRequest;
-	}
-
-	/**
-	 * <div lang="ja">発話文字列の違反チェックを行うかどうかを返します。</div>
-	 *
-	 * <div lang="en">Returns whether or not the text in talk/whisper is
-	 * validated.</div>
-	 *
-	 * @return <div lang="ja">発話文字列の違反チェックを行うかどうか</div> <div lang="en">whether or
-	 *         not the text in talk/whisper is
-	 *         validated</div>
-	 */
-	public boolean isValidateUtterance() {
-		return isValidateUtterance;
 	}
 
 	/**
@@ -495,7 +455,6 @@ public class GameSetting implements Cloneable {
 		gameSetting.isVoteVisible = isVoteVisible;
 		gameSetting.isEnableNoExecution = isEnableNoExecution;
 		gameSetting.isTalkOnFirstDay = isTalkOnFirstDay;
-		gameSetting.isValidateUtterance = isValidateUtterance;
 		gameSetting.isWhisperBeforeRevote = isWhisperBeforeRevote;
 		gameSetting.maxTalk = maxTalk;
 		gameSetting.maxWhisper = maxWhisper;
@@ -511,5 +470,4 @@ public class GameSetting implements Cloneable {
 		gameSetting.isEnableRoleRequest = isEnableRoleRequest;
 		return gameSetting;
 	}
-
 }
