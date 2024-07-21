@@ -17,7 +17,7 @@ public class AutoGameStarter {
 		if (args.length > 0) {
 			configPath = args[0];
 		}
-		logger.info("Config file path: " + configPath);
+		logger.info(String.format("Config file path: %s", configPath));
 		try {
 			AutomaticStarterConfiguration config = AutomaticStarterConfiguration.load(configPath);
 			if (config.isStartServer()) {

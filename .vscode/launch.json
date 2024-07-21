@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "AutoGameStarter",
+            "request": "launch",
+            "mainClass": "automatic.AutoGameStarter",
+            "projectName": "AIWolfNLPServer_56637394"
+        },
+    ]
+}

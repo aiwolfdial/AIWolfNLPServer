@@ -3,10 +3,15 @@ package automatic;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import common.data.Player;
 import common.net.TcpClient;
 
 public class AutomaticClientConnector {
+	private static final Logger logger = LogManager.getLogger(AutomaticClientConnector.class);
+
 	private static final String DEFAULT_CONFIG_PATH = "./res/AIWolfGameServer.ini";
 	private final AutomaticStarterConfiguration config;
 
@@ -41,9 +46,9 @@ public class AutomaticClientConnector {
 					Player player = (Player) config.getPlayerClass().getConstructor().newInstance();
 					String playerInfo = player.getName() + " (" + config.getPlayerClass().getName() + ")";
 					if (client.connect(player)) {
-						System.out.println("Player connected to server : " + playerInfo);
+						logger.info(String.format("Player connected to server : %s", playerInfo));
 					} else {
-						System.err.println("This Player missed connecting to server : " + playerInfo);
+						logger.error(String.format("Player missed connecting to server : %s", playerInfo));
 					}
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException | NoSuchMethodException | SecurityException e) {

@@ -17,6 +17,9 @@ import java.util.Random;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import client.Content;
 import common.data.Agent;
 import common.data.Guard;
@@ -40,6 +43,7 @@ import server.util.GameLogger;
  *
  */
 public class AIWolfGame {
+	private static final Logger logger = LogManager.getLogger(AIWolfGame.class);
 
 	protected Random rand;
 
@@ -62,11 +66,6 @@ public class AIWolfGame {
 	 *
 	 */
 	protected GameData gameData;
-
-	/**
-	 * Show console log?
-	 */
-	protected boolean isShowConsoleLog = true;
 
 	/**
 	 * ログを記録するファイル
@@ -169,10 +168,8 @@ public class AIWolfGame {
 					} else {
 						noRequestAgentList.add(agent);
 					}
-					// System.out.println(agent+" request "+requestedRole);
 				} else {
 					noRequestAgentList.add(agent);
-					// System.out.println(agent+" request no role");
 				}
 			} else {
 				noRequestAgentList.add(agent);
@@ -197,7 +194,6 @@ public class AIWolfGame {
 			gameServer.init(agent);
 			String requestName = gameServer.requestName(agent);
 			agentNameMap.put(agent, requestName);
-			// System.out.println(requestName);
 		}
 	}
 
@@ -207,9 +203,6 @@ public class AIWolfGame {
 	public void start() {
 		try {
 			init();
-
-			// System.out.printf("%d-%d\n", getAliveHumanList().size(),
-			// getAliveWolfList().size());
 			while (!isGameFinished()) {
 				consoleLog();
 
@@ -221,15 +214,7 @@ public class AIWolfGame {
 			}
 			consoleLog();
 			finish();
-
-			if (isShowConsoleLog) {
-				System.out.println("Winner:" + getWinner());
-			}
-			// for(Agent agent:gameData.getAgentList()){
-			// GameInfo gameInfo = gameData.getGameInfo(agent);
-			//// System.out.println(JSON.encode(gameInfo));
-			// break;
-			// }
+			logger.info(String.format("Winner:%s", getWinner()));
 		} catch (LostClientException e) {
 			if (gameLogger != null) {
 				gameLogger.log("Lost Connection of " + e.getAgent());
@@ -250,7 +235,6 @@ public class AIWolfGame {
 		}
 
 		for (Agent agent : gameData.getAgentList()) {
-			// System.out.println("Send finish to "+agent);
 			gameServer.finish(agent);
 		}
 		/*
@@ -303,90 +287,77 @@ public class AIWolfGame {
 	}
 
 	private void consoleLog() {
-
-		if (!isShowConsoleLog) {
-			return;
-		}
-
 		GameData yesterday = gameData.getDayBefore();
 
-		System.out.println("=============================================");
+		logger.info("=============================================");
 		if (yesterday != null) {
-			System.out.printf("Day %02d\n", yesterday.getDay());
-			System.out.println("========talk========");
+			logger.info(String.format("Day %02d", yesterday.getDay()));
+			logger.info("========talk========");
 			for (Talk talk : yesterday.getTalkList()) {
-				System.out.println(talk);
+				logger.info(talk);
 			}
-			System.out.println("========Whisper========");
+			logger.info("========Whisper========");
 			for (Talk whisper : yesterday.getWhisperList()) {
-				System.out.println(whisper);
+				logger.info(whisper);
 			}
-
-			System.out.println("========Actions========");
+			logger.info("========Actions========");
 			for (Vote vote : yesterday.getVoteList()) {
-				System.out.printf("Vote:%s->%s\n", vote.getAgent(), vote.getTarget());
+				logger.info(String.format("Vote:%s->%s", vote.getAgent(), vote.getTarget()));
 			}
-
-			// System.out.println("Attack Vote Result");
 			for (Vote vote : yesterday.getAttackVoteList()) {
-				System.out.printf("AttackVote:%s->%s\n", vote.getAgent(), vote.getTarget());
+				logger.info(String.format("AttackVote:%s->%s", vote.getAgent(), vote.getTarget()));
 			}
-
+			logger.info(String.format("Executed:%s", yesterday.getExecuted()));
 			Judge divine = yesterday.getDivine();
-			System.out.printf("%s executed\n", yesterday.getExecuted());
 			if (divine != null) {
-				System.out.printf("%s divine %s. Result is %s\n", divine.getAgent(), divine.getTarget(),
-						divine.getResult());
+				logger.info(String.format("Divine:%s->%s", divine.getAgent(), divine.getTarget()));
 			}
 			Guard guard = yesterday.getGuard();
 			if (guard != null) {
-				System.out.printf("%s guarded\n", guard);
+				logger.info(String.format("Guard:%s->%s", guard.getAgent(), guard.getTarget()));
 			}
-
 			if (yesterday.getAttackedDead() != null) {
-				System.out.printf("%s attacked\n", yesterday.getAttackedDead());
+				logger.info(String.format("Attacked:%s", yesterday.getAttackedDead()));
 			}
-
 			if (yesterday.getCursedFox() != null) {
-				System.out.printf("%s cursed\n", yesterday.getCursedFox());
+				logger.info(String.format("Cursed:%s", yesterday.getCursedFox()));
 			}
 		}
-		System.out.println("======");
+		logger.info("======");
 		List<Agent> agentList = gameData.getAgentList();
 		agentList.sort((o1, o2) -> o1.getAgentIdx() - o2.getAgentIdx());
 		for (Agent agent : agentList) {
-			System.out.printf("%s\t%s\t%s\t%s", agent, agentNameMap.get(agent), gameData.getStatus(agent),
-					gameData.getRole(agent));
+			StringBuilder logBuilder = new StringBuilder();
+			logBuilder.append(String.format("%s\t%s\t%s\t%s", agent, agentNameMap.get(agent), gameData.getStatus(agent),
+					gameData.getRole(agent)));
 			if (yesterday != null) {
 				if (yesterday.getExecuted() == agent) {
-					System.out.print("\texecuted");
+					logBuilder.append("\tExecuted");
 				}
-
 				if (agent == yesterday.getAttackedDead()) {
-					System.out.print("\tattacked");
+					logBuilder.append("\tAttacked");
 				}
-
 				Judge divine = yesterday.getDivine();
 				if (divine != null && divine.getTarget() == agent) {
-					System.out.print("\tdivined");
+					logBuilder.append("\tDivined");
 				}
 				Guard guard = yesterday.getGuard();
 				if (guard != null && guard.getTarget() == agent) {
-					System.out.print("\tguarded");
+					logBuilder.append("\tGuarded");
 				}
-
 				if (agent == yesterday.getCursedFox()) {
-					System.out.print("\tcursed");
+					logBuilder.append("\tCursed");
 				}
 			}
-			System.out.println();
+			logger.info(logBuilder.toString());
 		}
-		System.out.printf("Human:%d\nWerewolf:%d\n", getAliveHumanList().size(), getAliveWolfList().size());
+		logger.info(String.format("Human:%d", getAliveHumanList().size()));
+		logger.info(String.format("Werewolf:%d", getAliveWolfList().size()));
 		if (gameSetting.getRoleNum(Role.FOX) != 0) {
-			System.out.printf("Others:%d\n", gameData.getFilteredAgentList(getAliveAgentList(), Team.OTHERS).size());
+			logger.info(String.format("Others:%d",
+					gameData.getFilteredAgentList(getAliveAgentList(), Team.OTHERS).size()));
 		}
-
-		System.out.println("=============================================");
+		logger.info("=============================================");
 	}
 
 	protected void day() {
@@ -867,21 +838,6 @@ public class AIWolfGame {
 	 */
 	public GameSetting getGameSetting() {
 		return gameSetting;
-	}
-
-	/**
-	 * @return isShowConsoleLog
-	 */
-	public boolean isShowConsoleLog() {
-		return isShowConsoleLog;
-	}
-
-	/**
-	 * @param isShowConsoleLog
-	 *            isShowConsoleLog
-	 */
-	public void setShowConsoleLog(boolean isShowConsoleLog) {
-		this.isShowConsoleLog = isShowConsoleLog;
 	}
 
 	/**

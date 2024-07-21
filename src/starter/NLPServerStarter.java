@@ -38,13 +38,12 @@ import common.data.Request;
 import common.net.DataConverter;
 import common.net.Packet;
 import common.util.Pair;
-import server.bin.ServerStarter;
 
 /**
  * 継続してクライアントからの接続を受け付ける人狼知能対戦用サーバ
  * 人狼知能プラットフォーム標準のままだとAgent.getAgentが並列対応しておらず、バグるためgetAgentメソッドを並列処理できるようにする必要がある
  */
-public class NLPServerStarter extends ServerStarter {
+public class NLPServerStarter {
 	private static final Logger logger = LogManager.getLogger(NLPServerStarter.class);
 
 	private static final String DEFAULT_CONFIG_PATH = "./res/AIWolfGameServer.ini";
@@ -62,7 +61,7 @@ public class NLPServerStarter extends ServerStarter {
 		if (args.length > 0) {
 			configPath = args[0];
 		}
-		logger.info("Config file path: " + configPath);
+		logger.info(String.format("Config file path: %s", configPath));
 		NLPServerStarter starter;
 		try {
 			starter = new NLPServerStarter(configPath);
@@ -95,9 +94,6 @@ public class NLPServerStarter extends ServerStarter {
 		isRunning = true;
 		while (true) {
 			try {
-				if (isSetRequiredAgentName) {
-					logger.debug("requiredSockets: " + requiredSockets);
-				}
 				// クライアントのIPアドレスをキーとし、そのIPアドレスに関連付けられたソケットのリストを値とするマップ
 				Map<String, List<Pair<Long, Socket>>> entrySocketMap = new HashMap<>();
 				// クライアントからの接続を受け入れる
@@ -112,7 +108,7 @@ public class NLPServerStarter extends ServerStarter {
 				// エントリーソケットマップを更新
 				entrySocketMap = waitingSockets.getOrDefault(key, new HashMap<>());
 				waitingSockets.putIfAbsent(key, entrySocketMap);
-				logger.debug("Socket connected: " + key);
+				logger.debug(String.format("Socket connected: %s", key));
 				// ソケットの名前を取得
 				String name = getName(socket);
 				if (isSetRequiredAgentName && name.contains(config.getRequiredAgentName())) {
@@ -140,7 +136,7 @@ public class NLPServerStarter extends ServerStarter {
 	// サーバーソケットを取得するメソッド
 	private Socket getSocketFromIndex(int index, String line, Set<Integer> entryAgentIndex)
 			throws UnknownHostException, ConnectException, NoRouteToHostException, IOException {
-		logger.info("Get socket from index: " + index);
+		logger.info(String.format("Get socket from index: %d", index));
 		// 他の組み合わせを続行する設定が有効な場合、ランダムにインデックスを選択
 		if (config.isContinueOtherCombinations()) {
 			Random rand = new Random();
@@ -149,7 +145,7 @@ public class NLPServerStarter extends ServerStarter {
 			} while (entryAgentIndex.contains(index));
 			entryAgentIndex.add(index);
 		}
-		logger.debug("Index: " + index);
+		logger.debug(String.format("Index: %d", index));
 		// インデックスに基づいてサーバー情報を設定
 		return switch (index) {
 			case 1 -> getSocket(config.getPlayer1Ip(), config.getPlayer1Port());
@@ -170,10 +166,10 @@ public class NLPServerStarter extends ServerStarter {
 
 	private Socket getSocket(String hostname, int port) throws UnknownHostException, IOException {
 		Socket sock = new Socket(hostname, port);
-		logger.debug("Socket connected: " + hostname + ":" + port);
+		logger.debug(String.format("Socket connected: %s:%d", hostname, port));
 		try {
 			String name = getName(sock);
-			logger.debug("Socket name: " + name);
+			logger.debug(String.format("Socket name: %s", name));
 		} catch (Exception e) {
 			throw new UnknownHostException();
 		}
@@ -206,7 +202,7 @@ public class NLPServerStarter extends ServerStarter {
 				String ipAddress = socket.getInetAddress().getHostAddress();
 				// IPアドレスに基づいてソケットをマップに追加
 				entrySocketMap.computeIfAbsent(ipAddress, k -> new ArrayList<>()).add(pair);
-				logger.debug("Socket connected: " + ipAddress);
+				logger.debug(String.format("Socket connected: %s:%d", ipAddress, socket.getPort()));
 				// 待機中のソケットマップにエントリーソケットマップを格納
 				waitingSockets.put(ipAddress, entrySocketMap);
 				index++;
@@ -225,19 +221,19 @@ public class NLPServerStarter extends ServerStarter {
 		} catch (UnknownHostException e) {
 			// 未知のホスト例外を処理
 			logger.error(e);
-			logger.error("Player" + index + " host is not found.");
+			logger.error(String.format("Player%d host is not found.", index));
 		} catch (ConnectException e) {
 			// 接続拒否例外を処理
 			logger.error(e);
-			logger.error("Player" + index + " connection refused.");
+			logger.error(String.format("Player%d connection refused.", index));
 		} catch (NoRouteToHostException e) {
 			// ホストへのルートがない例外を処理
 			logger.error(e);
-			logger.error("Player" + index + " no route to host.");
+			logger.error(String.format("Player%d no route to host.", index));
 		} catch (IOException e) {
 			// その他のIO例外を処理
 			logger.error(e);
-			logger.error("Player" + index + " connection failed.");
+			logger.error(String.format("Player%d connection failed.", index));
 		}
 	}
 
@@ -382,7 +378,7 @@ public class NLPServerStarter extends ServerStarter {
 					try {
 						Thread.sleep(1000);
 					} catch (Exception e) {
-						System.out.println(e);
+						logger.error(e);
 					}
 				}
 				// 2週目以降用
@@ -390,7 +386,7 @@ public class NLPServerStarter extends ServerStarter {
 					logger.debug("Wait 20sec before connect to player server.");
 					Thread.sleep(20000);
 				} catch (Exception e) {
-					System.out.println(e);
+					logger.error(e);
 				}
 				connectToPlayerServer();
 				// connectToPlayerServerの追加待ち
@@ -398,7 +394,7 @@ public class NLPServerStarter extends ServerStarter {
 					logger.debug("Wait 20sec after connect to player server.");
 					Thread.sleep(20000);
 				} catch (Exception e) {
-					System.out.println(e);
+					logger.error(e);
 				}
 			}
 		} else if (!config.isListenPort()) {

@@ -28,6 +28,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import common.data.Agent;
 import common.data.Request;
 import common.data.Role;
@@ -47,6 +50,7 @@ import server.LostClientException;
  *
  */
 public class TcpServer implements GameServer {
+	private static final Logger logger = LogManager.getLogger(TcpServer.class);
 
 	/**
 	 * Server Port
@@ -150,8 +154,7 @@ public class TcpServer implements GameServer {
 		socketAgentMap.clear();
 		nameMap.clear();
 
-		// serverLogger.info(String.format("Waiting for connection...\n"));
-		System.out.println("Waiting for connection...\n");
+		logger.info("Waiting for connection...");
 
 		serverSocket = new ServerSocket(port);
 

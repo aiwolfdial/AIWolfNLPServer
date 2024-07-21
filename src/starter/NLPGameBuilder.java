@@ -182,7 +182,7 @@ public class NLPGameBuilder extends Thread {
 	 */
 	private void printCombinationList(List<Map<Agent, Role>> roleList) {
 		for (int i = 0; i < roleList.size(); i++) {
-			logger.debug(i + " : " + roleList.get(i));
+			logger.debug(String.format("%d: %s", i, roleList.get(i)));
 		}
 		Map<Agent, Map<Role, Integer>> map = new HashMap<>();
 		for (Map<Agent, Role> roleMap : roleList) {
@@ -198,7 +198,7 @@ public class NLPGameBuilder extends Thread {
 			}
 		}
 		for (Entry<Agent, Map<Role, Integer>> entry : map.entrySet()) {
-			logger.debug(entry.getKey() + " : " + entry.getValue());
+			logger.debug(String.format("%s: %s", entry.getKey(), entry.getValue()));
 		}
 	}
 
@@ -256,12 +256,13 @@ public class NLPGameBuilder extends Thread {
 
 			try {
 				// 現在の対戦数を表示
-				logger.debug("i = " + i);
+				logger.debug(String.format("I: %d", i));
 				// ロガーを設定
 				if (config.isSaveLog()) {
 					String path = String.format(NORMAL_LOG_FILE_NAME, config.getLogDir(), subLogDirName, i,
 							clientNames);
-					System.out.println("log : " + path);
+					// logger.debug("Log: " + path);
+					logger.debug(String.format("Path: %s", path));
 					game.setGameLogger(new FileGameLogger(new File(path)));
 				}
 
@@ -293,7 +294,7 @@ public class NLPGameBuilder extends Thread {
 			if (agentConnectionMap.values().stream().noneMatch(connection -> connection.isAlive()))
 				break;
 		}
-		System.err.println("All Game was finished.");
+		logger.info("GameBuilder end.");
 		close();
 	}
 }

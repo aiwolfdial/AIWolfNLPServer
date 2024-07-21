@@ -24,7 +24,7 @@ public class Configuration {
             throw new IOException("Section not found: " + sectionName);
         }
         loadSection(section, object);
-        logger.info("Loaded configuration from " + path);
+        logger.info(String.format("Loaded configuration from %s", path));
         return object;
     }
 
@@ -57,7 +57,7 @@ public class Configuration {
             } else {
                 field.set(object, value);
             }
-            logger.debug("Loaded: " + key + " = " + value);
+            logger.debug(String.format("Loaded: %s = %s", key, value));
         }
     }
 }

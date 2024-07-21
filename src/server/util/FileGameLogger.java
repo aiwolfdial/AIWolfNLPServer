@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.zip.GZIPOutputStream;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import common.util.CalendarTools;
 
 /**
@@ -17,28 +20,15 @@ import common.util.CalendarTools;
  *
  */
 public class FileGameLogger implements GameLogger {
+	private static final Logger logger = LogManager.getLogger(FileGameLogger.class);
 
 	protected File logFile;
 	protected BufferedWriter bw;
 
-	protected FileGameLogger() {
-
-	}
-
-	/**
-	 * 
-	 * @param logFile
-	 * @throws IOException
-	 */
 	public FileGameLogger(String logFile) throws IOException {
 		this(new File(logFile));
 	}
 
-	/**
-	 * 
-	 * @param logFile
-	 * @throws IOException
-	 */
 	public FileGameLogger(File logFile) throws IOException {
 		super();
 
@@ -59,26 +49,18 @@ public class FileGameLogger implements GameLogger {
 				}
 				return;
 			} catch (IOException e) {
-				e.printStackTrace();
-				System.err.println("Fail to create logfile. Output log to system.out");
+				logger.error(e);
 			}
 		}
 		bw = new BufferedWriter(new OutputStreamWriter(System.out));
 	}
 
-	/**
-	 * Save log
-	 * 
-	 * @param text
-	 * @param gameInfo
-	 */
 	public void log(String text) {
 		try {
 			bw.append(text);
 			bw.append("\n");
 		} catch (IOException e) {
 		}
-		// System.out.println(text);
 	}
 
 	public void flush() {
@@ -92,8 +74,7 @@ public class FileGameLogger implements GameLogger {
 		try {
 			bw.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
-
 }
