@@ -22,7 +22,7 @@ import core.model.Packet;
 import core.model.Request;
 import core.model.Role;
 import libs.CallableBufferedReader;
-import libs.FileGameLogger;
+import libs.RawFileLogger;
 import utils.JsonParser;
 
 public class Connection {
@@ -97,7 +97,7 @@ public class Connection {
 		return agent;
 	}
 
-	public void printException(FileGameLogger logger, Agent agent, Role role) {
+	public void printException(RawFileLogger logger, Agent agent, Role role) {
 		if (!hasException)
 			return;
 		logger.log(String.format(LOST_CONNECTION_MESSAGE, name, agent, role, causeRequest));

@@ -124,12 +124,14 @@ public record Config(
         for (var field : this.getClass().getDeclaredFields()) {
             try {
                 field.setAccessible(true);
-                sb.append("\n  ").append(field.getName()).append(": ").append(field.get(this));
+                sb.append(System.lineSeparator()).append("  ").append(field.getName()).append(": ")
+                        .append(field.get(this));
             } catch (IllegalAccessException e) {
-                sb.append("\n  ").append(field.getName()).append(": ").append("ACCESS ERROR");
+                sb.append(System.lineSeparator()).append("  ").append(field.getName()).append(": ")
+                        .append("ACCESS ERROR");
             }
         }
-        sb.append("\n}");
+        sb.append(System.lineSeparator()).append("}");
         return sb.toString();
     }
 }

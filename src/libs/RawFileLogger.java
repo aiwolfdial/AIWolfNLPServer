@@ -8,12 +8,13 @@ import java.io.IOException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-public class FileGameLogger {
-	private static final Logger logger = LogManager.getLogger(FileGameLogger.class);
+public class RawFileLogger {
+	private static final Logger logger = LogManager.getLogger(RawFileLogger.class);
 
 	protected BufferedWriter bufferedWriter;
 
-	public FileGameLogger(File file) throws IOException {
+	public RawFileLogger(File file) throws IOException {
+		logger.info("Log file: " + file.getAbsolutePath());
 		file.getParentFile().mkdirs();
 		bufferedWriter = new BufferedWriter(new FileWriter(file));
 	}
@@ -21,7 +22,7 @@ public class FileGameLogger {
 	public void log(String text) {
 		try {
 			bufferedWriter.append(text);
-			bufferedWriter.append("\n");
+			bufferedWriter.append(System.lineSeparator());
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}

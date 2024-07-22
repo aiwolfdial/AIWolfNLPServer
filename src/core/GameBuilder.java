@@ -3,9 +3,9 @@ package core;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,13 +26,10 @@ import core.model.Config;
 import core.model.GameSetting;
 import core.model.Role;
 import core.model.Status;
-import libs.FileGameLogger;
+import libs.RawFileLogger;
 
 public class GameBuilder extends Thread {
 	private static final Logger logger = LogManager.getLogger(GameBuilder.class);
-
-	private static final String NORMAL_LOG_FILE_NAME = "%s%s_%03d_%s.log";
-	private static final String ERROR_LOG_FILE_NAME = "%s%s_%03d_err_%s.log";
 
 	private static final Role[] USED_ROLES = {
 			Role.SEER,
@@ -182,8 +179,9 @@ public class GameBuilder extends Thread {
 				gameData.addAgent(entry.getKey(), Status.ALIVE, entry.getValue());
 			}
 
-			String clientNames = String.join("_", gameServer.getNames());
-			String subLogDirName = new SimpleDateFormat("MMddHHmmss").format(Calendar.getInstance().getTime());
+			String gameName = String.format("%s_[%03d]_%s",
+					DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()), i + 1,
+					gameServer.getNames().stream().collect(Collectors.joining(":")));
 
 			try {
 				Game game = new Game(config, gameSetting, gameServer, gameData);
@@ -191,10 +189,8 @@ public class GameBuilder extends Thread {
 				logger.debug(String.format("I: %d", i));
 				// ロガーを設定
 				if (config.saveLog()) {
-					String path = String.format(NORMAL_LOG_FILE_NAME, config.logDir(), subLogDirName, i,
-							clientNames);
-					logger.debug(String.format("Path: %s", path));
-					game.setGameLogger(new FileGameLogger(new File(path)));
+					File file = new File(config.logDir(), String.format("%s.log", gameName));
+					game.setRawFileLogger(new RawFileLogger(file));
 				}
 
 				// ゲームの実行
@@ -205,17 +201,15 @@ public class GameBuilder extends Thread {
 					Set<Entry<Agent, Connection>> newLostConnectionSet = connections.stream()
 							.filter(connection -> connection.getHasException())
 							.collect(Collectors.toMap(Connection::getAgent, connection -> connection)).entrySet();
-					String errPath = String.format(ERROR_LOG_FILE_NAME, config.logDir(), subLogDirName, i,
-							clientNames);
-					File errorLogFile = new File(errPath);
-					FileGameLogger logger = new FileGameLogger(errorLogFile);
+					File file = new File(config.logDir(), String.format("%s_ERROR.log", gameName));
+					RawFileLogger logger = new RawFileLogger(file);
 					for (Entry<Agent, Connection> entry : newLostConnectionSet) {
 						entry.getValue().printException(logger, entry.getKey(), agentRoleMap.get(entry.getKey()));
 					}
 
 					// エラー出力がなければエラーログファイルを削除
 					if (newLostConnectionSet.isEmpty())
-						errorLogFile.delete();
+						file.delete();
 				}
 			} catch (IOException e) {
 				logger.error("Exception", e);

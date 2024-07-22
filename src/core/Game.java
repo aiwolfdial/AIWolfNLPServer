@@ -3,7 +3,6 @@ package core;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +34,7 @@ import core.model.Talk;
 import core.model.Team;
 import core.model.Vote;
 import libs.Counter;
-import libs.FileGameLogger;
+import libs.RawFileLogger;
 
 public class Game {
 	private static final Logger logger = LogManager.getLogger(Game.class);
@@ -45,7 +44,7 @@ public class Game {
 	protected GameServer gameServer;
 	protected Map<Integer, GameData> gameDataMap;
 	protected GameData gameData;
-	protected FileGameLogger gameLogger;
+	protected RawFileLogger rawFileLogger;
 	protected Map<Agent, String> agentNameMap;
 
 	public Game(Config config, GameSetting gameSetting, GameServer gameServer, GameData gameData) {
@@ -55,8 +54,8 @@ public class Game {
 		this.gameData = gameData;
 	}
 
-	public void setGameLogger(FileGameLogger gameLogger) {
-		this.gameLogger = gameLogger;
+	public void setRawFileLogger(RawFileLogger rawFileLogger) {
+		this.rawFileLogger = rawFileLogger;
 	}
 
 	protected void initialize() {
@@ -143,22 +142,17 @@ public class Game {
 
 				day();
 				night();
-				if (gameLogger != null) {
-					gameLogger.flush();
+				if (rawFileLogger != null) {
+					rawFileLogger.flush();
 				}
 			}
 			consoleLog();
 
 			if (config.saveRoleCombination()) {
 				try {
-					File file = new File(config.combinationsLogFilename());
-					if (!file.canWrite()) {
-						file.setWritable(true);
-					}
-					FileWriter fileWriter = new FileWriter(file, true);
-					fileWriter.write(getCombinationsText());
-					fileWriter.write("\r\n");
-					fileWriter.close();
+					RawFileLogger rawFileLogger = new RawFileLogger(new File(config.combinationsLogFilename()));
+					rawFileLogger.log(getCombinationsText());
+					rawFileLogger.close();
 				} catch (Exception e) {
 					logger.error("Exception", e);
 				}
@@ -167,8 +161,8 @@ public class Game {
 			finish();
 			logger.info(String.format("Winner: %s", getWinner()));
 		} catch (LostAgentConnectionException e) {
-			if (gameLogger != null) {
-				gameLogger.log("Lost Connection of " + e.agent);
+			if (rawFileLogger != null) {
+				rawFileLogger.log("Lost Connection of " + e.agent);
 			}
 			throw e;
 		}
@@ -187,14 +181,14 @@ public class Game {
 	}
 
 	public void finish() {
-		if (gameLogger != null) {
+		if (rawFileLogger != null) {
 			for (Agent agent : new TreeSet<>(gameData.getAgents())) {
-				gameLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.agentIdx,
+				rawFileLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.agentIdx,
 						gameData.getRole(agent), gameData.getStatus(agent), agentNameMap.get(agent)));
 			}
-			gameLogger.log(String.format("%d,result,%d,%d,%s", gameData.getDay(), getAliveHumans().size(),
+			rawFileLogger.log(String.format("%d,result,%d,%d,%s", gameData.getDay(), getAliveHumans().size(),
 					getAliveWolfs().size(), getWinner()));
-			gameLogger.close();
+			rawFileLogger.close();
 		}
 		for (Agent agent : gameData.getAgents()) {
 			gameServer.finish(agent);
@@ -348,8 +342,8 @@ public class Game {
 
 			if (executed != null) {
 				gameData.setExecutedTarget(executed);
-				if (gameLogger != null) {
-					gameLogger.log(String.format("%d,execute,%d,%s", gameData.getDay(), executed.agentIdx,
+				if (rawFileLogger != null) {
+					rawFileLogger.log(String.format("%d,execute,%d,%s", gameData.getDay(), executed.agentIdx,
 							gameData.getRole(executed)));
 				}
 			}
@@ -400,16 +394,16 @@ public class Game {
 					gameData.setAttackedDead(attacked);
 					gameData.addLastDeadAgent(attacked);
 
-					if (gameLogger != null) {
-						gameLogger.log(String.format("%d,attack,%d,true", gameData.getDay(), attacked.agentIdx));
+					if (rawFileLogger != null) {
+						rawFileLogger.log(String.format("%d,attack,%d,true", gameData.getDay(), attacked.agentIdx));
 					}
 				} else if (attacked != null) {
-					if (gameLogger != null) {
-						gameLogger.log(String.format("%d,attack,%d,false", gameData.getDay(), attacked.agentIdx));
+					if (rawFileLogger != null) {
+						rawFileLogger.log(String.format("%d,attack,%d,false", gameData.getDay(), attacked.agentIdx));
 					}
 				} else {
-					if (gameLogger != null) {
-						gameLogger.log(String.format("%d,attack,-1,false", gameData.getDay()));
+					if (rawFileLogger != null) {
+						rawFileLogger.log(String.format("%d,attack,-1,false", gameData.getDay()));
 					}
 				}
 			}
@@ -463,9 +457,9 @@ public class Game {
 	}
 
 	protected void dayStart() {
-		if (gameLogger != null) {
+		if (rawFileLogger != null) {
 			for (Agent agent : new TreeSet<>(gameData.getAgents())) {
-				gameLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.agentIdx,
+				rawFileLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.agentIdx,
 						gameData.getRole(agent), gameData.getStatus(agent), agentNameMap.get(agent)));
 			}
 		}
@@ -504,8 +498,8 @@ public class Game {
 				}
 				Talk talk = new Talk(gameData.nextTalkIdx(), gameData.getDay(), time, agent, talkText);
 				gameData.addTalk(talk.agent(), talk);
-				if (gameLogger != null) {
-					gameLogger.log(String.format("%d,talk,%d,%d,%d,%s", gameData.getDay(), talk.idx(),
+				if (rawFileLogger != null) {
+					rawFileLogger.log(String.format("%d,talk,%d,%d,%d,%s", gameData.getDay(), talk.idx(),
 							talk.turn(), talk.agent().agentIdx, talk.text()));
 				}
 
@@ -553,8 +547,8 @@ public class Game {
 				}
 				Talk whisper = new Talk(gameData.nextWhisperIdx(), gameData.getDay(), turn, agent, whisperText);
 				gameData.addWhisper(whisper.agent(), whisper);
-				if (gameLogger != null) {
-					gameLogger.log(String.format("%d,whisper,%d,%d,%d,%s", gameData.getDay(), whisper.idx(),
+				if (rawFileLogger != null) {
+					rawFileLogger.log(String.format("%d,whisper,%d,%d,%d,%s", gameData.getDay(), whisper.idx(),
 							whisper.turn(), whisper.agent().agentIdx, whisper.text()));
 				}
 
@@ -589,8 +583,8 @@ public class Game {
 		gameData.setLatestVoteList(latestVoteList);
 
 		for (Vote vote : latestVoteList) {
-			if (gameLogger != null) {
-				gameLogger.log(String.format("%d,vote,%d,%d", gameData.getDay(), vote.agent().agentIdx,
+			if (rawFileLogger != null) {
+				rawFileLogger.log(String.format("%d,vote,%d,%d", gameData.getDay(), vote.agent().agentIdx,
 						vote.target().agentIdx));
 			}
 		}
@@ -611,8 +605,8 @@ public class Game {
 						gameData.setCursedFox(target);
 					}
 
-					if (gameLogger != null) {
-						gameLogger.log(String.format("%d,divine,%d,%d,%s", gameData.getDay(),
+					if (rawFileLogger != null) {
+						rawFileLogger.log(String.format("%d,divine,%d,%d,%s", gameData.getDay(),
 								divine.agent().agentIdx, divine.target().agentIdx, divine.result()));
 					}
 				}
@@ -632,8 +626,8 @@ public class Game {
 					Guard guard = new Guard(gameData.getDay(), agent, target);
 					gameData.setGuard(guard);
 
-					if (gameLogger != null) {
-						gameLogger.log(
+					if (rawFileLogger != null) {
+						rawFileLogger.log(
 								String.format("%d,guard,%d,%d,%s", gameData.getDay(), guard.agent().agentIdx,
 										guard.target().agentIdx, gameData.getRole(guard.target())));
 					}
@@ -652,8 +646,8 @@ public class Game {
 				Vote attackVote = new Vote(gameData.getDay(), agent, target);
 				gameData.addAttack(attackVote);
 
-				if (gameLogger != null) {
-					gameLogger.log(String.format("%d,attackVote,%d,%d", gameData.getDay(),
+				if (rawFileLogger != null) {
+					rawFileLogger.log(String.format("%d,attackVote,%d,%d", gameData.getDay(),
 							attackVote.agent().agentIdx, attackVote.target().agentIdx));
 				}
 			}
