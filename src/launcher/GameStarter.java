@@ -8,8 +8,8 @@ import java.util.Queue;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import core.Config;
 import core.GameBuilder;
+import core.model.Config;
 
 public class GameStarter extends Thread {
 	private static final Logger logger = LogManager.getLogger(GameStarter.class);
@@ -31,7 +31,7 @@ public class GameStarter extends Thread {
 
 			// 同時起動数未満なら待機Listから1グループ取得してゲームを開始する
 			synchronized (socketQueue) {
-				if (!socketQueue.isEmpty() && gameBuilders.size() < config.getMaxParallelExec()) {
+				if (!socketQueue.isEmpty() && gameBuilders.size() < config.maxParallelExec()) {
 					GameBuilder builder = new GameBuilder(socketQueue.poll(), config);
 					gameBuilders.add(builder);
 					builder.start();

@@ -22,6 +22,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import core.model.Agent;
+import core.model.Config;
 import core.model.GameSetting;
 import core.model.Role;
 import core.model.Status;
@@ -72,11 +73,11 @@ public class GameBuilder extends Thread {
 		List<Map<Agent, Role>> roleList = new ArrayList<>();
 
 		// セット内の人数から組み合わせを生成
-		Iterator<int[]> agentCombination = new Combinations(config.getConnectAgentNum(),
-				config.getBattleAgentNum())
+		Iterator<int[]> agentCombination = new Combinations(config.connectAgentNum(),
+				config.battleAgentNum())
 						.iterator();
 		Iterator<int[]> roleCombination = new Combinations(
-				config.getBattleAgentNum(), USED_ROLES.length).iterator();
+				config.battleAgentNum(), USED_ROLES.length).iterator();
 
 		// nPrがライブラリに用意されていなかったので村人以外の役職について5C3のパターンを取った後にその3名に対して順列を取る
 		while (agentCombination.hasNext()) {
@@ -144,27 +145,27 @@ public class GameBuilder extends Thread {
 		// ゲームサーバの生成
 		GameServer gameServer = new GameServer(gameSetting, config, connections);
 
-		int limit = config.isPrioritizeCombinations() ? agentRoleMapList.size()
-				: config.getGameNum();
+		int limit = config.prioritizeCombinations() ? agentRoleMapList.size()
+				: config.gameNum();
 
 		// 人間対戦時
 		Agent human = null;
-		if (config.isJoinHuman()) {
+		if (config.joinHuman()) {
 			for (Connection connection : connections) {
-				if (gameServer.getName(connection.getAgent()).equals(config.getHumanName())) {
+				if (gameServer.getName(connection.getAgent()).equals(config.humanName())) {
 					human = connection.getAgent();
 				}
 			}
 		}
 
 		// 全組み合わせ実行しない場合はランダムにするために役職組み合わせリストをシャッフル
-		if (!config.isPrioritizeCombinations())
+		if (!config.prioritizeCombinations())
 			Collections.shuffle(agentRoleMapList);
 
 		for (int i = 0; i < limit; i++) {
 			Map<Agent, Role> agentRoleMap = agentRoleMapList.get(i);
-			if (config.isJoinHuman()
-					&& !agentRoleMap.get(human).name().equals(config.getHumanRole().name()))
+			if (config.joinHuman()
+					&& !agentRoleMap.get(human).name().equals(config.humanRole().name()))
 				continue;
 			GameData gameData = new GameData(gameSetting);
 
@@ -189,8 +190,8 @@ public class GameBuilder extends Thread {
 				// 現在の対戦数を表示
 				logger.debug(String.format("I: %d", i));
 				// ロガーを設定
-				if (config.isSaveLog()) {
-					String path = String.format(NORMAL_LOG_FILE_NAME, config.getLogDir(), subLogDirName, i,
+				if (config.saveLog()) {
+					String path = String.format(NORMAL_LOG_FILE_NAME, config.logDir(), subLogDirName, i,
 							clientNames);
 					logger.debug(String.format("Path: %s", path));
 					game.setGameLogger(new FileGameLogger(new File(path)));
@@ -200,11 +201,11 @@ public class GameBuilder extends Thread {
 				game.start();
 
 				// 今回のゲームでエラーが発生したエージェントがいた場合はエラーログを出力する
-				if (config.isSaveLog()) {
+				if (config.saveLog()) {
 					Set<Entry<Agent, Connection>> newLostConnectionSet = connections.stream()
 							.filter(connection -> connection.getHasException())
 							.collect(Collectors.toMap(Connection::getAgent, connection -> connection)).entrySet();
-					String errPath = String.format(ERROR_LOG_FILE_NAME, config.getLogDir(), subLogDirName, i,
+					String errPath = String.format(ERROR_LOG_FILE_NAME, config.logDir(), subLogDirName, i,
 							clientNames);
 					File errorLogFile = new File(errPath);
 					FileGameLogger logger = new FileGameLogger(errorLogFile);

@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 
 import core.exception.LostAgentConnectionException;
 import core.model.Agent;
+import core.model.Config;
 import core.model.GameSetting;
 import core.model.Packet;
 import core.model.Request;
@@ -67,7 +68,7 @@ public class GameServer {
 			logger.error("Exception", e);
 			connection.throwException(agent, e, request);
 		}
-		if (config.isIgnoreAgentException())
+		if (config.ignoreAgentException())
 			return null;
 		throw new LostAgentConnectionException(e, agent);
 	}

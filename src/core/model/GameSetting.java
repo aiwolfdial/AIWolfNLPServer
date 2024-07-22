@@ -2,8 +2,6 @@ package core.model;
 
 import java.util.Map;
 
-import core.Config;
-
 public record GameSetting(
 		Map<Role, Integer> roleNumMap,
 		int maxTalk,
@@ -47,20 +45,20 @@ public record GameSetting(
 	public GameSetting(Config config) {
 		this(
 				new java.util.HashMap<>(),
-				config.getMaxTalkNum(),
-				config.getMaxTalkTurn(),
-				config.getMaxTalkNum(),
-				config.getMaxTalkTurn(),
+				config.maxTalkNum(),
+				config.maxTalkTurn(),
+				config.maxTalkNum(),
+				config.maxTalkTurn(),
 				0,
 				false,
 				false,
-				config.isTalkOnFirstDay(),
-				(int) config.getResponseTimeout(),
-				(int) config.getActionTimeout(),
+				config.talkOnFirstDay(),
+				(int) config.responseTimeout(),
+				(int) config.actionTimeout(),
 				0,
 				0,
 				false);
-		setRoleNumMap(config.getBattleAgentNum());
+		setRoleNumMap(config.battleAgentNum());
 	}
 
 	public void setRoleNumMap(int agentNum) {

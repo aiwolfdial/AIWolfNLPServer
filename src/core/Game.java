@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
 import core.exception.IllegalPlayerNumberException;
 import core.exception.LostAgentConnectionException;
 import core.model.Agent;
+import core.model.Config;
 import core.model.GameSetting;
 import core.model.Guard;
 import core.model.Judge;
@@ -109,7 +110,7 @@ public class Game {
 	}
 
 	private boolean existsCombinationsText(Config config, String text) {
-		File file = new File(config.getCombinationsLogFilename());
+		File file = new File(config.combinationsLogFilename());
 		if (!file.exists()) {
 			return false;
 		}
@@ -130,7 +131,7 @@ public class Game {
 		try {
 			initialize();
 
-			if (config.isSaveRoleCombination()) {
+			if (config.saveRoleCombination()) {
 				if (existsCombinationsText(config, getCombinationsText())) {
 					finish();
 					return;
@@ -148,9 +149,9 @@ public class Game {
 			}
 			consoleLog();
 
-			if (config.isSaveRoleCombination()) {
+			if (config.saveRoleCombination()) {
 				try {
-					File file = new File(config.getCombinationsLogFilename());
+					File file = new File(config.combinationsLogFilename());
 					if (!file.canWrite()) {
 						file.setWritable(true);
 					}

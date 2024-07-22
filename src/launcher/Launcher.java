@@ -32,7 +32,7 @@ import java.util.concurrent.TimeoutException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import core.Config;
+import core.model.Config;
 import core.model.Packet;
 import core.model.Request;
 import libs.CallableBufferedReader;
@@ -63,8 +63,9 @@ public class Launcher {
 		}
 	}
 
-	public Launcher() throws Exception {
+	public Launcher() throws IOException, ReflectiveOperationException {
 		this.config = Config.load(DEFAULT_CONFIG_PATH);
+		logger.info(config);
 	}
 
 	public void start() {
@@ -77,8 +78,8 @@ public class Launcher {
 		if (config.isServer()) {
 			// サーバとして待ち受け
 			acceptClients();
-		} else if (config.isContinueCombinations()) {
-			for (int i = 0; i < config.getContinueCombinationsNum(); i++) {
+		} else if (config.continueCombinations()) {
+			for (int i = 0; i < config.continueCombinationsNum(); i++) {
 				while (gameStarter.isGameRunning() || gameStarter.isWaitingGame()) {
 					// continue; のみとかだと何故か上手く動かない
 					try {
@@ -103,7 +104,7 @@ public class Launcher {
 					logger.error("Exception", e);
 				}
 			}
-		} else if (!config.isListenPort()) {
+		} else if (!config.listenPort()) {
 			connectToPlayerServer();
 		} else {
 			// port listening
@@ -118,11 +119,11 @@ public class Launcher {
 	private void acceptClients() {
 		logger.info("Accept clients.");
 		// 必要なエージェント名が設定されているかどうかを確認
-		boolean isSetRequiredAgentName = !config.getRequiredAgentName().isEmpty();
+		boolean isSetRequiredAgentName = !config.requiredAgentName().isEmpty();
 		ServerSocket serverSocket = null;
 		try {
 			// サーバーソケットを指定されたポートで作成
-			serverSocket = new ServerSocket(config.getServerPort());
+			serverSocket = new ServerSocket(config.serverPort());
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}
@@ -136,7 +137,7 @@ public class Launcher {
 				Socket socket = serverSocket.accept();
 				// エントリーソケットマップのキーを生成
 				String key = String.valueOf(entrySocketMap.hashCode());
-				if (config.isSingleAgentPerIp()) {
+				if (config.singleAgentPerIp()) {
 					key = socket.getInetAddress().getHostAddress();
 				} else if (!waitingSockets.isEmpty()) {
 					key = new ArrayList<>(waitingSockets.keySet()).getFirst();
@@ -147,7 +148,7 @@ public class Launcher {
 				logger.debug(String.format("Socket connected: %s", key));
 				// ソケットの名前を取得
 				String name = getName(socket);
-				if (isSetRequiredAgentName && name.contains(config.getRequiredAgentName())) {
+				if (isSetRequiredAgentName && name.contains(config.requiredAgentName())) {
 					requiredSockets.add(socket);
 				}
 				// ソケットと現在の時間のペアを作成
@@ -155,14 +156,14 @@ public class Launcher {
 				entrySocketMap.computeIfAbsent(socket.getInetAddress().getHostAddress(), k -> new ArrayList<>())
 						.add(pair);
 				// 無効な接続を削除
-				removeInvalidConnection(config.getIdleConnectionTimeout());
+				removeInvalidConnection(config.idleConnectionTimeout());
 				// アクティブな接続を表示
 				printActiveConnection();
 				if (isSetRequiredAgentName && requiredSockets.isEmpty()) {
 					continue;
 				}
 				// 接続キューを送信
-				sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(),
+				sendConnectionQueue(config.connectAgentNum(), config.singleAgentPerIp(),
 						requiredSockets);
 			} catch (Exception e) {
 				logger.error("Exception", e);
@@ -175,26 +176,26 @@ public class Launcher {
 			throws UnknownHostException, ConnectException, NoRouteToHostException, IOException {
 		logger.info(String.format("Get socket from index: %d", index));
 		// 他の組み合わせを続行する設定が有効な場合、ランダムにインデックスを選択
-		if (config.isContinueCombinations()) {
+		if (config.continueCombinations()) {
 			Random rand = new Random();
 			do {
-				index = rand.nextInt(config.getAllParticipantNum()) + 1;
+				index = rand.nextInt(config.allParticipantNum()) + 1;
 			} while (entryAgentIndex.contains(index));
 			entryAgentIndex.add(index);
 		}
 		logger.debug(String.format("Index: %d", index));
 		// インデックスに基づいてサーバー情報を設定
 		return switch (index) {
-			case 1 -> getSocket(config.getPlayer1Ip(), config.getPlayer1Port());
-			case 2 -> getSocket(config.getPlayer2Ip(), config.getPlayer2Port());
-			case 3 -> getSocket(config.getPlayer3Ip(), config.getPlayer3Port());
-			case 4 -> getSocket(config.getPlayer4Ip(), config.getPlayer4Port());
-			case 5 -> getSocket(config.getPlayer5Ip(), config.getPlayer5Port());
-			case 6 -> getSocket(config.getPlayer6Ip(), config.getPlayer6Port());
-			case 7 -> getSocket(config.getPlayer7Ip(), config.getPlayer7Port());
-			case 8 -> getSocket(config.getPlayer8Ip(), config.getPlayer8Port());
-			case 9 -> getSocket(config.getPlayer9Ip(), config.getPlayer9Port());
-			case 10 -> getSocket(config.getPlayer10Ip(), config.getPlayer10Port());
+			case 1 -> getSocket(config.player1Ip(), config.player1Port());
+			case 2 -> getSocket(config.player2Ip(), config.player2Port());
+			case 3 -> getSocket(config.player3Ip(), config.player3Port());
+			case 4 -> getSocket(config.player4Ip(), config.player4Port());
+			case 5 -> getSocket(config.player5Ip(), config.player5Port());
+			case 6 -> getSocket(config.player6Ip(), config.player6Port());
+			case 7 -> getSocket(config.player7Ip(), config.player7Port());
+			case 8 -> getSocket(config.player8Ip(), config.player8Port());
+			case 9 -> getSocket(config.player9Ip(), config.player9Port());
+			case 10 -> getSocket(config.player10Ip(), config.player10Port());
 			case 10000, 10001, 10002, 10003, 10004 -> getSocket("localhost",
 					Integer.parseInt(line.split("\\s")[index % 10000]));
 			default -> throw new IllegalArgumentException("Invalid index: " + index);
@@ -220,9 +221,9 @@ public class Launcher {
 		String line = "";
 		try {
 			// サーバーがポートをリッスンするかどうかを確認
-			if (config.isListenPort()) {
+			if (config.listenPort()) {
 				logger.debug("Listen port.");
-				try (ServerSocket serverSocket = new ServerSocket(config.getServerPort())) {
+				try (ServerSocket serverSocket = new ServerSocket(config.serverPort())) {
 					Socket socket = serverSocket.accept();
 					line = readLineFromSocket(socket);
 					index = 10000;
@@ -232,7 +233,7 @@ public class Launcher {
 			Map<String, List<Pair<Long, Socket>>> entrySocketMap = new HashMap<>();
 			Set<Integer> entryAgentIndex = new HashSet<>();
 			// 指定された数のエージェントに接続
-			for (int i = 0; i < config.getConnectAgentNum(); i++) {
+			for (int i = 0; i < config.connectAgentNum(); i++) {
 				Socket socket = getSocketFromIndex(index, line, entryAgentIndex);
 				Pair<Long, Socket> pair = new Pair<>(System.currentTimeMillis() / 3600000, socket);
 				String ipAddress = socket.getInetAddress().getHostAddress();
@@ -244,7 +245,7 @@ public class Launcher {
 				index++;
 			}
 			// アイドルタイムアウトに基づいて無効な接続を削除
-			removeInvalidConnection(config.getIdleConnectionTimeout());
+			removeInvalidConnection(config.idleConnectionTimeout());
 			// アクティブな接続を表示
 			try {
 				printActiveConnection();
@@ -253,7 +254,7 @@ public class Launcher {
 				return;
 			}
 			// 接続キューを送信
-			sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(),
+			sendConnectionQueue(config.connectAgentNum(), config.singleAgentPerIp(),
 					new HashSet<>());
 		} catch (UnknownHostException e) {
 			// 未知のホスト例外を処理
@@ -283,8 +284,8 @@ public class Launcher {
 
 		CallableBufferedReader task = new CallableBufferedReader(bufferedReader);
 		Future<String> future = pool.submit(task);
-		String line = config.getResponseTimeout() > 0
-				? future.get(config.getResponseTimeout(), TimeUnit.MILLISECONDS)
+		String line = config.responseTimeout() > 0
+				? future.get(config.responseTimeout(), TimeUnit.MILLISECONDS)
 				: future.get();
 		if (!task.isSuccess()) {
 			throw task.getIOException();

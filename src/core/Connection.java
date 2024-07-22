@@ -17,6 +17,7 @@ import org.apache.log4j.Logger;
 
 import core.exception.LostAgentConnectionException;
 import core.model.Agent;
+import core.model.Config;
 import core.model.Packet;
 import core.model.Request;
 import core.model.Role;
@@ -54,8 +55,8 @@ public class Connection {
 
 			CallableBufferedReader task = new CallableBufferedReader(getBufferedReader());
 			Future<String> future = pool.submit(task);
-			String line = config.getResponseTimeout() > 0 ? future.get(
-					config.getResponseTimeout(), TimeUnit.MILLISECONDS) : future.get();
+			String line = config.responseTimeout() > 0 ? future.get(
+					config.responseTimeout(), TimeUnit.MILLISECONDS) : future.get();
 			if (!task.isSuccess()) {
 				throw task.getIOException();
 			}
@@ -81,9 +82,9 @@ public class Connection {
 		}
 
 		int agentNum = 1;
-		int humanNum = gameConfiguration.isJoinHuman() ? gameConfiguration.getHumanAgentNum() : -1;
+		int humanNum = gameConfiguration.joinHuman() ? gameConfiguration.humanAgentNum() : -1;
 		String name = getName();
-		if (name != null && name.equals(gameConfiguration.getHumanName()) && gameConfiguration.isJoinHuman()) {
+		if (name != null && name.equals(gameConfiguration.humanName()) && gameConfiguration.joinHuman()) {
 			agentNum = humanNum;
 		} else {
 			while (usedNumberSet.contains(agentNum) || agentNum == humanNum)

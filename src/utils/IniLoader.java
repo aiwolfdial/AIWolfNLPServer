@@ -2,62 +2,32 @@ package utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.ini4j.Ini;
 import org.ini4j.Profile.Section;
 
-public class IniLoader {
-    private static final Logger logger = LogManager.getLogger(IniLoader.class);
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-    public static Object loadFile(String path, String sectionName, Object object)
-            throws NoSuchFieldException, IllegalAccessException, IOException {
-        File file = new File(path);
-        if (!file.exists()) {
-            throw new IOException("File not found: " + path);
-        }
+public class IniLoader {
+    private static Map<String, Map<String, String>> parseIniFile(File file)
+            throws IOException {
         Ini ini = new Ini(file);
-        Section section = ini.get(sectionName);
-        if (section == null) {
-            throw new IOException("Section not found: " + sectionName);
-        }
-        loadSection(section, object);
-        logger.info(String.format("Loaded configuration from %s", path));
-        return object;
+        return ini.entrySet().stream()
+                .collect(Collectors.toMap(
+                        e -> (String) e.getKey(),
+                        e -> ((Section) e.getValue()).entrySet().stream()
+                                .collect(Collectors.toMap(
+                                        entry -> (String) entry.getKey(),
+                                        entry -> (String) entry.getValue()))));
     }
 
-    public static void loadSection(Section section, Object object)
-            throws NoSuchFieldException, IllegalAccessException {
-        for (Field field : object.getClass().getDeclaredFields()) {
-            field.setAccessible(true);
-            String key = field.getName();
-            if (!section.containsKey(key)) {
-                if (key.startsWith("player") && (key.endsWith("Ip") || key.endsWith("Port"))) {
-                    continue;
-                }
-                throw new NoSuchFieldException("Missing key: " + key);
-            }
-            String value = section.get(key);
-            if (field.getType() == int.class) {
-                field.setInt(object, Integer.parseInt(value));
-            } else if (field.getType() == long.class) {
-                field.setLong(object, Long.parseLong(value));
-            } else if (field.getType() == core.Config.HumanRole.class) {
-                field.set(object, core.Config.HumanRole.valueOf(value));
-            } else if (field.getType() == Class.class) {
-                try {
-                    field.set(object, Class.forName(value));
-                } catch (ClassNotFoundException e) {
-                    throw new IllegalArgumentException("Invalid class name: " + value, e);
-                }
-            } else if (field.getType() == boolean.class) {
-                field.setBoolean(object, Boolean.parseBoolean(value));
-            } else {
-                field.set(object, value);
-            }
-            logger.debug(String.format("Loaded: %s = %s", key, value));
-        }
+    public static <T> T load(String filename, Class<T> clazz) throws IOException, ReflectiveOperationException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+        Map<String, Map<String, String>> map = parseIniFile(new File(filename));
+        return mapper.convertValue(map.get(clazz.getSimpleName()), clazz);
     }
 }

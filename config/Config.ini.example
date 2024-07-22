@@ -36,6 +36,16 @@ player4Ip=127.0.0.1
 player4Port=50003
 player5Ip=127.0.0.1
 player5Port=50004
+player6Ip=
+player6Port=
+player7Ip=
+player7Port=
+player8Ip=
+player8Port=
+player9Ip=
+player9Port=
+player10Ip=
+player10Port=
 
 ; ### マッチング設定 ###
 ; true: gameNum回のゲーム後に他のエージェントの組み合わせで実行する
