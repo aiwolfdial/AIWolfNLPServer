@@ -11,17 +11,17 @@ import org.apache.log4j.Logger;
 public class FileGameLogger {
 	private static final Logger logger = LogManager.getLogger(FileGameLogger.class);
 
-	protected BufferedWriter bw;
+	protected BufferedWriter bufferedWriter;
 
 	public FileGameLogger(File file) throws IOException {
 		file.getParentFile().mkdirs();
-		bw = new BufferedWriter(new FileWriter(file));
+		bufferedWriter = new BufferedWriter(new FileWriter(file));
 	}
 
 	public void log(String text) {
 		try {
-			bw.append(text);
-			bw.append("\n");
+			bufferedWriter.append(text);
+			bufferedWriter.append("\n");
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}
@@ -29,7 +29,7 @@ public class FileGameLogger {
 
 	public void flush() {
 		try {
-			bw.flush();
+			bufferedWriter.flush();
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}
@@ -37,7 +37,7 @@ public class FileGameLogger {
 
 	public void close() {
 		try {
-			bw.close();
+			bufferedWriter.close();
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}

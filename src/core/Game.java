@@ -62,56 +62,49 @@ public class Game {
 		gameDataMap = new TreeMap<>();
 		agentNameMap = new HashMap<>();
 		gameServer.setGameData(gameData);
+		gameServer.setGameSetting(gameSetting);
 
-		List<Agent> agentList = gameServer.getConnectedAgentList();
-
-		if (agentList.size() != gameSetting.getPlayerNum()) {
+		List<Agent> agents = gameServer.getAgents();
+		if (agents.size() != gameSetting.getPlayerNum()) {
 			throw new IllegalPlayerNumberException(
-					"Player num is " + gameSetting.getPlayerNum() + " but connected agent is " + agentList.size());
+					String.format("Player num is %d but connected agent is %d", gameSetting.getPlayerNum(),
+							agents.size()));
 		}
 
-		Collections.shuffle(agentList);
+		Collections.shuffle(agents);
 
-		Map<Role, List<Agent>> requestRoleMap = new HashMap<>();
+		Map<Role, List<Agent>> requestRoleAgents = new HashMap<>();
 		for (Role role : Role.values()) {
-			requestRoleMap.put(role, new ArrayList<>());
+			requestRoleAgents.put(role, new ArrayList<>());
 		}
-		List<Agent> noRequestAgentList = new ArrayList<>();
-		for (Agent agent : agentList) {
+		List<Agent> noRequestAgents = new ArrayList<>();
+		for (Agent agent : agents) {
 			if (gameSetting.isEnableRoleRequest()) {
-				Role requestedRole = gameServer.requestRequestRole(agent);
-				if (requestedRole != null) {
-					if (requestRoleMap.get(requestedRole).size() < gameSetting.getRoleNum(requestedRole)) {
-						requestRoleMap.get(requestedRole).add(agent);
-					} else {
-						noRequestAgentList.add(agent);
-					}
+				Role role = gameServer.requestRequestRole(agent);
+				if (role != null && requestRoleAgents.get(role).size() < gameSetting.getRoleNum(role)) {
+					requestRoleAgents.get(role).add(agent);
 				} else {
-					noRequestAgentList.add(agent);
+					noRequestAgents.add(agent);
 				}
 			} else {
-				noRequestAgentList.add(agent);
+				noRequestAgents.add(agent);
 			}
 		}
-
 		for (Role role : Role.values()) {
-			List<Agent> requestedAgentList = requestRoleMap.get(role);
-			for (int i = 0; i < gameSetting.getRoleNum(role); i++) {
-				if (requestedAgentList.isEmpty()) {
-					gameData.addAgent(noRequestAgentList.removeFirst(), Status.ALIVE, role);
-				} else {
-					gameData.addAgent(requestedAgentList.removeFirst(), Status.ALIVE, role);
-				}
+			List<Agent> requestedAgents = requestRoleAgents.get(role);
+			int roleNum = gameSetting.getRoleNum(role);
+			for (int i = 0; i < roleNum; i++) {
+				Agent agentToAdd = requestedAgents.isEmpty() ? noRequestAgents.removeFirst()
+						: requestedAgents.removeFirst();
+				gameData.addAgent(agentToAdd, Status.ALIVE, role);
 			}
 		}
 
 		gameDataMap.put(gameData.getDay(), gameData);
 
-		gameServer.setGameSetting(gameSetting);
-		for (Agent agent : agentList) {
+		for (Agent agent : agents) {
 			gameServer.init(agent);
-			String requestName = gameServer.getName(agent);
-			agentNameMap.put(agent, requestName);
+			agentNameMap.put(agent, gameServer.getName(agent));
 		}
 	}
 
@@ -140,7 +133,6 @@ public class Game {
 				return;
 			}
 		}
-
 		try {
 			initialize();
 			while (!isGameFinished()) {

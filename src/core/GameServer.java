@@ -183,7 +183,7 @@ public class GameServer {
 		connections.clear();
 	}
 
-	public List<Agent> getConnectedAgentList() {
+	public List<Agent> getAgents() {
 		return agents;
 	}
 
