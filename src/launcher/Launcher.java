@@ -46,7 +46,7 @@ import utils.JsonParser;
 public class Launcher {
 	private static final Logger logger = LogManager.getLogger(Launcher.class);
 
-	private static final String DEFAULT_CONFIG_PATH = "./config/AIWolfGameServer.ini";
+	private static final String DEFAULT_CONFIG_PATH = "./config/Config.ini";
 
 	private final Config config;
 	private final Queue<List<Socket>> socketQueue = new ArrayDeque<>();

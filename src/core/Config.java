@@ -60,7 +60,7 @@ public class Config {
     private String requiredAgentName = "";
 
     public static Config load(String path) throws Exception {
-        return (Config) IniLoader.loadFile(path, "game", new Config());
+        return (Config) IniLoader.loadFile(path, "Config", new Config());
     }
 
     public boolean isSaveLog() {

@@ -4,7 +4,7 @@
 
 ## 設定
 
-`config/AIWolfGameServer.ini.example` を `config/AIWolfGameServer.ini` にリネームして設定を行ってください。
+`config/Config.ini.example` を `config/Config.ini` にリネームして設定を行ってください。
 
 エージェントの待ち受けIPとポートを設定してください。
 他の設定項目についてはデフォルトで問題ありません。
