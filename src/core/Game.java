@@ -109,7 +109,7 @@ public class Game {
 	}
 
 	private boolean existsCombinationsText(Config config, String text) {
-		File file = new File(config.getRoleCombinationDir() + config.getRoleCombinationFilename());
+		File file = new File(config.getCombinationsLogFilename());
 		if (!file.exists()) {
 			return false;
 		}
@@ -148,8 +148,7 @@ public class Game {
 
 			if (config.isSaveRoleCombination()) {
 				try {
-					File file = new File(
-							config.getRoleCombinationDir() + config.getRoleCombinationFilename());
+					File file = new File(config.getCombinationsLogFilename());
 					if (!file.canWrite()) {
 						file.setWritable(true);
 					}

@@ -77,7 +77,7 @@ public class Launcher {
 		if (config.isServer()) {
 			// サーバとして待ち受け
 			acceptClients();
-		} else if (config.isContinueOtherCombinations()) {
+		} else if (config.isContinueCombinations()) {
 			for (int i = 0; i < config.getContinueCombinationsNum(); i++) {
 				while (gameStarter.isGameRunning() || gameStarter.isWaitingGame()) {
 					// continue; のみとかだと何故か上手く動かない
@@ -122,7 +122,7 @@ public class Launcher {
 		ServerSocket serverSocket = null;
 		try {
 			// サーバーソケットを指定されたポートで作成
-			serverSocket = new ServerSocket(config.getPort());
+			serverSocket = new ServerSocket(config.getServerPort());
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}
@@ -175,7 +175,7 @@ public class Launcher {
 			throws UnknownHostException, ConnectException, NoRouteToHostException, IOException {
 		logger.info(String.format("Get socket from index: %d", index));
 		// 他の組み合わせを続行する設定が有効な場合、ランダムにインデックスを選択
-		if (config.isContinueOtherCombinations()) {
+		if (config.isContinueCombinations()) {
 			Random rand = new Random();
 			do {
 				index = rand.nextInt(config.getAllParticipantNum()) + 1;
@@ -222,7 +222,7 @@ public class Launcher {
 			// サーバーがポートをリッスンするかどうかを確認
 			if (config.isListenPort()) {
 				logger.debug("Listen port.");
-				try (ServerSocket serverSocket = new ServerSocket(config.getPort())) {
+				try (ServerSocket serverSocket = new ServerSocket(config.getServerPort())) {
 					Socket socket = serverSocket.accept();
 					line = readLineFromSocket(socket);
 					index = 10000;
@@ -305,37 +305,44 @@ public class Launcher {
 
 	private void removeInvalidConnection(int deleteTime) {
 		Map<Pair<String, String>, Pair<Long, Socket>> lostMap = new HashMap<>();
-		for (Entry<String, Map<String, List<Pair<Long, Socket>>>> sMapEntry : waitingSockets.entrySet()) {
-			for (Entry<String, List<Pair<Long, Socket>>> entry : sMapEntry.getValue().entrySet()) {
-				// ロストしているSocket・deleteTimeより長時間対戦が行われずに接続が継続しているSocketを削除リストに追加
-				for (Pair<Long, Socket> socketPair : entry.getValue()) {
-					long time = System.currentTimeMillis() / 3600000;
-					try {
-						if (getName(socketPair.value()) == null || time - socketPair.key() > deleteTime)
-							lostMap.put(new Pair<>(sMapEntry.getKey(), entry.getKey()), socketPair);
-					} catch (Exception e) {
-						lostMap.put(new Pair<>(sMapEntry.getKey(), entry.getKey()), socketPair);
-					}
-				}
-			}
-		}
-		// 問題のあるコネクションを削除
-		for (Entry<Pair<String, String>, Pair<Long, Socket>> lostPair : lostMap.entrySet()) {
-			Pair<String, String> keyPair = lostPair.getKey();
-			waitingSockets.get(keyPair.key()).get(keyPair.value()).remove(lostPair.getValue());
-			if (waitingSockets.get(keyPair.key()).get(keyPair.value()).isEmpty())
-				waitingSockets.get(keyPair.key()).remove(keyPair.value());
-			if (waitingSockets.get(keyPair.key()).isEmpty())
-				waitingSockets.remove(keyPair.key());
-		}
+		long currentTime = System.currentTimeMillis() / 3600000;
 
-		waitingSockets.entrySet().removeIf(entry -> {
-			if (entry.getValue().isEmpty()) {
-				return true;
-			} else {
-				entry.getValue().entrySet().removeIf(insideEntry -> insideEntry.getValue().isEmpty());
-				return false;
+		waitingSockets.forEach((sKey, sValue) -> sValue.forEach((key, socketList) -> socketList.forEach(socketPair -> {
+			try {
+				if (isInvalidConnection(socketPair, currentTime, deleteTime)) {
+					lostMap.put(new Pair<>(sKey, key), socketPair);
+				}
+			} catch (Exception e) {
+				lostMap.put(new Pair<>(sKey, key), socketPair);
 			}
+		})));
+		removeLostConnections(lostMap);
+		cleanupEmptyEntries();
+	}
+
+	private boolean isInvalidConnection(Pair<Long, Socket> socketPair, long currentTime, int deleteTime)
+			throws Exception {
+		return getName(socketPair.value()) == null || currentTime - socketPair.key() > deleteTime;
+	}
+
+	private void removeLostConnections(Map<Pair<String, String>, Pair<Long, Socket>> lostMap) {
+		lostMap.forEach((keyPair, socketPair) -> {
+			String sKey = keyPair.key();
+			String key = keyPair.value();
+			waitingSockets.get(sKey).get(key).remove(socketPair);
+			if (waitingSockets.get(sKey).get(key).isEmpty()) {
+				waitingSockets.get(sKey).remove(key);
+			}
+			if (waitingSockets.get(sKey).isEmpty()) {
+				waitingSockets.remove(sKey);
+			}
+		});
+	}
+
+	private void cleanupEmptyEntries() {
+		waitingSockets.entrySet().removeIf(entry -> {
+			entry.getValue().entrySet().removeIf(insideEntry -> insideEntry.getValue().isEmpty());
+			return entry.getValue().isEmpty();
 		});
 	}
 

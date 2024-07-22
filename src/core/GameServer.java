@@ -67,7 +67,7 @@ public class GameServer {
 			logger.error("Exception", e);
 			connection.throwException(agent, e, request);
 		}
-		if (config.isContinueExceptionAgent())
+		if (config.isIgnoreAgentException())
 			return null;
 		throw new LostAgentConnectionException(e, agent);
 	}

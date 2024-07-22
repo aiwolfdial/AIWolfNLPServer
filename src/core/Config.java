@@ -7,189 +7,97 @@ public class Config {
         VILLAGER, SEER, POSSESSED, WEREWOLF, NULL,
     }
 
+    private boolean saveLog = true;
     private String logDir = "./log/";
-    private int port = 10000;
-    private int battleAgentNum = 5;
+    private boolean saveRoleCombination = true;
+    private String combinationsLogFilename = "./log/combinations";
+
+    private boolean isServer = false;
+    private int serverPort = 10000;
+    private boolean listenPort = false;
     private int connectAgentNum = 5;
-    private int gameNum = 1;
-    private int maxTalkNum = 10;
-    private int maxTalkTurn = 20;
-    private int parallelRunningGameNum = 5;
-    private long responseTimeout = 5000;
-    private long actionTimeout = 3000;
-    private boolean saveLog = false;
-    private boolean continueExceptionAgent = false;
+    private int idleConnectionTimeout = 1800000;
+    private String player1Ip = "127.0.0.1";
+    private int player1Port = 50000;
+    private String player2Ip = "127.0.0.1";
+    private int player2Port = 50001;
+    private String player3Ip = "127.0.0.1";
+    private int player3Port = 50002;
+    private String player4Ip = "127.0.0.1";
+    private int player4Port = 50003;
+    private String player5Ip = "127.0.0.1";
+    private int player5Port = 50004;
+    private String player6Ip = "127.0.0.1";
+    private int player6Port = 50005;
+    private String player7Ip = "127.0.0.1";
+    private int player7Port = 50006;
+    private String player8Ip = "127.0.0.1";
+    private int player8Port = 50007;
+    private String player9Ip = "127.0.0.1";
+    private int player9Port = 50008;
+    private String player10Ip = "127.0.0.1";
+    private int player10Port = 50009;
+
+    private boolean continueCombinations = false;
+    private int continueCombinationsNum = 3;
+    private int maxParallelExec = 5;
+    private boolean prioritizeCombinations = false;
     private boolean matchSameIpOnly = false;
-    private boolean talkOnFirstDay = true;
-    private boolean singleAgentPerIp = true;
-    private int idleConnectionTimeout = 24;
-    private String requiredAgentName = "";
-    private boolean prioritizeCombinations = true;
-    private boolean debugMode = false;
-    private boolean synchronousMode = true;
+    private boolean singleAgentPerIp = false;
     private boolean joinHuman = false;
     private String humanName = "Human";
     private HumanRole humanRole = HumanRole.SEER;
-    private int humanAgentNum = 0;
-    private boolean isServer = true;
-    private boolean listenPort = true;
-    private boolean saveRoleCombination = false;
-    private String roleCombinationDir = "./log/";
-    private String roleCombinationFilename = "DoneCombinations";
-    private int allParticipantNum = 6;
-    private boolean continueOtherCombinations = false;
-    private int continueCombinationsNum = 3;
-    private String player1Ip = "127.0.0.1";
-    private int player1Port = 10000;
-    private String player2Ip = "127.0.0.1";
-    private int player2Port = 10000;
-    private String player3Ip = "127.0.0.1";
-    private int player3Port = 10000;
-    private String player4Ip = "127.0.0.1";
-    private int player4Port = 10000;
-    private String player5Ip = "127.0.0.1";
-    private int player5Port = 10000;
-    private String player6Ip = "127.0.0.1";
-    private int player6Port = 10000;
-    private String player7Ip = "127.0.0.1";
-    private int player7Port = 10000;
-    private String player8Ip = "127.0.0.1";
-    private int player8Port = 10000;
-    private String player9Ip = "127.0.0.1";
-    private int player9Port = 10000;
-    private String player10Ip = "127.0.0.1";
-    private int player10Port = 10000;
+    private int humanAgentNum = 1;
+
+    private int allParticipantNum = 5;
+    private int battleAgentNum = 5;
+    private int gameNum = 1;
+    private int maxTalkNum = 5;
+    private int maxTalkTurn = 20;
+    private boolean talkOnFirstDay = true;
+    private long responseTimeout = 6000;
+    private long actionTimeout = 3000;
+    private boolean ignoreAgentException = true;
+    private String requiredAgentName = "";
 
     public static Config load(String path) throws Exception {
         return (Config) IniLoader.loadFile(path, "game", new Config());
-    }
-
-    public String getLogDir() {
-        return logDir;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public int getBattleAgentNum() {
-        return battleAgentNum;
-    }
-
-    public int getConnectAgentNum() {
-        return connectAgentNum;
-    }
-
-    public int getGameNum() {
-        return gameNum;
-    }
-
-    public int getMaxTalkNum() {
-        return maxTalkNum;
-    }
-
-    public int getMaxTalkTurn() {
-        return maxTalkTurn;
-    }
-
-    public int getParallelRunningGameNum() {
-        return parallelRunningGameNum;
-    }
-
-    public long getResponseTimeout() {
-        return responseTimeout;
-    }
-
-    public long getActionTimeout() {
-        return actionTimeout;
     }
 
     public boolean isSaveLog() {
         return saveLog;
     }
 
-    public boolean isContinueExceptionAgent() {
-        return continueExceptionAgent;
-    }
-
-    public boolean isMatchSameIpOnly() {
-        return matchSameIpOnly;
-    }
-
-    public boolean isTalkOnFirstDay() {
-        return talkOnFirstDay;
-    }
-
-    public boolean isSingleAgentPerIp() {
-        return singleAgentPerIp;
-    }
-
-    public int getIdleConnectionTimeout() {
-        return idleConnectionTimeout;
-    }
-
-    public String getRequiredAgentName() {
-        return requiredAgentName;
-    }
-
-    public boolean isPrioritizeCombinations() {
-        return prioritizeCombinations;
-    }
-
-    public boolean isDebugMode() {
-        return debugMode;
-    }
-
-    public boolean isSynchronousMode() {
-        return synchronousMode;
-    }
-
-    public boolean isJoinHuman() {
-        return joinHuman;
-    }
-
-    public String getHumanName() {
-        return humanName;
-    }
-
-    public HumanRole getHumanRole() {
-        return humanRole;
-    }
-
-    public int getHumanAgentNum() {
-        return humanAgentNum;
-    }
-
-    public boolean isServer() {
-        return isServer;
-    }
-
-    public boolean isListenPort() {
-        return listenPort;
+    public String getLogDir() {
+        return logDir;
     }
 
     public boolean isSaveRoleCombination() {
         return saveRoleCombination;
     }
 
-    public String getRoleCombinationDir() {
-        return roleCombinationDir;
+    public String getCombinationsLogFilename() {
+        return combinationsLogFilename;
     }
 
-    public String getRoleCombinationFilename() {
-        return roleCombinationFilename;
+    public boolean isServer() {
+        return isServer;
     }
 
-    public int getAllParticipantNum() {
-        return allParticipantNum;
+    public int getServerPort() {
+        return serverPort;
     }
 
-    public boolean isContinueOtherCombinations() {
-        return continueOtherCombinations;
+    public boolean isListenPort() {
+        return listenPort;
     }
 
-    public int getContinueCombinationsNum() {
-        return continueCombinationsNum;
+    public int getConnectAgentNum() {
+        return connectAgentNum;
+    }
+
+    public int getIdleConnectionTimeout() {
+        return idleConnectionTimeout;
     }
 
     public String getPlayer1Ip() {
@@ -270,5 +178,85 @@ public class Config {
 
     public int getPlayer10Port() {
         return player10Port;
+    }
+
+    public boolean isContinueCombinations() {
+        return continueCombinations;
+    }
+
+    public int getContinueCombinationsNum() {
+        return continueCombinationsNum;
+    }
+
+    public int getMaxParallelExec() {
+        return maxParallelExec;
+    }
+
+    public boolean isPrioritizeCombinations() {
+        return prioritizeCombinations;
+    }
+
+    public boolean isMatchSameIpOnly() {
+        return matchSameIpOnly;
+    }
+
+    public boolean isSingleAgentPerIp() {
+        return singleAgentPerIp;
+    }
+
+    public boolean isJoinHuman() {
+        return joinHuman;
+    }
+
+    public String getHumanName() {
+        return humanName;
+    }
+
+    public HumanRole getHumanRole() {
+        return humanRole;
+    }
+
+    public int getHumanAgentNum() {
+        return humanAgentNum;
+    }
+
+    public int getAllParticipantNum() {
+        return allParticipantNum;
+    }
+
+    public int getBattleAgentNum() {
+        return battleAgentNum;
+    }
+
+    public int getGameNum() {
+        return gameNum;
+    }
+
+    public int getMaxTalkNum() {
+        return maxTalkNum;
+    }
+
+    public int getMaxTalkTurn() {
+        return maxTalkTurn;
+    }
+
+    public boolean isTalkOnFirstDay() {
+        return talkOnFirstDay;
+    }
+
+    public long getResponseTimeout() {
+        return responseTimeout;
+    }
+
+    public long getActionTimeout() {
+        return actionTimeout;
+    }
+
+    public boolean isIgnoreAgentException() {
+        return ignoreAgentException;
+    }
+
+    public String getRequiredAgentName() {
+        return requiredAgentName;
     }
 }

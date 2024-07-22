@@ -31,7 +31,7 @@ public class GameStarter extends Thread {
 
 			// 同時起動数未満なら待機Listから1グループ取得してゲームを開始する
 			synchronized (socketQueue) {
-				if (!socketQueue.isEmpty() && gameBuilders.size() < config.getParallelRunningGameNum()) {
+				if (!socketQueue.isEmpty() && gameBuilders.size() < config.getMaxParallelExec()) {
 					GameBuilder builder = new GameBuilder(socketQueue.poll(), config);
 					gameBuilders.add(builder);
 					builder.start();

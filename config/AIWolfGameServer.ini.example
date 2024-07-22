@@ -1,36 +1,31 @@
 [game]
-logDir=./log/
-port=10000
-battleAgentNum=5
-connectAgentNum=5
-gameNum=1
-maxTalkNum=3
-maxTalkTurn=20
-parallelRunningGameNum=1
-responseTimeout=6000
-actionTimeout=3000
+; ### ログ出力設定 ###
+; true: 対戦ログを出力する
+; false: 対戦ログを出力しない
 saveLog=true
-continueExceptionAgent=true
-matchSameIpOnly=false
-talkOnFirstDay=true
-singleAgentPerIp=false
-idleConnectionTimeout=24
-requiredAgentName=
-prioritizeCombinations=false
-debugMode=false
-synchronousMode=true
-joinHuman=false
-humanName=Human
-humanRole=SEER
-humanAgentNum=3
+; 対戦ログの出力先ディレクトリ
+logDir=./log/
+; true: ロールの組み合わせを出力する
+; false: ロールの組み合わせを出力しない
+saveRoleCombination=true
+; ロールの組み合わせの出力先ファイル
+combinationsLogFilename=./log/combinations
+
+; ### 接続設定 ###
+; true: サーバモード(エージェントからの接続を待つ)で起動
+; false: クライアントモード(エージェントに接続する)で起動 (推奨)
 isServer=false
+; サーバモードの場合、起動するポート番号
+; クライアントモードの場合かつlistenPort=trueの場合、エージェントの接続先ポート一覧を聞くポート番号
+serverPort=10000
+; true: クライアントモードで起動する場合にエージェントの接続先ポート一覧を聞く
+; false: クライアントモードで起動する場合にエージェントの接続先ポート一覧を聞かず、設定ファイルに記載されたポートに接続する (推奨)
 listenPort=false
-saveRoleCombination=false
-roleCombinationDir=./log/
-roleCombinationFilename=DoneCombinations
-allParticipantNum=6
-continueOtherCombinations=false
-continueCombinationsNum=3
+; 接続するエージェントの数
+connectAgentNum=5
+; 未使用のエージェントと切断するまでの時間 (ミリ秒)
+idleConnectionTimeout=1800000
+; クライアントモードで起動する場合のエージェントの接続先ポート一覧
 player1Ip=127.0.0.1
 player1Port=50000
 player2Ip=127.0.0.1
@@ -41,3 +36,54 @@ player4Ip=127.0.0.1
 player4Port=50003
 player5Ip=127.0.0.1
 player5Port=50004
+
+; ### マッチング設定 ###
+; true: gameNum回のゲーム後に他のエージェントの組み合わせで実行する
+; false: gameNum回のゲーム後に終了する (推奨)
+continueCombinations=false
+; continueCombinations=trueの場合、他のエージェントの組み合わせで実行する組み合わせの数
+continueCombinationsNum=3
+; 並列実行するゲームの最大数
+maxParallelExec=5
+; true: gameNum回数よりロールの組み合わせ回数を優先して対戦する
+; false: gameNum回数を優先して対戦する (推奨)
+prioritizeCombinations=false
+; true: 同一IPアドレスのエージェント同士を対戦させる
+; false: 考慮しない (推奨)
+matchSameIpOnly=false
+; true: 同一IPアドレスのエージェントを1つのエージェントとして扱う
+; false: 考慮しない (推奨)
+singleAgentPerIp=false
+; true: 人間エージェントを追加する
+; false: 人間エージェントを追加しない (推奨)
+joinHuman=false
+; joinHuman=trueの場合、人間エージェントの名前
+humanName=Human
+; joinHuman=trueの場合、人間エージェントのロール
+humanRole=SEER
+; joinHuman=trueの場合、人間エージェントのエージェント番号
+humanAgentNum=1
+
+; ### ゲーム設定 ###
+; 全体の参加するエージェントの数 (本戦用)
+allParticipantNum=5
+; 対戦するエージェントの数
+battleAgentNum=5
+; 対戦するゲームの回数
+gameNum=1
+; 1エージェントが1日に発話できる最大回数
+maxTalkNum=5
+; 1日に発話できる最大ターン数
+maxTalkTurn=20
+; true: 初日にエージェント同士で話し合う
+; false: 初日にエージェント同士で話し合わない
+talkOnFirstDay=true
+; エージェントの接続待ち時間 (ミリ秒)
+responseTimeout=6000
+; エージェントのアクション待ち時間 (ミリ秒)
+actionTimeout=3000
+; true: エージェントで発生した例外を無視してゲームを続行する (推奨)
+; false: エージェントで発生した例外を無視せず、ゲームを中断する
+ignoreAgentException=true
+; ゲームに強制参加させるエージェントの名前 空白の場合は無効 (推奨)
+requiredAgentName=
