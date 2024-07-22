@@ -9,6 +9,8 @@ import java.util.TreeSet;
 
 import core.exception.AIWolfException;
 import core.model.Agent;
+import core.model.GameInfo;
+import core.model.GameSetting;
 import core.model.Guard;
 import core.model.Judge;
 import core.model.Role;
@@ -17,8 +19,6 @@ import core.model.Status;
 import core.model.Talk;
 import core.model.Team;
 import core.model.Vote;
-import core.packet.GameInfo;
-import core.packet.GameSetting;
 
 public class GameData {
 	protected int day;

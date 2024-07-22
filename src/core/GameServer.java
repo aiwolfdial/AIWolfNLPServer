@@ -21,11 +21,11 @@ import org.apache.log4j.Logger;
 
 import core.exception.LostAgentConnectionException;
 import core.model.Agent;
+import core.model.GameSetting;
+import core.model.Packet;
 import core.model.Request;
 import core.model.Role;
 import core.model.Talk;
-import core.packet.GameSetting;
-import core.packet.Packet;
 import libs.BidiMap;
 import libs.CallableBufferedReader;
 import utils.JsonParser;

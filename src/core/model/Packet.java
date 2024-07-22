@@ -1,10 +1,7 @@
 
-package core.packet;
+package core.model;
 
 import java.util.List;
-
-import core.model.Request;
-import core.model.Talk;
 
 public record Packet(
 		Request request,

@@ -33,8 +33,8 @@ import org.apache.log4j.Logger;
 
 import core.AIWolfConnection;
 import core.GameConfiguration;
+import core.model.Packet;
 import core.model.Request;
-import core.packet.Packet;
 import libs.CallableBufferedReader;
 import libs.Pair;
 import utils.JsonParser;
@@ -48,8 +48,8 @@ public class Launcher {
 
 	private static final String DEFAULT_CONFIG_PATH = "./config/AIWolfGameServer.ini";
 
-	private final GameConfiguration config;
-	private final Queue<List<Socket>> socketQue = new ArrayDeque<>();
+	private final GameConfiguration gameConfiguration;
+	private final Queue<List<Socket>> socketQueue = new ArrayDeque<>();
 	private final Map<String, Map<String, List<Pair<Long, Socket>>>> waitingSockets = new HashMap<>();
 	private boolean isRunning = false;
 
@@ -64,18 +64,65 @@ public class Launcher {
 	}
 
 	public Launcher() throws Exception {
-		this.config = GameConfiguration.load(DEFAULT_CONFIG_PATH);
+		this.gameConfiguration = GameConfiguration.load(DEFAULT_CONFIG_PATH);
+	}
+
+	public void start() {
+		logger.info("Start.");
+		if (isRunning)
+			return;
+		// ゲーム開始スレッドの起動
+		GameStarter gameStarter = new GameStarter(socketQueue, gameConfiguration);
+		gameStarter.start();
+		if (gameConfiguration.isServer()) {
+			// サーバとして待ち受け
+			acceptClients();
+		} else if (gameConfiguration.isContinueOtherCombinations()) {
+			for (int i = 0; i < gameConfiguration.getContinueCombinationsNum(); i++) {
+				while (gameStarter.isGameRunning() || gameStarter.isWaitingGame()) {
+					// continue; のみとかだと何故か上手く動かない
+					try {
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						logger.error("Exception", e);
+					}
+				}
+				// 2週目以降用
+				try {
+					logger.debug("Wait 20sec before connect to player server.");
+					Thread.sleep(20000);
+				} catch (Exception e) {
+					logger.error("Exception", e);
+				}
+				connectToPlayerServer();
+				// connectToPlayerServerの追加待ち
+				try {
+					logger.debug("Wait 20sec after connect to player server.");
+					Thread.sleep(20000);
+				} catch (Exception e) {
+					logger.error("Exception", e);
+				}
+			}
+		} else if (!gameConfiguration.isListenPort()) {
+			connectToPlayerServer();
+		} else {
+			// port listening
+			while (true) {
+				connectToPlayerServer();
+			}
+		}
+		logger.info("End.");
 	}
 
 	@SuppressWarnings("resource")
 	private void acceptClients() {
 		logger.info("Accept clients.");
 		// 必要なエージェント名が設定されているかどうかを確認
-		boolean isSetRequiredAgentName = !config.getRequiredAgentName().isEmpty();
+		boolean isSetRequiredAgentName = !gameConfiguration.getRequiredAgentName().isEmpty();
 		ServerSocket serverSocket = null;
 		try {
 			// サーバーソケットを指定されたポートで作成
-			serverSocket = new ServerSocket(config.getPort());
+			serverSocket = new ServerSocket(gameConfiguration.getPort());
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}
@@ -89,7 +136,7 @@ public class Launcher {
 				Socket socket = serverSocket.accept();
 				// エントリーソケットマップのキーを生成
 				String key = String.valueOf(entrySocketMap.hashCode());
-				if (config.isSingleAgentPerIp()) {
+				if (gameConfiguration.isSingleAgentPerIp()) {
 					key = socket.getInetAddress().getHostAddress();
 				} else if (!waitingSockets.isEmpty()) {
 					key = new ArrayList<>(waitingSockets.keySet()).getFirst();
@@ -100,7 +147,7 @@ public class Launcher {
 				logger.debug(String.format("Socket connected: %s", key));
 				// ソケットの名前を取得
 				String name = getName(socket);
-				if (isSetRequiredAgentName && name.contains(config.getRequiredAgentName())) {
+				if (isSetRequiredAgentName && name.contains(gameConfiguration.getRequiredAgentName())) {
 					requiredSockets.add(socket);
 				}
 				// ソケットと現在の時間のペアを作成
@@ -108,14 +155,15 @@ public class Launcher {
 				entrySocketMap.computeIfAbsent(socket.getInetAddress().getHostAddress(), k -> new ArrayList<>())
 						.add(pair);
 				// 無効な接続を削除
-				removeInvalidConnection(config.getIdleConnectionTimeout());
+				removeInvalidConnection(gameConfiguration.getIdleConnectionTimeout());
 				// アクティブな接続を表示
 				printActiveConnection();
 				if (isSetRequiredAgentName && requiredSockets.isEmpty()) {
 					continue;
 				}
 				// 接続キューを送信
-				sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), requiredSockets);
+				sendConnectionQueue(gameConfiguration.getConnectAgentNum(), gameConfiguration.isSingleAgentPerIp(),
+						requiredSockets);
 			} catch (Exception e) {
 				logger.error("Exception", e);
 			}
@@ -127,26 +175,26 @@ public class Launcher {
 			throws UnknownHostException, ConnectException, NoRouteToHostException, IOException {
 		logger.info(String.format("Get socket from index: %d", index));
 		// 他の組み合わせを続行する設定が有効な場合、ランダムにインデックスを選択
-		if (config.isContinueOtherCombinations()) {
+		if (gameConfiguration.isContinueOtherCombinations()) {
 			Random rand = new Random();
 			do {
-				index = rand.nextInt(config.getAllParticipantNum()) + 1;
+				index = rand.nextInt(gameConfiguration.getAllParticipantNum()) + 1;
 			} while (entryAgentIndex.contains(index));
 			entryAgentIndex.add(index);
 		}
 		logger.debug(String.format("Index: %d", index));
 		// インデックスに基づいてサーバー情報を設定
 		return switch (index) {
-			case 1 -> getSocket(config.getPlayer1Ip(), config.getPlayer1Port());
-			case 2 -> getSocket(config.getPlayer2Ip(), config.getPlayer2Port());
-			case 3 -> getSocket(config.getPlayer3Ip(), config.getPlayer3Port());
-			case 4 -> getSocket(config.getPlayer4Ip(), config.getPlayer4Port());
-			case 5 -> getSocket(config.getPlayer5Ip(), config.getPlayer5Port());
-			case 6 -> getSocket(config.getPlayer6Ip(), config.getPlayer6Port());
-			case 7 -> getSocket(config.getPlayer7Ip(), config.getPlayer7Port());
-			case 8 -> getSocket(config.getPlayer8Ip(), config.getPlayer8Port());
-			case 9 -> getSocket(config.getPlayer9Ip(), config.getPlayer9Port());
-			case 10 -> getSocket(config.getPlayer10Ip(), config.getPlayer10Port());
+			case 1 -> getSocket(gameConfiguration.getPlayer1Ip(), gameConfiguration.getPlayer1Port());
+			case 2 -> getSocket(gameConfiguration.getPlayer2Ip(), gameConfiguration.getPlayer2Port());
+			case 3 -> getSocket(gameConfiguration.getPlayer3Ip(), gameConfiguration.getPlayer3Port());
+			case 4 -> getSocket(gameConfiguration.getPlayer4Ip(), gameConfiguration.getPlayer4Port());
+			case 5 -> getSocket(gameConfiguration.getPlayer5Ip(), gameConfiguration.getPlayer5Port());
+			case 6 -> getSocket(gameConfiguration.getPlayer6Ip(), gameConfiguration.getPlayer6Port());
+			case 7 -> getSocket(gameConfiguration.getPlayer7Ip(), gameConfiguration.getPlayer7Port());
+			case 8 -> getSocket(gameConfiguration.getPlayer8Ip(), gameConfiguration.getPlayer8Port());
+			case 9 -> getSocket(gameConfiguration.getPlayer9Ip(), gameConfiguration.getPlayer9Port());
+			case 10 -> getSocket(gameConfiguration.getPlayer10Ip(), gameConfiguration.getPlayer10Port());
 			case 10000, 10001, 10002, 10003, 10004 -> getSocket("localhost",
 					Integer.parseInt(line.split("\\s")[index % 10000]));
 			default -> throw new IllegalArgumentException("Invalid index: " + index);
@@ -154,15 +202,14 @@ public class Launcher {
 	}
 
 	private Socket getSocket(String hostname, int port) throws UnknownHostException, IOException {
-		Socket sock = new Socket(hostname, port);
+		Socket socket = new Socket(hostname, port);
 		logger.debug(String.format("Socket connected: %s:%d", hostname, port));
 		try {
-			String name = getName(sock);
-			logger.debug(String.format("Socket name: %s", name));
+			logger.debug(String.format("Socket name: %s", getName(socket)));
 		} catch (Exception e) {
 			throw new UnknownHostException();
 		}
-		return sock;
+		return socket;
 	}
 
 	private void connectToPlayerServer() {
@@ -173,11 +220,11 @@ public class Launcher {
 		String line = "";
 		try {
 			// サーバーがポートをリッスンするかどうかを確認
-			if (config.isListenPort()) {
+			if (gameConfiguration.isListenPort()) {
 				logger.debug("Listen port.");
-				try (ServerSocket serverSocket = new ServerSocket(config.getPort())) {
+				try (ServerSocket serverSocket = new ServerSocket(gameConfiguration.getPort())) {
 					Socket socket = serverSocket.accept();
-					line = getHostNameAndPort(socket);
+					line = readLineFromSocket(socket);
 					index = 10000;
 				}
 			}
@@ -185,7 +232,7 @@ public class Launcher {
 			Map<String, List<Pair<Long, Socket>>> entrySocketMap = new HashMap<>();
 			Set<Integer> entryAgentIndex = new HashSet<>();
 			// 指定された数のエージェントに接続
-			for (int i = 0; i < config.getConnectAgentNum(); i++) {
+			for (int i = 0; i < gameConfiguration.getConnectAgentNum(); i++) {
 				Socket socket = getSocketFromIndex(index, line, entryAgentIndex);
 				Pair<Long, Socket> pair = new Pair<>(System.currentTimeMillis() / 3600000, socket);
 				String ipAddress = socket.getInetAddress().getHostAddress();
@@ -197,7 +244,7 @@ public class Launcher {
 				index++;
 			}
 			// アイドルタイムアウトに基づいて無効な接続を削除
-			removeInvalidConnection(config.getIdleConnectionTimeout());
+			removeInvalidConnection(gameConfiguration.getIdleConnectionTimeout());
 			// アクティブな接続を表示
 			try {
 				printActiveConnection();
@@ -206,7 +253,8 @@ public class Launcher {
 				return;
 			}
 			// 接続キューを送信
-			sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), new HashSet<>());
+			sendConnectionQueue(gameConfiguration.getConnectAgentNum(), gameConfiguration.isSingleAgentPerIp(),
+					new HashSet<>());
 		} catch (UnknownHostException e) {
 			// 未知のホスト例外を処理
 			logger.error(String.format("Player%d host is not found.", index), e);
@@ -225,7 +273,7 @@ public class Launcher {
 	private String getName(Socket socket) throws IOException, InterruptedException,
 			ExecutionException, TimeoutException, SocketException {
 		logger.info("Get name.");
-		AIWolfConnection connection = new AIWolfConnection(socket, config);
+		AIWolfConnection connection = new AIWolfConnection(socket, gameConfiguration);
 		ExecutorService pool = Executors.newSingleThreadExecutor();
 		BufferedWriter bw = connection.getBufferedWriter();
 		bw.append(JsonParser.encode(new Packet(Request.NAME)));
@@ -233,8 +281,8 @@ public class Launcher {
 		bw.flush();
 		CallableBufferedReader task = new CallableBufferedReader(connection.getBufferedReader());
 		Future<String> future = pool.submit(task);
-		String line = config.getResponseTimeout() > 0
-				? future.get(config.getResponseTimeout(), TimeUnit.MILLISECONDS)
+		String line = gameConfiguration.getResponseTimeout() > 0
+				? future.get(gameConfiguration.getResponseTimeout(), TimeUnit.MILLISECONDS)
 				: future.get();
 		if (!task.isSuccess()) {
 			throw task.getIOException();
@@ -243,11 +291,10 @@ public class Launcher {
 		return (line == null || line.isEmpty()) ? null : line;
 	}
 
-	private String getHostNameAndPort(Socket socket) throws IOException {
+	private String readLineFromSocket(Socket socket) throws IOException {
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 			String line = reader.readLine();
-			logger.debug("---");
-			logger.debug(line);
+			logger.debug(String.format("Read line: %s", line));
 			return line;
 		} finally {
 			socket.close();
@@ -279,10 +326,7 @@ public class Launcher {
 			if (waitingSockets.get(keyPair.key()).isEmpty())
 				waitingSockets.remove(keyPair.key());
 		}
-		removeEmptyMap();
-	}
 
-	private void removeEmptyMap() {
 		waitingSockets.entrySet().removeIf(entry -> {
 			if (entry.getValue().isEmpty()) {
 				return true;
@@ -338,58 +382,11 @@ public class Launcher {
 					break;
 			}
 			if (canStartGame) {
-				synchronized (socketQue) {
-					socketQue.add(new ArrayList<>(set));
+				synchronized (socketQueue) {
+					socketQueue.add(new ArrayList<>(set));
 				}
 				iterator.remove();
 			}
 		}
-	}
-
-	public void start() {
-		logger.info("Start.");
-		if (isRunning)
-			return;
-		// ゲーム開始スレッドの起動
-		GameStarter gameStarter = new GameStarter(socketQue, config);
-		gameStarter.start();
-		if (config.isServer()) {
-			// サーバとして待ち受け
-			acceptClients();
-		} else if (config.isContinueOtherCombinations()) {
-			for (int i = 0; i < config.getContinueCombinationsNum(); i++) {
-				while (gameStarter.isGameRunning() || gameStarter.isWaitingGame()) {
-					// continue; のみとかだと何故か上手く動かない
-					try {
-						Thread.sleep(1000);
-					} catch (Exception e) {
-						logger.error("Exception", e);
-					}
-				}
-				// 2週目以降用
-				try {
-					logger.debug("Wait 20sec before connect to player server.");
-					Thread.sleep(20000);
-				} catch (Exception e) {
-					logger.error("Exception", e);
-				}
-				connectToPlayerServer();
-				// connectToPlayerServerの追加待ち
-				try {
-					logger.debug("Wait 20sec after connect to player server.");
-					Thread.sleep(20000);
-				} catch (Exception e) {
-					logger.error("Exception", e);
-				}
-			}
-		} else if (!config.isListenPort()) {
-			connectToPlayerServer();
-		} else {
-			// port listening
-			while (true) {
-				connectToPlayerServer();
-			}
-		}
-		logger.info("End.");
 	}
 }

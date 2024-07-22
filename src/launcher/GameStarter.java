@@ -16,11 +16,11 @@ public class GameStarter extends Thread {
 
 	private final List<GameBuilder> gameList = new ArrayList<>();
 	private final Queue<List<Socket>> socketQue;
-	private final GameConfiguration config;
+	private final GameConfiguration gameConfiguration;
 
-	public GameStarter(Queue<List<Socket>> socketQue, GameConfiguration config) {
+	public GameStarter(Queue<List<Socket>> socketQue, GameConfiguration gameConfiguration) {
 		this.socketQue = socketQue;
-		this.config = config;
+		this.gameConfiguration = gameConfiguration;
 	}
 
 	@Override
@@ -31,8 +31,8 @@ public class GameStarter extends Thread {
 
 			// 同時起動数未満なら待機Listから1グループ取得してゲームを開始する
 			synchronized (socketQue) {
-				if (!socketQue.isEmpty() && gameList.size() < config.getParallelRunningGameNum()) {
-					GameBuilder builder = new GameBuilder(socketQue.poll(), config);
+				if (!socketQue.isEmpty() && gameList.size() < gameConfiguration.getParallelRunningGameNum()) {
+					GameBuilder builder = new GameBuilder(socketQue.poll(), gameConfiguration);
 					gameList.add(builder);
 					builder.start();
 				}

@@ -1,4 +1,4 @@
-package core.packet;
+package core.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,13 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
-import core.model.Agent;
-import core.model.Judge;
-import core.model.Role;
-import core.model.Status;
-import core.model.Talk;
-import core.model.Vote;
 
 public class GameInfo {
 	public int day;

@@ -1,9 +1,8 @@
-package core.packet;
+package core.model;
 
 import java.util.Map;
 
 import core.GameConfiguration;
-import core.model.Role;
 
 public record GameSetting(
 		Map<Role, Integer> roleNumMap,

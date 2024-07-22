@@ -22,9 +22,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import core.model.Agent;
+import core.model.GameSetting;
 import core.model.Role;
 import core.model.Status;
-import core.packet.GameSetting;
 import libs.FileGameLogger;
 
 public class GameBuilder extends Thread {

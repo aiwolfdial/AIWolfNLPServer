@@ -16,9 +16,9 @@ import org.apache.log4j.Logger;
 
 import core.exception.LostAgentConnectionException;
 import core.model.Agent;
+import core.model.Packet;
 import core.model.Request;
 import core.model.Role;
-import core.packet.Packet;
 import libs.CallableBufferedReader;
 import libs.FileGameLogger;
 import libs.Pair;

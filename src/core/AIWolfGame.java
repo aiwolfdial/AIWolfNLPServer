@@ -24,6 +24,7 @@ import org.apache.log4j.Logger;
 import core.exception.IllegalPlayerNumberException;
 import core.exception.LostAgentConnectionException;
 import core.model.Agent;
+import core.model.GameSetting;
 import core.model.Guard;
 import core.model.Judge;
 import core.model.Role;
@@ -32,7 +33,6 @@ import core.model.Status;
 import core.model.Talk;
 import core.model.Team;
 import core.model.Vote;
-import core.packet.GameSetting;
 import libs.Counter;
 import libs.FileGameLogger;
 
@@ -51,14 +51,13 @@ public class AIWolfGame {
 		this.gameConfiguration = gameConfiguration;
 		this.gameSetting = gameSetting;
 		this.gameServer = gameServer;
-		gameData = new GameData(gameSetting);
 	}
 
 	public void setGameLogger(FileGameLogger gameLogger) {
 		this.gameLogger = gameLogger;
 	}
 
-	protected void init() {
+	protected void initialize() {
 		gameDataMap = new TreeMap<>();
 		agentNameMap = new HashMap<>();
 		gameServer.setGameData(gameData);
@@ -155,7 +154,7 @@ public class AIWolfGame {
 		}
 
 		try {
-			init();
+			initialize();
 			while (!isGameFinished()) {
 				consoleLog();
 
