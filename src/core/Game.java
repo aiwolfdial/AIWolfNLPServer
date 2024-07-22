@@ -134,16 +134,6 @@ public class Game {
 	}
 
 	public void start() {
-		gameDataMap = new TreeMap<>();
-		agentNameMap = new HashMap<>();
-		gameDataMap.put(gameData.getDay(), gameData);
-		gameServer.setGameSetting(gameSetting);
-		for (Agent agent : gameServer.getConnectedAgentList()) {
-			gameServer.init(agent);
-			String requestName = gameServer.getName(agent);
-			agentNameMap.put(agent, requestName);
-		}
-
 		if (config.isSaveRoleCombination()) {
 			if (existsCombinationsText(config, getCombinationsText())) {
 				finish();
