@@ -68,7 +68,7 @@ public class GameBuilder extends Thread {
 		}
 	}
 
-	private List<Map<Agent, Role>> createAgentRoleCombinations() {
+	private List<Map<Agent, Role>> getCombinations() {
 		List<Map<Agent, Role>> roleList = new ArrayList<>();
 
 		// セット内の人数から組み合わせを生成
@@ -109,11 +109,11 @@ public class GameBuilder extends Thread {
 		}
 
 		// デバッグモードの場合、全パターンと各エージェントがそれぞれの役職になった回数をカウントして出力
-		printCombinationList(roleList);
+		printCombinations(roleList);
 		return roleList;
 	}
 
-	private void printCombinationList(List<Map<Agent, Role>> roleList) {
+	private void printCombinations(List<Map<Agent, Role>> roleList) {
 		for (int i = 0; i < roleList.size(); i++) {
 			logger.debug(String.format("%d: %s", i, roleList.get(i)));
 		}
@@ -139,7 +139,7 @@ public class GameBuilder extends Thread {
 	public void run() {
 		logger.info("GameBuilder start.");
 		// 役職リストの取得
-		List<Map<Agent, Role>> agentRoleMapList = createAgentRoleCombinations();
+		List<Map<Agent, Role>> agentRoleMapList = getCombinations();
 
 		// ゲームサーバの生成
 		GameServer gameServer = new GameServer(gameSetting, config, connections);
@@ -169,7 +169,7 @@ public class GameBuilder extends Thread {
 			GameData gameData = new GameData(gameSetting);
 
 			// 現在対戦に使用しているエージェントの更新
-			gameServer.updateUsingAgentList(agentRoleMap.keySet());
+			gameServer.setAgents(agentRoleMap.keySet());
 
 			// 今回マッチングするエージェントのいずれかがロストしているならスキップする
 			if (agentRoleMap.keySet().stream().anyMatch(agent -> connections.stream()
@@ -202,14 +202,14 @@ public class GameBuilder extends Thread {
 				// 今回のゲームでエラーが発生したエージェントがいた場合はエラーログを出力する
 				if (config.isSaveLog()) {
 					Set<Entry<Agent, Connection>> newLostConnectionSet = connections.stream()
-							.filter(connection -> connection.getReportError())
+							.filter(connection -> connection.getHasException())
 							.collect(Collectors.toMap(Connection::getAgent, connection -> connection)).entrySet();
 					String errPath = String.format(ERROR_LOG_FILE_NAME, config.getLogDir(), subLogDirName, i,
 							clientNames);
 					File errorLogFile = new File(errPath);
 					FileGameLogger logger = new FileGameLogger(errorLogFile);
 					for (Entry<Agent, Connection> entry : newLostConnectionSet) {
-						entry.getValue().reportError(logger, entry.getKey(), agentRoleMap.get(entry.getKey()));
+						entry.getValue().printException(logger, entry.getKey(), agentRoleMap.get(entry.getKey()));
 					}
 
 					// エラー出力がなければエラーログファイルを削除

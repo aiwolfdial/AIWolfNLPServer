@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import core.exception.AIWolfException;
 import core.model.Agent;
@@ -115,14 +116,14 @@ public class GameData {
 		if (role != null) {
 			roleMap.put(agent, role);
 			if (today.getRole(agent) == Role.WEREWOLF) {
-				for (Agent target : today.getAgentList()) {
+				for (Agent target : today.getAgents()) {
 					if (today.getRole(target) == Role.WEREWOLF) {
 						roleMap.put(target, Role.WEREWOLF);
 					}
 				}
 			}
 			if (today.getRole(agent) == Role.FREEMASON) {
-				for (Agent target : today.getAgentList()) {
+				for (Agent target : today.getAgents()) {
 					if (today.getRole(target) == Role.FREEMASON) {
 						roleMap.put(target, Role.FREEMASON);
 					}
@@ -149,7 +150,7 @@ public class GameData {
 		}
 	}
 
-	public List<Agent> getAgentList() {
+	public List<Agent> getAgents() {
 		return new ArrayList<>(agentRoleMap.keySet());
 	}
 
@@ -199,7 +200,7 @@ public class GameData {
 		attackVoteList.add(attack);
 	}
 
-	public List<Vote> getVoteList() {
+	public List<Vote> getVotes() {
 		return voteList;
 	}
 
@@ -214,7 +215,7 @@ public class GameData {
 		this.attacked = attacked;
 	}
 
-	public List<Vote> getAttackVoteList() {
+	public List<Vote> getAttackVotes() {
 		return attackVoteList;
 	}
 
@@ -267,7 +268,7 @@ public class GameData {
 		}
 		gameData.agentRoleMap = new HashMap<>(agentRoleMap);
 
-		for (Agent agent : gameData.getAgentList()) {
+		for (Agent agent : gameData.getAgents()) {
 			if (gameData.getStatus(agent) == Status.ALIVE) {
 				gameData.remainTalkMap.put(agent, gameSetting.maxTalk());
 				if (gameData.getRole(agent) == Role.WEREWOLF) {
@@ -284,34 +285,22 @@ public class GameData {
 		return dayBefore;
 	}
 
-	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Species species) {
-		List<Agent> resultList = new ArrayList<>();
-		for (Agent agent : agentList) {
-			if (getRole(agent).species == species) {
-				resultList.add(agent);
-			}
-		}
-		return resultList;
+	protected List<Agent> getFilteredAgents(List<Agent> agentList, Species species) {
+		return agentList.stream()
+				.filter(agent -> getRole(agent).species == species)
+				.collect(Collectors.toList());
 	}
 
-	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Role role) {
-		List<Agent> resultList = new ArrayList<>();
-		for (Agent agent : agentList) {
-			if (getRole(agent) == role) {
-				resultList.add(agent);
-			}
-		}
-		return resultList;
+	protected List<Agent> getFilteredAgents(List<Agent> agentList, Role role) {
+		return agentList.stream()
+				.filter(agent -> getRole(agent) == role)
+				.collect(Collectors.toList());
 	}
 
-	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Team team) {
-		List<Agent> resultList = new ArrayList<>();
-		for (Agent agent : agentList) {
-			if (getRole(agent).team == team) {
-				resultList.add(agent);
-			}
-		}
-		return resultList;
+	protected List<Agent> getFilteredAgents(List<Agent> agentList, Team team) {
+		return agentList.stream()
+				.filter(agent -> getRole(agent).team == team)
+				.collect(Collectors.toList());
 	}
 
 	public int nextTalkIdx() {

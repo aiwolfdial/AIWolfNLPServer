@@ -135,7 +135,7 @@ public class Game {
 		}
 		try {
 			initialize();
-			while (!isGameFinished()) {
+			while (!isFinished()) {
 				consoleLog();
 
 				day();
@@ -174,7 +174,7 @@ public class Game {
 
 	private String getCombinationsText() {
 		List<String> combinationText = new ArrayList<>();
-		gameData.getAgentList().stream()
+		gameData.getAgents().stream()
 				.sorted()
 				.forEach(agent -> {
 					String agentName = agentNameMap.get(agent).replaceAll("[0-9]", "");
@@ -186,15 +186,15 @@ public class Game {
 
 	public void finish() {
 		if (gameLogger != null) {
-			for (Agent agent : new TreeSet<>(gameData.getAgentList())) {
+			for (Agent agent : new TreeSet<>(gameData.getAgents())) {
 				gameLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.agentIdx,
 						gameData.getRole(agent), gameData.getStatus(agent), agentNameMap.get(agent)));
 			}
-			gameLogger.log(String.format("%d,result,%d,%d,%s", gameData.getDay(), getAliveHumanList().size(),
-					getAliveWolfList().size(), getWinner()));
+			gameLogger.log(String.format("%d,result,%d,%d,%s", gameData.getDay(), getAliveHumans().size(),
+					getAliveWolfs().size(), getWinner()));
 			gameLogger.close();
 		}
-		for (Agent agent : gameData.getAgentList()) {
+		for (Agent agent : gameData.getAgents()) {
 			gameServer.finish(agent);
 		}
 	}
@@ -203,7 +203,7 @@ public class Game {
 		int humanSide = 0;
 		int wolfSide = 0;
 		int otherSide = 0;
-		for (Agent agent : gameData.getAgentList()) {
+		for (Agent agent : gameData.getAgents()) {
 			if (gameData.getStatus(agent) == Status.DEAD) {
 				continue;
 			}
@@ -247,10 +247,10 @@ public class Game {
 				logger.info(whisper);
 			}
 			logger.info("========Actions========");
-			for (Vote vote : yesterday.getVoteList()) {
+			for (Vote vote : yesterday.getVotes()) {
 				logger.info(String.format("Vote: %s->%s", vote.agent(), vote.target()));
 			}
-			for (Vote vote : yesterday.getAttackVoteList()) {
+			for (Vote vote : yesterday.getAttackVotes()) {
 				logger.info(String.format("AttackVote: %s->%s", vote.agent(), vote.target()));
 			}
 			logger.info(String.format("Executed: %s", yesterday.getExecuted()));
@@ -270,7 +270,7 @@ public class Game {
 			}
 		}
 		logger.info("======");
-		List<Agent> agentList = gameData.getAgentList();
+		List<Agent> agentList = gameData.getAgents();
 		agentList.sort(Comparator.comparingInt(o -> o.agentIdx));
 		for (Agent agent : agentList) {
 			StringBuilder logBuilder = new StringBuilder();
@@ -297,11 +297,11 @@ public class Game {
 			}
 			logger.info(logBuilder.toString());
 		}
-		logger.info(String.format("Human: %d", getAliveHumanList().size()));
-		logger.info(String.format("Werewolf: %d", getAliveWolfList().size()));
+		logger.info(String.format("Human: %d", getAliveHumans().size()));
+		logger.info(String.format("Werewolf: %d", getAliveWolfs().size()));
 		if (gameSetting.getRoleNum(Role.FOX) != 0) {
 			logger.info(String.format("Others: %d",
-					gameData.getFilteredAgentList(getAliveAgentList(), Team.OTHERS).size()));
+					gameData.getFilteredAgents(getAliveAgents(), Team.OTHERS).size()));
 		}
 		logger.info("=============================================");
 	}
@@ -319,7 +319,7 @@ public class Game {
 	}
 
 	protected void night() {
-		for (Agent agent : gameData.getAgentList()) {
+		for (Agent agent : gameData.getAgents()) {
 			gameServer.dayFinish(agent);
 		}
 
@@ -332,7 +332,7 @@ public class Game {
 		if (gameData.getDay() != 0) {
 			for (int i = 0; i <= gameSetting.maxRevote(); i++) {
 				vote();
-				candidates = getVotedCandidates(gameData.getVoteList());
+				candidates = getVotedCandidates(gameData.getVotes());
 				if (candidates.size() == 1) {
 					executed = candidates.getFirst();
 					break;
@@ -360,10 +360,10 @@ public class Game {
 			guard();
 
 			Agent attacked = null;
-			if (!getAliveWolfList().isEmpty()) {
+			if (!getAliveWolfs().isEmpty()) {
 				for (int i = 0; i <= gameSetting.maxAttackRevote(); i++) {
 					attackVote();
-					List<Vote> attackCandidateList = gameData.getAttackVoteList();
+					List<Vote> attackCandidateList = gameData.getAttackVotes();
 					Iterator<Vote> it = attackCandidateList.iterator();
 					while (it.hasNext()) {
 						Vote vote = it.next();
@@ -445,7 +445,7 @@ public class Game {
 			}
 		}
 		if (!gameSetting.isEnableNoAttack()) {
-			for (Agent agent : getAliveHumanList()) {
+			for (Agent agent : getAliveHumans()) {
 				counter.add(agent);
 			}
 		}
@@ -462,19 +462,19 @@ public class Game {
 
 	protected void dayStart() {
 		if (gameLogger != null) {
-			for (Agent agent : new TreeSet<>(gameData.getAgentList())) {
+			for (Agent agent : new TreeSet<>(gameData.getAgents())) {
 				gameLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.agentIdx,
 						gameData.getRole(agent), gameData.getStatus(agent), agentNameMap.get(agent)));
 			}
 		}
 
-		for (Agent agent : gameData.getAgentList()) {
+		for (Agent agent : gameData.getAgents()) {
 			gameServer.dayStart(agent);
 		}
 	}
 
 	protected void talk() {
-		List<Agent> aliveList = getAliveAgentList();
+		List<Agent> aliveList = getAliveAgents();
 		for (Agent agent : aliveList) {
 			gameData.remainTalkMap.put(agent, gameSetting.maxTalk());
 		}
@@ -522,7 +522,7 @@ public class Game {
 	}
 
 	protected void whisper() {
-		List<Agent> aliveWolfList = gameData.getFilteredAgentList(getAliveAgentList(), Role.WEREWOLF);
+		List<Agent> aliveWolfList = gameData.getFilteredAgents(getAliveAgents(), Role.WEREWOLF);
 		if (aliveWolfList.size() == 1) {
 			return;
 		}
@@ -571,8 +571,8 @@ public class Game {
 	}
 
 	protected void vote() {
-		gameData.getVoteList().clear();
-		List<Agent> voters = getAliveAgentList();
+		gameData.getVotes().clear();
+		List<Agent> voters = getAliveAgents();
 		List<Vote> latestVoteList = new ArrayList<>();
 		for (Agent agent : voters) {
 			Agent target = gameServer.requestVote(agent);
@@ -595,7 +595,7 @@ public class Game {
 	}
 
 	protected void divine() {
-		for (Agent agent : getAliveAgentList()) {
+		for (Agent agent : getAliveAgents()) {
 			if (gameData.getRole(agent) == Role.SEER) {
 				Agent target = gameServer.requestDivineTarget(agent);
 				Role targetRole = gameData.getRole(target);
@@ -619,7 +619,7 @@ public class Game {
 	}
 
 	protected void guard() {
-		for (Agent agent : getAliveAgentList()) {
+		for (Agent agent : getAliveAgents()) {
 			if (gameData.getRole(agent) == Role.BODYGUARD) {
 				if (agent == gameData.getExecuted()) {
 					continue;
@@ -641,8 +641,8 @@ public class Game {
 	}
 
 	protected void attackVote() {
-		gameData.getAttackVoteList().clear();
-		for (Agent agent : getAliveWolfList()) {
+		gameData.getAttackVotes().clear();
+		for (Agent agent : getAliveWolfs()) {
 			Agent target = gameServer.requestAttackTarget(agent);
 			if (target == null || gameData.getStatus(target) == null || gameData.getStatus(target) == Status.DEAD
 					|| gameData.getRole(target) == Role.WEREWOLF) {
@@ -656,7 +656,7 @@ public class Game {
 				}
 			}
 		}
-		List<Vote> latestAttackVoteList = new ArrayList<>(gameData.getAttackVoteList());
+		List<Vote> latestAttackVoteList = new ArrayList<>(gameData.getAttackVotes());
 		gameData.setLatestAttackVoteList(latestAttackVoteList);
 	}
 
@@ -666,21 +666,21 @@ public class Game {
 		return list.get(new Random().nextInt(list.size()));
 	}
 
-	protected List<Agent> getAliveAgentList() {
-		return gameData.getAgentList().stream()
+	protected List<Agent> getAliveAgents() {
+		return gameData.getAgents().stream()
 				.filter(agent -> gameData.getStatus(agent) == Status.ALIVE)
 				.collect(Collectors.toList());
 	}
 
-	protected List<Agent> getAliveHumanList() {
-		return gameData.getFilteredAgentList(getAliveAgentList(), Species.HUMAN);
+	protected List<Agent> getAliveHumans() {
+		return gameData.getFilteredAgents(getAliveAgents(), Species.HUMAN);
 	}
 
-	protected List<Agent> getAliveWolfList() {
-		return gameData.getFilteredAgentList(getAliveAgentList(), Species.WEREWOLF);
+	protected List<Agent> getAliveWolfs() {
+		return gameData.getFilteredAgents(getAliveAgents(), Species.WEREWOLF);
 	}
 
-	public boolean isGameFinished() {
+	public boolean isFinished() {
 		return getWinner() != null;
 	}
 }

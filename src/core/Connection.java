@@ -38,7 +38,7 @@ public class Connection {
 	private BufferedReader bufferedReader;
 	private BufferedWriter bufferedWriter;
 
-	private boolean reportError = false;
+	private boolean hasException = false;
 	private Exception exception = null;
 	private Exception causeException = null;
 	private Request causeRequest = null;
@@ -96,8 +96,8 @@ public class Connection {
 		return agent;
 	}
 
-	public void reportError(FileGameLogger logger, Agent agent, Role role) {
-		if (!reportError)
+	public void printException(FileGameLogger logger, Agent agent, Role role) {
+		if (!hasException)
 			return;
 		logger.log(String.format(LOST_CONNECTION_MESSAGE, name, agent, role, causeRequest));
 		for (StackTraceElement stackTraceElement : exception.getStackTrace()) {
@@ -111,11 +111,11 @@ public class Connection {
 			logger.log(stackTraceElement.toString());
 			logger.flush();
 		}
-		reportError = false;
+		hasException = false;
 	}
 
-	public boolean getReportError() {
-		return reportError;
+	public boolean getHasException() {
+		return hasException;
 	}
 
 	public boolean isAlive() {
@@ -146,7 +146,7 @@ public class Connection {
 
 	public void throwException(Agent agent, Exception e, Request request) {
 		isAlive = false;
-		reportError = true;
+		hasException = true;
 		exception = new LostAgentConnectionException(e, agent);
 		causeException = e;
 		causeRequest = request;
