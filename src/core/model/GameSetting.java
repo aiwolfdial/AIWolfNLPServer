@@ -53,8 +53,8 @@ public record GameSetting(
 				false,
 				false,
 				config.talkOnFirstDay(),
-				(int) config.responseTimeout(),
-				(int) config.actionTimeout(),
+				config.responseTimeout(),
+				config.actionTimeout(),
 				0,
 				0,
 				false);

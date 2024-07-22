@@ -53,8 +53,8 @@ public record Config(
         int maxTalkNum,
         int maxTalkTurn,
         boolean talkOnFirstDay,
-        long responseTimeout,
-        long actionTimeout,
+        int responseTimeout,
+        int actionTimeout,
         boolean ignoreAgentException,
         String requiredAgentName) {
     public enum HumanRole {
