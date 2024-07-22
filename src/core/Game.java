@@ -127,14 +127,16 @@ public class Game {
 	}
 
 	public void start() {
-		if (config.isSaveRoleCombination()) {
-			if (existsCombinationsText(config, getCombinationsText())) {
-				finish();
-				return;
-			}
-		}
 		try {
 			initialize();
+
+			if (config.isSaveRoleCombination()) {
+				if (existsCombinationsText(config, getCombinationsText())) {
+					finish();
+					return;
+				}
+			}
+
 			while (!isFinished()) {
 				consoleLog();
 

@@ -9,7 +9,7 @@ logDir=./log/
 ; false: ロールの組み合わせを出力しない
 saveRoleCombination=true
 ; ロールの組み合わせの出力先ファイル
-combinationsLogFilename=./log/combinations
+combinationsLogFilename=./log/combinations.log
 
 ; ### 接続設定 ###
 ; true: サーバモード(エージェントからの接続を待つ)で起動
