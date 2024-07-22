@@ -25,7 +25,6 @@ import core.model.Agent;
 import core.model.Role;
 import core.model.Status;
 import core.packet.GameSetting;
-import launcher.SynchronousAIWolfGame;
 import libs.FileGameLogger;
 
 public class GameBuilder extends Thread {
@@ -178,7 +177,7 @@ public class GameBuilder extends Thread {
 			if (gameConfiguration.isJoinHuman()
 					&& !agentRoleMap.get(human).name().equals(gameConfiguration.getHumanRole().name()))
 				continue;
-			SynchronousAIWolfGame game = new SynchronousAIWolfGame(gameSetting, gameServer);
+			AIWolfGame game = new AIWolfGame(gameConfiguration, gameSetting, gameServer);
 			GameData gameData = new GameData(gameSetting);
 
 			// 現在対戦に使用しているエージェントの更新

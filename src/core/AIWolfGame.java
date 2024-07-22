@@ -1,5 +1,10 @@
 package core;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,6 +39,7 @@ import libs.FileGameLogger;
 public class AIWolfGame {
 	private static final Logger logger = LogManager.getLogger(AIWolfGame.class);
 
+	protected GameConfiguration gameConfiguration;
 	protected GameSetting gameSetting;
 	protected GameServer gameServer;
 	protected Map<Integer, GameData> gameDataMap;
@@ -41,7 +47,8 @@ public class AIWolfGame {
 	protected FileGameLogger gameLogger;
 	protected Map<Agent, String> agentNameMap;
 
-	public AIWolfGame(GameSetting gameSetting, GameServer gameServer) {
+	public AIWolfGame(GameConfiguration gameConfiguration, GameSetting gameSetting, GameServer gameServer) {
+		this.gameConfiguration = gameConfiguration;
 		this.gameSetting = gameSetting;
 		this.gameServer = gameServer;
 		gameData = new GameData(gameSetting);
@@ -108,7 +115,45 @@ public class AIWolfGame {
 		}
 	}
 
-	public void start() {
+	private boolean existsCombinationsText(GameConfiguration config, String text) {
+		File file = new File(config.getRoleCombinationDir() + config.getRoleCombinationFilename());
+		if (!file.exists()) {
+			return false;
+		}
+		try (BufferedReader bufferReader = new BufferedReader(new FileReader(file))) {
+			String doneCombinationText;
+			while ((doneCombinationText = bufferReader.readLine()) != null) {
+				if (doneCombinationText.equals(text)) {
+					return true;
+				}
+			}
+		} catch (IOException e) {
+			logger.error("Exception", e);
+		}
+		return false;
+	}
+
+	public void start(GameData gameData) {
+		this.gameData = gameData;
+		gameDataMap = new TreeMap<>();
+		agentNameMap = new HashMap<>();
+		gameServer.setGameData(gameData);
+
+		gameDataMap.put(gameData.getDay(), gameData);
+		gameServer.setGameSetting(gameSetting);
+		for (Agent agent : gameServer.getConnectedAgentList()) {
+			gameServer.init(agent);
+			String requestName = gameServer.requestName(agent);
+			agentNameMap.put(agent, requestName);
+		}
+
+		if (gameConfiguration.isSaveRoleCombination()) {
+			if (existsCombinationsText(gameConfiguration, getCombinationsText())) {
+				finish();
+				return;
+			}
+		}
+
 		try {
 			init();
 			while (!isGameFinished()) {
@@ -121,6 +166,23 @@ public class AIWolfGame {
 				}
 			}
 			consoleLog();
+
+			if (gameConfiguration.isSaveRoleCombination()) {
+				try {
+					File file = new File(
+							gameConfiguration.getRoleCombinationDir() + gameConfiguration.getRoleCombinationFilename());
+					if (!file.canWrite()) {
+						file.setWritable(true);
+					}
+					FileWriter fileWriter = new FileWriter(file, true);
+					fileWriter.write(getCombinationsText());
+					fileWriter.write("\r\n");
+					fileWriter.close();
+				} catch (Exception e) {
+					logger.error("Exception", e);
+				}
+			}
+
 			finish();
 			logger.info(String.format("Winner: %s", getWinner()));
 		} catch (LostAgentConnectionException e) {
@@ -129,6 +191,18 @@ public class AIWolfGame {
 			}
 			throw e;
 		}
+	}
+
+	private String getCombinationsText() {
+		List<String> combinationText = new ArrayList<>();
+		gameData.getAgentList().stream()
+				.sorted()
+				.forEach(agent -> {
+					String agentName = agentNameMap.get(agent).replaceAll("[0-9]", "");
+					combinationText.add(String.format("%s,%s", gameData.getRole(agent), agentName));
+				});
+		Collections.sort(combinationText);
+		return String.join(",", combinationText);
 	}
 
 	public void finish() {
@@ -141,7 +215,6 @@ public class AIWolfGame {
 					getAliveWolfList().size(), getWinner()));
 			gameLogger.close();
 		}
-
 		for (Agent agent : gameData.getAgentList()) {
 			gameServer.finish(agent);
 		}
