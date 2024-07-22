@@ -8,18 +8,18 @@ import java.util.Queue;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import core.Config;
 import core.GameBuilder;
-import core.GameConfiguration;
 
 public class GameStarter extends Thread {
 	private static final Logger logger = LogManager.getLogger(GameStarter.class);
 
-	private final List<GameBuilder> gameList = new ArrayList<>();
-	private final Queue<List<Socket>> socketQue;
-	private final GameConfiguration config;
+	private final List<GameBuilder> gameBuilders = new ArrayList<>();
+	private final Queue<List<Socket>> socketQueue;
+	private final Config config;
 
-	public GameStarter(Queue<List<Socket>> socketQue, GameConfiguration config) {
-		this.socketQue = socketQue;
+	public GameStarter(Queue<List<Socket>> socketQueue, Config config) {
+		this.socketQueue = socketQueue;
 		this.config = config;
 	}
 
@@ -27,13 +27,13 @@ public class GameStarter extends Thread {
 	public void run() {
 		while (true) {
 			// 実行が終了しているサーバの削除
-			gameList.removeIf(server -> !server.isAlive());
+			gameBuilders.removeIf(server -> !server.isAlive());
 
 			// 同時起動数未満なら待機Listから1グループ取得してゲームを開始する
-			synchronized (socketQue) {
-				if (!socketQue.isEmpty() && gameList.size() < config.getParallelRunningGameNum()) {
-					GameBuilder builder = new GameBuilder(socketQue.poll(), config);
-					gameList.add(builder);
+			synchronized (socketQueue) {
+				if (!socketQueue.isEmpty() && gameBuilders.size() < config.getMaxParallelExec()) {
+					GameBuilder builder = new GameBuilder(socketQueue.poll(), config);
+					gameBuilders.add(builder);
 					builder.start();
 				}
 			}
@@ -48,10 +48,10 @@ public class GameStarter extends Thread {
 	}
 
 	public boolean isWaitingGame() {
-		return !socketQue.isEmpty();
+		return !socketQueue.isEmpty();
 	}
 
 	public boolean isGameRunning() {
-		return !gameList.isEmpty();
+		return !gameBuilders.isEmpty();
 	}
 }

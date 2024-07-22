@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.ConnectException;
 import java.net.NoRouteToHostException;
 import java.net.ServerSocket;
@@ -31,10 +32,9 @@ import java.util.concurrent.TimeoutException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import core.AIWolfConnection;
-import core.GameConfiguration;
+import core.Config;
+import core.model.Packet;
 import core.model.Request;
-import core.packet.Packet;
 import libs.CallableBufferedReader;
 import libs.Pair;
 import utils.JsonParser;
@@ -48,8 +48,8 @@ public class Launcher {
 
 	private static final String DEFAULT_CONFIG_PATH = "./config/AIWolfGameServer.ini";
 
-	private final GameConfiguration config;
-	private final Queue<List<Socket>> socketQue = new ArrayDeque<>();
+	private final Config config;
+	private final Queue<List<Socket>> socketQueue = new ArrayDeque<>();
 	private final Map<String, Map<String, List<Pair<Long, Socket>>>> waitingSockets = new HashMap<>();
 	private boolean isRunning = false;
 
@@ -64,7 +64,54 @@ public class Launcher {
 	}
 
 	public Launcher() throws Exception {
-		this.config = GameConfiguration.load(DEFAULT_CONFIG_PATH);
+		this.config = Config.load(DEFAULT_CONFIG_PATH);
+	}
+
+	public void start() {
+		logger.info("Start.");
+		if (isRunning)
+			return;
+		// ゲーム開始スレッドの起動
+		GameStarter gameStarter = new GameStarter(socketQueue, config);
+		gameStarter.start();
+		if (config.isServer()) {
+			// サーバとして待ち受け
+			acceptClients();
+		} else if (config.isContinueCombinations()) {
+			for (int i = 0; i < config.getContinueCombinationsNum(); i++) {
+				while (gameStarter.isGameRunning() || gameStarter.isWaitingGame()) {
+					// continue; のみとかだと何故か上手く動かない
+					try {
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						logger.error("Exception", e);
+					}
+				}
+				// 2週目以降用
+				try {
+					logger.debug("Wait 20sec before connect to player server.");
+					Thread.sleep(20000);
+				} catch (Exception e) {
+					logger.error("Exception", e);
+				}
+				connectToPlayerServer();
+				// connectToPlayerServerの追加待ち
+				try {
+					logger.debug("Wait 20sec after connect to player server.");
+					Thread.sleep(20000);
+				} catch (Exception e) {
+					logger.error("Exception", e);
+				}
+			}
+		} else if (!config.isListenPort()) {
+			connectToPlayerServer();
+		} else {
+			// port listening
+			while (true) {
+				connectToPlayerServer();
+			}
+		}
+		logger.info("End.");
 	}
 
 	@SuppressWarnings("resource")
@@ -75,7 +122,7 @@ public class Launcher {
 		ServerSocket serverSocket = null;
 		try {
 			// サーバーソケットを指定されたポートで作成
-			serverSocket = new ServerSocket(config.getPort());
+			serverSocket = new ServerSocket(config.getServerPort());
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}
@@ -115,7 +162,8 @@ public class Launcher {
 					continue;
 				}
 				// 接続キューを送信
-				sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), requiredSockets);
+				sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(),
+						requiredSockets);
 			} catch (Exception e) {
 				logger.error("Exception", e);
 			}
@@ -127,7 +175,7 @@ public class Launcher {
 			throws UnknownHostException, ConnectException, NoRouteToHostException, IOException {
 		logger.info(String.format("Get socket from index: %d", index));
 		// 他の組み合わせを続行する設定が有効な場合、ランダムにインデックスを選択
-		if (config.isContinueOtherCombinations()) {
+		if (config.isContinueCombinations()) {
 			Random rand = new Random();
 			do {
 				index = rand.nextInt(config.getAllParticipantNum()) + 1;
@@ -154,15 +202,14 @@ public class Launcher {
 	}
 
 	private Socket getSocket(String hostname, int port) throws UnknownHostException, IOException {
-		Socket sock = new Socket(hostname, port);
+		Socket socket = new Socket(hostname, port);
 		logger.debug(String.format("Socket connected: %s:%d", hostname, port));
 		try {
-			String name = getName(sock);
-			logger.debug(String.format("Socket name: %s", name));
+			logger.debug(String.format("Socket name: %s", getName(socket)));
 		} catch (Exception e) {
 			throw new UnknownHostException();
 		}
-		return sock;
+		return socket;
 	}
 
 	private void connectToPlayerServer() {
@@ -175,9 +222,9 @@ public class Launcher {
 			// サーバーがポートをリッスンするかどうかを確認
 			if (config.isListenPort()) {
 				logger.debug("Listen port.");
-				try (ServerSocket serverSocket = new ServerSocket(config.getPort())) {
+				try (ServerSocket serverSocket = new ServerSocket(config.getServerPort())) {
 					Socket socket = serverSocket.accept();
-					line = getHostNameAndPort(socket);
+					line = readLineFromSocket(socket);
 					index = 10000;
 				}
 			}
@@ -206,7 +253,8 @@ public class Launcher {
 				return;
 			}
 			// 接続キューを送信
-			sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(), new HashSet<>());
+			sendConnectionQueue(config.getConnectAgentNum(), config.isSingleAgentPerIp(),
+					new HashSet<>());
 		} catch (UnknownHostException e) {
 			// 未知のホスト例外を処理
 			logger.error(String.format("Player%d host is not found.", index), e);
@@ -225,13 +273,15 @@ public class Launcher {
 	private String getName(Socket socket) throws IOException, InterruptedException,
 			ExecutionException, TimeoutException, SocketException {
 		logger.info("Get name.");
-		AIWolfConnection connection = new AIWolfConnection(socket, config);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
 		ExecutorService pool = Executors.newSingleThreadExecutor();
-		BufferedWriter bw = connection.getBufferedWriter();
-		bw.append(JsonParser.encode(new Packet(Request.NAME)));
-		bw.append("\n");
-		bw.flush();
-		CallableBufferedReader task = new CallableBufferedReader(connection.getBufferedReader());
+		bufferedWriter.append(JsonParser.encode(new Packet(Request.NAME)));
+		bufferedWriter.append("\n");
+		bufferedWriter.flush();
+
+		CallableBufferedReader task = new CallableBufferedReader(bufferedReader);
 		Future<String> future = pool.submit(task);
 		String line = config.getResponseTimeout() > 0
 				? future.get(config.getResponseTimeout(), TimeUnit.MILLISECONDS)
@@ -240,14 +290,13 @@ public class Launcher {
 			throw task.getIOException();
 		}
 		pool.shutdown();
-		return (line == null || line.isEmpty()) ? null : line;
+		return line.isEmpty() ? null : line;
 	}
 
-	private String getHostNameAndPort(Socket socket) throws IOException {
+	private String readLineFromSocket(Socket socket) throws IOException {
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 			String line = reader.readLine();
-			logger.debug("---");
-			logger.debug(line);
+			logger.debug(String.format("Read line: %s", line));
 			return line;
 		} finally {
 			socket.close();
@@ -256,40 +305,44 @@ public class Launcher {
 
 	private void removeInvalidConnection(int deleteTime) {
 		Map<Pair<String, String>, Pair<Long, Socket>> lostMap = new HashMap<>();
-		for (Entry<String, Map<String, List<Pair<Long, Socket>>>> sMapEntry : waitingSockets.entrySet()) {
-			for (Entry<String, List<Pair<Long, Socket>>> entry : sMapEntry.getValue().entrySet()) {
-				// ロストしているSocket・deleteTimeより長時間対戦が行われずに接続が継続しているSocketを削除リストに追加
-				for (Pair<Long, Socket> socketPair : entry.getValue()) {
-					long time = System.currentTimeMillis() / 3600000;
-					try {
-						if (getName(socketPair.value()) == null || time - socketPair.key() > deleteTime)
-							lostMap.put(new Pair<>(sMapEntry.getKey(), entry.getKey()), socketPair);
-					} catch (Exception e) {
-						lostMap.put(new Pair<>(sMapEntry.getKey(), entry.getKey()), socketPair);
-					}
+		long currentTime = System.currentTimeMillis() / 3600000;
+
+		waitingSockets.forEach((sKey, sValue) -> sValue.forEach((key, socketList) -> socketList.forEach(socketPair -> {
+			try {
+				if (isInvalidConnection(socketPair, currentTime, deleteTime)) {
+					lostMap.put(new Pair<>(sKey, key), socketPair);
 				}
+			} catch (Exception e) {
+				lostMap.put(new Pair<>(sKey, key), socketPair);
 			}
-		}
-		// 問題のあるコネクションを削除
-		for (Entry<Pair<String, String>, Pair<Long, Socket>> lostPair : lostMap.entrySet()) {
-			Pair<String, String> keyPair = lostPair.getKey();
-			waitingSockets.get(keyPair.key()).get(keyPair.value()).remove(lostPair.getValue());
-			if (waitingSockets.get(keyPair.key()).get(keyPair.value()).isEmpty())
-				waitingSockets.get(keyPair.key()).remove(keyPair.value());
-			if (waitingSockets.get(keyPair.key()).isEmpty())
-				waitingSockets.remove(keyPair.key());
-		}
-		removeEmptyMap();
+		})));
+		removeLostConnections(lostMap);
+		cleanupEmptyEntries();
 	}
 
-	private void removeEmptyMap() {
-		waitingSockets.entrySet().removeIf(entry -> {
-			if (entry.getValue().isEmpty()) {
-				return true;
-			} else {
-				entry.getValue().entrySet().removeIf(insideEntry -> insideEntry.getValue().isEmpty());
-				return false;
+	private boolean isInvalidConnection(Pair<Long, Socket> socketPair, long currentTime, int deleteTime)
+			throws Exception {
+		return getName(socketPair.value()) == null || currentTime - socketPair.key() > deleteTime;
+	}
+
+	private void removeLostConnections(Map<Pair<String, String>, Pair<Long, Socket>> lostMap) {
+		lostMap.forEach((keyPair, socketPair) -> {
+			String sKey = keyPair.key();
+			String key = keyPair.value();
+			waitingSockets.get(sKey).get(key).remove(socketPair);
+			if (waitingSockets.get(sKey).get(key).isEmpty()) {
+				waitingSockets.get(sKey).remove(key);
 			}
+			if (waitingSockets.get(sKey).isEmpty()) {
+				waitingSockets.remove(sKey);
+			}
+		});
+	}
+
+	private void cleanupEmptyEntries() {
+		waitingSockets.entrySet().removeIf(entry -> {
+			entry.getValue().entrySet().removeIf(insideEntry -> insideEntry.getValue().isEmpty());
+			return entry.getValue().isEmpty();
 		});
 	}
 
@@ -338,58 +391,11 @@ public class Launcher {
 					break;
 			}
 			if (canStartGame) {
-				synchronized (socketQue) {
-					socketQue.add(new ArrayList<>(set));
+				synchronized (socketQueue) {
+					socketQueue.add(new ArrayList<>(set));
 				}
 				iterator.remove();
 			}
 		}
-	}
-
-	public void start() {
-		logger.info("Start.");
-		if (isRunning)
-			return;
-		// ゲーム開始スレッドの起動
-		GameStarter gameStarter = new GameStarter(socketQue, config);
-		gameStarter.start();
-		if (config.isServer()) {
-			// サーバとして待ち受け
-			acceptClients();
-		} else if (config.isContinueOtherCombinations()) {
-			for (int i = 0; i < config.getContinueCombinationsNum(); i++) {
-				while (gameStarter.isGameRunning() || gameStarter.isWaitingGame()) {
-					// continue; のみとかだと何故か上手く動かない
-					try {
-						Thread.sleep(1000);
-					} catch (Exception e) {
-						logger.error("Exception", e);
-					}
-				}
-				// 2週目以降用
-				try {
-					logger.debug("Wait 20sec before connect to player server.");
-					Thread.sleep(20000);
-				} catch (Exception e) {
-					logger.error("Exception", e);
-				}
-				connectToPlayerServer();
-				// connectToPlayerServerの追加待ち
-				try {
-					logger.debug("Wait 20sec after connect to player server.");
-					Thread.sleep(20000);
-				} catch (Exception e) {
-					logger.error("Exception", e);
-				}
-			}
-		} else if (!config.isListenPort()) {
-			connectToPlayerServer();
-		} else {
-			// port listening
-			while (true) {
-				connectToPlayerServer();
-			}
-		}
-		logger.info("End.");
 	}
 }

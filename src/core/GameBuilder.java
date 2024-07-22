@@ -22,10 +22,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import core.model.Agent;
+import core.model.GameSetting;
 import core.model.Role;
 import core.model.Status;
-import core.packet.GameSetting;
-import launcher.SynchronousAIWolfGame;
 import libs.FileGameLogger;
 
 public class GameBuilder extends Thread {
@@ -40,55 +39,44 @@ public class GameBuilder extends Thread {
 			Role.WEREWOLF
 	};
 
-	private final GameConfiguration gameConfiguration;
+	private final Config config;
 	private final GameSetting gameSetting;
-	private final Map<Agent, AIWolfConnection> agentConnectionMap = new HashMap<>();
+	private final Set<Connection> connections = new HashSet<>();
 
-	public GameBuilder(List<Socket> socketList, GameConfiguration gameConfiguration) {
+	public GameBuilder(List<Socket> sockets, Config config) {
 		// 順番が固定にならないように念のためシャッフル
-		Collections.shuffle(socketList);
+		Collections.shuffle(sockets);
 
 		// コネクションとエージェントの紐付け
 		Set<Integer> usedNumberSet = new HashSet<>();
-		int humanNum = gameConfiguration.isJoinHuman() ? gameConfiguration.getHumanAgentNum() : -1;
-		for (Socket socket : socketList) {
-			AIWolfConnection connection = new AIWolfConnection(socket, gameConfiguration);
-			int agentNum = 1;
-			String name = connection.getName();
-			if (name != null && name.equals(gameConfiguration.getHumanName()) && humanNum > 0) {
-				agentNum = humanNum;
-			} else {
-				while (usedNumberSet.contains(agentNum) || agentNum == humanNum)
-					agentNum++;
-			}
-			usedNumberSet.add(agentNum);
-			Agent agent = Agent.setAgent(agentNum, name);
-			this.agentConnectionMap.put(agent, connection);
-			connection.setAgent(agent);
+		for (Socket socket : sockets) {
+			Connection connection = new Connection(socket, config, usedNumberSet);
+			usedNumberSet.add(connection.getAgent().agentIdx);
+			connections.add(connection);
 		}
-		this.gameConfiguration = gameConfiguration;
-		this.gameSetting = new GameSetting(gameConfiguration);
+		this.config = config;
+		this.gameSetting = new GameSetting(config);
 	}
 
 	private void close() {
-		for (Entry<Agent, AIWolfConnection> entry : agentConnectionMap.entrySet()) {
+		for (Connection connection : connections) {
 			try {
-				entry.getValue().getSocket().close();
+				connection.getSocket().close();
 			} catch (IOException e) {
 				logger.error("Exception", e);
 			}
 		}
 	}
 
-	private List<Map<Agent, Role>> createAgentRoleCombinations() {
+	private List<Map<Agent, Role>> getCombinations() {
 		List<Map<Agent, Role>> roleList = new ArrayList<>();
 
 		// セット内の人数から組み合わせを生成
-		Iterator<int[]> agentCombination = new Combinations(gameConfiguration.getConnectAgentNum(),
-				gameConfiguration.getBattleAgentNum())
+		Iterator<int[]> agentCombination = new Combinations(config.getConnectAgentNum(),
+				config.getBattleAgentNum())
 						.iterator();
 		Iterator<int[]> roleCombination = new Combinations(
-				gameConfiguration.getBattleAgentNum(), USED_ROLES.length).iterator();
+				config.getBattleAgentNum(), USED_ROLES.length).iterator();
 
 		// nPrがライブラリに用意されていなかったので村人以外の役職について5C3のパターンを取った後にその3名に対して順列を取る
 		while (agentCombination.hasNext()) {
@@ -121,11 +109,11 @@ public class GameBuilder extends Thread {
 		}
 
 		// デバッグモードの場合、全パターンと各エージェントがそれぞれの役職になった回数をカウントして出力
-		printCombinationList(roleList);
+		printCombinations(roleList);
 		return roleList;
 	}
 
-	private void printCombinationList(List<Map<Agent, Role>> roleList) {
+	private void printCombinations(List<Map<Agent, Role>> roleList) {
 		for (int i = 0; i < roleList.size(); i++) {
 			logger.debug(String.format("%d: %s", i, roleList.get(i)));
 		}
@@ -151,41 +139,41 @@ public class GameBuilder extends Thread {
 	public void run() {
 		logger.info("GameBuilder start.");
 		// 役職リストの取得
-		List<Map<Agent, Role>> agentRoleMapList = createAgentRoleCombinations();
+		List<Map<Agent, Role>> agentRoleMapList = getCombinations();
 
 		// ゲームサーバの生成
-		GameServer gameServer = new GameServer(gameSetting, gameConfiguration, agentConnectionMap);
+		GameServer gameServer = new GameServer(gameSetting, config, connections);
 
-		int limit = gameConfiguration.isPrioritizeCombinations() ? agentRoleMapList.size()
-				: gameConfiguration.getGameNum();
+		int limit = config.isPrioritizeCombinations() ? agentRoleMapList.size()
+				: config.getGameNum();
 
 		// 人間対戦時
 		Agent human = null;
-		if (gameConfiguration.isJoinHuman()) {
-			for (Entry<Agent, AIWolfConnection> entry : agentConnectionMap.entrySet()) {
-				if (gameServer.getName(entry.getKey()).equals(gameConfiguration.getHumanName())) {
-					human = entry.getKey();
+		if (config.isJoinHuman()) {
+			for (Connection connection : connections) {
+				if (gameServer.getName(connection.getAgent()).equals(config.getHumanName())) {
+					human = connection.getAgent();
 				}
 			}
 		}
 
 		// 全組み合わせ実行しない場合はランダムにするために役職組み合わせリストをシャッフル
-		if (!gameConfiguration.isPrioritizeCombinations())
+		if (!config.isPrioritizeCombinations())
 			Collections.shuffle(agentRoleMapList);
 
 		for (int i = 0; i < limit; i++) {
 			Map<Agent, Role> agentRoleMap = agentRoleMapList.get(i);
-			if (gameConfiguration.isJoinHuman()
-					&& !agentRoleMap.get(human).name().equals(gameConfiguration.getHumanRole().name()))
+			if (config.isJoinHuman()
+					&& !agentRoleMap.get(human).name().equals(config.getHumanRole().name()))
 				continue;
-			SynchronousAIWolfGame game = new SynchronousAIWolfGame(gameSetting, gameServer);
 			GameData gameData = new GameData(gameSetting);
 
 			// 現在対戦に使用しているエージェントの更新
-			gameServer.updateUsingAgentList(agentRoleMap.keySet());
+			gameServer.setAgents(agentRoleMap.keySet());
 
 			// 今回マッチングするエージェントのいずれかがロストしているならスキップする
-			if (agentRoleMap.keySet().stream().anyMatch(agent -> !agentConnectionMap.get(agent).isAlive()))
+			if (agentRoleMap.keySet().stream().anyMatch(agent -> connections.stream()
+					.noneMatch(connection -> connection.getAgent().equals(agent) && connection.isAlive())))
 				continue;
 
 			// 役職の設定
@@ -197,30 +185,31 @@ public class GameBuilder extends Thread {
 			String subLogDirName = new SimpleDateFormat("MMddHHmmss").format(Calendar.getInstance().getTime());
 
 			try {
+				Game game = new Game(config, gameSetting, gameServer, gameData);
 				// 現在の対戦数を表示
 				logger.debug(String.format("I: %d", i));
 				// ロガーを設定
-				if (gameConfiguration.isSaveLog()) {
-					String path = String.format(NORMAL_LOG_FILE_NAME, gameConfiguration.getLogDir(), subLogDirName, i,
+				if (config.isSaveLog()) {
+					String path = String.format(NORMAL_LOG_FILE_NAME, config.getLogDir(), subLogDirName, i,
 							clientNames);
 					logger.debug(String.format("Path: %s", path));
 					game.setGameLogger(new FileGameLogger(new File(path)));
 				}
 
 				// ゲームの実行
-				game.start(gameData);
+				game.start();
 
 				// 今回のゲームでエラーが発生したエージェントがいた場合はエラーログを出力する
-				if (gameConfiguration.isSaveLog()) {
-					Set<Entry<Agent, AIWolfConnection>> newLostConnectionSet = agentConnectionMap.entrySet()
-							.stream().filter(entry -> entry.getValue().haveNewError())
-							.collect(Collectors.toSet());
-					String errPath = String.format(ERROR_LOG_FILE_NAME, gameConfiguration.getLogDir(), subLogDirName, i,
+				if (config.isSaveLog()) {
+					Set<Entry<Agent, Connection>> newLostConnectionSet = connections.stream()
+							.filter(connection -> connection.getHasException())
+							.collect(Collectors.toMap(Connection::getAgent, connection -> connection)).entrySet();
+					String errPath = String.format(ERROR_LOG_FILE_NAME, config.getLogDir(), subLogDirName, i,
 							clientNames);
 					File errorLogFile = new File(errPath);
 					FileGameLogger logger = new FileGameLogger(errorLogFile);
-					for (Entry<Agent, AIWolfConnection> entry : newLostConnectionSet) {
-						entry.getValue().reportError(logger, entry.getKey(), agentRoleMap.get(entry.getKey()));
+					for (Entry<Agent, Connection> entry : newLostConnectionSet) {
+						entry.getValue().printException(logger, entry.getKey(), agentRoleMap.get(entry.getKey()));
 					}
 
 					// エラー出力がなければエラーログファイルを削除
@@ -232,7 +221,7 @@ public class GameBuilder extends Thread {
 			}
 
 			// 全てのコネクションがロストした場合対戦を終了する
-			if (agentConnectionMap.values().stream().noneMatch(AIWolfConnection::isAlive))
+			if (connections.stream().noneMatch(Connection::isAlive))
 				break;
 		}
 		logger.info("GameBuilder end.");

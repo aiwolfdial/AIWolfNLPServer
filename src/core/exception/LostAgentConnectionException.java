@@ -5,13 +5,18 @@ import core.model.Agent;
 public class LostAgentConnectionException extends AIWolfException {
 	public final Agent agent;
 
-	public LostAgentConnectionException(Throwable arg0, Agent agent) {
-		super(arg0);
+	public LostAgentConnectionException(String message, Agent agent) {
+		super(message);
 		this.agent = agent;
 	}
 
-	public LostAgentConnectionException(String arg0, Throwable arg1, Agent agent) {
-		super(arg0, arg1);
+	public LostAgentConnectionException(Throwable cause, Agent agent) {
+		super(cause);
+		this.agent = agent;
+	}
+
+	public LostAgentConnectionException(String message, Throwable cause, Agent agent) {
+		super(message, cause);
 		this.agent = agent;
 	}
 }

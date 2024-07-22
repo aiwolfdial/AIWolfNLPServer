@@ -5,7 +5,7 @@ public class IllegalPlayerNumberException extends AIWolfException {
 		super();
 	}
 
-	public IllegalPlayerNumberException(String arg0) {
-		super(arg0);
+	public IllegalPlayerNumberException(String message) {
+		super(message);
 	}
 }

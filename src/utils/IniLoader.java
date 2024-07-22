@@ -44,8 +44,8 @@ public class IniLoader {
                 field.setInt(object, Integer.parseInt(value));
             } else if (field.getType() == long.class) {
                 field.setLong(object, Long.parseLong(value));
-            } else if (field.getType() == core.GameConfiguration.HumanRole.class) {
-                field.set(object, core.GameConfiguration.HumanRole.valueOf(value));
+            } else if (field.getType() == core.Config.HumanRole.class) {
+                field.set(object, core.Config.HumanRole.valueOf(value));
             } else if (field.getType() == Class.class) {
                 try {
                     field.set(object, Class.forName(value));

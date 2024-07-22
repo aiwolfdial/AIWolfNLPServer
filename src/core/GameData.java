@@ -6,9 +6,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import core.exception.AIWolfException;
 import core.model.Agent;
+import core.model.GameInfo;
+import core.model.GameSetting;
 import core.model.Guard;
 import core.model.Judge;
 import core.model.Role;
@@ -17,8 +20,6 @@ import core.model.Status;
 import core.model.Talk;
 import core.model.Team;
 import core.model.Vote;
-import core.packet.GameInfo;
-import core.packet.GameSetting;
 
 public class GameData {
 	protected int day;
@@ -52,7 +53,7 @@ public class GameData {
 
 	public GameInfo getGameInfo(Agent agent) {
 		GameData today = this;
-		GameInfo gameInfo = new GameInfo(today.getDay(), agent);
+		GameInfo gameInfo = new GameInfo(today.day, agent);
 		Role role = getRole(agent);
 
 		if (gameSetting.isVoteVisible()) {
@@ -70,29 +71,29 @@ public class GameData {
 			if (yesterday.getExecuted() != null) {
 				gameInfo.executedAgent = yesterday.getExecuted();
 			}
-			gameInfo.lastDeadAgentList = yesterday.getLastDeadAgentList();
+			gameInfo.lastDeadAgentList = yesterday.lastDeadAgentList;
 			if (gameSetting.isVoteVisible()) {
-				gameInfo.voteList = yesterday.getVoteList();
+				gameInfo.voteList = yesterday.voteList;
 			}
 			if (agent != null && today.getRole(agent) == Role.MEDIUM && executed != null) {
 				gameInfo.mediumResult = new Judge(day, agent, executed, yesterday.getRole(executed).species);
 			}
 			if (agent == null || today.getRole(agent) == Role.SEER) {
-				Judge divine = yesterday.getDivine();
+				Judge divine = yesterday.divine;
 				if (divine != null && divine.target() != null) {
 					gameInfo.divineResult = new Judge(day, divine.agent(), divine.target(),
 							yesterday.getRole(divine.target()).species);
 				}
 			}
 			if (agent == null || today.getRole(agent) == Role.WEREWOLF) {
-				if (yesterday.getAttacked() != null) {
-					gameInfo.attackedAgent = yesterday.getAttacked();
+				if (yesterday.attacked != null) {
+					gameInfo.attackedAgent = yesterday.attacked;
 				}
-				gameInfo.attackVoteList = yesterday.getAttackVoteList();
+				gameInfo.attackVoteList = yesterday.attackVoteList;
 			}
 			if (agent == null || today.getRole(agent) == Role.BODYGUARD) {
-				if (yesterday.getGuard() != null) {
-					gameInfo.guardedAgent = yesterday.getGuard().target();
+				if (yesterday.guard != null) {
+					gameInfo.guardedAgent = yesterday.guard.target();
 				}
 			}
 			if (agent == null) {
@@ -101,28 +102,28 @@ public class GameData {
 				}
 			}
 		}
-		gameInfo.talkList = today.getTalkList();
+		gameInfo.talkList = today.talkList;
 		gameInfo.statusMap = agentStatusMap;
 		gameInfo.existingRoleList = new ArrayList<>(new TreeSet<>(agentRoleMap.values()));
 		gameInfo.remainTalkMap = remainTalkMap;
 		gameInfo.remainWhisperMap = remainWhisperMap;
 
 		if (role == Role.WEREWOLF || agent == null) {
-			gameInfo.whisperList = today.getWhisperList();
+			gameInfo.whisperList = today.whisperList;
 		}
 
 		Map<Agent, Role> roleMap = new LinkedHashMap<>();
 		if (role != null) {
 			roleMap.put(agent, role);
 			if (today.getRole(agent) == Role.WEREWOLF) {
-				for (Agent target : today.getAgentList()) {
+				for (Agent target : today.getAgents()) {
 					if (today.getRole(target) == Role.WEREWOLF) {
 						roleMap.put(target, Role.WEREWOLF);
 					}
 				}
 			}
 			if (today.getRole(agent) == Role.FREEMASON) {
-				for (Agent target : today.getAgentList()) {
+				for (Agent target : today.getAgents()) {
 					if (today.getRole(target) == Role.FREEMASON) {
 						roleMap.put(target, Role.FREEMASON);
 					}
@@ -149,7 +150,7 @@ public class GameData {
 		}
 	}
 
-	public List<Agent> getAgentList() {
+	public List<Agent> getAgents() {
 		return new ArrayList<>(agentRoleMap.keySet());
 	}
 
@@ -165,8 +166,7 @@ public class GameData {
 		int remainTalk = remainTalkMap.get(agent);
 		if (!talk.isOver() && !talk.isSkip()) {
 			if (remainTalk == 0) {
-				throw new AIWolfException(
-						"No remain talk but try to talk. #Contact to AIWolf Platform Developer");
+				throw new AIWolfException("Over the talk limit.");
 			}
 			remainTalkMap.put(agent, remainTalk - 1);
 		}
@@ -177,8 +177,7 @@ public class GameData {
 		int remainWhisper = remainWhisperMap.get(agent);
 		if (!whisper.isOver() && !whisper.isSkip()) {
 			if (remainWhisper == 0) {
-				throw new AIWolfException(
-						"No remain whisper but try to whisper. #Contact to AIWolf Platform Developer");
+				throw new AIWolfException("Over the whisper limit.");
 			}
 			remainWhisperMap.put(agent, remainWhisper - 1);
 		}
@@ -201,7 +200,7 @@ public class GameData {
 		attackVoteList.add(attack);
 	}
 
-	public List<Vote> getVoteList() {
+	public List<Vote> getVotes() {
 		return voteList;
 	}
 
@@ -216,7 +215,7 @@ public class GameData {
 		this.attacked = attacked;
 	}
 
-	public List<Vote> getAttackVoteList() {
+	public List<Vote> getAttackVotes() {
 		return attackVoteList;
 	}
 
@@ -244,22 +243,10 @@ public class GameData {
 		return executed;
 	}
 
-	public Agent getAttacked() {
-		return attacked;
-	}
-
 	public void addLastDeadAgent(Agent agent) {
 		if (!lastDeadAgentList.contains(agent)) {
 			lastDeadAgentList.add(agent);
 		}
-	}
-
-	public List<Agent> getLastDeadAgentList() {
-		return lastDeadAgentList;
-	}
-
-	public List<Agent> getSuddenDeathList() {
-		return suddenDeathList;
 	}
 
 	public Map<Agent, Integer> getRemainTalkMap() {
@@ -281,7 +268,7 @@ public class GameData {
 		}
 		gameData.agentRoleMap = new HashMap<>(agentRoleMap);
 
-		for (Agent agent : gameData.getAgentList()) {
+		for (Agent agent : gameData.getAgents()) {
 			if (gameData.getStatus(agent) == Status.ALIVE) {
 				gameData.remainTalkMap.put(agent, gameSetting.maxTalk());
 				if (gameData.getRole(agent) == Role.WEREWOLF) {
@@ -291,7 +278,6 @@ public class GameData {
 		}
 
 		gameData.dayBefore = this;
-
 		return gameData;
 	}
 
@@ -299,44 +285,22 @@ public class GameData {
 		return dayBefore;
 	}
 
-	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Species species) {
-		List<Agent> resultList = new ArrayList<>();
-		for (Agent agent : agentList) {
-			if (getRole(agent).species == species) {
-				resultList.add(agent);
-			}
-		}
-		return resultList;
+	protected List<Agent> getFilteredAgents(List<Agent> agentList, Species species) {
+		return agentList.stream()
+				.filter(agent -> getRole(agent).species == species)
+				.collect(Collectors.toList());
 	}
 
-	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Status status) {
-		List<Agent> resultList = new ArrayList<>();
-		for (Agent agent : agentList) {
-			if (getStatus(agent) == status) {
-				resultList.add(agent);
-			}
-		}
-		return resultList;
+	protected List<Agent> getFilteredAgents(List<Agent> agentList, Role role) {
+		return agentList.stream()
+				.filter(agent -> getRole(agent) == role)
+				.collect(Collectors.toList());
 	}
 
-	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Role role) {
-		List<Agent> resultList = new ArrayList<>();
-		for (Agent agent : agentList) {
-			if (getRole(agent) == role) {
-				resultList.add(agent);
-			}
-		}
-		return resultList;
-	}
-
-	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Team team) {
-		List<Agent> resultList = new ArrayList<>();
-		for (Agent agent : agentList) {
-			if (getRole(agent).team == team) {
-				resultList.add(agent);
-			}
-		}
-		return resultList;
+	protected List<Agent> getFilteredAgents(List<Agent> agentList, Team team) {
+		return agentList.stream()
+				.filter(agent -> getRole(agent).team == team)
+				.collect(Collectors.toList());
 	}
 
 	public int nextTalkIdx() {
@@ -377,9 +341,5 @@ public class GameData {
 
 	public void setLatestAttackVoteList(List<Vote> latestAttackVoteList) {
 		this.latestAttackVoteList = latestAttackVoteList;
-	}
-
-	public boolean contains(Agent target) {
-		return this.agentRoleMap.containsKey(target);
 	}
 }

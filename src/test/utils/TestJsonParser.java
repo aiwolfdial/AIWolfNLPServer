@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import core.model.Agent;
-import core.packet.GameInfo;
+import core.model.GameInfo;
 import utils.JsonParser;
 
 public class TestJsonParser {

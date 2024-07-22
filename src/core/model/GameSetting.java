@@ -1,9 +1,8 @@
-package core.packet;
+package core.model;
 
 import java.util.Map;
 
-import core.GameConfiguration;
-import core.model.Role;
+import core.Config;
 
 public record GameSetting(
 		Map<Role, Integer> roleNumMap,
@@ -45,23 +44,22 @@ public record GameSetting(
 			{ 1, 0, 1, 1, 1, 11, 3, 0, 0 }, // 18
 	};
 
-	public GameSetting(GameConfiguration config) {
+	public GameSetting(Config config) {
 		this(
-			new java.util.HashMap<>(),
-			config.getMaxTalkNum(),
-			config.getMaxTalkTurn(),
-			config.getMaxTalkNum(),
-			config.getMaxTalkTurn(),
-			0,
-			false,
-			false,
-			config.isTalkOnFirstDay(),
-			(int) config.getResponseTimeout(),
-			(int) config.getActionTimeout(),
-			0,
-			0,
-			false
-		);
+				new java.util.HashMap<>(),
+				config.getMaxTalkNum(),
+				config.getMaxTalkTurn(),
+				config.getMaxTalkNum(),
+				config.getMaxTalkTurn(),
+				0,
+				false,
+				false,
+				config.isTalkOnFirstDay(),
+				(int) config.getResponseTimeout(),
+				(int) config.getActionTimeout(),
+				0,
+				0,
+				false);
 		setRoleNumMap(config.getBattleAgentNum());
 	}
 
