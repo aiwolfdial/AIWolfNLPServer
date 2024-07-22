@@ -52,7 +52,7 @@ public class GameData {
 
 	public GameInfo getGameInfo(Agent agent) {
 		GameData today = this;
-		GameInfo gameInfo = new GameInfo(today.getDay(), agent);
+		GameInfo gameInfo = new GameInfo(today.day, agent);
 		Role role = getRole(agent);
 
 		if (gameSetting.isVoteVisible()) {
@@ -70,29 +70,29 @@ public class GameData {
 			if (yesterday.getExecuted() != null) {
 				gameInfo.executedAgent = yesterday.getExecuted();
 			}
-			gameInfo.lastDeadAgentList = yesterday.getLastDeadAgentList();
+			gameInfo.lastDeadAgentList = yesterday.lastDeadAgentList;
 			if (gameSetting.isVoteVisible()) {
-				gameInfo.voteList = yesterday.getVoteList();
+				gameInfo.voteList = yesterday.voteList;
 			}
 			if (agent != null && today.getRole(agent) == Role.MEDIUM && executed != null) {
 				gameInfo.mediumResult = new Judge(day, agent, executed, yesterday.getRole(executed).species);
 			}
 			if (agent == null || today.getRole(agent) == Role.SEER) {
-				Judge divine = yesterday.getDivine();
+				Judge divine = yesterday.divine;
 				if (divine != null && divine.target() != null) {
 					gameInfo.divineResult = new Judge(day, divine.agent(), divine.target(),
 							yesterday.getRole(divine.target()).species);
 				}
 			}
 			if (agent == null || today.getRole(agent) == Role.WEREWOLF) {
-				if (yesterday.getAttacked() != null) {
-					gameInfo.attackedAgent = yesterday.getAttacked();
+				if (yesterday.attacked != null) {
+					gameInfo.attackedAgent = yesterday.attacked;
 				}
-				gameInfo.attackVoteList = yesterday.getAttackVoteList();
+				gameInfo.attackVoteList = yesterday.attackVoteList;
 			}
 			if (agent == null || today.getRole(agent) == Role.BODYGUARD) {
-				if (yesterday.getGuard() != null) {
-					gameInfo.guardedAgent = yesterday.getGuard().target();
+				if (yesterday.guard != null) {
+					gameInfo.guardedAgent = yesterday.guard.target();
 				}
 			}
 			if (agent == null) {
@@ -101,14 +101,14 @@ public class GameData {
 				}
 			}
 		}
-		gameInfo.talkList = today.getTalkList();
+		gameInfo.talkList = today.talkList;
 		gameInfo.statusMap = agentStatusMap;
 		gameInfo.existingRoleList = new ArrayList<>(new TreeSet<>(agentRoleMap.values()));
 		gameInfo.remainTalkMap = remainTalkMap;
 		gameInfo.remainWhisperMap = remainWhisperMap;
 
 		if (role == Role.WEREWOLF || agent == null) {
-			gameInfo.whisperList = today.getWhisperList();
+			gameInfo.whisperList = today.whisperList;
 		}
 
 		Map<Agent, Role> roleMap = new LinkedHashMap<>();
@@ -165,8 +165,7 @@ public class GameData {
 		int remainTalk = remainTalkMap.get(agent);
 		if (!talk.isOver() && !talk.isSkip()) {
 			if (remainTalk == 0) {
-				throw new AIWolfException(
-						"No remain talk but try to talk. #Contact to AIWolf Platform Developer");
+				throw new AIWolfException("Over the talk limit.");
 			}
 			remainTalkMap.put(agent, remainTalk - 1);
 		}
@@ -177,8 +176,7 @@ public class GameData {
 		int remainWhisper = remainWhisperMap.get(agent);
 		if (!whisper.isOver() && !whisper.isSkip()) {
 			if (remainWhisper == 0) {
-				throw new AIWolfException(
-						"No remain whisper but try to whisper. #Contact to AIWolf Platform Developer");
+				throw new AIWolfException("Over the whisper limit.");
 			}
 			remainWhisperMap.put(agent, remainWhisper - 1);
 		}
@@ -244,22 +242,10 @@ public class GameData {
 		return executed;
 	}
 
-	public Agent getAttacked() {
-		return attacked;
-	}
-
 	public void addLastDeadAgent(Agent agent) {
 		if (!lastDeadAgentList.contains(agent)) {
 			lastDeadAgentList.add(agent);
 		}
-	}
-
-	public List<Agent> getLastDeadAgentList() {
-		return lastDeadAgentList;
-	}
-
-	public List<Agent> getSuddenDeathList() {
-		return suddenDeathList;
 	}
 
 	public Map<Agent, Integer> getRemainTalkMap() {
@@ -291,7 +277,6 @@ public class GameData {
 		}
 
 		gameData.dayBefore = this;
-
 		return gameData;
 	}
 
@@ -303,16 +288,6 @@ public class GameData {
 		List<Agent> resultList = new ArrayList<>();
 		for (Agent agent : agentList) {
 			if (getRole(agent).species == species) {
-				resultList.add(agent);
-			}
-		}
-		return resultList;
-	}
-
-	protected List<Agent> getFilteredAgentList(List<Agent> agentList, Status status) {
-		List<Agent> resultList = new ArrayList<>();
-		for (Agent agent : agentList) {
-			if (getStatus(agent) == status) {
 				resultList.add(agent);
 			}
 		}
@@ -377,9 +352,5 @@ public class GameData {
 
 	public void setLatestAttackVoteList(List<Vote> latestAttackVoteList) {
 		this.latestAttackVoteList = latestAttackVoteList;
-	}
-
-	public boolean contains(Agent target) {
-		return this.agentRoleMap.containsKey(target);
 	}
 }

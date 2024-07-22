@@ -220,7 +220,7 @@ public class AIWolfGame {
 		}
 	}
 
-	public Team getWinner() {
+	private Team getWinner() {
 		int humanSide = 0;
 		int wolfSide = 0;
 		int otherSide = 0;
@@ -340,7 +340,7 @@ public class AIWolfGame {
 	}
 
 	protected void night() {
-		for (Agent agent : getGameData().getAgentList()) {
+		for (Agent agent : gameData.getAgentList()) {
 			gameServer.dayFinish(agent);
 		}
 
@@ -539,7 +539,6 @@ public class AIWolfGame {
 			if (!continueTalk) {
 				break;
 			}
-
 		}
 	}
 
@@ -703,19 +702,6 @@ public class AIWolfGame {
 	}
 
 	public boolean isGameFinished() {
-		Team winner = getWinner();
-		return winner != null;
-	}
-
-	public GameData getGameData() {
-		return gameData;
-	}
-
-	public GameSetting getGameSetting() {
-		return gameSetting;
-	}
-
-	public String getAgentName(Agent agent) {
-		return agentNameMap.get(agent);
+		return getWinner() != null;
 	}
 }
