@@ -42,7 +42,6 @@ public class Config {
     private int continueCombinationsNum = 3;
     private int maxParallelExec = 5;
     private boolean prioritizeCombinations = false;
-    private boolean matchSameIpOnly = false;
     private boolean singleAgentPerIp = false;
     private boolean joinHuman = false;
     private String humanName = "Human";
@@ -194,10 +193,6 @@ public class Config {
 
     public boolean isPrioritizeCombinations() {
         return prioritizeCombinations;
-    }
-
-    public boolean isMatchSameIpOnly() {
-        return matchSameIpOnly;
     }
 
     public boolean isSingleAgentPerIp() {

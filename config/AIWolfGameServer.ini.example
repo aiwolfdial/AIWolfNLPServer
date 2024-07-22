@@ -48,9 +48,6 @@ maxParallelExec=5
 ; true: gameNum回数よりロールの組み合わせ回数を優先して対戦する
 ; false: gameNum回数を優先して対戦する (推奨)
 prioritizeCombinations=false
-; true: 同一IPアドレスのエージェント同士を対戦させる
-; false: 考慮しない (推奨)
-matchSameIpOnly=false
 ; true: 同一IPアドレスのエージェントを1つのエージェントとして扱う
 ; false: 考慮しない (推奨)
 singleAgentPerIp=false
