@@ -1,9 +1,8 @@
 package core.model;
 
 public record Vote(int day, Agent agent, Agent target) {
-
 	@Override
 	public String toString() {
-		return agent + "voted" + target + "@" + day;
+		return String.format("%s voted %s@%d", agent, target, day);
 	}
 }

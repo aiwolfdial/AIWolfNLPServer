@@ -143,9 +143,9 @@ public class GameData {
 	public void addAgent(Agent agent, Status status, Role role) {
 		agentRoleMap.put(agent, role);
 		agentStatusMap.put(agent, status);
-		remainTalkMap.put(agent, gameSetting.getMaxTalk());
+		remainTalkMap.put(agent, gameSetting.maxTalk());
 		if (getRole(agent) == Role.WEREWOLF) {
-			remainWhisperMap.put(agent, gameSetting.getMaxWhisper());
+			remainWhisperMap.put(agent, gameSetting.maxWhisper());
 		}
 	}
 
@@ -276,16 +276,16 @@ public class GameData {
 		gameData.day = this.day + 1;
 		gameData.agentStatusMap = new HashMap<>(agentStatusMap);
 
-		for (Agent a : lastDeadAgentList) {
-			gameData.agentStatusMap.put(a, Status.DEAD);
+		for (Agent agent : lastDeadAgentList) {
+			gameData.agentStatusMap.put(agent, Status.DEAD);
 		}
 		gameData.agentRoleMap = new HashMap<>(agentRoleMap);
 
-		for (Agent a : gameData.getAgentList()) {
-			if (gameData.getStatus(a) == Status.ALIVE) {
-				gameData.remainTalkMap.put(a, gameSetting.getMaxTalk());
-				if (gameData.getRole(a) == Role.WEREWOLF) {
-					gameData.remainWhisperMap.put(a, gameSetting.getMaxWhisper());
+		for (Agent agent : gameData.getAgentList()) {
+			if (gameData.getStatus(agent) == Status.ALIVE) {
+				gameData.remainTalkMap.put(agent, gameSetting.maxTalk());
+				if (gameData.getRole(agent) == Role.WEREWOLF) {
+					gameData.remainWhisperMap.put(agent, gameSetting.maxWhisper());
 				}
 			}
 		}

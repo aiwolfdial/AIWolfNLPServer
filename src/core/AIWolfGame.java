@@ -1,6 +1,17 @@
 package core;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -23,12 +34,6 @@ import libs.FileGameLogger;
 public class AIWolfGame {
 	private static final Logger logger = LogManager.getLogger(AIWolfGame.class);
 
-	protected Random rand;
-
-	{
-		new Random();
-	}
-
 	protected GameSetting gameSetting;
 	protected GameServer gameServer;
 	protected Map<Integer, GameData> gameDataMap;
@@ -37,7 +42,6 @@ public class AIWolfGame {
 	protected Map<Agent, String> agentNameMap;
 
 	public AIWolfGame(GameSetting gameSetting, GameServer gameServer) {
-		rand = new Random();
 		this.gameSetting = gameSetting;
 		this.gameServer = gameServer;
 		gameData = new GameData(gameSetting);
@@ -59,7 +63,7 @@ public class AIWolfGame {
 					"Player num is " + gameSetting.getPlayerNum() + " but connected agent is " + agentList.size());
 		}
 
-		Collections.shuffle(agentList, rand);
+		Collections.shuffle(agentList);
 
 		Map<Role, List<Agent>> requestRoleMap = new HashMap<>();
 		for (Role role : Role.values()) {
@@ -274,7 +278,7 @@ public class AIWolfGame {
 		Agent executed = null;
 		List<Agent> candidates = null;
 		if (gameData.getDay() != 0) {
-			for (int i = 0; i <= gameSetting.getMaxRevote(); i++) {
+			for (int i = 0; i <= gameSetting.maxRevote(); i++) {
 				vote();
 				candidates = getVotedCandidates(gameData.getVoteList());
 				if (candidates.size() == 1) {
@@ -284,7 +288,7 @@ public class AIWolfGame {
 			}
 
 			if (executed == null) {
-				Collections.shuffle(candidates, rand);
+				Collections.shuffle(candidates);
 				executed = candidates.getFirst();
 			}
 
@@ -305,7 +309,7 @@ public class AIWolfGame {
 
 			Agent attacked = null;
 			if (!getAliveWolfList().isEmpty()) {
-				for (int i = 0; i <= gameSetting.getMaxAttackRevote(); i++) {
+				for (int i = 0; i <= gameSetting.maxAttackRevote(); i++) {
 					attackVote();
 					List<Vote> attackCandidateList = gameData.getAttackVoteList();
 					Iterator<Vote> it = attackCandidateList.iterator();
@@ -323,7 +327,7 @@ public class AIWolfGame {
 				}
 
 				if (attacked == null && !gameSetting.isEnableNoAttack()) {
-					Collections.shuffle(candidates, rand);
+					Collections.shuffle(candidates);
 					attacked = candidates.getFirst();
 				}
 
@@ -420,11 +424,11 @@ public class AIWolfGame {
 	protected void talk() {
 		List<Agent> aliveList = getAliveAgentList();
 		for (Agent agent : aliveList) {
-			gameData.remainTalkMap.put(agent, gameSetting.getMaxTalk());
+			gameData.remainTalkMap.put(agent, gameSetting.maxTalk());
 		}
 
 		Counter<Agent> skipCounter = new Counter<>();
-		for (int time = 0; time < gameSetting.getMaxTalkTurn(); time++) {
+		for (int time = 0; time < gameSetting.maxTalkTurn(); time++) {
 			Collections.shuffle(aliveList);
 
 			boolean continueTalk = false;
@@ -438,7 +442,7 @@ public class AIWolfGame {
 				}
 				if (talkText.equals(Talk.SKIP)) {
 					skipCounter.add(agent);
-					if (skipCounter.get(agent) > gameSetting.getMaxSkip()) {
+					if (skipCounter.get(agent) > gameSetting.maxSkip()) {
 						talkText = Talk.OVER;
 					}
 				} else if (talkText.equals(Talk.FORCE_SKIP)) {
@@ -472,11 +476,11 @@ public class AIWolfGame {
 			return;
 		}
 		for (Agent agent : aliveWolfList) {
-			gameData.remainWhisperMap.put(agent, gameSetting.getMaxWhisper());
+			gameData.remainWhisperMap.put(agent, gameSetting.maxWhisper());
 		}
 
 		Counter<Agent> skipCounter = new Counter<>();
-		for (int turn = 0; turn < gameSetting.getMaxWhisperTurn(); turn++) {
+		for (int turn = 0; turn < gameSetting.maxWhisperTurn(); turn++) {
 			Collections.shuffle(aliveWolfList);
 
 			boolean continueWhisper = false;
@@ -490,7 +494,7 @@ public class AIWolfGame {
 				}
 				if (whisperText.equals(Talk.SKIP)) {
 					skipCounter.add(agent);
-					if (skipCounter.get(agent) > gameSetting.getMaxSkip()) {
+					if (skipCounter.get(agent) > gameSetting.maxSkip()) {
 						whisperText = Talk.OVER;
 					}
 				}
@@ -606,23 +610,15 @@ public class AIWolfGame {
 	}
 
 	protected Agent getRandomAgent(List<Agent> agentList, Agent... without) {
-		Agent target;
 		List<Agent> list = new ArrayList<>(agentList);
-		for (Agent agent : without) {
-			list.remove(agent);
-		}
-		target = list.get(rand.nextInt(list.size()));
-		return target;
+		list.removeAll(Arrays.asList(without));
+		return list.get(new Random().nextInt(list.size()));
 	}
 
 	protected List<Agent> getAliveAgentList() {
-		List<Agent> agentList = new ArrayList<>();
-		for (Agent agent : gameData.getAgentList()) {
-			if (gameData.getStatus(agent) == Status.ALIVE) {
-				agentList.add(agent);
-			}
-		}
-		return agentList;
+		return gameData.getAgentList().stream()
+				.filter(agent -> gameData.getStatus(agent) == Status.ALIVE)
+				.collect(Collectors.toList());
 	}
 
 	protected List<Agent> getAliveHumanList() {

@@ -96,8 +96,8 @@ public class GameServer {
 
 	protected Object request(Agent agent, Request request) {
 		// ゲーム設定からレスポンスとアクションのタイムアウトを取得
-		long responseTimeout = gameSetting.getResponseTimeout();
-		long actionTimeout = gameSetting.getActionTimeout();
+		long responseTimeout = gameSetting.responseTimeout();
+		long actionTimeout = gameSetting.actionTimeout();
 		// エージェントに関連付けられた接続を取得
 		AIWolfConnection connection = allAgentConnectionMap.get(agent);
 		ExecutorService pool = Executors.newSingleThreadExecutor();

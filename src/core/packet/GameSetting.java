@@ -5,7 +5,22 @@ import java.util.Map;
 import core.GameConfiguration;
 import core.model.Role;
 
-public class GameSetting {
+public record GameSetting(
+		Map<Role, Integer> roleNumMap,
+		int maxTalk,
+		int maxTalkTurn,
+		int maxWhisper,
+		int maxWhisperTurn,
+		int maxSkip,
+		boolean isEnableNoAttack,
+		boolean isVoteVisible,
+		boolean isTalkOnFirstDay,
+		int responseTimeout,
+		int actionTimeout,
+		int maxRevote,
+		int maxAttackRevote,
+		boolean isEnableRoleRequest) {
+
 	static final private int[][] ROLES_NUM = {
 			// {BODYGUARD (狩人), FREEMASON (共有者), MEDIUM (霊媒師), POSSESSED (狂人), SEER (占い師),
 			// VILLAGER (村人), WEREWOLF (人狼), FOX (妖狐), ANY (役職不定)}
@@ -30,43 +45,24 @@ public class GameSetting {
 			{ 1, 0, 1, 1, 1, 11, 3, 0, 0 }, // 18
 	};
 
-	// 各役職が何人かを関連付けたマップ
-	Map<Role, Integer> roleNumMap;
-	// 1日あたりの発言の最大数
-	int maxTalk;
-	// 1日あたりの発言時間の最大数
-	int maxTalkTurn;
-	// 1日あたりの発言の最大数
-	int maxWhisper;
-	// 1日あたりの発言時間の最大数
-	int maxWhisperTurn;
-	// 連続Skipの最大数
-	int maxSkip;
-	// 誰も襲撃しないのを許すかどうか
-	boolean isEnableNoAttack;
-	// 誰が誰に投票したかをエージェントが確認できるかどうか
-	boolean isVoteVisible;
-	// Day 0にtalkがあるかどうか
-	boolean isTalkOnFirstDay;
-	// リクエスト応答時間の上限
-	int responseTimeout;
-	int actionTimeout;
-	// 最大再投票回数
-	int maxRevote;
-	// 最大再襲撃投票回数
-	int maxAttackRevote;
-	// 役職要求の可否
-	boolean isEnableRoleRequest;
-
 	public GameSetting(GameConfiguration config) {
-		this.responseTimeout = (int) config.getResponseTimeout();
-		this.actionTimeout = (int) config.getActionTimeout();
-		this.maxTalk = config.getMaxTalkNum();
-		this.maxTalkTurn = config.getMaxTalkTurn();
-		this.maxWhisper = config.getMaxTalkNum();
-		this.maxWhisperTurn = config.getMaxTalkTurn();
-		this.isTalkOnFirstDay = config.isTalkOnFirstDay();
-		this.setRoleNumMap(config.getBattleAgentNum());
+		this(
+			new java.util.HashMap<>(),
+			config.getMaxTalkNum(),
+			config.getMaxTalkTurn(),
+			config.getMaxTalkNum(),
+			config.getMaxTalkTurn(),
+			0,
+			false,
+			false,
+			config.isTalkOnFirstDay(),
+			(int) config.getResponseTimeout(),
+			(int) config.getActionTimeout(),
+			0,
+			0,
+			false
+		);
+		setRoleNumMap(config.getBattleAgentNum());
 	}
 
 	public void setRoleNumMap(int agentNum) {
@@ -74,7 +70,6 @@ public class GameSetting {
 			throw new IllegalArgumentException("The number of agents must be between 3 and 18.");
 		}
 		Role[] roles = Role.values();
-		roleNumMap = new java.util.HashMap<>();
 		for (int i = 0; i < roles.length; i++) {
 			roleNumMap.put(roles[i], ROLES_NUM[agentNum][i]);
 		}
@@ -84,59 +79,7 @@ public class GameSetting {
 		return roleNumMap.getOrDefault(role, 0);
 	}
 
-	public int getMaxTalk() {
-		return maxTalk;
-	}
-
-	public int getMaxTalkTurn() {
-		return maxTalkTurn;
-	}
-
-	public int getMaxWhisper() {
-		return maxWhisper;
-	}
-
-	public int getMaxWhisperTurn() {
-		return maxWhisperTurn;
-	}
-
-	public int getMaxSkip() {
-		return maxSkip;
-	}
-
-	public boolean isEnableNoAttack() {
-		return isEnableNoAttack;
-	}
-
-	public boolean isVoteVisible() {
-		return isVoteVisible;
-	}
-
-	public boolean isTalkOnFirstDay() {
-		return isTalkOnFirstDay;
-	}
-
-	public boolean isEnableRoleRequest() {
-		return isEnableRoleRequest;
-	}
-
 	public int getPlayerNum() {
 		return roleNumMap.values().stream().mapToInt(Integer::intValue).sum();
-	}
-
-	public int getResponseTimeout() {
-		return responseTimeout;
-	}
-
-	public int getActionTimeout() {
-		return actionTimeout;
-	}
-
-	public int getMaxRevote() {
-		return maxRevote;
-	}
-
-	public int getMaxAttackRevote() {
-		return maxAttackRevote;
 	}
 }
