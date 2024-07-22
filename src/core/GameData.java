@@ -79,9 +79,9 @@ public class GameData {
 			}
 			if (agent == null || today.getRole(agent) == Role.SEER) {
 				Judge divine = yesterday.getDivine();
-				if (divine != null && divine.target != null) {
-					gameInfo.divineResult = new Judge(day, divine.agent, divine.target,
-							yesterday.getRole(divine.target).species);
+				if (divine != null && divine.target() != null) {
+					gameInfo.divineResult = new Judge(day, divine.agent(), divine.target(),
+							yesterday.getRole(divine.target()).species);
 				}
 			}
 			if (agent == null || today.getRole(agent) == Role.WEREWOLF) {
@@ -92,7 +92,7 @@ public class GameData {
 			}
 			if (agent == null || today.getRole(agent) == Role.BODYGUARD) {
 				if (yesterday.getGuard() != null) {
-					gameInfo.guardedAgent = yesterday.getGuard().target;
+					gameInfo.guardedAgent = yesterday.getGuard().target();
 				}
 			}
 			if (agent == null) {

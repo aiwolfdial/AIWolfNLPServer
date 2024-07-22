@@ -1,23 +1,9 @@
 package core.model;
 
-public class Talk {
+public record Talk(int idx, int day, int turn, Agent agent, String text) {
 	final static public String OVER = "Over";
 	final static public String SKIP = "Skip";
 	final static public String FORCE_SKIP = "ForceSkip";
-
-	public final int idx;
-	public final int day;
-	public final int turn;
-	public final Agent agent;
-	public final String text;
-
-	public Talk(int idx, int day, int turn, Agent agent, String text) {
-		this.idx = idx;
-		this.day = day;
-		this.turn = turn;
-		this.agent = agent;
-		this.text = text;
-	}
 
 	public boolean isSkip() {
 		return text.equals(SKIP);

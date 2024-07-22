@@ -262,7 +262,7 @@ public class Launcher {
 				for (Pair<Long, Socket> socketPair : entry.getValue()) {
 					long time = System.currentTimeMillis() / 3600000;
 					try {
-						if (getName(socketPair.getValue()) == null || time - socketPair.getKey() > deleteTime)
+						if (getName(socketPair.value()) == null || time - socketPair.key() > deleteTime)
 							lostMap.put(new Pair<>(sMapEntry.getKey(), entry.getKey()), socketPair);
 					} catch (Exception e) {
 						lostMap.put(new Pair<>(sMapEntry.getKey(), entry.getKey()), socketPair);
@@ -273,11 +273,11 @@ public class Launcher {
 		// 問題のあるコネクションを削除
 		for (Entry<Pair<String, String>, Pair<Long, Socket>> lostPair : lostMap.entrySet()) {
 			Pair<String, String> keyPair = lostPair.getKey();
-			waitingSockets.get(keyPair.getKey()).get(keyPair.getValue()).remove(lostPair.getValue());
-			if (waitingSockets.get(keyPair.getKey()).get(keyPair.getValue()).isEmpty())
-				waitingSockets.get(keyPair.getKey()).remove(keyPair.getValue());
-			if (waitingSockets.get(keyPair.getKey()).isEmpty())
-				waitingSockets.remove(keyPair.getKey());
+			waitingSockets.get(keyPair.key()).get(keyPair.value()).remove(lostPair.getValue());
+			if (waitingSockets.get(keyPair.key()).get(keyPair.value()).isEmpty())
+				waitingSockets.get(keyPair.key()).remove(keyPair.value());
+			if (waitingSockets.get(keyPair.key()).isEmpty())
+				waitingSockets.remove(keyPair.key());
 		}
 		removeEmptyMap();
 	}
@@ -305,7 +305,7 @@ public class Launcher {
 			for (List<Pair<Long, Socket>> list : map.values()) {
 				StringBuilder sb = new StringBuilder("connecting : ");
 				for (Pair<Long, Socket> pair : list) {
-					sb.append(getName(pair.getValue())).append(", ");
+					sb.append(getName(pair.value())).append(", ");
 				}
 				logger.debug(sb.toString());
 			}
@@ -322,7 +322,7 @@ public class Launcher {
 			Entry<String, Map<String, List<Pair<Long, Socket>>>> entry = iterator.next();
 			boolean canStartGame = false;
 			for (Entry<String, List<Pair<Long, Socket>>> socketEntry : entry.getValue().entrySet()) {
-				List<Socket> l = socketEntry.getValue().stream().map(Pair::getValue).toList();
+				List<Socket> l = socketEntry.getValue().stream().map(Pair::value).toList();
 				if (l.isEmpty())
 					continue;
 				if (onlyConnection) {

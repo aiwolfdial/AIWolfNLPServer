@@ -51,11 +51,7 @@ public class SynchronousAIWolfGame extends AIWolfGame {
 				agentName = agentName.replaceAll("[0-9]", "");
 			}
 
-			if (includeAgentNum) {
-				combinationText.add(String.format("%d,%s,%s", agent.agentIdx, gameData.getRole(agent), agentName));
-			} else {
-				combinationText.add(String.format("%s,%s", gameData.getRole(agent), agentName));
-			}
+			combinationText.add(String.format("%s,%s", gameData.getRole(agent), agentName));
 		}
 
 		if (!includeAgentNum) {
@@ -76,7 +72,7 @@ public class SynchronousAIWolfGame extends AIWolfGame {
 		try {
 			FileReader fileReader = new FileReader(file);
 			BufferedReader bufferReader = new BufferedReader(fileReader);
-			String doneCombinationText = "";
+			String doneCombinationText;
 
 			while ((doneCombinationText = bufferReader.readLine()) != null) {
 				if (doneCombinationText.equals(checkCombinationText)) {

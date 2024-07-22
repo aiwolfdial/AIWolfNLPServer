@@ -93,8 +93,8 @@ public class AIWolfConnection {
 		if (!haveNewError)
 			return;
 
-		logger.log(String.format(LOST_CONNECTION_MESSAGE, name, agent, role, exception.getValue()));
-		for (StackTraceElement stackTraceElement : exception.getKey().getStackTrace()) {
+		logger.log(String.format(LOST_CONNECTION_MESSAGE, name, agent, role, exception.value()));
+		for (StackTraceElement stackTraceElement : exception.key().getStackTrace()) {
 			logger.log(stackTraceElement.toString());
 			logger.flush();
 		}

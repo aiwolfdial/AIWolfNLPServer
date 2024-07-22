@@ -232,7 +232,7 @@ public class GameBuilder extends Thread {
 			}
 
 			// 全てのコネクションがロストした場合対戦を終了する
-			if (agentConnectionMap.values().stream().noneMatch(connection -> connection.isAlive()))
+			if (agentConnectionMap.values().stream().noneMatch(AIWolfConnection::isAlive))
 				break;
 		}
 		logger.info("GameBuilder end.");
