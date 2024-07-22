@@ -26,7 +26,7 @@ player5Port=50004		; エージェント5の待ち受けポート (Agent 5 listen
 
 ## 実行 (Run)
 
-OpenJDK JDK 22.0.2 を推奨します。ビルドと実行は以下のコマンドで行います。
+OpenJDK JDK 22.0.2 を推奨します。ビルドと実行は以下のコマンドで行います。  
 (OpenJDK JDK 22.0.2 is recommended. Build and run with the following commands.)
 
 ```
