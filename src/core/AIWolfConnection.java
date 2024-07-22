@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -21,7 +22,6 @@ import core.model.Request;
 import core.model.Role;
 import libs.CallableBufferedReader;
 import libs.FileGameLogger;
-import libs.Pair;
 import utils.JsonParser;
 
 public class AIWolfConnection {
@@ -29,88 +29,93 @@ public class AIWolfConnection {
 
 	private static final String LOST_CONNECTION_MESSAGE = "%s(%s:%s)_[Request:%s] lostConnection";
 
-	private boolean isAlive;
-	private boolean haveNewError;
-	private Socket socket;
-	private BufferedReader br;
-	private BufferedWriter bw;
-	private Pair<Exception, Request> exception = null;
-	private Exception subException = null;
 	private String name = null;
-	private GameConfiguration config;
+	private GameConfiguration gameConfiguration;
 	private Agent agent;
 
+	private boolean isAlive = true;
+	private Socket socket;
+	private BufferedReader bufferedReader;
+	private BufferedWriter bufferedWriter;
+
+	private boolean reportError = false;
+	private Exception exception = null;
+	private Exception causeException = null;
+	private Request causeRequest = null;
+
 	public String getName() {
+		if (name != null)
+			return name;
 		try {
-			if (name != null)
-				return name;
-
 			ExecutorService pool = Executors.newSingleThreadExecutor();
-			// clientにrequestを送信し、結果を受け取る
-			BufferedWriter bw = getBufferedWriter();
-			bw.append(JsonParser.encode(new Packet(Request.NAME)));
-			bw.append("\n");
-			bw.flush();
+			bufferedWriter.append(JsonParser.encode(new Packet(Request.NAME)));
+			bufferedWriter.append("\n");
+			bufferedWriter.flush();
 
-			// 結果の受け取りとタイムアウト
 			CallableBufferedReader task = new CallableBufferedReader(getBufferedReader());
 			Future<String> future = pool.submit(task);
-			String line = config.getResponseTimeout() > 0 ? future.get(
-					config.getResponseTimeout(), TimeUnit.MILLISECONDS) : future.get();
+			String line = gameConfiguration.getResponseTimeout() > 0 ? future.get(
+					gameConfiguration.getResponseTimeout(), TimeUnit.MILLISECONDS) : future.get();
 			if (!task.isSuccess()) {
 				throw task.getIOException();
 			}
-
-			this.name = (line == null || line.isEmpty()) ? null : line;
+			pool.shutdown();
+			name = line.isEmpty() ? null : line;
 		} catch (Exception e) {
 			if (isAlive) {
 				logger.error("Exception", e);
 			}
-			catchException(agent, e, Request.NAME);
+			throwException(agent, e, Request.NAME);
 		}
 		return name;
 	}
 
-	public AIWolfConnection(Socket socket, GameConfiguration config) {
+	public AIWolfConnection(Socket socket, GameConfiguration gameConfiguration, Set<Integer> usedNumberSet) {
+		this.socket = socket;
+		this.gameConfiguration = gameConfiguration;
 		try {
-			this.isAlive = true;
-			this.haveNewError = false;
-			this.socket = socket;
-			this.br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			this.bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-			this.config = config;
+			bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}
+
+		int agentNum = 1;
+		int humanNum = gameConfiguration.isJoinHuman() ? gameConfiguration.getHumanAgentNum() : -1;
+		String name = getName();
+		if (name != null && name.equals(gameConfiguration.getHumanName()) && gameConfiguration.isJoinHuman()) {
+			agentNum = humanNum;
+		} else {
+			while (usedNumberSet.contains(agentNum) || agentNum == humanNum)
+				agentNum++;
+		}
+		agent = Agent.setAgent(agentNum, name);
 	}
 
-	public void setAgent(Agent agent) {
-		this.agent = agent;
+	public Agent getAgent() {
+		return agent;
 	}
 
 	public void reportError(FileGameLogger logger, Agent agent, Role role) {
-		// 未報告のエラーがなければ終了
-		if (!haveNewError)
+		if (!reportError)
 			return;
-
-		logger.log(String.format(LOST_CONNECTION_MESSAGE, name, agent, role, exception.value()));
-		for (StackTraceElement stackTraceElement : exception.key().getStackTrace()) {
+		logger.log(String.format(LOST_CONNECTION_MESSAGE, name, agent, role, causeRequest));
+		for (StackTraceElement stackTraceElement : exception.getStackTrace()) {
 			logger.log(stackTraceElement.toString());
 			logger.flush();
 		}
-		if (subException == null)
+		if (causeException == null)
 			return;
-		logger.log(subException.getClass() + ": " + subException.getMessage());
-		for (StackTraceElement stackTraceElement : subException.getStackTrace()) {
+		logger.log(causeException.getClass() + ": " + causeException.getMessage());
+		for (StackTraceElement stackTraceElement : causeException.getStackTrace()) {
 			logger.log(stackTraceElement.toString());
 			logger.flush();
 		}
-
-		haveNewError = false;
+		reportError = false;
 	}
 
-	public boolean haveNewError() {
-		return haveNewError;
+	public boolean getReportError() {
+		return reportError;
 	}
 
 	public boolean isAlive() {
@@ -121,38 +126,30 @@ public class AIWolfConnection {
 		return socket;
 	}
 
-	public Exception getSubException() {
-		return subException;
-	}
-
 	public BufferedReader getBufferedReader() {
-		return br;
+		return bufferedReader;
 	}
 
 	public BufferedWriter getBufferedWriter() {
-		return bw;
-	}
-
-	public Pair<Exception, Request> getException() {
-		return exception;
+		return bufferedWriter;
 	}
 
 	public void close() {
 		try {
-			this.br.close();
-			this.bw.close();
-			this.socket.close();
+			bufferedReader.close();
+			bufferedWriter.close();
+			socket.close();
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}
 	}
 
-	public void catchException(Agent agent, Exception e, Request request) {
+	public void throwException(Agent agent, Exception e, Request request) {
 		isAlive = false;
-		haveNewError = true;
-		this.subException = e;
-		this.exception = new Pair<>(new LostAgentConnectionException(e,
-				agent), request);
+		reportError = true;
+		exception = new LostAgentConnectionException(e, agent);
+		causeException = e;
+		causeRequest = request;
 		close();
 	}
 }

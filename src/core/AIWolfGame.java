@@ -109,7 +109,7 @@ public class AIWolfGame {
 		gameServer.setGameSetting(gameSetting);
 		for (Agent agent : agentList) {
 			gameServer.init(agent);
-			String requestName = gameServer.requestName(agent);
+			String requestName = gameServer.getName(agent);
 			agentNameMap.put(agent, requestName);
 		}
 	}
@@ -142,7 +142,7 @@ public class AIWolfGame {
 		gameServer.setGameSetting(gameSetting);
 		for (Agent agent : gameServer.getConnectedAgentList()) {
 			gameServer.init(agent);
-			String requestName = gameServer.requestName(agent);
+			String requestName = gameServer.getName(agent);
 			agentNameMap.put(agent, requestName);
 		}
 

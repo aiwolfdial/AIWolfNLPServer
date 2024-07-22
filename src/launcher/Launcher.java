@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.ConnectException;
 import java.net.NoRouteToHostException;
 import java.net.ServerSocket;
@@ -31,7 +32,6 @@ import java.util.concurrent.TimeoutException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import core.AIWolfConnection;
 import core.GameConfiguration;
 import core.model.Packet;
 import core.model.Request;
@@ -273,13 +273,15 @@ public class Launcher {
 	private String getName(Socket socket) throws IOException, InterruptedException,
 			ExecutionException, TimeoutException, SocketException {
 		logger.info("Get name.");
-		AIWolfConnection connection = new AIWolfConnection(socket, gameConfiguration);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
 		ExecutorService pool = Executors.newSingleThreadExecutor();
-		BufferedWriter bw = connection.getBufferedWriter();
-		bw.append(JsonParser.encode(new Packet(Request.NAME)));
-		bw.append("\n");
-		bw.flush();
-		CallableBufferedReader task = new CallableBufferedReader(connection.getBufferedReader());
+		bufferedWriter.append(JsonParser.encode(new Packet(Request.NAME)));
+		bufferedWriter.append("\n");
+		bufferedWriter.flush();
+
+		CallableBufferedReader task = new CallableBufferedReader(bufferedReader);
 		Future<String> future = pool.submit(task);
 		String line = gameConfiguration.getResponseTimeout() > 0
 				? future.get(gameConfiguration.getResponseTimeout(), TimeUnit.MILLISECONDS)
@@ -288,7 +290,7 @@ public class Launcher {
 			throw task.getIOException();
 		}
 		pool.shutdown();
-		return (line == null || line.isEmpty()) ? null : line;
+		return line.isEmpty() ? null : line;
 	}
 
 	private String readLineFromSocket(Socket socket) throws IOException {
