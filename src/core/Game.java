@@ -36,10 +36,10 @@ import core.model.Vote;
 import libs.Counter;
 import libs.FileGameLogger;
 
-public class AIWolfGame {
-	private static final Logger logger = LogManager.getLogger(AIWolfGame.class);
+public class Game {
+	private static final Logger logger = LogManager.getLogger(Game.class);
 
-	protected GameConfiguration gameConfiguration;
+	protected Config config;
 	protected GameSetting gameSetting;
 	protected GameServer gameServer;
 	protected Map<Integer, GameData> gameDataMap;
@@ -47,10 +47,11 @@ public class AIWolfGame {
 	protected FileGameLogger gameLogger;
 	protected Map<Agent, String> agentNameMap;
 
-	public AIWolfGame(GameConfiguration gameConfiguration, GameSetting gameSetting, GameServer gameServer) {
-		this.gameConfiguration = gameConfiguration;
+	public Game(Config config, GameSetting gameSetting, GameServer gameServer, GameData gameData) {
+		this.config = config;
 		this.gameSetting = gameSetting;
 		this.gameServer = gameServer;
+		this.gameData = gameData;
 	}
 
 	public void setGameLogger(FileGameLogger gameLogger) {
@@ -114,7 +115,7 @@ public class AIWolfGame {
 		}
 	}
 
-	private boolean existsCombinationsText(GameConfiguration config, String text) {
+	private boolean existsCombinationsText(Config config, String text) {
 		File file = new File(config.getRoleCombinationDir() + config.getRoleCombinationFilename());
 		if (!file.exists()) {
 			return false;
@@ -132,12 +133,9 @@ public class AIWolfGame {
 		return false;
 	}
 
-	public void start(GameData gameData) {
-		this.gameData = gameData;
+	public void start() {
 		gameDataMap = new TreeMap<>();
 		agentNameMap = new HashMap<>();
-		gameServer.setGameData(gameData);
-
 		gameDataMap.put(gameData.getDay(), gameData);
 		gameServer.setGameSetting(gameSetting);
 		for (Agent agent : gameServer.getConnectedAgentList()) {
@@ -146,8 +144,8 @@ public class AIWolfGame {
 			agentNameMap.put(agent, requestName);
 		}
 
-		if (gameConfiguration.isSaveRoleCombination()) {
-			if (existsCombinationsText(gameConfiguration, getCombinationsText())) {
+		if (config.isSaveRoleCombination()) {
+			if (existsCombinationsText(config, getCombinationsText())) {
 				finish();
 				return;
 			}
@@ -166,10 +164,10 @@ public class AIWolfGame {
 			}
 			consoleLog();
 
-			if (gameConfiguration.isSaveRoleCombination()) {
+			if (config.isSaveRoleCombination()) {
 				try {
 					File file = new File(
-							gameConfiguration.getRoleCombinationDir() + gameConfiguration.getRoleCombinationFilename());
+							config.getRoleCombinationDir() + config.getRoleCombinationFilename());
 					if (!file.canWrite()) {
 						file.setWritable(true);
 					}

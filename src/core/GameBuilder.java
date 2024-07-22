@@ -39,29 +39,27 @@ public class GameBuilder extends Thread {
 			Role.WEREWOLF
 	};
 
-	private final GameConfiguration gameConfiguration;
+	private final Config config;
 	private final GameSetting gameSetting;
-	// private final Map<Agent, AIWolfConnection> agentConnectionMap = new
-	// HashMap<>();
-	private final Set<AIWolfConnection> aiWolfConnections = new HashSet<>();
+	private final Set<Connection> connections = new HashSet<>();
 
-	public GameBuilder(List<Socket> socketList, GameConfiguration gameConfiguration) {
+	public GameBuilder(List<Socket> sockets, Config config) {
 		// 順番が固定にならないように念のためシャッフル
-		Collections.shuffle(socketList);
+		Collections.shuffle(sockets);
 
 		// コネクションとエージェントの紐付け
 		Set<Integer> usedNumberSet = new HashSet<>();
-		for (Socket socket : socketList) {
-			AIWolfConnection connection = new AIWolfConnection(socket, gameConfiguration, usedNumberSet);
+		for (Socket socket : sockets) {
+			Connection connection = new Connection(socket, config, usedNumberSet);
 			usedNumberSet.add(connection.getAgent().agentIdx);
-			aiWolfConnections.add(connection);
+			connections.add(connection);
 		}
-		this.gameConfiguration = gameConfiguration;
-		this.gameSetting = new GameSetting(gameConfiguration);
+		this.config = config;
+		this.gameSetting = new GameSetting(config);
 	}
 
 	private void close() {
-		for (AIWolfConnection connection : aiWolfConnections) {
+		for (Connection connection : connections) {
 			try {
 				connection.getSocket().close();
 			} catch (IOException e) {
@@ -74,11 +72,11 @@ public class GameBuilder extends Thread {
 		List<Map<Agent, Role>> roleList = new ArrayList<>();
 
 		// セット内の人数から組み合わせを生成
-		Iterator<int[]> agentCombination = new Combinations(gameConfiguration.getConnectAgentNum(),
-				gameConfiguration.getBattleAgentNum())
+		Iterator<int[]> agentCombination = new Combinations(config.getConnectAgentNum(),
+				config.getBattleAgentNum())
 						.iterator();
 		Iterator<int[]> roleCombination = new Combinations(
-				gameConfiguration.getBattleAgentNum(), USED_ROLES.length).iterator();
+				config.getBattleAgentNum(), USED_ROLES.length).iterator();
 
 		// nPrがライブラリに用意されていなかったので村人以外の役職について5C3のパターンを取った後にその3名に対して順列を取る
 		while (agentCombination.hasNext()) {
@@ -144,38 +142,37 @@ public class GameBuilder extends Thread {
 		List<Map<Agent, Role>> agentRoleMapList = createAgentRoleCombinations();
 
 		// ゲームサーバの生成
-		GameServer gameServer = new GameServer(gameSetting, gameConfiguration, aiWolfConnections);
+		GameServer gameServer = new GameServer(gameSetting, config, connections);
 
-		int limit = gameConfiguration.isPrioritizeCombinations() ? agentRoleMapList.size()
-				: gameConfiguration.getGameNum();
+		int limit = config.isPrioritizeCombinations() ? agentRoleMapList.size()
+				: config.getGameNum();
 
 		// 人間対戦時
 		Agent human = null;
-		if (gameConfiguration.isJoinHuman()) {
-			for (AIWolfConnection connection : aiWolfConnections) {
-				if (gameServer.getName(connection.getAgent()).equals(gameConfiguration.getHumanName())) {
+		if (config.isJoinHuman()) {
+			for (Connection connection : connections) {
+				if (gameServer.getName(connection.getAgent()).equals(config.getHumanName())) {
 					human = connection.getAgent();
 				}
 			}
 		}
 
 		// 全組み合わせ実行しない場合はランダムにするために役職組み合わせリストをシャッフル
-		if (!gameConfiguration.isPrioritizeCombinations())
+		if (!config.isPrioritizeCombinations())
 			Collections.shuffle(agentRoleMapList);
 
 		for (int i = 0; i < limit; i++) {
 			Map<Agent, Role> agentRoleMap = agentRoleMapList.get(i);
-			if (gameConfiguration.isJoinHuman()
-					&& !agentRoleMap.get(human).name().equals(gameConfiguration.getHumanRole().name()))
+			if (config.isJoinHuman()
+					&& !agentRoleMap.get(human).name().equals(config.getHumanRole().name()))
 				continue;
-			AIWolfGame game = new AIWolfGame(gameConfiguration, gameSetting, gameServer);
 			GameData gameData = new GameData(gameSetting);
 
 			// 現在対戦に使用しているエージェントの更新
 			gameServer.updateUsingAgentList(agentRoleMap.keySet());
 
 			// 今回マッチングするエージェントのいずれかがロストしているならスキップする
-			if (agentRoleMap.keySet().stream().anyMatch(agent -> aiWolfConnections.stream()
+			if (agentRoleMap.keySet().stream().anyMatch(agent -> connections.stream()
 					.noneMatch(connection -> connection.getAgent().equals(agent) && connection.isAlive())))
 				continue;
 
@@ -188,29 +185,30 @@ public class GameBuilder extends Thread {
 			String subLogDirName = new SimpleDateFormat("MMddHHmmss").format(Calendar.getInstance().getTime());
 
 			try {
+				Game game = new Game(config, gameSetting, gameServer, gameData);
 				// 現在の対戦数を表示
 				logger.debug(String.format("I: %d", i));
 				// ロガーを設定
-				if (gameConfiguration.isSaveLog()) {
-					String path = String.format(NORMAL_LOG_FILE_NAME, gameConfiguration.getLogDir(), subLogDirName, i,
+				if (config.isSaveLog()) {
+					String path = String.format(NORMAL_LOG_FILE_NAME, config.getLogDir(), subLogDirName, i,
 							clientNames);
 					logger.debug(String.format("Path: %s", path));
 					game.setGameLogger(new FileGameLogger(new File(path)));
 				}
 
 				// ゲームの実行
-				game.start(gameData);
+				game.start();
 
 				// 今回のゲームでエラーが発生したエージェントがいた場合はエラーログを出力する
-				if (gameConfiguration.isSaveLog()) {
-					Set<Entry<Agent, AIWolfConnection>> newLostConnectionSet = aiWolfConnections.stream()
+				if (config.isSaveLog()) {
+					Set<Entry<Agent, Connection>> newLostConnectionSet = connections.stream()
 							.filter(connection -> connection.getReportError())
-							.collect(Collectors.toMap(AIWolfConnection::getAgent, connection -> connection)).entrySet();
-					String errPath = String.format(ERROR_LOG_FILE_NAME, gameConfiguration.getLogDir(), subLogDirName, i,
+							.collect(Collectors.toMap(Connection::getAgent, connection -> connection)).entrySet();
+					String errPath = String.format(ERROR_LOG_FILE_NAME, config.getLogDir(), subLogDirName, i,
 							clientNames);
 					File errorLogFile = new File(errPath);
 					FileGameLogger logger = new FileGameLogger(errorLogFile);
-					for (Entry<Agent, AIWolfConnection> entry : newLostConnectionSet) {
+					for (Entry<Agent, Connection> entry : newLostConnectionSet) {
 						entry.getValue().reportError(logger, entry.getKey(), agentRoleMap.get(entry.getKey()));
 					}
 
@@ -223,7 +221,7 @@ public class GameBuilder extends Thread {
 			}
 
 			// 全てのコネクションがロストした場合対戦を終了する
-			if (aiWolfConnections.stream().noneMatch(AIWolfConnection::isAlive))
+			if (connections.stream().noneMatch(Connection::isAlive))
 				break;
 		}
 		logger.info("GameBuilder end.");

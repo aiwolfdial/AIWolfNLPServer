@@ -33,20 +33,20 @@ public class GameServer {
 	private static final Logger logger = LogManager.getLogger(GameServer.class);
 
 	protected GameSetting gameSetting;
-	protected GameConfiguration gameConfiguration;
+	protected Config config;
 
-	protected Set<AIWolfConnection> aiWolfConnections = new HashSet<>();
-	protected List<Agent> usingAgentList;
+	protected Set<Connection> connections = new HashSet<>();
+	protected List<Agent> agents;
 
 	protected GameData gameData;
 	protected Map<Agent, Integer> lastTalkIdxMap = new HashMap<>();
 	protected Map<Agent, Integer> lastWhisperIdxMap = new HashMap<>();
 
-	public GameServer(GameSetting gameSetting, GameConfiguration gameConfiguration,
-			Set<AIWolfConnection> aiWolfConnections) {
+	public GameServer(GameSetting gameSetting, Config config,
+			Set<Connection> connections) {
 		this.gameSetting = gameSetting;
-		this.gameConfiguration = gameConfiguration;
-		this.aiWolfConnections = aiWolfConnections;
+		this.config = config;
+		this.connections = connections;
 	}
 
 	public void setGameSetting(GameSetting gameSetting) {
@@ -57,22 +57,22 @@ public class GameServer {
 		this.gameData = gameData;
 	}
 
-	private AIWolfConnection getAIWolfConnection(Agent agent) {
-		return aiWolfConnections.stream().filter(c -> c.getAgent().equals(agent)).findFirst().orElse(null);
+	private Connection getAIWolfConnection(Agent agent) {
+		return connections.stream().filter(c -> c.getAgent().equals(agent)).findFirst().orElse(null);
 	}
 
 	protected Object catchException(Agent agent, Request request, Exception e) throws LostAgentConnectionException {
-		AIWolfConnection connection = getAIWolfConnection(agent);
+		Connection connection = getAIWolfConnection(agent);
 		if (connection.isAlive()) {
 			logger.error("Exception", e);
 			connection.throwException(agent, e, request);
 		}
-		if (gameConfiguration.isContinueExceptionAgent())
+		if (config.isContinueExceptionAgent())
 			return null;
 		throw new LostAgentConnectionException(e, agent);
 	}
 
-	protected String getResponse(AIWolfConnection connection, ExecutorService pool, Agent agent, Request request,
+	protected String getResponse(Connection connection, ExecutorService pool, Agent agent, Request request,
 			long timeout)
 			throws InterruptedException, ExecutionException, TimeoutException, IOException {
 		send(agent, request);
@@ -102,7 +102,7 @@ public class GameServer {
 		long responseTimeout = gameSetting.responseTimeout();
 		long actionTimeout = gameSetting.actionTimeout();
 		// エージェントに関連付けられた接続を取得
-		AIWolfConnection connection = getAIWolfConnection(agent);
+		Connection connection = getAIWolfConnection(agent);
 		ExecutorService pool = Executors.newSingleThreadExecutor();
 		try {
 			try {
@@ -177,14 +177,14 @@ public class GameServer {
 	}
 
 	public void close() {
-		for (AIWolfConnection connection : aiWolfConnections) {
+		for (Connection connection : connections) {
 			connection.close();
 		}
-		aiWolfConnections.clear();
+		connections.clear();
 	}
 
 	public List<Agent> getConnectedAgentList() {
-		return usingAgentList;
+		return agents;
 	}
 
 	protected String getMessage(Agent agent, Request request) {
@@ -240,7 +240,7 @@ public class GameServer {
 
 	public Set<String> getNames() {
 		Set<String> set = new HashSet<>();
-		for (Agent agent : usingAgentList) {
+		for (Agent agent : agents) {
 			set.add(getName(agent));
 		}
 		return new HashSet<>(set);
@@ -258,7 +258,7 @@ public class GameServer {
 	protected void send(Agent agent, Request request) {
 		String message = getMessage(agent, request);
 
-		AIWolfConnection connection = getAIWolfConnection(agent);
+		Connection connection = getAIWolfConnection(agent);
 		BufferedWriter bw = connection.getBufferedWriter();
 		try {
 			bw.append(message);
@@ -270,7 +270,7 @@ public class GameServer {
 	}
 
 	public void updateUsingAgentList(Collection<Agent> agentCollection) {
-		this.usingAgentList = new ArrayList<>(agentCollection);
+		this.agents = new ArrayList<>(agentCollection);
 	}
 
 	public void dayFinish(Agent agent) {
