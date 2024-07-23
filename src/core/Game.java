@@ -39,28 +39,26 @@ import libs.RawFileLogger;
 public class Game {
 	private static final Logger logger = LogManager.getLogger(Game.class);
 
-	protected Config config;
-	protected GameSetting gameSetting;
-	protected GameServer gameServer;
-	protected Map<Integer, GameData> gameDataMap;
-	protected GameData gameData;
-	protected RawFileLogger rawFileLogger;
-	protected Map<Agent, String> agentNameMap;
+	private final Config config;
+	private final GameSetting gameSetting;
+	private final GameServer gameServer;
+	private final Map<Integer, GameData> gameDataMap;
+	private GameData gameData;
+	private RawFileLogger rawFileLogger;
 
 	public Game(Config config, GameSetting gameSetting, GameServer gameServer, GameData gameData) {
 		this.config = config;
 		this.gameSetting = gameSetting;
 		this.gameServer = gameServer;
 		this.gameData = gameData;
+		this.gameDataMap = new TreeMap<>();
 	}
 
 	public void setRawFileLogger(RawFileLogger rawFileLogger) {
 		this.rawFileLogger = rawFileLogger;
 	}
 
-	protected void initialize() {
-		gameDataMap = new TreeMap<>();
-		agentNameMap = new HashMap<>();
+	private void initialize() {
 		gameServer.setGameData(gameData);
 		gameServer.setGameSetting(gameSetting);
 
@@ -104,7 +102,6 @@ public class Game {
 
 		for (Agent agent : agents) {
 			gameServer.init(agent);
-			agentNameMap.put(agent, gameServer.getName(agent));
 		}
 	}
 
@@ -174,18 +171,18 @@ public class Game {
 		gameData.getAgents().stream()
 				.sorted()
 				.forEach(agent -> {
-					String agentName = agentNameMap.get(agent).replaceAll("[0-9]", "");
+					String agentName = agent.agentName.replaceAll("[0-9]", "");
 					combinationText.add(String.format("%s,%s", gameData.getRole(agent), agentName));
 				});
 		Collections.sort(combinationText);
 		return String.join(",", combinationText);
 	}
 
-	public void finish() {
+	private void finish() {
 		if (rawFileLogger != null) {
 			for (Agent agent : new TreeSet<>(gameData.getAgents())) {
 				rawFileLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.agentIdx,
-						gameData.getRole(agent), gameData.getStatus(agent), agentNameMap.get(agent)));
+						gameData.getRole(agent), gameData.getStatus(agent), agent.agentName));
 			}
 			rawFileLogger.log(String.format("%d,result,%d,%d,%s", gameData.getDay(), getAliveHumans().size(),
 					getAliveWolfs().size(), getWinner()));
@@ -271,7 +268,7 @@ public class Game {
 		agentList.sort(Comparator.comparingInt(o -> o.agentIdx));
 		for (Agent agent : agentList) {
 			StringBuilder logBuilder = new StringBuilder();
-			logBuilder.append(String.format("%s\t%s\t%s\t%s", agent, agentNameMap.get(agent), gameData.getStatus(agent),
+			logBuilder.append(String.format("%s\t%s\t%s\t%s", agent, agent.agentName, gameData.getStatus(agent),
 					gameData.getRole(agent)));
 			if (yesterday != null) {
 				if (yesterday.getExecuted() == agent) {
@@ -303,7 +300,7 @@ public class Game {
 		logger.info("=============================================");
 	}
 
-	protected void day() {
+	private void day() {
 		dayStart();
 		if (gameData.getDay() == 0) {
 			if (gameSetting.isTalkOnFirstDay()) {
@@ -315,7 +312,7 @@ public class Game {
 		}
 	}
 
-	protected void night() {
+	private void night() {
 		for (Agent agent : gameData.getAgents()) {
 			gameServer.dayFinish(agent);
 		}
@@ -433,7 +430,7 @@ public class Game {
 		return candidateList;
 	}
 
-	protected List<Agent> getAttackVotedCandidates(List<Vote> voteList) {
+	private List<Agent> getAttackVotedCandidates(List<Vote> voteList) {
 		Counter<Agent> counter = new Counter<>();
 		for (Vote vote : voteList) {
 			if (gameData.getStatus(vote.target()) == Status.ALIVE
@@ -457,11 +454,11 @@ public class Game {
 		return candidateList;
 	}
 
-	protected void dayStart() {
+	private void dayStart() {
 		if (rawFileLogger != null) {
 			for (Agent agent : new TreeSet<>(gameData.getAgents())) {
 				rawFileLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.agentIdx,
-						gameData.getRole(agent), gameData.getStatus(agent), agentNameMap.get(agent)));
+						gameData.getRole(agent), gameData.getStatus(agent), agent.agentName));
 			}
 		}
 
@@ -470,7 +467,7 @@ public class Game {
 		}
 	}
 
-	protected void talk() {
+	private void talk() {
 		List<Agent> aliveList = getAliveAgents();
 		for (Agent agent : aliveList) {
 			gameData.remainTalkMap.put(agent, gameSetting.maxTalk());
@@ -518,7 +515,7 @@ public class Game {
 		}
 	}
 
-	protected void whisper() {
+	private void whisper() {
 		List<Agent> aliveWolfList = gameData.getFilteredAgents(getAliveAgents(), Role.WEREWOLF);
 		if (aliveWolfList.size() == 1) {
 			return;
@@ -567,7 +564,7 @@ public class Game {
 		}
 	}
 
-	protected void vote() {
+	private void vote() {
 		gameData.getVotes().clear();
 		List<Agent> voters = getAliveAgents();
 		List<Vote> latestVoteList = new ArrayList<>();
@@ -591,7 +588,7 @@ public class Game {
 		}
 	}
 
-	protected void divine() {
+	private void divine() {
 		for (Agent agent : getAliveAgents()) {
 			if (gameData.getRole(agent) == Role.SEER) {
 				Agent target = gameServer.requestDivineTarget(agent);
@@ -615,7 +612,7 @@ public class Game {
 		}
 	}
 
-	protected void guard() {
+	private void guard() {
 		for (Agent agent : getAliveAgents()) {
 			if (gameData.getRole(agent) == Role.BODYGUARD) {
 				if (agent == gameData.getExecuted()) {
@@ -637,7 +634,7 @@ public class Game {
 		}
 	}
 
-	protected void attackVote() {
+	private void attackVote() {
 		gameData.getAttackVotes().clear();
 		for (Agent agent : getAliveWolfs()) {
 			Agent target = gameServer.requestAttackTarget(agent);
@@ -657,27 +654,27 @@ public class Game {
 		gameData.setLatestAttackVoteList(latestAttackVoteList);
 	}
 
-	protected Agent getRandomAgent(List<Agent> agentList, Agent... without) {
+	private Agent getRandomAgent(List<Agent> agentList, Agent... without) {
 		List<Agent> list = new ArrayList<>(agentList);
 		list.removeAll(Arrays.asList(without));
 		return list.get(new Random().nextInt(list.size()));
 	}
 
-	protected List<Agent> getAliveAgents() {
+	private List<Agent> getAliveAgents() {
 		return gameData.getAgents().stream()
 				.filter(agent -> gameData.getStatus(agent) == Status.ALIVE)
 				.collect(Collectors.toList());
 	}
 
-	protected List<Agent> getAliveHumans() {
+	private List<Agent> getAliveHumans() {
 		return gameData.getFilteredAgents(getAliveAgents(), Species.HUMAN);
 	}
 
-	protected List<Agent> getAliveWolfs() {
+	private List<Agent> getAliveWolfs() {
 		return gameData.getFilteredAgents(getAliveAgents(), Species.WEREWOLF);
 	}
 
-	public boolean isFinished() {
+	private boolean isFinished() {
 		return getWinner() != null;
 	}
 }

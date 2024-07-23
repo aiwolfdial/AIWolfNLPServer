@@ -28,25 +28,20 @@ import utils.JsonParser;
 public class Connection {
 	private static final Logger logger = LogManager.getLogger(Connection.class);
 
-	private static final String LOST_CONNECTION_MESSAGE = "%s(%s:%s)_[Request:%s] lostConnection";
-
-	private String name = null;
-	private Config config;
-	private Agent agent;
+	private final Config config;
+	private final Agent agent;
+	private final Socket socket;
+	private final BufferedReader bufferedReader;
+	private final BufferedWriter bufferedWriter;
+	private final String name;
 
 	private boolean isAlive = true;
-	private Socket socket;
-	private BufferedReader bufferedReader;
-	private BufferedWriter bufferedWriter;
-
 	private boolean hasException = false;
 	private Exception exception = null;
 	private Exception causeException = null;
 	private Request causeRequest = null;
 
-	public String getName() {
-		if (name != null)
-			return name;
+	private String requestName() {
 		try {
 			ExecutorService pool = Executors.newSingleThreadExecutor();
 			bufferedWriter.append(JsonParser.encode(new Packet(Request.NAME)));
@@ -61,30 +56,24 @@ public class Connection {
 				throw task.getIOException();
 			}
 			pool.shutdown();
-			name = line.isEmpty() ? null : line;
+			return line.isEmpty() ? null : line;
 		} catch (Exception e) {
-			if (isAlive) {
-				logger.error("Exception", e);
-			}
+			logger.error("Exception", e);
 			throwException(agent, e, Request.NAME);
 		}
-		return name;
+		return null;
 	}
 
-	public Connection(Socket socket, Config gameConfiguration, Set<Integer> usedNumberSet) {
+	public Connection(Socket socket, Config config, Set<Integer> usedNumberSet) throws IOException {
 		this.socket = socket;
-		this.config = gameConfiguration;
-		try {
-			bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-		} catch (IOException e) {
-			logger.error("Exception", e);
-		}
+		this.config = config;
+		bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
 		int agentNum = 1;
-		int humanNum = gameConfiguration.joinHuman() ? gameConfiguration.humanAgentNum() : -1;
-		String name = getName();
-		if (name != null && name.equals(gameConfiguration.humanName()) && gameConfiguration.joinHuman()) {
+		int humanNum = config.joinHuman() ? config.humanAgentNum() : -1;
+		name = requestName();
+		if (name != null && name.equals(config.humanName()) && config.joinHuman()) {
 			agentNum = humanNum;
 		} else {
 			while (usedNumberSet.contains(agentNum) || agentNum == humanNum)
@@ -100,7 +89,7 @@ public class Connection {
 	public void printException(RawFileLogger logger, Agent agent, Role role) {
 		if (!hasException)
 			return;
-		logger.log(String.format(LOST_CONNECTION_MESSAGE, name, agent, role, causeRequest));
+		logger.log(String.format("%s(%s:%s)_[Request:%s] lostConnection", name, agent, role, causeRequest));
 		for (StackTraceElement stackTraceElement : exception.getStackTrace()) {
 			logger.log(stackTraceElement.toString());
 			logger.flush();

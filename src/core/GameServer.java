@@ -33,15 +33,14 @@ import utils.JsonParser;
 public class GameServer {
 	private static final Logger logger = LogManager.getLogger(GameServer.class);
 
-	protected GameSetting gameSetting;
-	protected Config config;
-
-	protected Set<Connection> connections = new HashSet<>();
-	protected List<Agent> agents;
-
-	protected GameData gameData;
-	protected Map<Agent, Integer> lastTalkIdxMap = new HashMap<>();
-	protected Map<Agent, Integer> lastWhisperIdxMap = new HashMap<>();
+	private GameSetting gameSetting;
+	private final Config config;
+	private final Set<Connection> connections;
+	
+	private List<Agent> agents;
+	private GameData gameData;
+	private final Map<Agent, Integer> lastTalkIdxMap = new HashMap<>();
+	private final Map<Agent, Integer> lastWhisperIdxMap = new HashMap<>();
 
 	public GameServer(GameSetting gameSetting, Config config,
 			Set<Connection> connections) {
@@ -235,14 +234,10 @@ public class GameServer {
 		return JsonParser.encode(packet);
 	}
 
-	public String getName(Agent agent) {
-		return getConnection(agent).getName();
-	}
-
 	public Set<String> getNames() {
 		Set<String> set = new HashSet<>();
 		for (Agent agent : agents) {
-			set.add(getName(agent));
+			set.add(agent.agentName);
 		}
 		return new HashSet<>(set);
 	}

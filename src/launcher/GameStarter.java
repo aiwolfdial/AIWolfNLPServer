@@ -1,5 +1,6 @@
 package launcher;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,13 @@ public class GameStarter extends Thread {
 			// 同時起動数未満なら待機リストから1グループ取得してゲームを開始する
 			synchronized (socketQueue) {
 				if (!socketQueue.isEmpty() && gameBuilders.size() < config.maxParallelExec()) {
-					GameBuilder builder = new GameBuilder(socketQueue.poll(), config);
+					GameBuilder builder;
+					try {
+						builder = new GameBuilder(socketQueue.poll(), config);
+					} catch (IOException e) {
+						logger.error("Exception", e);
+						continue;
+					}
 					gameBuilders.add(builder);
 					builder.start();
 					logger.info("Started a new game with a group of sockets.");

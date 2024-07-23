@@ -41,7 +41,7 @@ public class GameBuilder extends Thread {
 	private final GameSetting gameSetting;
 	private final Set<Connection> connections = new HashSet<>();
 
-	public GameBuilder(List<Socket> sockets, Config config) {
+	public GameBuilder(List<Socket> sockets, Config config) throws IOException {
 		// 順番が固定にならないように念のためシャッフル
 		Collections.shuffle(sockets);
 
@@ -149,7 +149,7 @@ public class GameBuilder extends Thread {
 		Agent human = null;
 		if (config.joinHuman()) {
 			for (Connection connection : connections) {
-				if (gameServer.getName(connection.getAgent()).equals(config.humanName())) {
+				if (connection.getAgent().agentName.equals(config.humanName())) {
 					human = connection.getAgent();
 				}
 			}

@@ -45,7 +45,7 @@ public class GameData {
 	protected int talkIdx;
 	protected int whisperIdx;
 
-	protected GameSetting gameSetting;
+	private final GameSetting gameSetting;
 
 	public GameData(GameSetting gameSetting) {
 		this.gameSetting = gameSetting;
