@@ -3,6 +3,17 @@
 人狼知能大会 自然言語部門2024国際大会 で使用するサーバプログラムです。  
 (This is the server program used for the AIWolf NLP Division 2024 International Tournament.)
 
+### ❗ **前回大会からの変更点**  (❗ **Changes from the previous tournament**)
+
+- アクションタイムアウトを追加しました。  
+  (Added action timeout.)  
+  `GameSetting` に `actionTimeout` が追加され、エージェントがアクションを行う時間の制限をサーバ側からエージェントに通知します。単位はミリ秒です。
+   (`actionTimeout` has been added to `GameSetting`, and the server notifies the agent of the time limit for agents to perform actions. The unit is milliseconds.)
+- エージェントの指定方法を変更しました。  
+  (Changed the way to specify agents.)  
+  エージェントの番号のみを指定する方法から `Agent[%02d]` (例: Agent[01]) の形式で指定する方法に変更しました。  
+  (Changed from specifying only the agent number to specifying in the format `Agent[%02d]` (e.g. Agent[01]).)
+
 ## 設定 (Configuration)
 
 `config/Config.ini.example` を `config/Config.ini` にリネームして設定を行ってください。  
@@ -45,4 +56,11 @@ OpenJDK JDK 22.0.2 を推奨します。ビルドと実行は以下のコマン�
 
 ```
 make
+```
+
+実行のみ行う場合は以下のコマンドを実行してください。  
+(If you want to run only, please run the following command.)
+
+```
+make run
 ```
