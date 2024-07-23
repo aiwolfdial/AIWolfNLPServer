@@ -29,12 +29,13 @@ public class GameStarter extends Thread {
 			// 実行が終了しているサーバの削除
 			gameBuilders.removeIf(server -> !server.isAlive());
 
-			// 同時起動数未満なら待機Listから1グループ取得してゲームを開始する
+			// 同時起動数未満なら待機リストから1グループ取得してゲームを開始する
 			synchronized (socketQueue) {
 				if (!socketQueue.isEmpty() && gameBuilders.size() < config.maxParallelExec()) {
 					GameBuilder builder = new GameBuilder(socketQueue.poll(), config);
 					gameBuilders.add(builder);
 					builder.start();
+					logger.info("Started a new game with a group of sockets.");
 				}
 			}
 

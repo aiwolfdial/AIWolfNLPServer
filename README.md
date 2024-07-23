@@ -24,6 +24,20 @@ player5Ip=127.0.0.1		; エージェント5の待ち受けIP (Agent 5 listening I
 player5Port=50004		; エージェント5の待ち受けポート (Agent 5 listening port)
 ```
 
+実行ログ (対戦ログではない) を出力しない場合は以下の設定を行ってください。  
+(If you do not want to output the execution log (not the battle log), please make the following settings.)
+
+`config/log4j2.xml` の以下の行をコメントアウトしてください。  
+(Comment out the following line in `config/log4j2.xml`.)
+
+```
+<AppenderRef ref="File" />
+```
+
+```
+<!-- <AppenderRef ref="File" /> -->
+```
+
 ## 実行 (Run)
 
 OpenJDK JDK 22.0.2 を推奨します。ビルドと実行は以下のコマンドで行います。  

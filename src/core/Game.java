@@ -132,6 +132,7 @@ public class Game {
 
 			if (config.saveRoleCombination()) {
 				if (existsCombinationsText(config, getCombinationsText())) {
+					logger.info("Skip because the combination is already done.");
 					finish();
 					return;
 				}
