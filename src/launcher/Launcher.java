@@ -170,7 +170,7 @@ public class Launcher {
 			} while (entryAgentIndex.contains(index));
 			entryAgentIndex.add(index);
 		}
-		String[] agentAddresses = line.replace("[", "").replace("]", "").split(",\\s*");
+		String[] agentAddresses = config.agentAddresses().replace("[", "").replace("]", "").split(",\\s*");
 		// インデックスに基づいてサーバー情報を設定
 		return switch (index) {
 			case 10000, 10001, 10002, 10003, 10004 -> getSocket("localhost",
