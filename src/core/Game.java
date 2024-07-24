@@ -448,9 +448,7 @@ public class Game {
 						gameData.getRole(agent), gameData.getStatus(agent), agent.name));
 			}
 		}
-		for (Agent agent : gameData.getAgents()) {
-			gameServer.dayStart(agent);
-		}
+		gameData.getAgents().forEach(gameServer::dayStart);
 	}
 
 	private void talk() {
@@ -550,11 +548,9 @@ public class Game {
 			latestVoteList.add(vote);
 		}
 		gameData.setLatestVoteList(latestVoteList);
-		for (Vote vote : latestVoteList) {
-			if (rawFileLogger != null) {
-				rawFileLogger.log(String.format("%d,vote,%d,%d", gameData.getDay(), vote.agent().idx,
-						vote.target().idx));
-			}
+		if (rawFileLogger != null) {
+			latestVoteList.forEach(vote -> rawFileLogger.log(String.format("%d,vote,%d,%d",
+					gameData.getDay(), vote.agent().idx, vote.target().idx)));
 		}
 	}
 

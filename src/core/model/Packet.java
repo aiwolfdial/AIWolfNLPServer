@@ -3,12 +3,14 @@ package core.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 public record Packet(
 		Request request,
-		GameInfo gameInfo,
-		GameSetting gameSetting,
-		List<Talk> talkHistory,
-		List<Talk> whisperHistory) {
+		@JsonInclude(JsonInclude.Include.NON_NULL) GameInfo gameInfo,
+		@JsonInclude(JsonInclude.Include.NON_NULL) GameSetting gameSetting,
+		@JsonInclude(JsonInclude.Include.NON_NULL) List<Talk> talkHistory,
+		@JsonInclude(JsonInclude.Include.NON_NULL) List<Talk> whisperHistory) {
 	public Packet(Request request) {
 		this(request, null, null, null, null);
 	}

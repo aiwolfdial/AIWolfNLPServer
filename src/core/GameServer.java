@@ -189,8 +189,6 @@ public class GameServer {
 
 	private String getMessage(Agent agent, Request request) {
 		Packet packet = null;
-		boolean flag = false;
-
 		// 各リクエストに応じたパケットの作成
 		switch (request) {
 			case DAILY_INITIALIZE:
@@ -209,23 +207,27 @@ public class GameServer {
 			case DIVINE:
 			case GUARD:
 			case WHISPER:
-				flag = gameData.getExecuted() != null;
+				if (gameData.getExecuted() != null) {
+					packet = new Packet(request, gameData.getGameInfo(agent));
+				}
 				break;
 			case VOTE:
-				flag = !gameData.getLatestVoteList().isEmpty();
+				if (!gameData.getLatestVoteList().isEmpty()) {
+					packet = new Packet(request, gameData.getGameInfo(agent));
+				}
 				break;
 			case ATTACK:
-				flag = !gameData.getLatestAttackVoteList().isEmpty() || gameData.getExecuted() != null;
+				if (!gameData.getLatestAttackVoteList().isEmpty() || gameData.getExecuted() != null) {
+					packet = new Packet(request, gameData.getGameInfo(agent));
+				}
 				break;
 			case DAILY_FINISH:
 			case TALK:
 				break;
 		}
-		if (flag)
-			packet = new Packet(request, gameData.getGameInfo(agent));
-		if (packet != null)
+		if (packet != null) {
 			return JsonParser.encode(packet);
-
+		}
 		List<Talk> talkList = gameData.getTalkList();
 		List<Talk> whisperList = gameData.getGameInfo(agent).whisperList;
 		talkList = minimize(agent, talkList, lastTalkIdxMap);

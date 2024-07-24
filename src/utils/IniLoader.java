@@ -16,11 +16,11 @@ public class IniLoader {
         Ini ini = new Ini(file);
         return ini.entrySet().stream()
                 .collect(Collectors.toMap(
-                        e -> e.getKey(),
+						Map.Entry::getKey,
                         e -> e.getValue().entrySet().stream()
                                 .collect(Collectors.toMap(
-                                        entry -> entry.getKey(),
-                                        entry -> entry.getValue()))));
+										Map.Entry::getKey,
+										Map.Entry::getValue))));
     }
 
     public static <T> T load(String filename, Class<T> clazz) throws IOException {
