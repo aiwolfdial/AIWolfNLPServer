@@ -26,26 +26,7 @@ connectAgentNum=5
 ; 未使用のエージェントと切断するまでの時間 (ミリ秒)
 idleConnectionTimeout=1800000
 ; クライアントモードで起動する場合のエージェントの接続先ポート一覧
-player1Ip=127.0.0.1
-player1Port=50000
-player2Ip=127.0.0.1
-player2Port=50001
-player3Ip=127.0.0.1
-player3Port=50002
-player4Ip=127.0.0.1
-player4Port=50003
-player5Ip=127.0.0.1
-player5Port=50004
-player6Ip=
-player6Port=
-player7Ip=
-player7Port=
-player8Ip=
-player8Port=
-player9Ip=
-player9Port=
-player10Ip=
-player10Port=
+agentAddresses=[127.0.0.1:50000, 127.0.0.1:50001, 127.0.0.1:50002, 127.0.0.1:50003, 127.0.0.1:50004]
 
 ; ### マッチング設定 ###
 ; true: gameNum回のゲーム後に他のエージェントの組み合わせで実行する

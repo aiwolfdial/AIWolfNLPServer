@@ -19,6 +19,9 @@ public class JsonParser {
 	}
 
 	public static <T> T decode(String json, Class<T> clazz) {
+		if (!json.startsWith("{") && !json.endsWith("}") && !json.startsWith("\"") && !json.endsWith("\"")) {
+			json = "\"" + json + "\"";
+		}
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.readValue(json, clazz);

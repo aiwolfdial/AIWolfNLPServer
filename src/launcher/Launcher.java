@@ -170,21 +170,19 @@ public class Launcher {
 			} while (entryAgentIndex.contains(index));
 			entryAgentIndex.add(index);
 		}
+		String[] agentAddresses = line.replace("[", "").replace("]", "").split(",\\s*");
 		// インデックスに基づいてサーバー情報を設定
 		return switch (index) {
-			case 1 -> getSocket(config.player1Ip(), config.player1Port());
-			case 2 -> getSocket(config.player2Ip(), config.player2Port());
-			case 3 -> getSocket(config.player3Ip(), config.player3Port());
-			case 4 -> getSocket(config.player4Ip(), config.player4Port());
-			case 5 -> getSocket(config.player5Ip(), config.player5Port());
-			case 6 -> getSocket(config.player6Ip(), config.player6Port());
-			case 7 -> getSocket(config.player7Ip(), config.player7Port());
-			case 8 -> getSocket(config.player8Ip(), config.player8Port());
-			case 9 -> getSocket(config.player9Ip(), config.player9Port());
-			case 10 -> getSocket(config.player10Ip(), config.player10Port());
 			case 10000, 10001, 10002, 10003, 10004 -> getSocket("localhost",
 					Integer.parseInt(line.split("\\s")[index % 10000]));
-			default -> throw new IllegalArgumentException("Invalid index: " + index);
+			default -> {
+				if (agentAddresses.length >= index) {
+					String[] address = agentAddresses[index - 1].split(":");
+					yield getSocket(address[0], Integer.parseInt(address[1]));
+				} else {
+					throw new IllegalArgumentException("Invalid index: " + index);
+				}
+			}
 		};
 	}
 

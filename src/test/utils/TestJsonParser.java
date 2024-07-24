@@ -19,7 +19,7 @@ public class TestJsonParser {
     @Test
     public void testDecodeAgent() {
         Agent.setAgent(1, "agent1");
-        Agent agent = JsonParser.decode("\"Agent[01]\"", Agent.class);
+        Agent agent = JsonParser.decode("Agent[01]", Agent.class);
         assertEquals(Agent.getAgent(1), agent);
     }
 
