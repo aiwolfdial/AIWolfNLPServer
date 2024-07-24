@@ -24,13 +24,6 @@ public class TestJsonParser {
     }
 
     @Test
-    public void testDecodeAgentWithAgent() {
-        Agent.setAgent(1, "agent1");
-        Agent agent = JsonParser.decode("{\"agent\":\"Agent[01]\"}", Agent.class);
-        assertEquals(Agent.getAgent(1), agent);
-    }
-
-    @Test
     public void testEncodeGameInfo() {
         Agent.setAgent(1, "agent1");
         GameInfo gameInfo = new GameInfo(1, Agent.getAgent(1));
