@@ -53,7 +53,7 @@ public class Connection {
 			String line = config.responseTimeout() > 0 ? future.get(
 					config.responseTimeout(), TimeUnit.MILLISECONDS) : future.get();
 			if (!task.isSuccess()) {
-				throw task.getIOException();
+				throw task.getException();
 			}
 			pool.shutdown();
 			return line.isEmpty() ? null : line;

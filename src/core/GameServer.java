@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -74,14 +73,22 @@ public class GameServer {
 
 	protected String getResponse(Connection connection, ExecutorService pool, Agent agent, Request request,
 			long timeout)
-			throws InterruptedException, ExecutionException, TimeoutException, IOException {
+			throws Exception {
 		send(agent, request);
+		logger.trace("Request: " + request + " to " + agent);
 		CallableBufferedReader task = new CallableBufferedReader(connection.getBufferedReader());
 		Future<String> future = pool.submit(task);
-		String line = timeout > 0 ? future.get(timeout, TimeUnit.MILLISECONDS) : future.get();
-		if (!task.isSuccess()) {
-			throw task.getIOException();
+		String line = null;
+		try {
+			line = timeout > 0 ? future.get(timeout, TimeUnit.MILLISECONDS) : future.get();
+		} catch (TimeoutException e) {
+			future.cancel(true);
+			throw e;
 		}
+		if (!task.isSuccess()) {
+			throw task.getException();
+		}
+		logger.trace("Response: " + line + " from " + agent);
 		return line;
 	}
 
@@ -135,7 +142,7 @@ public class GameServer {
 					return throwException(agent, request, e);
 				}
 			}
-		} catch (IOException | InterruptedException | ExecutionException e) {
+		} catch (Exception e) {
 			// リクエスト中に発生する他の例外を処理
 			return throwException(agent, request, e);
 		} finally {
@@ -246,7 +253,6 @@ public class GameServer {
 
 	protected void send(Agent agent, Request request) {
 		String message = getMessage(agent, request);
-
 		Connection connection = getConnection(agent);
 		BufferedWriter bw = connection.getBufferedWriter();
 		try {

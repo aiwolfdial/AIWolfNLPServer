@@ -21,12 +21,10 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -270,8 +268,7 @@ public class Launcher {
 		}
 	}
 
-	private String getName(Socket socket) throws IOException, InterruptedException,
-			ExecutionException, TimeoutException {
+	private String getName(Socket socket) throws Exception {
 		logger.info("Get name.");
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -287,7 +284,7 @@ public class Launcher {
 				? future.get(config.responseTimeout(), TimeUnit.MILLISECONDS)
 				: future.get();
 		if (!task.isSuccess()) {
-			throw task.getIOException();
+			throw task.getException();
 		}
 		pool.shutdown();
 		return line.isEmpty() ? null : line;
@@ -344,8 +341,7 @@ public class Launcher {
 		});
 	}
 
-	private void printActiveConnection() throws IOException,
-			InterruptedException, ExecutionException, TimeoutException {
+	private void printActiveConnection() throws Exception {
 		logger.info("Print active connection.");
 		if (waitingSockets.isEmpty()) {
 			logger.debug("connecting : connection is empty.");
