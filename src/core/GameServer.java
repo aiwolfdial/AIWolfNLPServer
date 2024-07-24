@@ -60,14 +60,14 @@ public class GameServer {
 		return connections.stream().filter(c -> c.getAgent().equals(agent)).findFirst().orElse(null);
 	}
 
-	private Object throwException(Agent agent, Request request, Exception e) throws LostAgentConnectionException {
+	private void throwException(Agent agent, Request request, Exception e) throws LostAgentConnectionException {
 		Connection connection = getConnection(agent);
 		if (connection.isAlive()) {
 			logger.error("Exception", e);
 			connection.throwException(agent, e, request);
 		}
 		if (config.ignoreAgentException())
-			return null;
+			return;
 		throw new LostAgentConnectionException(e, agent);
 	}
 
@@ -131,20 +131,24 @@ public class GameServer {
 						if (expectedName.equals(line)) {
 							return convertRequestData(Request.TALK, Talk.FORCE_SKIP);
 						} else {
-							return throwException(agent, request, new IOException("Name mismatch"));
+							throwException(agent, request, new IOException("Name mismatch"));
+							return null;
 						}
 					} catch (TimeoutException e1) {
 						// 再度タイムアウトした場合
-						return throwException(agent, request, e1);
+						throwException(agent, request, e1);
+						return null;
 					}
 				} else {
 					// すでにレスポンスのタイムアウトを超えた場合
-					return throwException(agent, request, e);
+					throwException(agent, request, e);
+					return null;
 				}
 			}
 		} catch (Exception e) {
 			// リクエスト中に発生する他の例外を処理
-			return throwException(agent, request, e);
+			throwException(agent, request, e);
+			return null;
 		} finally {
 			pool.shutdownNow();
 		}

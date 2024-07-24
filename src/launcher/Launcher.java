@@ -281,8 +281,7 @@ public class Launcher {
 
 	private String readLineFromSocket(Socket socket) throws IOException {
 		try (socket; BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-			String line = reader.readLine();
-			return line;
+			return reader.readLine();
 		}
 	}
 
