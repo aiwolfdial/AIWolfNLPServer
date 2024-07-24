@@ -116,6 +116,8 @@ public class GameServer {
 				// アクションのタイムアウトを超えた場合
 				if (responseTimeout > actionTimeout) {
 					try {
+						pool.shutdownNow();
+						pool = Executors.newSingleThreadExecutor();
 						// 接続が切れたかどうかを確認
 						String line = getResponse(connection, pool, agent, Request.NAME,
 								responseTimeout - actionTimeout);
