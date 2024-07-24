@@ -74,8 +74,8 @@ public class GameServer {
 	private String getResponse(Connection connection, ExecutorService pool, Agent agent, Request request,
 			long timeout)
 			throws Exception {
+		logger.trace(String.format("Request: %s to %s", request, agent));
 		send(agent, request);
-		logger.trace("Request: " + request + " to " + agent);
 		CallableBufferedReader task = new CallableBufferedReader(connection.getBufferedReader());
 		Future<String> future = pool.submit(task);
 		String line = null;
@@ -88,7 +88,7 @@ public class GameServer {
 		if (!task.isSuccess()) {
 			throw task.getException();
 		}
-		logger.trace("Response: " + line + " from " + agent);
+		logger.trace(String.format("Response: %s from %s", line, agent));
 		return line;
 	}
 
