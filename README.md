@@ -22,7 +22,7 @@
 エージェントの待ち受けIPとポートを設定してください。他の設定項目についてはデフォルトで問題ありません。  
 (Set the IP and port of the agent to listen on. Other settings are fine by default.)
 
-```
+```ini
 agentAddresses=[127.0.0.1:50000, 127.0.0.1:50001, 127.0.0.1:50002, 127.0.0.1:50003, 127.0.0.1:50004]
 ```
 
@@ -32,11 +32,11 @@ agentAddresses=[127.0.0.1:50000, 127.0.0.1:50001, 127.0.0.1:50002, 127.0.0.1:500
 `config/log4j2.xml` の以下の行をコメントアウトしてください。  
 (Comment out the following line in `config/log4j2.xml`.)
 
-```
+```xml
 <AppenderRef ref="File" />
 ```
 
-```
+```xml
 <!-- <AppenderRef ref="File" /> -->
 ```
 
@@ -46,11 +46,11 @@ agentAddresses=[127.0.0.1:50000, 127.0.0.1:50001, 127.0.0.1:50002, 127.0.0.1:500
 `config/log4j2.xml` の以下の行の `level` を `debug` に変更してください。  
 (Change the `level` of the following line in `config/log4j2.xml` to `debug`.)
 
-```
+```xml
 <Root level="trace">
 ```
 
-```
+```xml
 <Root level="debug">
 ```
 
@@ -59,14 +59,14 @@ agentAddresses=[127.0.0.1:50000, 127.0.0.1:50001, 127.0.0.1:50002, 127.0.0.1:500
 OpenJDK JDK 22.0.2 を推奨します。ビルドと実行は以下のコマンドで行います。  
 (OpenJDK JDK 22.0.2 is recommended. Build and run with the following commands.)
 
-```
+```bash
 make
 ```
 
 実行のみ行う場合は以下のコマンドを実行してください。  
 (If you want to run only, please run the following command.)
 
-```
+```bash
 make run
 ```
 
