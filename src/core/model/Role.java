@@ -11,8 +11,8 @@ public enum Role {
 	public final Team team;
 	public final Species species;
 
-	Role(Team teamType, Species species) {
-		this.team = teamType;
+	Role(Team team, Species species) {
+		this.team = team;
 		this.species = species;
 	}
 }

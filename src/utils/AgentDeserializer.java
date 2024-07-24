@@ -27,7 +27,7 @@ public class AgentDeserializer extends StdDeserializer<core.model.Agent> {
             if (agent == null) {
                 throw new java.io.IOException("Unable to deserialize Agent: " + agentText);
             }
-		}
-		return agent;
-	}
+        }
+        return agent;
+    }
 }

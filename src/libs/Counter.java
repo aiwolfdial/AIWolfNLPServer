@@ -9,7 +9,7 @@ public class Counter<V> implements Iterable<V>, Map<V, Integer> {
 	private final Sorter<V, Integer> sorter;
 
 	public Counter() {
-		this.sorter = new Sorter<>();
+		sorter = new Sorter<>();
 	}
 
 	public void add(V v, int num) {

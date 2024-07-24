@@ -8,13 +8,12 @@ import java.io.IOException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-public class RawFileLogger {
+public class RawFileLogger implements AutoCloseable {
 	private static final Logger logger = LogManager.getLogger(RawFileLogger.class);
 
 	protected BufferedWriter bufferedWriter;
 
 	public RawFileLogger(File file) throws IOException {
-		logger.info("Log file: " + file.getAbsolutePath());
 		file.getParentFile().mkdirs();
 		bufferedWriter = new BufferedWriter(new FileWriter(file));
 	}
@@ -36,6 +35,7 @@ public class RawFileLogger {
 		}
 	}
 
+	@Override
 	public void close() {
 		try {
 			bufferedWriter.close();

@@ -20,25 +20,12 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 	private Comparator<S> scoreComparator;
 
 	public Sorter() {
-		this.itemMap = new LinkedHashMap<>();
-	}
-
-	public Sorter(Comparator<S> comparator) {
-		this();
-		this.scoreComparator = comparator;
-	}
-
-	public Sorter(Map<? extends V, ? extends S> map) {
-		this.itemMap = new LinkedHashMap<>(map);
-	}
-
-	public void set(V v, S s) {
-		this.itemMap.put(v, s);
+		itemMap = new LinkedHashMap<>();
 	}
 
 	@Override
 	public S get(Object v) {
-		return this.itemMap.get(v);
+		return itemMap.get(v);
 	}
 
 	public List<V> getSortedList() {
@@ -76,22 +63,22 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 
 	@Override
 	public void clear() {
-		this.itemMap.clear();
+		itemMap.clear();
 	}
 
 	@Override
 	public boolean containsKey(Object key) {
-		return this.itemMap.containsKey(key);
+		return itemMap.containsKey(key);
 	}
 
 	@Override
 	public boolean containsValue(Object value) {
-		return this.itemMap.containsValue(value);
+		return itemMap.containsValue(value);
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return this.itemMap.isEmpty();
+		return itemMap.isEmpty();
 	}
 
 	@Override
@@ -101,31 +88,31 @@ public class Sorter<V, S> implements Map<V, S>, Serializable {
 
 	@Override
 	public S remove(Object key) {
-		return this.itemMap.remove(key);
+		return itemMap.remove(key);
 	}
 
 	@Override
 	public int size() {
-		return this.itemMap.size();
+		return itemMap.size();
 	}
 
 	@Override
 	public Collection<S> values() {
-		return this.itemMap.values();
+		return itemMap.values();
 	}
 
 	@Override
 	public S put(V key, S value) {
-		return this.itemMap.put(key, value);
+		return itemMap.put(key, value);
 	}
 
 	@Override
 	public void putAll(Map<? extends V, ? extends S> m) {
-		this.itemMap.putAll(m);
+		itemMap.putAll(m);
 	}
 
 	@Override
 	public Set<Map.Entry<V, S>> entrySet() {
-		return this.itemMap.entrySet();
+		return itemMap.entrySet();
 	}
 }

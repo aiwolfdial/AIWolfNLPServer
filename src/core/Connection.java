@@ -42,12 +42,12 @@ public class Connection {
 	private Request causeRequest = null;
 
 	private String requestName() {
+		logger.info("Request name.");
 		try {
 			ExecutorService pool = Executors.newSingleThreadExecutor();
 			bufferedWriter.append(JsonParser.encode(new Packet(Request.NAME)));
 			bufferedWriter.append("\n");
 			bufferedWriter.flush();
-
 			CallableBufferedReader task = new CallableBufferedReader(getBufferedReader());
 			Future<String> future = pool.submit(task);
 			String line = config.responseTimeout() > 0 ? future.get(
@@ -56,6 +56,7 @@ public class Connection {
 				throw task.getException();
 			}
 			pool.shutdown();
+			logger.debug(String.format("Request name: %s", line));
 			return line.isEmpty() ? null : line;
 		} catch (Exception e) {
 			logger.error("Exception", e);
@@ -69,7 +70,6 @@ public class Connection {
 		this.config = config;
 		bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-
 		int agentNum = 1;
 		int humanNum = config.joinHuman() ? config.humanAgentNum() : -1;
 		name = requestName();
@@ -80,26 +80,27 @@ public class Connection {
 				agentNum++;
 		}
 		agent = Agent.setAgent(agentNum, name);
+		logger.info("Connection established: " + agent);
 	}
 
 	public Agent getAgent() {
 		return agent;
 	}
 
-	public void printException(RawFileLogger logger, Agent agent, Role role) {
+	public void printException(RawFileLogger rawFileLogger, Agent agent, Role role) {
 		if (!hasException)
 			return;
-		logger.log(String.format("%s(%s:%s)_[Request:%s] lostConnection", name, agent, role, causeRequest));
+		rawFileLogger.log(String.format("%s(%s:%s)_[Request:%s] lostConnection", name, agent, role, causeRequest));
 		for (StackTraceElement stackTraceElement : exception.getStackTrace()) {
-			logger.log(stackTraceElement.toString());
-			logger.flush();
+			rawFileLogger.log(stackTraceElement.toString());
+			rawFileLogger.flush();
 		}
 		if (causeException == null)
 			return;
-		logger.log(causeException.getClass() + ": " + causeException.getMessage());
+		rawFileLogger.log(causeException.getClass() + ": " + causeException.getMessage());
 		for (StackTraceElement stackTraceElement : causeException.getStackTrace()) {
-			logger.log(stackTraceElement.toString());
-			logger.flush();
+			rawFileLogger.log(stackTraceElement.toString());
+			rawFileLogger.flush();
 		}
 		hasException = false;
 	}
@@ -129,6 +130,7 @@ public class Connection {
 			bufferedReader.close();
 			bufferedWriter.close();
 			socket.close();
+			logger.info("Connection closed: " + agent);
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}

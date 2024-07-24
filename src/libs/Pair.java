@@ -19,6 +19,6 @@ public record Pair<K, V>(K key, V value) implements Serializable {
 
 	@Override
 	public String toString() {
-		return key + "," + value;
+		return String.format("%s,%s", key, value);
 	}
 }

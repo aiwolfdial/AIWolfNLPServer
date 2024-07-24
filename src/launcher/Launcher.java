@@ -36,10 +36,6 @@ import libs.CallableBufferedReader;
 import libs.Pair;
 import utils.JsonParser;
 
-/**
- * 継続してクライアントからの接続を受け付ける人狼知能対戦用サーバ
- * 人狼知能プラットフォーム標準のままだとAgent.getAgentが並列対応しておらず、バグるためgetAgentメソッドを並列処理できるようにする必要がある
- */
 public class Launcher {
 	private static final Logger logger = LogManager.getLogger(Launcher.class);
 
@@ -58,6 +54,7 @@ public class Launcher {
 		} catch (Exception e) {
 			logger.error("Exception", e);
 		}
+		logger.info("Launcher finished.");
 	}
 
 	public Launcher() throws IOException, ReflectiveOperationException {
@@ -69,23 +66,19 @@ public class Launcher {
 		logger.info("Start.");
 		if (isRunning)
 			return;
-		// ゲーム開始スレッドの起動
 		GameStarter gameStarter = new GameStarter(socketQueue, config);
 		gameStarter.start();
 		if (config.isServer()) {
-			// サーバとして待ち受け
 			acceptClients();
 		} else if (config.continueCombinations()) {
 			for (int i = 0; i < config.continueCombinationsNum(); i++) {
 				while (gameStarter.isGameRunning() || gameStarter.isWaitingGame()) {
-					// continue; のみとかだと何故か上手く動かない
 					try {
 						Thread.sleep(1000);
 					} catch (Exception e) {
 						logger.error("Exception", e);
 					}
 				}
-				// 2週目以降用
 				try {
 					logger.debug("Wait 20sec before connect to player server.");
 					Thread.sleep(20000);
@@ -93,7 +86,6 @@ public class Launcher {
 					logger.error("Exception", e);
 				}
 				connectToPlayerServer();
-				// connectToPlayerServerの追加待ち
 				try {
 					logger.debug("Wait 20sec after connect to player server.");
 					Thread.sleep(20000);
@@ -104,12 +96,10 @@ public class Launcher {
 		} else if (!config.listenPort()) {
 			connectToPlayerServer();
 		} else {
-			// port listening
 			while (true) {
 				connectToPlayerServer();
 			}
 		}
-		logger.info("End.");
 	}
 
 	@SuppressWarnings("resource")
@@ -180,7 +170,6 @@ public class Launcher {
 			} while (entryAgentIndex.contains(index));
 			entryAgentIndex.add(index);
 		}
-		logger.debug(String.format("Index: %d", index));
 		// インデックスに基づいてサーバー情報を設定
 		return switch (index) {
 			case 1 -> getSocket(config.player1Ip(), config.player1Port());
@@ -293,7 +282,6 @@ public class Launcher {
 	private String readLineFromSocket(Socket socket) throws IOException {
 		try (socket; BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 			String line = reader.readLine();
-			logger.debug(String.format("Read line: %s", line));
 			return line;
 		}
 	}
@@ -342,7 +330,6 @@ public class Launcher {
 	}
 
 	private void printActiveConnection() throws Exception {
-		logger.info("Print active connection.");
 		if (waitingSockets.isEmpty()) {
 			logger.debug("connecting : connection is empty.");
 			return;

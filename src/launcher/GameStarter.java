@@ -26,10 +26,10 @@ public class GameStarter extends Thread {
 
 	@Override
 	public void run() {
+		logger.info("GameStarter started.");
 		while (true) {
 			// 実行が終了しているサーバの削除
 			gameBuilders.removeIf(server -> !server.isAlive());
-
 			// 同時起動数未満なら待機リストから1グループ取得してゲームを開始する
 			synchronized (socketQueue) {
 				if (!socketQueue.isEmpty() && gameBuilders.size() < config.maxParallelExec()) {
@@ -45,8 +45,6 @@ public class GameStarter extends Thread {
 					logger.info("Started a new game with a group of sockets.");
 				}
 			}
-
-			// CPU使用率上昇対策
 			try {
 				Thread.sleep(1000L);
 			} catch (InterruptedException e) {

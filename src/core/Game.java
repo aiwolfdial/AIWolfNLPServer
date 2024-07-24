@@ -59,6 +59,7 @@ public class Game {
 	}
 
 	private void initialize() {
+		logger.info("Initialize game.");
 		gameServer.setGameData(gameData);
 		gameServer.setGameSetting(gameSetting);
 
@@ -70,7 +71,6 @@ public class Game {
 		}
 
 		Collections.shuffle(agents);
-
 		Map<Role, List<Agent>> requestRoleAgents = new HashMap<>();
 		for (Role role : Role.values()) {
 			requestRoleAgents.put(role, new ArrayList<>());
@@ -92,14 +92,14 @@ public class Game {
 			List<Agent> requestedAgents = requestRoleAgents.get(role);
 			int roleNum = gameSetting.getRoleNum(role);
 			for (int i = 0; i < roleNum; i++) {
-				Agent agentToAdd = requestedAgents.isEmpty() ? noRequestAgents.removeFirst()
+				Agent agent = requestedAgents.isEmpty() ? noRequestAgents.removeFirst()
 						: requestedAgents.removeFirst();
-				gameData.addAgent(agentToAdd, Status.ALIVE, role);
+				gameData.addAgent(agent, Status.ALIVE, role);
+				logger.debug(String.format("Set role %s to %s", role, agent));
 			}
 		}
 
 		gameDataMap.put(gameData.getDay(), gameData);
-
 		for (Agent agent : agents) {
 			gameServer.init(agent);
 		}
@@ -123,18 +123,25 @@ public class Game {
 		return false;
 	}
 
+	private void appendCombinationsText(Config config, String text) {
+		File file = new File(config.combinationsLogFilename());
+		try (RawFileLogger rawFileLogger = new RawFileLogger(file)) {
+			rawFileLogger.log(text);
+		} catch (IOException e) {
+			logger.error("Exception", e);
+		}
+	}
+
 	public void start() {
 		try {
 			initialize();
-
 			if (config.saveRoleCombination()) {
 				if (existsCombinationsText(config, getCombinationsText())) {
-					logger.info("Skip because the combination is already done.");
+					logger.warn("Skip because the combination is already done.");
 					finish();
 					return;
 				}
 			}
-
 			while (!isFinished()) {
 				consoleLog();
 
@@ -145,22 +152,15 @@ public class Game {
 				}
 			}
 			consoleLog();
-
 			if (config.saveRoleCombination()) {
-				try {
-					RawFileLogger rawFileLogger = new RawFileLogger(new File(config.combinationsLogFilename()));
-					rawFileLogger.log(getCombinationsText());
-					rawFileLogger.close();
-				} catch (Exception e) {
-					logger.error("Exception", e);
-				}
+				appendCombinationsText(config, getCombinationsText());
 			}
-
 			finish();
+			logger.info("Finish game.");
 			logger.info(String.format("Winner: %s", getWinner()));
 		} catch (LostAgentConnectionException e) {
 			if (rawFileLogger != null) {
-				rawFileLogger.log("Lost Connection of " + e.agent);
+				rawFileLogger.log("LostAgentConnectionException: " + e.agent);
 			}
 			throw e;
 		}
@@ -228,42 +228,43 @@ public class Game {
 
 	private void consoleLog() {
 		GameData yesterday = gameData.getDayBefore();
-
-		logger.info("=============================================");
+		logger.info("### START GAME INFO ###");
 		if (yesterday != null) {
-			logger.info(String.format("Day %02d", yesterday.getDay()));
-			logger.info("========talk========");
+			logger.info(String.format("Day%02d", yesterday.getDay()));
+			logger.info("### Talk ###");
 			for (Talk talk : yesterday.getTalkList()) {
 				logger.info(talk);
 			}
-			logger.info("========Whisper========");
+			logger.info("### Whisper ###");
 			for (Talk whisper : yesterday.getWhisperList()) {
 				logger.info(whisper);
 			}
-			logger.info("========Actions========");
+			logger.info("### Vote ###");
 			for (Vote vote : yesterday.getVotes()) {
-				logger.info(String.format("Vote: %s->%s", vote.agent(), vote.target()));
+				logger.info(vote);
 			}
+			logger.info("### Attack Vote ###");
 			for (Vote vote : yesterday.getAttackVotes()) {
-				logger.info(String.format("AttackVote: %s->%s", vote.agent(), vote.target()));
+				logger.info(vote);
 			}
+			logger.info("### Result ###");
 			logger.info(String.format("Executed: %s", yesterday.getExecuted()));
-			Judge divine = yesterday.getDivine();
-			if (divine != null) {
-				logger.info(String.format("Divine: %s->%s", divine.agent(), divine.target()));
-			}
-			Guard guard = yesterday.getGuard();
-			if (guard != null) {
-				logger.info(String.format("Guard: %s->%s", guard.agent(), guard.target()));
-			}
 			if (yesterday.getAttackedDead() != null) {
 				logger.info(String.format("Attacked: %s", yesterday.getAttackedDead()));
 			}
 			if (yesterday.getCursedFox() != null) {
 				logger.info(String.format("Cursed: %s", yesterday.getCursedFox()));
 			}
+			if (yesterday.getDivine() != null) {
+				logger.info("### Divine ###");
+				logger.info(yesterday.getDivine());
+			}
+			if (yesterday.getGuard() != null) {
+				logger.info("### Guard ###");
+				logger.info(yesterday.getGuard());
+			}
 		}
-		logger.info("======");
+		logger.info("### Agent ###");
 		List<Agent> agentList = gameData.getAgents();
 		agentList.sort(Comparator.comparingInt(o -> o.agentIdx));
 		for (Agent agent : agentList) {
@@ -297,7 +298,7 @@ public class Game {
 			logger.info(String.format("Others: %d",
 					gameData.getFilteredAgents(getAliveAgents(), Team.OTHERS).size()));
 		}
-		logger.info("=============================================");
+		logger.info("### END GAME INFO ###");
 	}
 
 	private void day() {
@@ -316,11 +317,9 @@ public class Game {
 		for (Agent agent : gameData.getAgents()) {
 			gameServer.dayFinish(agent);
 		}
-
 		if (!gameSetting.isTalkOnFirstDay() && gameData.getDay() == 0) {
 			whisper();
 		}
-
 		Agent executed = null;
 		List<Agent> candidates = null;
 		if (gameData.getDay() != 0) {
@@ -332,12 +331,10 @@ public class Game {
 					break;
 				}
 			}
-
 			if (executed == null) {
 				Collections.shuffle(candidates);
 				executed = candidates.getFirst();
 			}
-
 			if (executed != null) {
 				gameData.setExecutedTarget(executed);
 				if (rawFileLogger != null) {
@@ -346,13 +343,10 @@ public class Game {
 				}
 			}
 		}
-
 		divine();
-
 		if (gameData.getDay() != 0) {
 			whisper();
 			guard();
-
 			Agent attacked = null;
 			if (!getAliveWolfs().isEmpty()) {
 				for (int i = 0; i <= gameSetting.maxAttackRevote(); i++) {
@@ -371,14 +365,11 @@ public class Game {
 						break;
 					}
 				}
-
 				if (attacked == null && !gameSetting.isEnableNoAttack()) {
 					Collections.shuffle(candidates);
 					attacked = candidates.getFirst();
 				}
-
 				gameData.setAttackedTarget(attacked);
-
 				boolean isGuarded = false;
 				if (gameData.getGuard() != null) {
 					if (gameData.getGuard().target() == attacked && attacked != null) {
@@ -406,7 +397,6 @@ public class Game {
 				}
 			}
 		}
-
 		gameData = gameData.nextDay();
 		gameDataMap.put(gameData.getDay(), gameData);
 		gameServer.setGameData(gameData);
@@ -419,7 +409,6 @@ public class Game {
 				counter.add(vote.target());
 			}
 		}
-
 		int max = counter.get(counter.getLargest());
 		List<Agent> candidateList = new ArrayList<>();
 		for (Agent agent : counter) {
@@ -443,7 +432,6 @@ public class Game {
 				counter.add(agent);
 			}
 		}
-
 		int max = counter.get(counter.getLargest());
 		List<Agent> candidateList = new ArrayList<>();
 		for (Agent agent : counter) {
@@ -461,7 +449,6 @@ public class Game {
 						gameData.getRole(agent), gameData.getStatus(agent), agent.agentName));
 			}
 		}
-
 		for (Agent agent : gameData.getAgents()) {
 			gameServer.dayStart(agent);
 		}
@@ -472,11 +459,9 @@ public class Game {
 		for (Agent agent : aliveList) {
 			gameData.remainTalkMap.put(agent, gameSetting.maxTalk());
 		}
-
 		Counter<Agent> skipCounter = new Counter<>();
 		for (int time = 0; time < gameSetting.maxTalkTurn(); time++) {
 			Collections.shuffle(aliveList);
-
 			boolean continueTalk = false;
 			for (Agent agent : aliveList) {
 				String talkText = Talk.OVER;
@@ -500,7 +485,6 @@ public class Game {
 					rawFileLogger.log(String.format("%d,talk,%d,%d,%d,%s", gameData.getDay(), talk.idx(),
 							talk.turn(), talk.agent().agentIdx, talk.text()));
 				}
-
 				if (!talk.isOver() && !talk.isSkip()) {
 					skipCounter.put(agent, 0);
 				}
@@ -508,7 +492,6 @@ public class Game {
 					continueTalk = true;
 				}
 			}
-
 			if (!continueTalk) {
 				break;
 			}
@@ -523,11 +506,9 @@ public class Game {
 		for (Agent agent : aliveWolfList) {
 			gameData.remainWhisperMap.put(agent, gameSetting.maxWhisper());
 		}
-
 		Counter<Agent> skipCounter = new Counter<>();
 		for (int turn = 0; turn < gameSetting.maxWhisperTurn(); turn++) {
 			Collections.shuffle(aliveWolfList);
-
 			boolean continueWhisper = false;
 			for (Agent agent : aliveWolfList) {
 				String whisperText = Talk.OVER;
@@ -549,7 +530,6 @@ public class Game {
 					rawFileLogger.log(String.format("%d,whisper,%d,%d,%d,%s", gameData.getDay(), whisper.idx(),
 							whisper.turn(), whisper.agent().agentIdx, whisper.text()));
 				}
-
 				if (!whisper.isOver() && !whisper.isSkip()) {
 					skipCounter.put(agent, 0);
 				}
@@ -557,7 +537,6 @@ public class Game {
 					continueWhisper = true;
 				}
 			}
-
 			if (!continueWhisper) {
 				break;
 			}
@@ -579,7 +558,6 @@ public class Game {
 			latestVoteList.add(vote);
 		}
 		gameData.setLatestVoteList(latestVoteList);
-
 		for (Vote vote : latestVoteList) {
 			if (rawFileLogger != null) {
 				rawFileLogger.log(String.format("%d,vote,%d,%d", gameData.getDay(), vote.agent().agentIdx,
@@ -597,12 +575,10 @@ public class Game {
 				} else {
 					Judge divine = new Judge(gameData.getDay(), agent, target, targetRole.species);
 					gameData.setDivine(divine);
-
 					if (gameData.getRole(target) == Role.FOX) {
 						gameData.addLastDeadAgent(target);
 						gameData.setCursedFox(target);
 					}
-
 					if (rawFileLogger != null) {
 						rawFileLogger.log(String.format("%d,divine,%d,%d,%s", gameData.getDay(),
 								divine.agent().agentIdx, divine.target().agentIdx, divine.result()));
@@ -623,7 +599,6 @@ public class Game {
 				} else {
 					Guard guard = new Guard(gameData.getDay(), agent, target);
 					gameData.setGuard(guard);
-
 					if (rawFileLogger != null) {
 						rawFileLogger.log(
 								String.format("%d,guard,%d,%d,%s", gameData.getDay(), guard.agent().agentIdx,
@@ -643,7 +618,6 @@ public class Game {
 			} else {
 				Vote attackVote = new Vote(gameData.getDay(), agent, target);
 				gameData.addAttack(attackVote);
-
 				if (rawFileLogger != null) {
 					rawFileLogger.log(String.format("%d,attackVote,%d,%d", gameData.getDay(),
 							attackVote.agent().agentIdx, attackVote.target().agentIdx));
