@@ -35,8 +35,8 @@ player5Ip=127.0.0.1		; エージェント5の待ち受けIP (Agent 5 listening I
 player5Port=50004		; エージェント5の待ち受けポート (Agent 5 listening port)
 ```
 
-実行ログ (対戦ログではない) を出力しない場合は以下の設定を行ってください。  
-(If you do not want to output the execution log (not the battle log), please make the following settings.)
+実行ログ (対戦ログではない) をファイルに出力しない場合は以下の設定を行ってください。  
+(If you do not want to output the execution log (not the battle log) to a file, please make the following settings.)
 
 `config/log4j2.xml` の以下の行をコメントアウトしてください。  
 (Comment out the following line in `config/log4j2.xml`.)
@@ -47,6 +47,20 @@ player5Port=50004		; エージェント5の待ち受けポート (Agent 5 listen
 
 ```
 <!-- <AppenderRef ref="File" /> -->
+```
+
+また、実行ログ内に通信パケットをリアルタイムに表示しない場合は以下の設定を行ってください。
+(If you do not want to display communication packets in real time in the execution log, please make the following settings.)
+
+`config/log4j2.xml` の以下の行の `level` を `debug` に変更してください。
+(Change the `level` of the following line in `config/log4j2.xml` to `debug`.)
+
+```
+<Root level="trace">
+```
+
+```
+<Root level="debug">
 ```
 
 ## 実行 (Run)
