@@ -85,7 +85,7 @@ make run
 (Please return the agent name.)
 
 ```
-agent01
+kanolab
 ```
 
 ### INITIALIZE
