@@ -6,8 +6,8 @@ saveLog=true
 ; 対戦ログの出力先ディレクトリ
 logDir=./log/
 ; true: ロールの組み合わせを出力する
-; false: ロールの組み合わせを出力しない
-saveRoleCombination=true
+; false: ロールの組み合わせを出力しない (推奨)
+saveRoleCombination=false
 ; ロールの組み合わせの出力先ファイル
 combinationsLogFilename=./log/combinations.log
 
