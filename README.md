@@ -72,6 +72,11 @@ make run
 
 ## 通信プロトコル (Communication Protocol)
 
+詳細は下記ページを参照してください。  
+(For details, please refer to the following page.)
+
+https://sites.google.com/view/aiwolfdial2024-inlg/shared-task
+
 ### NAME
 
 サーバ側がエージェントに対してエージェント名を要求します。  
@@ -182,7 +187,7 @@ Agent[02]
 (The server requests an attack from the agent.)
 
 ```json
-{"request":"ATTACK","gameInfo":{"day":2,"agent":"Agent[04]","executedAgent":"Agent[01]","latestExecutedAgent":"Agent[03]","attackedAgent":"Agent[02]","voteList":[],"latestVoteList":[],"attackVoteList":[{"day":1,"agent":"Agent[04]","target":"Agent[02]"}],"latestAttackVoteList":[],"talkList":[{"idx":0,"day":2,"turn":0,"agent":"Agent[03]","text":">>Agent[04] ハッキングされているのでしょうか！？何故か貴方に投票されています！　私は人狼らしい人に投票するようにしただけなのに！会話履歴を見てみると村人候補への無駄な誘導が平均より多いと報告されています！","skip":false,"over":false},{"idx":1,"day":2,"turn":0,"agent":"Agent[05]","text":"Over","skip":false,"over":true},{"idx":2,"day":2,"turn":0,"agent":"Agent[04]","text":"Agent[04]とは気が合う気がするよ。","skip":false,"over":false},{"idx":3,"day":2,"turn":1,"agent":"Agent[04]","text":">>Agent[02] 現状一番怪しいのはAgent[02]かな。少なくとも私の立場からはね。おっと、これはまだ言わないほうが良かったかな。","skip":false,"over":false},{"idx":4,"day":2,"turn":1,"agent":"Agent[05]","text":"Over","skip":false,"over":true},{"idx":5,"day":2,"turn":1,"agent":"Agent[03]","text":"Agent[02]さんが死んじゃった……。","skip":false,"over":false},{"idx":6,"day":2,"turn":2,"agent":"Agent[05]","text":"Over","skip":false,"over":true},{"idx":7,"day":2,"turn":2,"agent":"Agent[03]","text":">>Agent[02] 今のところAgent[01]に投票するつもりだよ。","skip":false,"over":false},{"idx":8,"day":2,"turn":2,"agent":"Agent[04]","text":">>Agent[04] Agent[01]に投票します。ここは人外確定です。","skip":false,"over":false},{"idx":9,"day":2,"turn":3,"agent":"Agent[05]","text":"Over","skip":false,"over":true},{"idx":10,"day":2,"turn":3,"agent":"Agent[03]","text":">>Agent[01] Agent[01]が人狼のような気がします。","skip":false,"over":false},{"idx":11,"day":2,"turn":3,"agent":"Agent[04]","text":">>Agent[02] 人狼らしい人が見つかったんですか！？　それはすごい！　たとえ間違ったとしてもかまいません！　Agent[03]を疑う理由早く聞きたいです！","skip":false,"over":false},{"idx":12,"day":2,"turn":4,"agent":"Agent[04]","text":"占い師候補は１人か。それなら真だろうな。　人狼の可能性があるのはAgent[03]だな。","skip":false,"over":false},{"idx":13,"day":2,"turn":4,"agent":"Agent[03]","text":"こんにちは！　お会いできて嬉しいです！","skip":false,"over":false},{"idx":14,"day":2,"turn":4,"agent":"Agent[05]","text":"Over","skip":false,"over":true},{"idx":15,"day":2,"turn":5,"agent":"Agent[05]","text":"Over","skip":false,"over":true},{"idx":16,"day":2,"turn":5,"agent":"Agent[03]","text":"Over","skip":false,"over":true},{"idx":17,"day":2,"turn":5,"agent":"Agent[04]","text":"Over","skip":false,"over":true}],"whisperList":[],"statusMap":{"Agent[01]":"DEAD","Agent[02]":"DEAD","Agent[03]":"DEAD","Agent[04]":"ALIVE","Agent[05]":"ALIVE"},"roleMap":{"Agent[04]":"WEREWOLF"},"remainTalkMap":{"Agent[03]":0,"Agent[04]":0,"Agent[05]":5},"remainWhisperMap":{"Agent[04]":5},"existingRoleList":["POSSESSED","SEER","VILLAGER","WEREWOLF"],"lastDeadAgentList":["Agent[02]"]}}
+{"request":"ATTACK","gameInfo":{"day":2,"agent":"Agent[04]","executedAgent":"Agent[01]","latestExecutedAgent":"Agent[03]","attackedAgent":"Agent[02]","voteList":[],"latestVoteList":[],"attackVoteList":[{"day":1,"agent":"Agent[04]","target":"Agent[02]"}],"latestAttackVoteList":[],"talkList":[{"idx":0,"day":2,"turn":0,"agent":"Agent[03]","text":">>Agent[04] ハッキングされているのでしょうか！？何故か貴方に投票されています！　私は人狼らしい人に投票するようにしただけなのに！会話履歴を見てみると村人候補への無駄な誘導が平均より多いと報告されています！","skip":false,"over":false},...,{"idx":16,"day":2,"turn":5,"agent":"Agent[03]","text":"Over","skip":false,"over":true},{"idx":17,"day":2,"turn":5,"agent":"Agent[04]","text":"Over","skip":false,"over":true}],"whisperList":[],"statusMap":{"Agent[01]":"DEAD","Agent[02]":"DEAD","Agent[03]":"DEAD","Agent[04]":"ALIVE","Agent[05]":"ALIVE"},"roleMap":{"Agent[04]":"WEREWOLF"},"remainTalkMap":{"Agent[03]":0,"Agent[04]":0,"Agent[05]":5},"remainWhisperMap":{"Agent[04]":5},"existingRoleList":["POSSESSED","SEER","VILLAGER","WEREWOLF"],"lastDeadAgentList":["Agent[02]"]}}
 ```
 
 襲撃先エージェントを返してください。  

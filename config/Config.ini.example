@@ -67,9 +67,9 @@ maxTalkTurn=20
 ; false: 初日にエージェント同士で話し合わない
 talkOnFirstDay=true
 ; エージェントの接続待ち時間 (ミリ秒)
-responseTimeout=6000
+responseTimeout=120000
 ; エージェントのアクション待ち時間 (ミリ秒)
-actionTimeout=3000
+actionTimeout=60000
 ; true: エージェントで発生した例外を無視してゲームを続行する (推奨)
 ; false: エージェントで発生した例外を無視せず、ゲームを中断する
 ignoreAgentException=true
