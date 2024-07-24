@@ -8,10 +8,10 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class GameInfo {
-	public int day;
+	public final int day;
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	public Agent agent;
+	public final Agent agent;
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	public Judge mediumResult;

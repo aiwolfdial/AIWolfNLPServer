@@ -173,7 +173,7 @@ public class Launcher {
 
 	// サーバーソケットを取得するメソッド
 	private Socket getSocketFromIndex(int index, String line, Set<Integer> entryAgentIndex)
-			throws UnknownHostException, ConnectException, NoRouteToHostException, IOException {
+			throws IOException {
 		logger.info(String.format("Get socket from index: %d", index));
 		// 他の組み合わせを続行する設定が有効な場合、ランダムにインデックスを選択
 		if (config.continueCombinations()) {
@@ -202,7 +202,7 @@ public class Launcher {
 		};
 	}
 
-	private Socket getSocket(String hostname, int port) throws UnknownHostException, IOException {
+	private Socket getSocket(String hostname, int port) throws IOException {
 		Socket socket = new Socket(hostname, port);
 		logger.debug(String.format("Socket connected: %s:%d", hostname, port));
 		try {
@@ -272,7 +272,7 @@ public class Launcher {
 	}
 
 	private String getName(Socket socket) throws IOException, InterruptedException,
-			ExecutionException, TimeoutException, SocketException {
+			ExecutionException, TimeoutException {
 		logger.info("Get name.");
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -295,12 +295,10 @@ public class Launcher {
 	}
 
 	private String readLineFromSocket(Socket socket) throws IOException {
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+		try (socket; BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 			String line = reader.readLine();
 			logger.debug(String.format("Read line: %s", line));
 			return line;
-		} finally {
-			socket.close();
 		}
 	}
 
@@ -347,7 +345,7 @@ public class Launcher {
 		});
 	}
 
-	private void printActiveConnection() throws SocketException, IOException,
+	private void printActiveConnection() throws IOException,
 			InterruptedException, ExecutionException, TimeoutException {
 		logger.info("Print active connection.");
 		if (waitingSockets.isEmpty()) {

@@ -17,14 +17,14 @@ public class IniLoader {
         Ini ini = new Ini(file);
         return ini.entrySet().stream()
                 .collect(Collectors.toMap(
-                        e -> (String) e.getKey(),
-                        e -> ((Section) e.getValue()).entrySet().stream()
+                        e -> e.getKey(),
+                        e -> e.getValue().entrySet().stream()
                                 .collect(Collectors.toMap(
-                                        entry -> (String) entry.getKey(),
-                                        entry -> (String) entry.getValue()))));
+                                        entry -> entry.getKey(),
+                                        entry -> entry.getValue()))));
     }
 
-    public static <T> T load(String filename, Class<T> clazz) throws IOException, ReflectiveOperationException {
+    public static <T> T load(String filename, Class<T> clazz) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
         Map<String, Map<String, String>> map = parseIniFile(new File(filename));

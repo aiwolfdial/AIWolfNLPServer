@@ -181,7 +181,7 @@ public class GameBuilder extends Thread {
 
 			String gameName = String.format("%s_[%03d]_%s",
 					DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()), i + 1,
-					gameServer.getNames().stream().collect(Collectors.joining(":")));
+					String.join(":", gameServer.getNames()));
 
 			try {
 				Game game = new Game(config, gameSetting, gameServer, gameData);
@@ -199,7 +199,7 @@ public class GameBuilder extends Thread {
 				// 今回のゲームでエラーが発生したエージェントがいた場合はエラーログを出力する
 				if (config.saveLog()) {
 					Set<Entry<Agent, Connection>> newLostConnectionSet = connections.stream()
-							.filter(connection -> connection.getHasException())
+							.filter(Connection::getHasException)
 							.collect(Collectors.toMap(Connection::getAgent, connection -> connection)).entrySet();
 					File file = new File(config.logDir(), String.format("%s_ERROR.log", gameName));
 					RawFileLogger logger = new RawFileLogger(file);

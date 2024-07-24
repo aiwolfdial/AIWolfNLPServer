@@ -36,7 +36,7 @@ public class GameServer {
 	private GameSetting gameSetting;
 	private final Config config;
 	private final Set<Connection> connections;
-	
+
 	private List<Agent> agents;
 	private GameData gameData;
 	private final Map<Agent, Integer> lastTalkIdxMap = new HashMap<>();
@@ -174,13 +174,6 @@ public class GameServer {
 
 	public String requestWhisper(Agent agent) {
 		return (String) request(agent, Request.WHISPER);
-	}
-
-	public void close() {
-		for (Connection connection : connections) {
-			connection.close();
-		}
-		connections.clear();
 	}
 
 	public List<Agent> getAgents() {
