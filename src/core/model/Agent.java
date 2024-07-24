@@ -12,8 +12,8 @@ import utils.AgentSerializer;
 @JsonSerialize(using = AgentSerializer.class)
 @JsonDeserialize(using = AgentDeserializer.class)
 final public class Agent implements Comparable<Agent> {
-	public final int agentIdx;
-	public final String agentName;
+	public final int idx;
+	public final String name;
 
 	private static final Map<Integer, Agent> agentIndexMap = new HashMap<>();
 
@@ -30,7 +30,7 @@ final public class Agent implements Comparable<Agent> {
 			return getAgent(idx);
 		}
 		for (Agent agent : agentIndexMap.values()) {
-			if (agent.agentName.equals(name)) {
+			if (agent.name.equals(name)) {
 				return agent;
 			}
 		}
@@ -47,18 +47,18 @@ final public class Agent implements Comparable<Agent> {
 	}
 
 	private Agent(int idx, String name) {
-		this.agentIdx = idx;
-		this.agentName = name;
+		this.idx = idx;
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Agent[%02d]", agentIdx);
+		return String.format("Agent[%02d]", idx);
 	}
 
 	@Override
 	public int hashCode() {
-		return Integer.hashCode(agentIdx);
+		return Integer.hashCode(idx);
 	}
 
 	@Override
@@ -70,7 +70,7 @@ final public class Agent implements Comparable<Agent> {
 		if (getClass() != obj.getClass())
 			return false;
 		Agent other = (Agent) obj;
-		return agentIdx == other.agentIdx;
+		return idx == other.idx;
 	}
 
 	@Override
@@ -78,6 +78,6 @@ final public class Agent implements Comparable<Agent> {
 		if (target == null) {
 			return 1;
 		}
-		return agentIdx - target.agentIdx;
+		return idx - target.idx;
 	}
 }

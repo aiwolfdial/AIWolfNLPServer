@@ -60,7 +60,7 @@ public class GameServer {
 		return connections.stream().filter(c -> c.getAgent().equals(agent)).findFirst().orElse(null);
 	}
 
-	protected Object throwException(Agent agent, Request request, Exception e) throws LostAgentConnectionException {
+	private Object throwException(Agent agent, Request request, Exception e) throws LostAgentConnectionException {
 		Connection connection = getConnection(agent);
 		if (connection.isAlive()) {
 			logger.error("Exception", e);
@@ -71,7 +71,7 @@ public class GameServer {
 		throw new LostAgentConnectionException(e, agent);
 	}
 
-	protected String getResponse(Connection connection, ExecutorService pool, Agent agent, Request request,
+	private String getResponse(Connection connection, ExecutorService pool, Agent agent, Request request,
 			long timeout)
 			throws Exception {
 		send(agent, request);
@@ -92,7 +92,7 @@ public class GameServer {
 		return line;
 	}
 
-	protected Object convertRequestData(Request request, String line) {
+	private Object convertRequestData(Request request, String line) {
 		if (line != null && line.isEmpty()) {
 			line = null;
 		}
@@ -104,7 +104,7 @@ public class GameServer {
 		};
 	}
 
-	protected Object request(Agent agent, Request request) {
+	private Object request(Agent agent, Request request) {
 		// ゲーム設定からレスポンスとアクションのタイムアウトを取得
 		long responseTimeout = gameSetting.responseTimeout();
 		long actionTimeout = gameSetting.actionTimeout();
@@ -127,7 +127,7 @@ public class GameServer {
 						String line = getResponse(connection, pool, agent, Request.NAME,
 								responseTimeout - actionTimeout);
 						// 名前が一致するかを確認
-						String expectedName = agent.agentName;
+						String expectedName = agent.name;
 						if (expectedName.equals(line)) {
 							return convertRequestData(Request.TALK, Talk.FORCE_SKIP);
 						} else {
@@ -187,7 +187,7 @@ public class GameServer {
 		return agents;
 	}
 
-	protected String getMessage(Agent agent, Request request) {
+	private String getMessage(Agent agent, Request request) {
 		Packet packet = null;
 		boolean flag = false;
 
@@ -237,12 +237,12 @@ public class GameServer {
 	public Set<String> getNames() {
 		Set<String> set = new HashSet<>();
 		for (Agent agent : agents) {
-			set.add(agent.agentName);
+			set.add(agent.name);
 		}
 		return new HashSet<>(set);
 	}
 
-	protected List<Talk> minimize(Agent agent, List<Talk> list, Map<Agent, Integer> lastIdxMap) {
+	private List<Talk> minimize(Agent agent, List<Talk> list, Map<Agent, Integer> lastIdxMap) {
 		int lastIdx = list.size();
 		if (lastIdxMap.containsKey(agent) && list.size() >= lastIdxMap.get(agent)) {
 			list = list.subList(lastIdxMap.get(agent), list.size());
@@ -251,7 +251,7 @@ public class GameServer {
 		return list;
 	}
 
-	protected void send(Agent agent, Request request) {
+	private void send(Agent agent, Request request) {
 		String message = getMessage(agent, request);
 		Connection connection = getConnection(agent);
 		BufferedWriter bw = connection.getBufferedWriter();

@@ -33,7 +33,6 @@ public class Connection {
 	private final Socket socket;
 	private final BufferedReader bufferedReader;
 	private final BufferedWriter bufferedWriter;
-	private final String name;
 
 	private boolean isAlive = true;
 	private boolean hasException = false;
@@ -72,7 +71,7 @@ public class Connection {
 		bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 		int agentNum = 1;
 		int humanNum = config.joinHuman() ? config.humanAgentNum() : -1;
-		name = requestName();
+		String name = requestName();
 		if (name != null && name.equals(config.humanName()) && config.joinHuman()) {
 			agentNum = humanNum;
 		} else {
@@ -90,7 +89,8 @@ public class Connection {
 	public void printException(RawFileLogger rawFileLogger, Agent agent, Role role) {
 		if (!hasException)
 			return;
-		rawFileLogger.log(String.format("%s(%s:%s)_[Request:%s] lostConnection", name, agent, role, causeRequest));
+		rawFileLogger
+				.log(String.format("%s(%s:%s)_[Request:%s] lostConnection", agent.name, agent, role, causeRequest));
 		for (StackTraceElement stackTraceElement : exception.getStackTrace()) {
 			rawFileLogger.log(stackTraceElement.toString());
 			rawFileLogger.flush();

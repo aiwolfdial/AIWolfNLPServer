@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -143,7 +142,7 @@ public class Game {
 				}
 			}
 			while (!isFinished()) {
-				consoleLog();
+				logGameData();
 
 				day();
 				night();
@@ -151,7 +150,7 @@ public class Game {
 					rawFileLogger.flush();
 				}
 			}
-			consoleLog();
+			logGameData();
 			if (config.saveRoleCombination()) {
 				appendCombinationsText(config, getCombinationsText());
 			}
@@ -171,7 +170,7 @@ public class Game {
 		gameData.getAgents().stream()
 				.sorted()
 				.forEach(agent -> {
-					String agentName = agent.agentName.replaceAll("[0-9]", "");
+					String agentName = agent.name.replaceAll("[0-9]", "");
 					combinationText.add(String.format("%s,%s", gameData.getRole(agent), agentName));
 				});
 		Collections.sort(combinationText);
@@ -181,11 +180,11 @@ public class Game {
 	private void finish() {
 		if (rawFileLogger != null) {
 			for (Agent agent : new TreeSet<>(gameData.getAgents())) {
-				rawFileLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.agentIdx,
-						gameData.getRole(agent), gameData.getStatus(agent), agent.agentName));
+				rawFileLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.idx,
+						gameData.getRole(agent), gameData.getStatus(agent), agent.name));
 			}
-			rawFileLogger.log(String.format("%d,result,%d,%d,%s", gameData.getDay(), getAliveHumans().size(),
-					getAliveWolfs().size(), getWinner()));
+			rawFileLogger.log(String.format("%d,result,%d,%d,%s", gameData.getDay(), gameData.getAliveHumans().size(),
+					gameData.getAliveWolfs().size(), getWinner()));
 			rawFileLogger.close();
 		}
 		for (Agent agent : gameData.getAgents()) {
@@ -226,7 +225,7 @@ public class Game {
 		}
 	}
 
-	private void consoleLog() {
+	private void logGameData() {
 		GameData yesterday = gameData.getDayBefore();
 		logger.info("### START GAME INFO ###");
 		if (yesterday != null) {
@@ -266,10 +265,10 @@ public class Game {
 		}
 		logger.info("### Agent ###");
 		List<Agent> agentList = gameData.getAgents();
-		agentList.sort(Comparator.comparingInt(o -> o.agentIdx));
+		agentList.sort(Comparator.comparingInt(o -> o.idx));
 		for (Agent agent : agentList) {
 			StringBuilder logBuilder = new StringBuilder();
-			logBuilder.append(String.format("%s\t%s\t%s\t%s", agent, agent.agentName, gameData.getStatus(agent),
+			logBuilder.append(String.format("%s\t%s\t%s\t%s", agent, agent.name, gameData.getStatus(agent),
 					gameData.getRole(agent)));
 			if (yesterday != null) {
 				if (yesterday.getExecuted() == agent) {
@@ -292,11 +291,11 @@ public class Game {
 			}
 			logger.info(logBuilder.toString());
 		}
-		logger.info(String.format("Human: %d", getAliveHumans().size()));
-		logger.info(String.format("Werewolf: %d", getAliveWolfs().size()));
+		logger.info(String.format("Human: %d", gameData.getAliveHumans().size()));
+		logger.info(String.format("Werewolf: %d", gameData.getAliveWolfs().size()));
 		if (gameSetting.getRoleNum(Role.FOX) != 0) {
 			logger.info(String.format("Others: %d",
-					gameData.getFilteredAgents(getAliveAgents(), Team.OTHERS).size()));
+					gameData.getAliveOthers().size()));
 		}
 		logger.info("### END GAME INFO ###");
 	}
@@ -338,7 +337,7 @@ public class Game {
 			if (executed != null) {
 				gameData.setExecutedTarget(executed);
 				if (rawFileLogger != null) {
-					rawFileLogger.log(String.format("%d,execute,%d,%s", gameData.getDay(), executed.agentIdx,
+					rawFileLogger.log(String.format("%d,execute,%d,%s", gameData.getDay(), executed.idx,
 							gameData.getRole(executed)));
 				}
 			}
@@ -348,7 +347,7 @@ public class Game {
 			whisper();
 			guard();
 			Agent attacked = null;
-			if (!getAliveWolfs().isEmpty()) {
+			if (!gameData.getAliveWolfs().isEmpty()) {
 				for (int i = 0; i <= gameSetting.maxAttackRevote(); i++) {
 					attackVote();
 					List<Vote> attackCandidateList = gameData.getAttackVotes();
@@ -384,11 +383,11 @@ public class Game {
 					gameData.addLastDeadAgent(attacked);
 
 					if (rawFileLogger != null) {
-						rawFileLogger.log(String.format("%d,attack,%d,true", gameData.getDay(), attacked.agentIdx));
+						rawFileLogger.log(String.format("%d,attack,%d,true", gameData.getDay(), attacked.idx));
 					}
 				} else if (attacked != null) {
 					if (rawFileLogger != null) {
-						rawFileLogger.log(String.format("%d,attack,%d,false", gameData.getDay(), attacked.agentIdx));
+						rawFileLogger.log(String.format("%d,attack,%d,false", gameData.getDay(), attacked.idx));
 					}
 				} else {
 					if (rawFileLogger != null) {
@@ -402,7 +401,7 @@ public class Game {
 		gameServer.setGameData(gameData);
 	}
 
-	protected List<Agent> getVotedCandidates(List<Vote> voteList) {
+	private List<Agent> getVotedCandidates(List<Vote> voteList) {
 		Counter<Agent> counter = new Counter<>();
 		for (Vote vote : voteList) {
 			if (gameData.getStatus(vote.target()) == Status.ALIVE) {
@@ -428,7 +427,7 @@ public class Game {
 			}
 		}
 		if (!gameSetting.isEnableNoAttack()) {
-			for (Agent agent : getAliveHumans()) {
+			for (Agent agent : gameData.getAliveHumans()) {
 				counter.add(agent);
 			}
 		}
@@ -445,8 +444,8 @@ public class Game {
 	private void dayStart() {
 		if (rawFileLogger != null) {
 			for (Agent agent : new TreeSet<>(gameData.getAgents())) {
-				rawFileLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.agentIdx,
-						gameData.getRole(agent), gameData.getStatus(agent), agent.agentName));
+				rawFileLogger.log(String.format("%d,status,%d,%s,%s,%s", gameData.getDay(), agent.idx,
+						gameData.getRole(agent), gameData.getStatus(agent), agent.name));
 			}
 		}
 		for (Agent agent : gameData.getAgents()) {
@@ -455,15 +454,13 @@ public class Game {
 	}
 
 	private void talk() {
-		List<Agent> aliveList = getAliveAgents();
-		for (Agent agent : aliveList) {
-			gameData.remainTalkMap.put(agent, gameSetting.maxTalk());
-		}
+		gameData.resetRemainTalkMap();
 		Counter<Agent> skipCounter = new Counter<>();
 		for (int time = 0; time < gameSetting.maxTalkTurn(); time++) {
-			Collections.shuffle(aliveList);
+			List<Agent> aliveAgents = new ArrayList<>(gameData.getAliveAgents());
+			Collections.shuffle(aliveAgents);
 			boolean continueTalk = false;
-			for (Agent agent : aliveList) {
+			for (Agent agent : aliveAgents) {
 				String talkText = Talk.OVER;
 				if (gameData.getRemainTalkMap().get(agent) > 0) {
 					talkText = gameServer.requestTalk(agent);
@@ -483,7 +480,7 @@ public class Game {
 				gameData.addTalk(talk.agent(), talk);
 				if (rawFileLogger != null) {
 					rawFileLogger.log(String.format("%d,talk,%d,%d,%d,%s", gameData.getDay(), talk.idx(),
-							talk.turn(), talk.agent().agentIdx, talk.text()));
+							talk.turn(), talk.agent().idx, talk.text()));
 				}
 				if (!talk.isOver() && !talk.isSkip()) {
 					skipCounter.put(agent, 0);
@@ -499,18 +496,13 @@ public class Game {
 	}
 
 	private void whisper() {
-		List<Agent> aliveWolfList = gameData.getFilteredAgents(getAliveAgents(), Role.WEREWOLF);
-		if (aliveWolfList.size() == 1) {
-			return;
-		}
-		for (Agent agent : aliveWolfList) {
-			gameData.remainWhisperMap.put(agent, gameSetting.maxWhisper());
-		}
+		gameData.resetRemainWhisperMap();
 		Counter<Agent> skipCounter = new Counter<>();
 		for (int turn = 0; turn < gameSetting.maxWhisperTurn(); turn++) {
-			Collections.shuffle(aliveWolfList);
+			List<Agent> aliveWolfs = new ArrayList<>(gameData.getAliveWolfs());
+			Collections.shuffle(aliveWolfs);
 			boolean continueWhisper = false;
-			for (Agent agent : aliveWolfList) {
+			for (Agent agent : aliveWolfs) {
 				String whisperText = Talk.OVER;
 				if (gameData.getRemainWhisperMap().get(agent) > 0) {
 					whisperText = gameServer.requestWhisper(agent);
@@ -528,7 +520,7 @@ public class Game {
 				gameData.addWhisper(whisper.agent(), whisper);
 				if (rawFileLogger != null) {
 					rawFileLogger.log(String.format("%d,whisper,%d,%d,%d,%s", gameData.getDay(), whisper.idx(),
-							whisper.turn(), whisper.agent().agentIdx, whisper.text()));
+							whisper.turn(), whisper.agent().idx, whisper.text()));
 				}
 				if (!whisper.isOver() && !whisper.isSkip()) {
 					skipCounter.put(agent, 0);
@@ -545,7 +537,7 @@ public class Game {
 
 	private void vote() {
 		gameData.getVotes().clear();
-		List<Agent> voters = getAliveAgents();
+		List<Agent> voters = gameData.getAliveAgents();
 		List<Vote> latestVoteList = new ArrayList<>();
 		for (Agent agent : voters) {
 			Agent target = gameServer.requestVote(agent);
@@ -560,14 +552,14 @@ public class Game {
 		gameData.setLatestVoteList(latestVoteList);
 		for (Vote vote : latestVoteList) {
 			if (rawFileLogger != null) {
-				rawFileLogger.log(String.format("%d,vote,%d,%d", gameData.getDay(), vote.agent().agentIdx,
-						vote.target().agentIdx));
+				rawFileLogger.log(String.format("%d,vote,%d,%d", gameData.getDay(), vote.agent().idx,
+						vote.target().idx));
 			}
 		}
 	}
 
 	private void divine() {
-		for (Agent agent : getAliveAgents()) {
+		for (Agent agent : gameData.getAliveAgents()) {
 			if (gameData.getRole(agent) == Role.SEER) {
 				Agent target = gameServer.requestDivineTarget(agent);
 				Role targetRole = gameData.getRole(target);
@@ -581,7 +573,7 @@ public class Game {
 					}
 					if (rawFileLogger != null) {
 						rawFileLogger.log(String.format("%d,divine,%d,%d,%s", gameData.getDay(),
-								divine.agent().agentIdx, divine.target().agentIdx, divine.result()));
+								divine.agent().idx, divine.target().idx, divine.result()));
 					}
 				}
 			}
@@ -589,7 +581,7 @@ public class Game {
 	}
 
 	private void guard() {
-		for (Agent agent : getAliveAgents()) {
+		for (Agent agent : gameData.getAliveAgents()) {
 			if (gameData.getRole(agent) == Role.BODYGUARD) {
 				if (agent == gameData.getExecuted()) {
 					continue;
@@ -601,8 +593,8 @@ public class Game {
 					gameData.setGuard(guard);
 					if (rawFileLogger != null) {
 						rawFileLogger.log(
-								String.format("%d,guard,%d,%d,%s", gameData.getDay(), guard.agent().agentIdx,
-										guard.target().agentIdx, gameData.getRole(guard.target())));
+								String.format("%d,guard,%d,%d,%s", gameData.getDay(), guard.agent().idx,
+										guard.target().idx, gameData.getRole(guard.target())));
 					}
 				}
 			}
@@ -611,7 +603,7 @@ public class Game {
 
 	private void attackVote() {
 		gameData.getAttackVotes().clear();
-		for (Agent agent : getAliveWolfs()) {
+		for (Agent agent : gameData.getAliveWolfs()) {
 			Agent target = gameServer.requestAttackTarget(agent);
 			if (target == null || gameData.getStatus(target) == null || gameData.getStatus(target) == Status.DEAD
 					|| gameData.getRole(target) == Role.WEREWOLF) {
@@ -620,7 +612,7 @@ public class Game {
 				gameData.addAttack(attackVote);
 				if (rawFileLogger != null) {
 					rawFileLogger.log(String.format("%d,attackVote,%d,%d", gameData.getDay(),
-							attackVote.agent().agentIdx, attackVote.target().agentIdx));
+							attackVote.agent().idx, attackVote.target().idx));
 				}
 			}
 		}
@@ -632,20 +624,6 @@ public class Game {
 		List<Agent> list = new ArrayList<>(agentList);
 		list.removeAll(Arrays.asList(without));
 		return list.get(new Random().nextInt(list.size()));
-	}
-
-	private List<Agent> getAliveAgents() {
-		return gameData.getAgents().stream()
-				.filter(agent -> gameData.getStatus(agent) == Status.ALIVE)
-				.collect(Collectors.toList());
-	}
-
-	private List<Agent> getAliveHumans() {
-		return gameData.getFilteredAgents(getAliveAgents(), Species.HUMAN);
-	}
-
-	private List<Agent> getAliveWolfs() {
-		return gameData.getFilteredAgents(getAliveAgents(), Species.WEREWOLF);
 	}
 
 	private boolean isFinished() {

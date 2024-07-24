@@ -47,7 +47,7 @@ public class GameBuilder extends Thread {
 		Set<Integer> usedNumberSet = new HashSet<>();
 		for (Socket socket : sockets) {
 			Connection connection = new Connection(socket, config, usedNumberSet);
-			usedNumberSet.add(connection.getAgent().agentIdx);
+			usedNumberSet.add(connection.getAgent().idx);
 			connections.add(connection);
 		}
 		this.config = config;
@@ -116,7 +116,7 @@ public class GameBuilder extends Thread {
 		Agent human = null;
 		if (config.joinHuman()) {
 			for (Connection connection : connections) {
-				if (connection.getAgent().agentName.equals(config.humanName())) {
+				if (connection.getAgent().name.equals(config.humanName())) {
 					human = connection.getAgent();
 				}
 			}

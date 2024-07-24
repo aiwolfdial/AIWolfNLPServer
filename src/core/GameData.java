@@ -22,28 +22,27 @@ import core.model.Team;
 import core.model.Vote;
 
 public class GameData {
-	protected int day;
-	protected Map<Agent, Status> agentStatusMap = new LinkedHashMap<>();
-	protected Map<Agent, Role> agentRoleMap = new HashMap<>();
-	protected final List<Talk> talkList = new ArrayList<>();
-	protected final List<Talk> whisperList = new ArrayList<>();
-	protected final List<Vote> voteList = new ArrayList<>();
-	protected List<Vote> latestVoteList = new ArrayList<>();
-	protected final List<Vote> attackVoteList = new ArrayList<>();
-	protected List<Vote> latestAttackVoteList = new ArrayList<>();
-	protected final Map<Agent, Integer> remainTalkMap = new HashMap<>();
-	protected final Map<Agent, Integer> remainWhisperMap = new HashMap<>();
-	protected Judge divine;
-	protected Guard guard;
-	protected Agent executed;
-	protected Agent attackedDead;
-	protected Agent attacked;
-	protected Agent cursedFox;
-	protected final List<Agent> lastDeadAgentList = new ArrayList<>();
-	protected List<Agent> suddenDeathList = new ArrayList<>();
-	protected GameData dayBefore;
-	protected int talkIdx;
-	protected int whisperIdx;
+	private int day;
+	private Map<Agent, Status> agentStatusMap = new LinkedHashMap<>();
+	private Map<Agent, Role> agentRoleMap = new HashMap<>();
+	private final List<Talk> talkList = new ArrayList<>();
+	private final List<Talk> whisperList = new ArrayList<>();
+	private final List<Vote> voteList = new ArrayList<>();
+	private List<Vote> latestVoteList = new ArrayList<>();
+	private final List<Vote> attackVoteList = new ArrayList<>();
+	private List<Vote> latestAttackVoteList = new ArrayList<>();
+	private final Map<Agent, Integer> remainTalkMap = new HashMap<>();
+	private final Map<Agent, Integer> remainWhisperMap = new HashMap<>();
+	private Judge divine;
+	private Guard guard;
+	private Agent executed;
+	private Agent attackedDead;
+	private Agent attacked;
+	private Agent cursedFox;
+	private final List<Agent> lastDeadAgentList = new ArrayList<>();
+	private GameData dayBefore;
+	private int talkIdx;
+	private int whisperIdx;
 
 	private final GameSetting gameSetting;
 
@@ -285,19 +284,19 @@ public class GameData {
 		return dayBefore;
 	}
 
-	protected List<Agent> getFilteredAgents(List<Agent> agentList, Species species) {
+	private List<Agent> getFilteredAgents(List<Agent> agentList, Species species) {
 		return agentList.stream()
 				.filter(agent -> getRole(agent).species == species)
 				.collect(Collectors.toList());
 	}
 
-	protected List<Agent> getFilteredAgents(List<Agent> agentList, Role role) {
+	private List<Agent> getFilteredAgents(List<Agent> agentList, Role role) {
 		return agentList.stream()
 				.filter(agent -> getRole(agent) == role)
 				.collect(Collectors.toList());
 	}
 
-	protected List<Agent> getFilteredAgents(List<Agent> agentList, Team team) {
+	private List<Agent> getFilteredAgents(List<Agent> agentList, Team team) {
 		return agentList.stream()
 				.filter(agent -> getRole(agent).team == team)
 				.collect(Collectors.toList());
@@ -341,5 +340,35 @@ public class GameData {
 
 	public void setLatestAttackVoteList(List<Vote> latestAttackVoteList) {
 		this.latestAttackVoteList = latestAttackVoteList;
+	}
+
+	public List<Agent> getAliveAgents() {
+		return agentStatusMap.entrySet().stream()
+				.filter(entry -> entry.getValue() == Status.ALIVE)
+				.map(Map.Entry::getKey)
+				.collect(Collectors.toList());
+	}
+
+	public List<Agent> getAliveHumans() {
+		return getFilteredAgents(getAliveAgents(), Species.HUMAN);
+	}
+
+	public List<Agent> getAliveWolfs() {
+		return getFilteredAgents(getAliveAgents(), Species.WEREWOLF);
+	}
+
+	public List<Agent> getAliveOthers() {
+		return getFilteredAgents(getAliveAgents(), Team.OTHERS);
+	}
+
+	public void resetRemainTalkMap() {
+		getAliveAgents().forEach(agent -> remainTalkMap.put(agent, gameSetting.maxTalk()));
+	}
+
+	public void resetRemainWhisperMap() {
+		List<Agent> aliveWolfList = getFilteredAgents(getAliveAgents(), Role.WEREWOLF);
+		if (aliveWolfList.size() > 1) {
+			aliveWolfList.forEach(agent -> remainWhisperMap.put(agent, gameSetting.maxWhisper()));
+		}
 	}
 }

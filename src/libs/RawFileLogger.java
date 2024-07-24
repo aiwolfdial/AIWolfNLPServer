@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 public class RawFileLogger implements AutoCloseable {
 	private static final Logger logger = LogManager.getLogger(RawFileLogger.class);
 
-	protected BufferedWriter bufferedWriter;
+	private BufferedWriter bufferedWriter;
 
 	public RawFileLogger(File file) throws IOException {
 		file.getParentFile().mkdirs();
