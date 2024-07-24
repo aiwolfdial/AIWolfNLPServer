@@ -365,10 +365,13 @@ public class GameData {
 		getAliveAgents().forEach(agent -> remainTalkMap.put(agent, gameSetting.maxTalk()));
 	}
 
-	public void resetRemainWhisperMap() {
+	public boolean resetRemainWhisperMap() {
 		List<Agent> aliveWolfList = getFilteredAgents(getAliveAgents(), Role.WEREWOLF);
 		if (aliveWolfList.size() > 1) {
 			aliveWolfList.forEach(agent -> remainWhisperMap.put(agent, gameSetting.maxWhisper()));
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

@@ -494,7 +494,9 @@ public class Game {
 	}
 
 	private void whisper() {
-		gameData.resetRemainWhisperMap();
+		if (!gameData.resetRemainWhisperMap()) {
+			return;
+		}
 		Counter<Agent> skipCounter = new Counter<>();
 		for (int turn = 0; turn < gameSetting.maxWhisperTurn(); turn++) {
 			List<Agent> aliveWolfs = new ArrayList<>(gameData.getAliveWolfs());
