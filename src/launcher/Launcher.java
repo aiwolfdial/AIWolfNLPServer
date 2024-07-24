@@ -9,7 +9,6 @@ import java.net.ConnectException;
 import java.net.NoRouteToHostException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
