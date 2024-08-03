@@ -1,9 +1,9 @@
 # AIWolfNLPServer
 
-人狼知能大会 自然言語部門2024国際大会 で使用するサーバプログラムです。  
-(This is the server program used for the AIWolf NLP Division 2024 International Tournament.)
+人狼知能大会 自然言語部門2024国際大会 で使用するリモート対戦接続システムです。  
+(This is the remote game connection program used for the AIWolf NLP Division, provided for participants who wish to try games locally.)
 
-### ❗ **前回大会からの変更点**  (❗ **Changes from the previous tournament**)
+### ❗ **前回大会(2024/06国内大会)からの変更点**  (❗ **Changes from the previous tournament**)
 
 - アクションタイムアウトを追加しました。  
   (Added action timeout.)  
@@ -11,7 +11,7 @@
    (`actionTimeout` has been added to `GameSetting`, and the server notifies the agent of the time limit for agents to perform actions. The unit is milliseconds.)
 - エージェントの指定方法を変更しました。  
   (Changed the way to specify agents.)  
-  エージェントの番号のみを指定する方法から `Agent[%02d]` (例: Agent[01]) の形式で指定する方法に変更しました。  
+  エージェントの番号のみを指定する方法から `Agent[%02d]` (例: Agent[01]) の形式で指定する方法に変更しました。 **これに対応して、各自のエージェントコードの変更が必要です。**
   (Changed from specifying only the agent number to specifying in the format `Agent[%02d]` (e.g. Agent[01]).)
 
 ## 設定 (Configuration)
