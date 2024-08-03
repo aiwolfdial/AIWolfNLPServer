@@ -11,7 +11,7 @@
    (`actionTimeout` has been added to `GameSetting`, and the server notifies the agent of the time limit for agents to perform actions. The unit is milliseconds.)
 - エージェントの指定方法を変更しました。  
   (Changed the way to specify agents.)  
-  エージェントの番号のみを指定する方法から `Agent[%02d]` (例: Agent[01]) の形式で指定する方法に変更しました。 **これに対応して、各自のエージェントコードの変更が必要です。**
+  エージェントの番号のみを指定する方法から `Agent[%02d]` (例: Agent[01]) の形式で指定する方法に変更しました。 **これに対応して、各自のエージェントコードの変更が必要です。たとえば占い先の指定を `1` としていたところ、`Agent[01]` のような形式を返すように変更します。**
   (Changed from specifying only the agent number to specifying in the format `Agent[%02d]` (e.g. Agent[01]).)
 
 ## 設定 (Configuration)
