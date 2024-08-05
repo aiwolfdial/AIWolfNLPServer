@@ -85,7 +85,11 @@ public class Launcher {
 				} catch (Exception e) {
 					logger.error("Exception", e);
 				}
-				connectToPlayerServer();
+				try {
+					connectToPlayerServer();
+				} catch (Exception e) {
+					logger.error("Exception", e);
+				}
 				try {
 					logger.debug("Wait 20sec after connect to player server.");
 					Thread.sleep(20000);
@@ -94,10 +98,19 @@ public class Launcher {
 				}
 			}
 		} else if (!config.listenPort()) {
-			connectToPlayerServer();
+			try {
+				connectToPlayerServer();
+			} catch (Exception e) {
+				logger.error("Exception", e);
+			}
 		} else {
 			while (true) {
-				connectToPlayerServer();
+
+				try {
+					connectToPlayerServer();
+				} catch (Exception e) {
+					logger.error("Exception", e);
+				}
 			}
 		}
 	}
@@ -160,7 +173,7 @@ public class Launcher {
 
 	// サーバーソケットを取得するメソッド
 	private Socket getSocketFromIndex(int index, String line, Set<Integer> entryAgentIndex)
-			throws IOException {
+			throws Exception {
 		logger.info(String.format("Get socket from index: %d", index));
 		// 他の組み合わせを続行する設定が有効な場合、ランダムにインデックスを選択
 		if (config.continueCombinations()) {
@@ -173,8 +186,20 @@ public class Launcher {
 		String[] agentAddresses = config.agentAddresses().replace("[", "").replace("]", "").split(",\\s*");
 		// インデックスに基づいてサーバー情報を設定
 		return switch (index) {
-			case 10000, 10001, 10002, 10003, 10004 -> getSocket("localhost",
-					Integer.parseInt(line.split("\\s")[index % 10000]));
+			case 10000, 10001, 10002, 10003, 10004 -> {
+				try {
+					String[] parts = line.split("\\s");
+					if (index % 10000 < parts.length) {
+						int port = Integer.parseInt(parts[index % 10000]);
+						yield getSocket("localhost", port);
+					} else {
+						throw new ArrayIndexOutOfBoundsException("Index out of bounds for parts array.");
+					}
+				} catch (NumberFormatException e) {
+					logger.error("Failed to parse port number from line: " + line, e);
+					throw new IOException("Invalid port number format.", e);
+				}
+			}
 			default -> {
 				if (agentAddresses.length >= index) {
 					String[] address = agentAddresses[index - 1].split(":");
@@ -197,7 +222,7 @@ public class Launcher {
 		return socket;
 	}
 
-	private void connectToPlayerServer() {
+	private void connectToPlayerServer() throws Exception {
 		// サーバースターターの初期化
 		logger.info("Connect to player server.");
 		isRunning = true;
