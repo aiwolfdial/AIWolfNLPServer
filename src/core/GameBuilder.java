@@ -140,9 +140,12 @@ public class GameBuilder extends Thread {
 			for (Entry<Agent, Role> entry : agentRoleMap.entrySet()) {
 				gameData.addAgent(entry.getKey(), Status.ALIVE, entry.getValue());
 			}
+			String agentsName = agentRoleMap.keySet().stream()
+					.map(agent -> agent.name)
+					.collect(Collectors.joining(":"));
 			String gameName = String.format("%s_[%03d]_%s",
 					DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()), i + 1,
-					String.join(":", gameServer.getNames()));
+					agentsName);
 			try {
 				logger.info(String.format("### START GAME ### %s", gameName));
 				Game game = new Game(config, gameSetting, gameServer, gameData);
