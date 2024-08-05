@@ -13,7 +13,7 @@ import utils.AgentSerializer;
 @JsonDeserialize(using = AgentDeserializer.class)
 final public class Agent implements Comparable<Agent> {
 	public final int idx;
-	public final String name;
+	public String name;
 
 	private static final Map<Integer, Agent> agentIndexMap = new HashMap<>();
 
@@ -42,12 +42,18 @@ final public class Agent implements Comparable<Agent> {
 		if (agent == null) {
 			agent = new Agent(idx, name);
 			agentIndexMap.put(idx, agent);
+		} else {
+			agent.setName(name);
 		}
 		return agent;
 	}
 
 	private Agent(int idx, String name) {
 		this.idx = idx;
+		this.name = name;
+	}
+
+	public void setName(String name) {
 		this.name = name;
 	}
 
