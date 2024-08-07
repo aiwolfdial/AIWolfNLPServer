@@ -206,6 +206,7 @@ public class OptimizedGameStarter extends Thread {
                 } catch (InterruptedException e) {
                     logger.error("Interrupted while waiting for sockets to become available", e);
                 }
+                extracted();
                 for (Pair<InetAddress, Integer> pair : combination.keySet()) {
                     try {
                         Thread.sleep(500);
