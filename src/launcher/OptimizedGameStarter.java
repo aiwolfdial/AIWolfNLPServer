@@ -98,8 +98,13 @@ public class OptimizedGameStarter extends Thread {
                         sockets.put(socket, combination.get(pair));
                     } catch (IOException e) {
                         logger.error(String.format("Failed to create socket %s:%d", pair.key(), pair.value()), e);
-                        throw e;
+                        releaseSockets(sockets.keySet());
+                        break;
                     }
+                }
+                if (sockets.size() != combination.size()) {
+                    logger.warn("Failed to create all sockets.");
+                    continue;
                 }
                 OptimizedGameBuilder builder = new OptimizedGameBuilder(sockets, config);
                 builders.add(builder);
