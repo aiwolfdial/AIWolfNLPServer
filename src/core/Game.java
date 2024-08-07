@@ -155,11 +155,9 @@ public class Game {
 				}
 			}
 			logGameData();
-			if (config.saveRoleCombination()) {
-				appendCombinationsText(config, getCombinationsText());
-				logger.info("Append combinations: " + getCombinationsText());
-			}
-			logger.info("Combinations: " + getCombinationsText());
+
+			appendCombinationsText(config, getCombinationsText());
+
 			finish();
 			logger.info("Finish game.");
 			logger.info(String.format("Winner: %s", getWinner()));
