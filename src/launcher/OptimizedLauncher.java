@@ -42,6 +42,10 @@ public class OptimizedLauncher {
             return;
         }
 
+        // IF YOU WANT TO RESUME THE COMBINATIONS, PLEASE COMMENT OUT THE FOLLOWING
+        // LINE.
+        // OptimizedGameStarter gameStarter = new OptimizedGameStarter(config,
+        // new File("./log/OptimizedCombination_*.log"));
         OptimizedGameStarter gameStarter = new OptimizedGameStarter(config);
 
         String[] agentAddresses = config.agentAddresses().replace("[", "").replace("]", "").split(",\\s*");

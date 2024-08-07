@@ -15,7 +15,7 @@ public class RawFileLogger implements AutoCloseable {
 
 	public RawFileLogger(File file) throws IOException {
 		file.getParentFile().mkdirs();
-		bufferedWriter = new BufferedWriter(new FileWriter(file, true)); // 'true' enables appending to the file
+		bufferedWriter = new BufferedWriter(new FileWriter(file, true));
 	}
 
 	public void log(String text) {
