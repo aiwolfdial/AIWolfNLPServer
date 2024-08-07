@@ -130,7 +130,12 @@ public class OptimizedGameStarter extends Thread {
             String[] socketRole = part.split("-");
             String[] socket = socketRole[0].split(":");
             try {
-                combination.put(new Pair<>(InetAddress.getByName(socket[0]), Integer.parseInt(socket[1])),
+                String addr = socket[0];
+                if (addr.startsWith("/")) {
+                    addr = addr.substring(1);
+                }
+                combination.put(new Pair<>(InetAddress.getByName(
+                        addr), Integer.parseInt(socket[1])),
                         Role.valueOf(socketRole[1]));
             } catch (NumberFormatException e) {
                 logger.warn("Failed to parse optimized combination", e);
