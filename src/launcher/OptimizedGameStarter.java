@@ -72,6 +72,11 @@ public class OptimizedGameStarter extends Thread {
             }
 
             try {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    logger.error("Interrupted while waiting for sockets to become available", e);
+                }
                 OptimizedGameBuilder builder = new OptimizedGameBuilder(combination, config);
                 builders.add(builder);
                 builder.start();
