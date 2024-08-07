@@ -138,6 +138,7 @@ public class Game {
 		File file = new File(config.combinationsLogFilename());
 		try (RawFileLogger rawFileLogger = new RawFileLogger(file)) {
 			rawFileLogger.log(text);
+			rawFileLogger.flush();
 		} catch (IOException e) {
 			logger.error("Exception", e);
 		}
@@ -164,6 +165,7 @@ public class Game {
 		} catch (LostAgentConnectionException e) {
 			if (rawFileLogger != null) {
 				rawFileLogger.log("LostAgentConnectionException: " + e.agent);
+				rawFileLogger.flush();
 			}
 			throw e;
 		}
