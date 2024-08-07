@@ -9,7 +9,6 @@ import java.util.Queue;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import core.GameBuilder;
 import core.model.Config;
 
 public class GameStarter extends Thread {

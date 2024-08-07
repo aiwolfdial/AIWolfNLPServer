@@ -91,14 +91,14 @@ public class Game {
 					Agent agent = requestedAgents.isEmpty() ? noRequestAgents.removeFirst()
 							: requestedAgents.removeFirst();
 					gameData.addAgent(agent, Status.ALIVE, role);
-					logger.debug(String.format("Set role %s to %s", role, agent));
+					logger.info(String.format("Set role %s to %s", role, agent));
 				}
 			}
 		} else {
 			for (Agent agent : agents) {
 				Role role = roleMap.get(agent);
 				gameData.addAgent(agent, Status.ALIVE, role);
-				logger.debug(String.format("Set role %s to %s", role, agent));
+				logger.info(String.format("Set role %s to %s", role, agent));
 			}
 		}
 

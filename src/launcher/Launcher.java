@@ -47,14 +47,12 @@ public class Launcher {
 	private boolean isRunning = false;
 
 	public static void main(String[] args) {
-		logger.info("Launcher started.");
 		try {
 			Launcher starter = new Launcher();
 			starter.start();
 		} catch (Exception e) {
 			logger.error("Exception", e);
 		}
-		logger.info("Launcher finished.");
 	}
 
 	public Launcher() throws IOException, ReflectiveOperationException {
@@ -63,7 +61,7 @@ public class Launcher {
 	}
 
 	public void start() {
-		logger.info("Start.");
+		logger.info("Launcher started.");
 		if (isRunning)
 			return;
 		GameStarter gameStarter = new GameStarter(socketQueue, config);
@@ -80,7 +78,7 @@ public class Launcher {
 					}
 				}
 				try {
-					logger.debug("Wait 20sec before connect to player server.");
+					logger.info("Wait 20sec before connect to player server.");
 					Thread.sleep(20000);
 				} catch (Exception e) {
 					logger.error("Exception", e);
@@ -91,7 +89,7 @@ public class Launcher {
 					logger.error("Exception", e);
 				}
 				try {
-					logger.debug("Wait 20sec after connect to player server.");
+					logger.info("Wait 20sec after connect to player server.");
 					Thread.sleep(20000);
 				} catch (Exception e) {
 					logger.error("Exception", e);
@@ -144,7 +142,7 @@ public class Launcher {
 				// エントリーソケットマップを更新
 				entrySocketMap = waitingSockets.getOrDefault(key, new HashMap<>());
 				waitingSockets.putIfAbsent(key, entrySocketMap);
-				logger.debug(String.format("Socket connected: %s", key));
+				logger.info(String.format("Socket connected: %s", key));
 				// ソケットの名前を取得
 				String name = getName(socket);
 				if (isSetRequiredAgentName && name.contains(config.requiredAgentName())) {
@@ -212,9 +210,9 @@ public class Launcher {
 
 	private Socket getSocket(String hostname, int port) throws IOException {
 		Socket socket = new Socket(hostname, port);
-		logger.debug(String.format("Socket connected: %s:%d", hostname, port));
+		logger.info(String.format("Socket connected: %s:%d", hostname, port));
 		try {
-			logger.debug(String.format("Socket name: %s", getName(socket)));
+			logger.info(String.format("Socket name: %s", getName(socket)));
 		} catch (Exception e) {
 			throw new UnknownHostException();
 		}
@@ -230,7 +228,7 @@ public class Launcher {
 		try {
 			// サーバーがポートをリッスンするかどうかを確認
 			if (config.listenPort()) {
-				logger.debug("Listen port.");
+				logger.info("Listen port.");
 				try (ServerSocket serverSocket = new ServerSocket(config.serverPort())) {
 					Socket socket = serverSocket.accept();
 					line = readLineFromSocket(socket);
@@ -247,7 +245,7 @@ public class Launcher {
 				String ipAddress = socket.getInetAddress().getHostAddress();
 				// IPアドレスに基づいてソケットをマップに追加
 				entrySocketMap.computeIfAbsent(ipAddress, k -> new ArrayList<>()).add(pair);
-				logger.debug(String.format("Socket connected: %s:%d", ipAddress, socket.getPort()));
+				logger.info(String.format("Socket connected: %s:%d", ipAddress, socket.getPort()));
 				// 待機中のソケットマップにエントリーソケットマップを格納
 				waitingSockets.put(ipAddress, entrySocketMap);
 				index++;
@@ -352,19 +350,19 @@ public class Launcher {
 
 	private void printActiveConnection() throws Exception {
 		if (waitingSockets.isEmpty()) {
-			logger.debug("connecting : connection is empty.");
+			logger.info("connecting : connection is empty.");
 			return;
 		}
 		for (Map<String, List<Pair<Long, Socket>>> map : waitingSockets.values()) {
-			logger.debug("---");
+			logger.info("---");
 			for (List<Pair<Long, Socket>> list : map.values()) {
 				StringBuilder sb = new StringBuilder("connecting : ");
 				for (Pair<Long, Socket> pair : list) {
 					sb.append(getName(pair.value())).append(", ");
 				}
-				logger.debug(sb.toString());
+				logger.info(sb.toString());
 			}
-			logger.debug("");
+			logger.info("");
 		}
 	}
 

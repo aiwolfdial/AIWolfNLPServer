@@ -55,7 +55,7 @@ public class Connection {
 				throw task.getException();
 			}
 			pool.shutdown();
-			logger.debug(String.format("Request name: %s", line));
+			logger.info(String.format("Request name: %s", line));
 			return line.isEmpty() ? null : line;
 		} catch (Exception e) {
 			logger.error("Exception", e);
