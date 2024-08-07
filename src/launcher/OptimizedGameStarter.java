@@ -18,7 +18,7 @@ import utils.OptimizedAgentRoleGenerator;
 public class OptimizedGameStarter extends Thread {
     private static final Logger logger = LogManager.getLogger(OptimizedGameStarter.class);
 
-    private final List<OptimizedGameBuilder> gameBuilders = new ArrayList<>();
+    private final List<OptimizedGameBuilder> builders = new ArrayList<>();
     private final Map<Socket, Boolean> socketMap = new ConcurrentHashMap<>();
     private final Config config;
     private final ReentrantLock lock = new ReentrantLock();
@@ -41,9 +41,10 @@ public class OptimizedGameStarter extends Thread {
         logger.info(generator);
 
         while (true) {
-            gameBuilders.removeIf(server -> {
-                if (!server.isAlive()) {
-                    releaseSockets(server.getSocketSet());
+            builders.removeIf(builder -> {
+                if (!builder.isAlive()) {
+                    releaseSockets(builder.getSocketSet());
+                    builder.close();
                     return true;
                 }
                 return false;
@@ -72,7 +73,7 @@ public class OptimizedGameStarter extends Thread {
 
             try {
                 OptimizedGameBuilder builder = new OptimizedGameBuilder(combination, config);
-                gameBuilders.add(builder);
+                builders.add(builder);
                 builder.start();
                 logger.info("Started a new game with a group of sockets.");
                 combinations.remove(combination);
@@ -108,7 +109,7 @@ public class OptimizedGameStarter extends Thread {
     }
 
     private boolean canExecuteInParallel() {
-        return gameBuilders.size() < config.maxParallelExec();
+        return builders.size() < config.maxParallelExec();
     }
 
     public boolean isWaitingGame() {
@@ -116,6 +117,6 @@ public class OptimizedGameStarter extends Thread {
     }
 
     public boolean isGameRunning() {
-        return !gameBuilders.isEmpty();
+        return !builders.isEmpty();
     }
 }

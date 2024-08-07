@@ -51,6 +51,16 @@ public class OptimizedGameBuilder extends Thread {
         return connections.stream().map(Connection::getSocket).collect(Collectors.toSet());
     }
 
+    public void close() {
+        for (Connection connection : connections) {
+            try {
+                connection.getSocket().close();
+            } catch (IOException e) {
+                logger.error("Exception", e);
+            }
+        }
+    }
+
     @Override
     public void run() {
         logger.info("OptimizedGameBuilder started.");
