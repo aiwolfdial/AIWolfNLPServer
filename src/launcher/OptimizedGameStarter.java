@@ -67,6 +67,11 @@ public class OptimizedGameStarter extends Thread {
                 continue;
             }
 
+            if (combinations.isEmpty() && builders.isEmpty()) {
+                logger.info("All games have been started.");
+                break;
+            }
+
             Map<Pair<InetAddress, Integer>, Role> combination = combinations.stream()
                     .filter(this::checkSocketsAvailability)
                     .findFirst()
@@ -117,6 +122,7 @@ public class OptimizedGameStarter extends Thread {
                 releaseSockets(sockets.keySet());
             }
         }
+        logger.info("OptimizedGameStarter finished.");
     }
 
     private boolean checkSocketsAvailability(Map<Pair<InetAddress, Integer>, Role> combination) {
@@ -163,13 +169,5 @@ public class OptimizedGameStarter extends Thread {
 
     private boolean canExecuteInParallel() {
         return builders.size() < config.maxParallelExec();
-    }
-
-    public boolean isWaitingGame() {
-        return !socketMap.values().stream().allMatch(available -> available);
-    }
-
-    public boolean isGameRunning() {
-        return !builders.isEmpty();
     }
 }
