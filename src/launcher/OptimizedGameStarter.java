@@ -112,9 +112,10 @@ public class OptimizedGameStarter extends Thread {
                 if (line.startsWith("#")) {
                     Map<Pair<InetAddress, Integer>, Role> combination = parseOptimizedCombination(line.substring(1));
                     toRemove.add(combination);
+                } else {
+                    Map<Pair<InetAddress, Integer>, Role> combination = parseOptimizedCombination(line);
+                    combinations.add(combination);
                 }
-                Map<Pair<InetAddress, Integer>, Role> combination = parseOptimizedCombination(line);
-                combinations.add(combination);
             }
         } catch (IOException e) {
             logger.error("Failed to read optimized combinations", e);
