@@ -31,6 +31,9 @@ agentAddresses=[127.0.0.1:50000, 127.0.0.1:50001, 127.0.0.1:50002, 127.0.0.1:500
 ; ### マッチング設定 ###
 ; true: gameNum回のゲーム後に他のエージェントの組み合わせで実行する
 ; false: gameNum回のゲーム後に終了する (推奨)
+; （仮） OptimizedLauncherの場合
+; true: 前回の組み合わせの続きを実行する
+; false: 新しい組み合わせを実行する (推奨)
 continueCombinations=false
 ; continueCombinations=trueの場合、他のエージェントの組み合わせで実行する組み合わせの数
 continueCombinationsNum=3

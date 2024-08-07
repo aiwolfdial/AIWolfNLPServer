@@ -53,8 +53,7 @@ public class OptimizedGameStarter extends Thread {
                 }
                 optimizedFile = mostRecentFile;
             } else {
-                optimizedFile = new File(config.logDir(), String.format("OptimizedCombination_%s.log",
-                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))));
+                throw new IllegalArgumentException("No optimized combination log file found.");
             }
         } else {
             optimizedFile = new File(config.logDir(), String.format("OptimizedCombination_%s.log",

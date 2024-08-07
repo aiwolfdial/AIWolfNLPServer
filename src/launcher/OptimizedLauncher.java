@@ -42,7 +42,7 @@ public class OptimizedLauncher {
             return;
         }
 
-        OptimizedGameStarter gameStarter = new OptimizedGameStarter(config, false);
+        OptimizedGameStarter gameStarter = new OptimizedGameStarter(config, config.continueCombinations());
 
         String[] agentAddresses = config.agentAddresses().replace("[", "").replace("]", "").split(",\\s*");
 
