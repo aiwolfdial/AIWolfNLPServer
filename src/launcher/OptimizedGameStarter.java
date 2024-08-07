@@ -35,9 +35,31 @@ public class OptimizedGameStarter extends Thread {
     private final ReentrantLock lock = new ReentrantLock();
 
     public OptimizedGameStarter(Config config) {
+        this(config, false);
+    }
+
+    public OptimizedGameStarter(Config config, boolean resume) {
         this.config = config;
-        optimizedFile = new File(config.logDir(), String.format("OptimizedCombination_%s.log",
-                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))));
+        if (resume) {
+            File logDir = new File(config.logDir());
+            File[] logFiles = logDir
+                    .listFiles((dir, name) -> name.startsWith("OptimizedCombination_") && name.endsWith(".log"));
+            if (logFiles != null && logFiles.length > 0) {
+                File mostRecentFile = logFiles[0];
+                for (File file : logFiles) {
+                    if (file.lastModified() > mostRecentFile.lastModified()) {
+                        mostRecentFile = file;
+                    }
+                }
+                optimizedFile = mostRecentFile;
+            } else {
+                optimizedFile = new File(config.logDir(), String.format("OptimizedCombination_%s.log",
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))));
+            }
+        } else {
+            optimizedFile = new File(config.logDir(), String.format("OptimizedCombination_%s.log",
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"))));
+        }
     }
 
     public OptimizedGameStarter(Config config, File optimizedFile) {
@@ -72,7 +94,7 @@ public class OptimizedGameStarter extends Thread {
         try (FileWriter fileWriter = new FileWriter(optimizedFile, true)) {
             StringBuilder sb = new StringBuilder("#");
             for (Pair<InetAddress, Integer> socket : combination.keySet()) {
-                sb.append(String.format("%s:%d %s ", socket.key(), socket.value(), combination.get(socket)));
+                sb.append(String.format("%s:%d-%s ", socket.key(), socket.value(), combination.get(socket)));
             }
             fileWriter.write(sb.toString());
             fileWriter.write(System.lineSeparator());
@@ -105,7 +127,7 @@ public class OptimizedGameStarter extends Thread {
         Map<Pair<InetAddress, Integer>, Role> combination = new HashMap<>();
         String[] parts = line.split(" ");
         for (String part : parts) {
-            String[] socketRole = part.split(" ");
+            String[] socketRole = part.split("-");
             String[] socket = socketRole[0].split(":");
             try {
                 combination.put(new Pair<>(InetAddress.getByName(socket[0]), Integer.parseInt(socket[1])),
@@ -123,6 +145,7 @@ public class OptimizedGameStarter extends Thread {
     public void run() {
         logger.info("OptimizedGameStarter started.");
         List<Map<Pair<InetAddress, Integer>, Role>> combinations;
+        logger.info("File: " + optimizedFile.getAbsolutePath());
         if (optimizedFile.exists()) {
             logger.info("Optimized combination file already exists.");
             combinations = readOptimizedCombinations();
