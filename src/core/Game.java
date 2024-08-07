@@ -157,6 +157,7 @@ public class Game {
 			logGameData();
 			if (config.saveRoleCombination()) {
 				appendCombinationsText(config, getCombinationsText());
+				logger.info("Append combinations: " + getCombinationsText());
 			}
 			logger.info("Combinations: " + getCombinationsText());
 			finish();
