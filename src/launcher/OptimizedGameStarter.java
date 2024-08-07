@@ -99,6 +99,7 @@ public class OptimizedGameStarter extends Thread {
                     } catch (IOException e) {
                         logger.error(String.format("Failed to create socket %s:%d", pair.key(), pair.value()), e);
                         releaseSockets(sockets.keySet());
+                        clearSocketsAvailability(combination);
                         break;
                     }
                 }
@@ -133,6 +134,15 @@ public class OptimizedGameStarter extends Thread {
         }
     }
 
+    private void clearSocketsAvailability(Map<Pair<InetAddress, Integer>, Role> combination) {
+        lock.lock();
+        try {
+            combination.keySet().forEach(socket -> socketMap.put(socket, false));
+        } finally {
+            lock.unlock();
+        }
+    }
+
     private void releaseSockets(Set<Socket> sockets) {
         lock.lock();
         try {
@@ -142,10 +152,9 @@ public class OptimizedGameStarter extends Thread {
                 } catch (IOException e) {
                     logger.error("Failed to close socket", e);
                 }
-                Pair<InetAddress, Integer> key = new Pair<>(socket.getInetAddress(), socket.getPort());
-                if (socketMap.containsKey(key)) {
-                    socketMap.put(key, false);
-                }
+                Pair<InetAddress, Integer> pair = new Pair<>(socket.getInetAddress(), socket.getPort());
+                if (socketMap.containsKey(pair))
+                    socketMap.put(pair, false);
             }
         } finally {
             lock.unlock();
