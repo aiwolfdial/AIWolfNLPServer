@@ -39,7 +39,9 @@ public class OptimizedGameBuilder extends Thread {
         Set<Integer> usedNumberSet = new HashSet<>();
         for (Socket socket : sockets.keySet()) {
             if (socket.isClosed()) {
+                Role role = sockets.get(socket);
                 socket = new Socket(socket.getInetAddress(), socket.getPort());
+                sockets.put(socket, role);
             }
             Connection connection = new Connection(socket, config, usedNumberSet);
             usedNumberSet.add(connection.getAgent().idx);
