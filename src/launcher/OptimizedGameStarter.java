@@ -80,7 +80,7 @@ public class OptimizedGameStarter extends Thread {
             for (Map<Pair<InetAddress, Integer>, Role> combination : combinations) {
                 StringBuilder sb = new StringBuilder();
                 for (Pair<InetAddress, Integer> socket : combination.keySet()) {
-                    sb.append(String.format("%s:%d %s ", socket.key(), socket.value(), combination.get(socket)));
+                    sb.append(String.format("%s:%d-%s ", socket.key(), socket.value(), combination.get(socket)));
                 }
                 fileWriter.write(sb.toString());
                 fileWriter.write(System.lineSeparator());
