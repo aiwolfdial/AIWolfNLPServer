@@ -173,7 +173,7 @@ public class OptimizedGameStarter extends Thread {
             extracted();
             if (!canExecuteInParallel()) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     logger.error("Interrupted while waiting for parallel exec", e);
                 }
@@ -191,7 +191,7 @@ public class OptimizedGameStarter extends Thread {
                     .orElse(null);
             if (combination == null) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     logger.error("Interrupted while waiting for sockets to become available", e);
                 }
