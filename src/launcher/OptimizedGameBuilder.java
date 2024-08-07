@@ -37,16 +37,19 @@ public class OptimizedGameBuilder extends Thread {
 
     public OptimizedGameBuilder(Map<Socket, Role> sockets, Config config) throws IOException {
         Set<Integer> usedNumberSet = new HashSet<>();
+        Map<Socket, Role> newSockets = new HashMap<>();
         for (Socket socket : sockets.keySet()) {
             if (socket.isClosed()) {
                 Role role = sockets.get(socket);
                 socket = new Socket(socket.getInetAddress(), socket.getPort());
-                sockets.put(socket, role);
+                newSockets.put(socket, role);
+            } else {
+                newSockets.put(socket, sockets.get(socket));
             }
             Connection connection = new Connection(socket, config, usedNumberSet);
             usedNumberSet.add(connection.getAgent().idx);
             connections.add(connection);
-            agentRoleMap.put(connection.getAgent(), sockets.get(socket));
+            agentRoleMap.put(connection.getAgent(), newSockets.get(socket));
         }
         this.config = config;
         this.gameSetting = new GameSetting(config);
