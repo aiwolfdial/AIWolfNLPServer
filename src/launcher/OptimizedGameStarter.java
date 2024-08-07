@@ -87,14 +87,19 @@ public class OptimizedGameStarter extends Thread {
                 } catch (InterruptedException e) {
                     logger.error("Interrupted while waiting for sockets to become available", e);
                 }
-                combination.keySet().forEach(pair -> {
+                for (Pair<InetAddress, Integer> pair : combination.keySet()) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        logger.error("Interrupted while waiting for sockets to become available", e);
+                    }
                     try {
                         Socket socket = new Socket(pair.key(), pair.value());
                         sockets.put(socket, combination.get(pair));
                     } catch (IOException e) {
                         logger.error(String.format("Failed to create socket %s:%d", pair.key(), pair.value()), e);
                     }
-                });
+                }
                 OptimizedGameBuilder builder = new OptimizedGameBuilder(sockets, config);
                 builders.add(builder);
                 builder.start();
