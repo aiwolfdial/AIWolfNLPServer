@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import core.model.Role;
 
-public class OptimizedAgentRoleGenerator implements Iterable<Map<Socket, Role>> {
+public class OptimizedAgentRoleGenerator {
     private final List<Socket> globalSockets;
     private final int globalBattleNum;
     private final Map<Role, Integer> roleMap;
@@ -25,6 +24,10 @@ public class OptimizedAgentRoleGenerator implements Iterable<Map<Socket, Role>> 
         this.roleMap = Role.DefaultMap(battleAgentNum).entrySet().stream()
                 .filter(e -> e.getValue() != 0).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         this.agentRoleCombinations = generateAgentRoleCombinations();
+    }
+
+    public List<Map<Socket, Role>> toList() {
+        return new ArrayList<>(agentRoleCombinations);
     }
 
     private List<Map<Socket, Role>> generateAgentRoleCombinations() {
@@ -113,10 +116,5 @@ public class OptimizedAgentRoleGenerator implements Iterable<Map<Socket, Role>> 
             result.append(rolesLine.toString().trim()).append("\n");
         }
         return result.toString();
-    }
-
-    @Override
-    public Iterator<Map<Socket, Role>> iterator() {
-        return agentRoleCombinations.iterator();
     }
 }

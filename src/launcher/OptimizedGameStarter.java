@@ -1,11 +1,10 @@
 package launcher;
 
-import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -37,56 +36,54 @@ public class OptimizedGameStarter extends Thread {
         logger.info("OptimizedGameStarter started.");
         OptimizedAgentRoleGenerator generator = new OptimizedAgentRoleGenerator(new ArrayList<>(socketMap.keySet()),
                 config.gameNum(), config.battleAgentNum());
-        Iterator<Map<Socket, Role>> iterator = generator.iterator();
+        List<Map<Socket, Role>> combinations = generator.toList();
         logger.info("Generated agent role combinations.");
         logger.info(generator);
 
         while (true) {
-            cleanUpFinishedGames();
-            if (allGamesStarted(iterator))
-                break;
-            if (!iterator.hasNext())
-                continue;
-
-            Map<Socket, Role> combination = iterator.next();
-            if (combination == null)
-                continue;
-
-            if (!areAllSocketsAvailable(combination)) {
-                waitForSocketsToBecomeAvailable();
-                continue;
-            }
-
-            startNewGame(combination);
-        }
-    }
-
-    private void cleanUpFinishedGames() {
-        gameBuilders.removeIf(server -> {
-            if (!server.isAlive()) {
-                lock.lock();
-                try {
-                    server.getConnections().forEach(connection -> socketMap.put(connection.getSocket(), false));
-                } finally {
-                    lock.unlock();
+            gameBuilders.removeIf(server -> {
+                if (!server.isAlive()) {
+                    releaseSockets(server.getSocketSet());
+                    return true;
                 }
-                return true;
-            }
-            return false;
-        });
-    }
+                return false;
+            });
 
-    private boolean allGamesStarted(Iterator<Map<Socket, Role>> iterator) {
-        if (!iterator.hasNext() && gameBuilders.isEmpty()) {
-            if (socketMap.values().stream().allMatch(available -> !available)) {
-                logger.info("All games have been started.");
-                return true;
+            if (!canExecuteInParallel()) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    logger.error("Interrupted while waiting for parallel exec", e);
+                }
+                continue;
+            }
+
+            Map<Socket, Role> combination = combinations.stream().filter(this::checkSocketsAvailability)
+                    .findFirst()
+                    .orElse(null);
+            if (combination == null) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    logger.error("Interrupted while waiting for sockets to become available", e);
+                }
+                continue;
+            }
+
+            try {
+                OptimizedGameBuilder builder = new OptimizedGameBuilder(combination, config);
+                gameBuilders.add(builder);
+                builder.start();
+                logger.info("Started a new game with a group of sockets.");
+                combinations.remove(combination);
+            } catch (Exception e) {
+                logger.error("Exception", e);
+                releaseSockets(combination.keySet());
             }
         }
-        return false;
     }
 
-    private boolean areAllSocketsAvailable(Map<Socket, Role> combination) {
+    private boolean checkSocketsAvailability(Map<Socket, Role> combination) {
         lock.lock();
         try {
             for (Socket socket : combination.keySet()) {
@@ -101,40 +98,17 @@ public class OptimizedGameStarter extends Thread {
         }
     }
 
-    private void waitForSocketsToBecomeAvailable() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            logger.error("Interrupted while waiting for sockets to become available", e);
-        }
-    }
-
-    private void startNewGame(Map<Socket, Role> combination) {
-        OptimizedGameBuilder builder;
-        try {
-            builder = new OptimizedGameBuilder(combination, config);
-        } catch (IOException e) {
-            logger.error("Exception", e);
-            resetSocketAvailability(combination);
-            return;
-        }
-        gameBuilders.add(builder);
-        builder.start();
-        logger.info("Started a new game with a group of sockets.");
-        synchronized (gameBuilders) {
-            if (gameBuilders.size() >= config.maxParallelExec()) {
-                return;
-            }
-        }
-    }
-
-    private void resetSocketAvailability(Map<Socket, Role> combination) {
+    private void releaseSockets(Set<Socket> sockets) {
         lock.lock();
         try {
-            combination.keySet().forEach(socket -> socketMap.put(socket, false));
+            sockets.forEach(socket -> socketMap.put(socket, false));
         } finally {
             lock.unlock();
         }
+    }
+
+    private boolean canExecuteInParallel() {
+        return gameBuilders.size() < config.maxParallelExec();
     }
 
     public boolean isWaitingGame() {

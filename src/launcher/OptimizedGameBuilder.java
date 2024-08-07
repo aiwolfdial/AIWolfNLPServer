@@ -47,8 +47,8 @@ public class OptimizedGameBuilder extends Thread {
         this.gameSetting = new GameSetting(config);
     }
 
-    public Set<Connection> getConnections() {
-        return connections;
+    public Set<Socket> getSocketSet() {
+        return connections.stream().map(Connection::getSocket).collect(Collectors.toSet());
     }
 
     @Override
