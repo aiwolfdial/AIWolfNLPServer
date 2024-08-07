@@ -98,6 +98,7 @@ public class OptimizedGameStarter extends Thread {
             }
             fileWriter.write(sb.toString());
             fileWriter.write(System.lineSeparator());
+            logger.info("Flagged optimized combination");
         } catch (IOException e) {
             logger.error("Failed to append optimized combination", e);
         }
