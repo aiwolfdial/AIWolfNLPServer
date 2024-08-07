@@ -1,7 +1,10 @@
 package launcher;
 
+import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,13 +16,14 @@ import org.apache.log4j.Logger;
 
 import core.model.Config;
 import core.model.Role;
+import libs.Pair;
 import utils.OptimizedAgentRoleGenerator;
 
 public class OptimizedGameStarter extends Thread {
     private static final Logger logger = LogManager.getLogger(OptimizedGameStarter.class);
 
     private final List<OptimizedGameBuilder> builders = new ArrayList<>();
-    private final Map<Socket, Boolean> socketMap = new ConcurrentHashMap<>();
+    private final Map<Pair<InetAddress, Integer>, Boolean> socketMap = new ConcurrentHashMap<>();
     private final Config config;
     private final ReentrantLock lock = new ReentrantLock();
 
@@ -27,16 +31,17 @@ public class OptimizedGameStarter extends Thread {
         this.config = config;
     }
 
-    public void addSocket(Socket socket) {
+    public void addSocket(Pair<InetAddress, Integer> socket) {
         socketMap.put(socket, false);
     }
 
     @Override
     public void run() {
         logger.info("OptimizedGameStarter started.");
-        OptimizedAgentRoleGenerator generator = new OptimizedAgentRoleGenerator(new ArrayList<>(socketMap.keySet()),
+        OptimizedAgentRoleGenerator generator = new OptimizedAgentRoleGenerator(
+                new ArrayList<>(socketMap.keySet()),
                 config.gameNum(), config.battleAgentNum());
-        List<Map<Socket, Role>> combinations = generator.toList();
+        List<Map<Pair<InetAddress, Integer>, Role>> combinations = generator.toList();
         logger.info("Generated agent role combinations.");
         logger.info(generator);
 
@@ -44,7 +49,6 @@ public class OptimizedGameStarter extends Thread {
             builders.removeIf(builder -> {
                 if (!builder.isAlive()) {
                     releaseSockets(builder.getSocketSet());
-                    builder.close();
                     return true;
                 }
                 return false;
@@ -59,7 +63,8 @@ public class OptimizedGameStarter extends Thread {
                 continue;
             }
 
-            Map<Socket, Role> combination = combinations.stream().filter(this::checkSocketsAvailability)
+            Map<Pair<InetAddress, Integer>, Role> combination = combinations.stream()
+                    .filter(this::checkSocketsAvailability)
                     .findFirst()
                     .orElse(null);
             if (combination == null) {
@@ -71,28 +76,37 @@ public class OptimizedGameStarter extends Thread {
                 continue;
             }
 
+            Map<Socket, Role> sockets = new HashMap<>();
             try {
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     logger.error("Interrupted while waiting for sockets to become available", e);
                 }
-                OptimizedGameBuilder builder = new OptimizedGameBuilder(combination, config);
+                combination.keySet().forEach(pair -> {
+                    try {
+                        Socket socket = new Socket(pair.key(), pair.value());
+                        sockets.put(socket, combination.get(pair));
+                    } catch (IOException e) {
+                        logger.error(String.format("Failed to create socket %s:%d", pair.key(), pair.value()), e);
+                    }
+                });
+                OptimizedGameBuilder builder = new OptimizedGameBuilder(sockets, config);
                 builders.add(builder);
                 builder.start();
                 logger.info("Started a new game with a group of sockets.");
                 combinations.remove(combination);
             } catch (Exception e) {
                 logger.error("Exception", e);
-                releaseSockets(combination.keySet());
+                releaseSockets(sockets.keySet());
             }
         }
     }
 
-    private boolean checkSocketsAvailability(Map<Socket, Role> combination) {
+    private boolean checkSocketsAvailability(Map<Pair<InetAddress, Integer>, Role> combination) {
         lock.lock();
         try {
-            for (Socket socket : combination.keySet()) {
+            for (Pair<InetAddress, Integer> socket : combination.keySet()) {
                 if (socketMap.get(socket)) {
                     return false;
                 }
@@ -107,7 +121,17 @@ public class OptimizedGameStarter extends Thread {
     private void releaseSockets(Set<Socket> sockets) {
         lock.lock();
         try {
-            sockets.forEach(socket -> socketMap.put(socket, false));
+            for (Socket socket : sockets) {
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    logger.error("Failed to close socket", e);
+                }
+                Pair<InetAddress, Integer> key = new Pair<>(socket.getInetAddress(), socket.getPort());
+                if (socketMap.containsKey(key)) {
+                    socketMap.put(key, false);
+                }
+            }
         } finally {
             lock.unlock();
         }

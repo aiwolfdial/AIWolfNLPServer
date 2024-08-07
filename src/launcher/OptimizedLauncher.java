@@ -1,6 +1,7 @@
 package launcher;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import core.model.Config;
+import libs.Pair;
 
 public class OptimizedLauncher {
     private static final Logger logger = LogManager.getLogger(OptimizedLauncher.class);
@@ -52,9 +54,8 @@ public class OptimizedLauncher {
             for (int i = 0; i < agentAddresses.length; i++) {
                 try {
                     String[] address = agentAddresses[i].split(":");
-                    Socket socket = new Socket(address[0], Integer.parseInt(address[1]));
-                    sockets.add(socket);
-                    gameStarter.addSocket(socket);
+                    InetAddress inetAddress = InetAddress.getByName(address[0]);
+                    gameStarter.addSocket(new Pair<>(inetAddress, Integer.parseInt(address[1])));
                     logger.info(String.format("Connected to agent at %s:%s", address[0], address[1]));
                 } catch (Exception e) {
                     logger.error(String.format("Failed to connect to agent at %s", agentAddresses[i]), e);
