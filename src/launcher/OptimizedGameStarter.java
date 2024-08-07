@@ -170,15 +170,7 @@ public class OptimizedGameStarter extends Thread {
         logger.info(String.format("Optimized combinations: %d", combinations.size()));
 
         while (true) {
-            builders.removeIf(builder -> {
-                if (!builder.value().isAlive()) {
-                    appendFlagOptimizedCombinations(builder.key());
-                    releaseSockets(builder.value().getSocketSet());
-                    return true;
-                }
-                return false;
-            });
-
+            extracted();
             if (!canExecuteInParallel()) {
                 try {
                     Thread.sleep(1000);
@@ -206,6 +198,7 @@ public class OptimizedGameStarter extends Thread {
                 continue;
             }
 
+            extracted();
             Map<Socket, Role> sockets = new HashMap<>();
             try {
                 try {
@@ -245,6 +238,17 @@ public class OptimizedGameStarter extends Thread {
             }
         }
         logger.info("OptimizedGameStarter finished.");
+    }
+
+    private void extracted() {
+        builders.removeIf(builder -> {
+            if (!builder.value().isAlive()) {
+                appendFlagOptimizedCombinations(builder.key());
+                releaseSockets(builder.value().getSocketSet());
+                return true;
+            }
+            return false;
+        });
     }
 
     private boolean checkSocketsAvailability(Map<Pair<InetAddress, Integer>, Role> combination) {
