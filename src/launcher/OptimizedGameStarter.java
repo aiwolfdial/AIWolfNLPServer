@@ -150,6 +150,14 @@ public class OptimizedGameStarter extends Thread {
 
     @Override
     public void run() {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            logger.info("Shutdown hook triggered. Releasing all sockets.");
+            builders.forEach(builder -> {
+                builder.value().interrupt();
+                releaseSockets(builder.value().getSocketSet());
+            });
+        }));
+
         logger.info("OptimizedGameStarter started.");
         List<Map<Pair<InetAddress, Integer>, Role>> combinations;
         logger.info("File: " + optimizedFile.getAbsolutePath());
