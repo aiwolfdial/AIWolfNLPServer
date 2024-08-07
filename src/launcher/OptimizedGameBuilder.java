@@ -38,6 +38,9 @@ public class OptimizedGameBuilder extends Thread {
     public OptimizedGameBuilder(Map<Socket, Role> sockets, Config config) throws IOException {
         Set<Integer> usedNumberSet = new HashSet<>();
         for (Socket socket : sockets.keySet()) {
+            if (socket.isClosed()) {
+                socket = new Socket(socket.getInetAddress(), socket.getPort());
+            }
             Connection connection = new Connection(socket, config, usedNumberSet);
             usedNumberSet.add(connection.getAgent().idx);
             connections.add(connection);
