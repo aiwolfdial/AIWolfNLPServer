@@ -2,9 +2,6 @@ package launcher;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -18,7 +15,6 @@ public class OptimizedLauncher {
     private static final String DEFAULT_CONFIG_PATH = "./config/Config.ini";
 
     private final Config config;
-    private final List<Socket> sockets = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
@@ -50,7 +46,7 @@ public class OptimizedLauncher {
 
         String[] agentAddresses = config.agentAddresses().replace("[", "").replace("]", "").split(",\\s*");
 
-        while (sockets.size() < config.allParticipantNum()) {
+        while (!gameStarter.hasAllParticipants()) {
             for (int i = 0; i < agentAddresses.length; i++) {
                 try {
                     String[] address = agentAddresses[i].split(":");
@@ -61,7 +57,7 @@ public class OptimizedLauncher {
                     logger.error(String.format("Failed to connect to agent at %s", agentAddresses[i]), e);
                 }
             }
-            if (sockets.size() < config.allParticipantNum()) {
+            if (!gameStarter.hasAllParticipants()) {
                 try {
                     logger.info("Waiting to connect to all participants...");
                     Thread.sleep(5000);

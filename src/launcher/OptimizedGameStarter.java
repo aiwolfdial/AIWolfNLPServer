@@ -35,6 +35,10 @@ public class OptimizedGameStarter extends Thread {
         socketMap.put(socket, false);
     }
 
+    public boolean hasAllParticipants() {
+        return socketMap.size() == config.allParticipantNum();
+    }
+
     @Override
     public void run() {
         logger.info("OptimizedGameStarter started.");
