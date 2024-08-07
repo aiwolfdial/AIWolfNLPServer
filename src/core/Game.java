@@ -15,10 +15,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import core.exception.DuplicateCombinationException;
 import core.exception.IllegalPlayerNumberException;
 import core.exception.LostAgentConnectionException;
 import core.model.Agent;
@@ -41,62 +43,72 @@ public class Game {
 	private final Config config;
 	private final GameSetting gameSetting;
 	private final GameServer gameServer;
-	private final Map<Integer, GameData> gameDataMap;
 	private GameData gameData;
 	private RawFileLogger rawFileLogger;
 
-	public Game(Config config, GameSetting gameSetting, GameServer gameServer, GameData gameData) {
+	private final Map<Integer, GameData> gameDataMap;
+
+	public Game(Config config, GameSetting gameSetting, GameServer gameServer, GameData gameData,
+			Map<Agent, Role> roleMap,
+			RawFileLogger rawFileLogger) throws IllegalPlayerNumberException, DuplicateCombinationException {
 		this.config = config;
 		this.gameSetting = gameSetting;
 		this.gameServer = gameServer;
 		this.gameData = gameData;
-		this.gameDataMap = new TreeMap<>();
-	}
-
-	public void setRawFileLogger(RawFileLogger rawFileLogger) {
 		this.rawFileLogger = rawFileLogger;
-	}
+		this.gameDataMap = new TreeMap<>();
 
-	private void initialize() {
 		logger.info("Initialize game.");
 		gameServer.setGameData(gameData);
 		gameServer.setGameSetting(gameSetting);
 
-		List<Agent> agents = gameServer.getAgents();
+		List<Agent> agents = roleMap.keySet().stream().collect(Collectors.toList());
 		if (agents.size() != gameSetting.getPlayerNum()) {
 			throw new IllegalPlayerNumberException(
 					String.format("Player num is %d but connected agent is %d", gameSetting.getPlayerNum(),
 							agents.size()));
 		}
 
-		Collections.shuffle(agents);
-		Map<Role, List<Agent>> requestRoleAgents = new HashMap<>();
-		for (Role role : Role.values()) {
-			requestRoleAgents.put(role, new ArrayList<>());
-		}
-		List<Agent> noRequestAgents = new ArrayList<>();
-		for (Agent agent : agents) {
-			if (gameSetting.isEnableRoleRequest()) {
+		if (gameSetting.isEnableRoleRequest()) {
+			Collections.shuffle(agents);
+			Map<Role, List<Agent>> requestRoleAgents = new HashMap<>();
+			for (Role role : Role.values()) {
+				requestRoleAgents.put(role, new ArrayList<>());
+			}
+			List<Agent> noRequestAgents = new ArrayList<>();
+			for (Agent agent : agents) {
 				Role role = gameServer.requestRequestRole(agent);
 				if (role != null && requestRoleAgents.get(role).size() < gameSetting.getRoleNum(role)) {
 					requestRoleAgents.get(role).add(agent);
 				} else {
 					noRequestAgents.add(agent);
 				}
-			} else {
-				noRequestAgents.add(agent);
 			}
-		}
-		for (Role role : Role.values()) {
-			List<Agent> requestedAgents = requestRoleAgents.get(role);
-			int roleNum = gameSetting.getRoleNum(role);
-			for (int i = 0; i < roleNum; i++) {
-				Agent agent = requestedAgents.isEmpty() ? noRequestAgents.removeFirst()
-						: requestedAgents.removeFirst();
+			for (Role role : Role.values()) {
+				List<Agent> requestedAgents = requestRoleAgents.get(role);
+				int roleNum = gameSetting.getRoleNum(role);
+				for (int i = 0; i < roleNum; i++) {
+					Agent agent = requestedAgents.isEmpty() ? noRequestAgents.removeFirst()
+							: requestedAgents.removeFirst();
+					gameData.addAgent(agent, Status.ALIVE, role);
+					logger.debug(String.format("Set role %s to %s", role, agent));
+				}
+			}
+		} else {
+			for (Agent agent : agents) {
+				Role role = roleMap.get(agent);
 				gameData.addAgent(agent, Status.ALIVE, role);
 				logger.debug(String.format("Set role %s to %s", role, agent));
 			}
 		}
+
+		if (config.saveRoleCombination()) {
+			if (existsCombinationsText(config, getCombinationsText())) {
+				throw new DuplicateCombinationException(getCombinationsText());
+			}
+		}
+
+		gameServer.setAgents(agents);
 
 		gameDataMap.put(gameData.getDay(), gameData);
 		for (Agent agent : agents) {
@@ -133,14 +145,6 @@ public class Game {
 
 	public void start() {
 		try {
-			initialize();
-			if (config.saveRoleCombination()) {
-				if (existsCombinationsText(config, getCombinationsText())) {
-					logger.warn("Skip because the combination is already done.");
-					finish();
-					return;
-				}
-			}
 			while (!isFinished()) {
 				logGameData();
 
@@ -171,10 +175,10 @@ public class Game {
 				.sorted()
 				.forEach(agent -> {
 					String agentName = agent.name.replaceAll("[0-9]", "");
-					combinationText.add(String.format("%s,%s", gameData.getRole(agent), agentName));
+					combinationText.add(String.format("%s:%s", agentName, gameData.getRole(agent)));
 				});
 		Collections.sort(combinationText);
-		return String.join(",", combinationText);
+		return String.join("-", combinationText);
 	}
 
 	private void finish() {

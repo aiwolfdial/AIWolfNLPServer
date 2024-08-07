@@ -21,11 +21,12 @@ import org.apache.commons.math3.util.Combinations;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import core.exception.DuplicateCombinationException;
+import core.exception.IllegalPlayerNumberException;
 import core.model.Agent;
 import core.model.Config;
 import core.model.GameSetting;
 import core.model.Role;
-import core.model.Status;
 import libs.RawFileLogger;
 
 public class GameBuilder extends Thread {
@@ -130,30 +131,24 @@ public class GameBuilder extends Thread {
 					&& !agentRoleMap.get(human).name().equals(config.humanRole().name()))
 				continue;
 			GameData gameData = new GameData(gameSetting);
-			// 現在対戦に使用しているエージェントの更新
-			gameServer.setAgents(agentRoleMap.keySet());
 			// 今回マッチングするエージェントのいずれかがロストしているならスキップする
 			if (agentRoleMap.keySet().stream().anyMatch(agent -> connections.stream()
 					.noneMatch(connection -> connection.getAgent().equals(agent) && connection.isAlive())))
 				continue;
-			// 役職の設定
-			for (Entry<Agent, Role> entry : agentRoleMap.entrySet()) {
-				gameData.addAgent(entry.getKey(), Status.ALIVE, entry.getValue());
-			}
 			String agentsName = agentRoleMap.keySet().stream()
 					.map(agent -> agent.name)
-					.collect(Collectors.joining(":"));
+					.collect(Collectors.joining("-"));
 			String gameName = String.format("%s_[%03d]_%s",
 					DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()), i + 1,
 					agentsName);
 			try {
 				logger.info(String.format("### START GAME ### %s", gameName));
-				Game game = new Game(config, gameSetting, gameServer, gameData);
-				// ロガーを設定
+				RawFileLogger rawFileLogger = null;
 				if (config.saveLog()) {
 					File file = new File(config.logDir(), String.format("%s.log", gameName));
-					game.setRawFileLogger(new RawFileLogger(file));
+					rawFileLogger = new RawFileLogger(file);
 				}
+				Game game = new Game(config, gameSetting, gameServer, gameData, agentRoleMap, rawFileLogger);
 				// ゲームの実行
 				game.start();
 				// 今回のゲームでエラーが発生したエージェントがいた場合はエラーログを出力する
@@ -167,16 +162,21 @@ public class GameBuilder extends Thread {
 						entry.getValue().printException(logger, entry.getKey(), agentRoleMap.get(entry.getKey()));
 					}
 					// エラー出力がなければエラーログファイルを削除
-					if (newLostConnectionSet.isEmpty())
+					if (newLostConnectionSet.isEmpty()) {
 						file.delete();
+					}
 				}
 				logger.info(String.format("### END GAME ### %s", gameName));
+			} catch (IllegalPlayerNumberException | DuplicateCombinationException e) {
+				logger.info(String.format("### SKIP GAME ### %s", gameName));
+				logger.warn("Skip game.", e);
 			} catch (IOException e) {
 				logger.error("Exception", e);
 			}
 			// 全てのコネクションがロストした場合対戦を終了する
-			if (connections.stream().noneMatch(Connection::isAlive))
+			if (connections.stream().noneMatch(Connection::isAlive)) {
 				break;
+			}
 		}
 		logger.info("GameBuilder end.");
 		close();

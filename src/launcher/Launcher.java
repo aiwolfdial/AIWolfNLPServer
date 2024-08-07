@@ -105,7 +105,6 @@ public class Launcher {
 			}
 		} else {
 			while (true) {
-
 				try {
 					connectToPlayerServer();
 				} catch (Exception e) {
