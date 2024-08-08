@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -206,18 +207,24 @@ public class OptimizedGameStarter extends Thread {
                     logger.error("Interrupted while waiting for sockets to become available", e);
                 }
                 extracted();
-                for (Pair<InetAddress, Integer> pair : combination.keySet()) {
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        logger.error("Interrupted while waiting for sockets to become available", e);
-                    }
-                    try {
-                        Socket socket = new Socket(pair.key(), pair.value());
-                        sockets.put(socket, combination.get(pair));
-                        logger.info(String.format("Successfully created socket %s:%d", pair.key(), pair.value()));
-                    } catch (IOException e) {
-                        logger.error(String.format("Failed to create socket %s:%d", pair.key(), pair.value()));
+                List<Pair<InetAddress, Integer>> remainingPairs = new ArrayList<>(combination.keySet());
+                while (!remainingPairs.isEmpty()) {
+                    Iterator<Pair<InetAddress, Integer>> iterator = remainingPairs.iterator();
+                    while (iterator.hasNext()) {
+                        Pair<InetAddress, Integer> pair = iterator.next();
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            logger.error("Interrupted while waiting for sockets to become available", e);
+                        }
+                        try {
+                            Socket socket = new Socket(pair.key(), pair.value());
+                            sockets.put(socket, combination.get(pair));
+                            logger.info(String.format("Successfully created socket %s:%d", pair.key(), pair.value()));
+                            iterator.remove();
+                        } catch (IOException e) {
+                            logger.error(String.format("Failed to create socket %s:%d", pair.key(), pair.value()));
+                        }
                     }
                 }
                 if (sockets.size() != combination.size()) {
