@@ -215,6 +215,7 @@ public class OptimizedGameStarter extends Thread {
                     try {
                         Socket socket = new Socket(pair.key(), pair.value());
                         sockets.put(socket, combination.get(pair));
+                        logger.info(String.format("Successfully created socket %s:%d", pair.key(), pair.value()));
                     } catch (IOException e) {
                         logger.error(String.format("Failed to create socket %s:%d", pair.key(), pair.value()));
                     }
