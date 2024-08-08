@@ -81,7 +81,7 @@ public class OptimizedGameStarter extends Thread {
                 for (Pair<InetAddress, Integer> socket : combination.keySet()) {
                     sb.append(String.format("%s:%d-%s ", socket.key(), socket.value(), combination.get(socket)));
                 }
-                fileWriter.write(sb.toString());
+                fileWriter.write(sb.toString().trim());
                 fileWriter.write(System.lineSeparator());
             }
         } catch (IOException e) {
@@ -95,7 +95,7 @@ public class OptimizedGameStarter extends Thread {
             for (Pair<InetAddress, Integer> socket : combination.keySet()) {
                 sb.append(String.format("%s:%d-%s ", socket.key(), socket.value(), combination.get(socket)));
             }
-            fileWriter.write(sb.toString());
+            fileWriter.write(sb.toString().trim());
             fileWriter.write(System.lineSeparator());
             logger.info("Flagged optimized combination");
         } catch (IOException e) {
@@ -126,7 +126,7 @@ public class OptimizedGameStarter extends Thread {
 
     private Map<Pair<InetAddress, Integer>, Role> parseOptimizedCombination(String line) {
         Map<Pair<InetAddress, Integer>, Role> combination = new HashMap<>();
-        String[] parts = line.split(" ");
+        String[] parts = line.trim().split(" ");
         for (String part : parts) {
             String[] socketRole = part.split("-");
             String[] socket = socketRole[0].split(":");
@@ -149,14 +149,6 @@ public class OptimizedGameStarter extends Thread {
 
     @Override
     public void run() {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            logger.info("Shutdown hook triggered. Releasing all sockets.");
-            builders.forEach(builder -> {
-                builder.value().interrupt();
-                releaseSockets(builder.value().getSocketSet());
-            });
-        }));
-
         logger.info("OptimizedGameStarter started.");
         List<Map<Pair<InetAddress, Integer>, Role>> combinations;
         logger.info("File: " + optimizedFile.getAbsolutePath());
@@ -224,15 +216,13 @@ public class OptimizedGameStarter extends Thread {
                         Socket socket = new Socket(pair.key(), pair.value());
                         sockets.put(socket, combination.get(pair));
                     } catch (IOException e) {
-                        logger.error(String.format("Failed to create socket %s:%d", pair.key(), pair.value()),
-                                e);
-                        releaseSockets(sockets.keySet());
-                        clearSocketsAvailability(combination);
-                        break;
+                        logger.error(String.format("Failed to create socket %s:%d", pair.key(), pair.value()));
                     }
                 }
                 if (sockets.size() != combination.size()) {
                     logger.warn("Failed to create all sockets.");
+                    releaseSockets(sockets.keySet());
+                    clearSocketsAvailability(combination);
                     continue;
                 }
                 OptimizedGameBuilder builder = new OptimizedGameBuilder(sockets, config);
@@ -303,5 +293,14 @@ public class OptimizedGameStarter extends Thread {
 
     private boolean canExecuteInParallel() {
         return builders.size() < config.maxParallelExec();
+    }
+
+    @Override
+    public void interrupt() {
+        super.interrupt();
+        builders.forEach(builder -> {
+            builder.value().interrupt();
+            releaseSockets(builder.value().getSocketSet());
+        });
     }
 }
