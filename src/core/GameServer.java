@@ -259,6 +259,10 @@ public class GameServer {
 	private void send(Agent agent, Request request) {
 		logger.trace(String.format("Request: %s to %s", request, agent));
 		String message = getMessage(agent, request);
+		if (message.isEmpty()) {
+			logger.warn("Empty message: " + request);
+			logger.warn("Agent: " + agent);
+		}
 		Connection connection = getConnection(agent);
 		BufferedWriter bw = connection.getBufferedWriter();
 		try {
