@@ -225,7 +225,14 @@ public class OptimizedGameStarter extends Thread {
                         } catch (IOException e) {
                             logger.error(String.format("Failed to create socket %s:%d", pair.key(), pair.value()));
 
-                            Socket socket = new Socket("127.0.0.1", 30000);
+                            Socket socket = getDummySocket();
+                            if (socket == null) {
+                                logger.error("Failed to create dummy socket");
+                                releaseSockets(sockets.keySet());
+                                clearSocketsAvailability(combination);
+                                break;
+                            }
+
                             sockets.put(socket, role);
                             logger.info(
                                     String.format("Successfully created dummy socket %s:%d", pair.key(), pair.value()));
@@ -251,6 +258,17 @@ public class OptimizedGameStarter extends Thread {
             }
         }
         logger.info("OptimizedGameStarter finished.");
+    }
+
+    private Socket getDummySocket() {
+        for (int socket = 30000; socket < 30005; socket++) {
+            try {
+                return new Socket("127.0.0.1", socket);
+            } catch (IOException e) {
+                logger.error("Failed to create dummy socket", e);
+            }
+        }
+        return null;
     }
 
     private void extracted() {
