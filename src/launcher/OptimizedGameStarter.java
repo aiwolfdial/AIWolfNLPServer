@@ -202,7 +202,7 @@ public class OptimizedGameStarter extends Thread {
             Map<Socket, Role> sockets = new HashMap<>();
             try {
                 try {
-                    Thread.sleep(6000);
+                    Thread.sleep(60000);
                 } catch (InterruptedException e) {
                     logger.error("Interrupted while waiting for sockets to become available", e);
                 }
