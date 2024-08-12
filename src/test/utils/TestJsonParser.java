@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import core.model.Agent;
 import core.model.GameInfo;
+import core.model.Packet;
 import utils.JsonParser;
 
 public class TestJsonParser {
@@ -32,5 +33,12 @@ public class TestJsonParser {
                 """
                         {"day":1,"agent":"Agent[01]","voteList":[],"latestVoteList":[],"attackVoteList":[],"latestAttackVoteList":[],"talkList":[],"whisperList":[],"statusMap":{},"roleMap":{},"remainTalkMap":{},"remainWhisperMap":{},"existingRoleList":[],"lastDeadAgentList":[]}""",
                 json);
+    }
+
+    @Test
+    public void testEmptyPacket() {
+        Packet packet = new Packet(null);
+        String json = JsonParser.encode(packet);
+        assertEquals("{\"request\":\"NAME\"}", json);
     }
 }

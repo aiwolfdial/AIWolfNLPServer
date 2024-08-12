@@ -217,13 +217,20 @@ public class OptimizedGameStarter extends Thread {
                         } catch (InterruptedException e) {
                             logger.error("Interrupted while waiting for sockets to become available", e);
                         }
+                        Role role = combination.get(pair);
                         try {
                             Socket socket = new Socket(pair.key(), pair.value());
-                            sockets.put(socket, combination.get(pair));
+                            sockets.put(socket, role);
                             logger.info(String.format("Successfully created socket %s:%d", pair.key(), pair.value()));
-                            iterator.remove();
                         } catch (IOException e) {
                             logger.error(String.format("Failed to create socket %s:%d", pair.key(), pair.value()));
+
+                            Socket socket = new Socket("127.0.0.1", 30000);
+                            sockets.put(socket, role);
+                            logger.info(
+                                    String.format("Successfully created dummy socket %s:%d", pair.key(), pair.value()));
+                        } finally {
+                            iterator.remove();
                         }
                     }
                 }
