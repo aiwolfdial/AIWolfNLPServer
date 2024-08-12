@@ -186,9 +186,9 @@ public class OptimizedGameStarter extends Thread {
             }
 
             Map<Pair<InetAddress, Integer>, Role> combination = combinations.stream()
-                    .filter(this::checkSocketsAvailability)
                     .findFirst()
                     .orElse(null);
+            // .filter(this::checkSocketsAvailability)
             if (combination == null) {
                 try {
                     Thread.sleep(100);
