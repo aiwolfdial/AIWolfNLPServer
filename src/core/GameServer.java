@@ -123,16 +123,20 @@ public class GameServer {
 				if (responseTimeout > actionTimeout) {
 					try {
 						// 接続が切れたかどうかを確認
-						String line = getResponse(connection, pool, agent, Request.NAME,
-								responseTimeout - actionTimeout);
-						// 名前が一致するかを確認
-						String expectedName = agent.name;
-						if (expectedName.equals(line)) {
-							return convertRequestData(Request.TALK, Talk.FORCE_SKIP);
-						} else {
-							throwException(agent, request, new IOException("Name mismatch"));
-							return null;
+						String line = null;
+						long remainingTimeout = responseTimeout - actionTimeout;
+						while (remainingTimeout > 0) {
+							long startTime = System.currentTimeMillis();
+							line = getResponse(connection, pool, agent, Request.NAME, remainingTimeout);
+							remainingTimeout -= (System.currentTimeMillis() - startTime);
+							// 名前が一致するかを確認
+							String expectedName = agent.name;
+							if (expectedName.equals(line)) {
+								return convertRequestData(Request.TALK, Talk.FORCE_SKIP);
+							}
 						}
+						throwException(agent, request, new IOException("Name mismatch"));
+						return null;
 					} catch (TimeoutException e1) {
 						// 再度タイムアウトした場合
 						throwException(agent, request, e1);
