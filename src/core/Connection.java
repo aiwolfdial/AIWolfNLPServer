@@ -41,7 +41,7 @@ public class Connection {
 	private Request causeRequest = null;
 
 	private String requestName() {
-		logger.info("Request name.");
+		logger.info("Request name:" + socket);
 		try {
 			ExecutorService pool = Executors.newSingleThreadExecutor();
 			bufferedWriter.append(JsonParser.encode(new Packet(Request.NAME)));

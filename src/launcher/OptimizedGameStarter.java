@@ -14,8 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -29,11 +27,7 @@ public class OptimizedGameStarter extends Thread {
     private static final Logger logger = LogManager.getLogger(OptimizedGameStarter.class);
 
     private final File optimizedFile;
-
-    private final List<Pair<Map<Pair<InetAddress, Integer>, Role>, OptimizedGameBuilder>> builders = new ArrayList<>();
-    private final Map<Pair<InetAddress, Integer>, Boolean> socketMap = new ConcurrentHashMap<>();
     private final Config config;
-    private final ReentrantLock lock = new ReentrantLock();
 
     public OptimizedGameStarter(Config config) {
         this(config, false);
@@ -65,14 +59,6 @@ public class OptimizedGameStarter extends Thread {
     public OptimizedGameStarter(Config config, File optimizedFile) {
         this.config = config;
         this.optimizedFile = optimizedFile;
-    }
-
-    public void addSocket(Pair<InetAddress, Integer> socket) {
-        socketMap.put(socket, false);
-    }
-
-    public boolean hasAllParticipants() {
-        return socketMap.size() == config.allParticipantNum();
     }
 
     public void writeOptimizedCombinations(List<Map<Pair<InetAddress, Integer>, Role>> combinations) {
@@ -158,8 +144,20 @@ public class OptimizedGameStarter extends Thread {
             combinations = readOptimizedCombinations();
         } else {
             logger.info("Optimized combination file does not exist.");
+            String[] agentAddresses = config.agentAddresses().replace("[", "").replace("]", "").split(",\\s*");
+            List<Pair<InetAddress, Integer>> agentPairs = new ArrayList<>();
+            for (String address : agentAddresses) {
+                String[] socket = address.split(":");
+                try {
+                    InetAddress inetAddress = InetAddress.getByName(socket[0]);
+                    int port = Integer.parseInt(socket[1]);
+                    agentPairs.add(new Pair<>(inetAddress, port));
+                } catch (Exception e) {
+                    logger.error(String.format("Failed to parse agent address %s", address), e);
+                }
+            }
             OptimizedAgentRoleGenerator generator = new OptimizedAgentRoleGenerator(
-                    new ArrayList<>(socketMap.keySet()),
+                    agentPairs,
                     config.gameNum(), config.battleAgentNum());
             combinations = generator.toList();
             logger.info("Generated agent role combinations.");
@@ -170,17 +168,7 @@ public class OptimizedGameStarter extends Thread {
         logger.info(String.format("Optimized combinations: %d", combinations.size()));
 
         while (true) {
-            extracted();
-            if (!canExecuteInParallel()) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    logger.error("Interrupted while waiting for parallel exec", e);
-                }
-                continue;
-            }
-
-            if (combinations.isEmpty() && builders.isEmpty()) {
+            if (combinations.isEmpty()) {
                 logger.info("All games have been started.");
                 break;
             }
@@ -188,17 +176,11 @@ public class OptimizedGameStarter extends Thread {
             Map<Pair<InetAddress, Integer>, Role> combination = combinations.stream()
                     .findFirst()
                     .orElse(null);
-            // .filter(this::checkSocketsAvailability)
             if (combination == null) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    logger.error("Interrupted while waiting for sockets to become available", e);
-                }
-                continue;
+                logger.error("Failed to get a combination.");
+                break;
             }
 
-            extracted();
             Map<Socket, Role> sockets = new HashMap<>();
             try {
                 try {
@@ -206,7 +188,6 @@ public class OptimizedGameStarter extends Thread {
                 } catch (InterruptedException e) {
                     logger.error("Interrupted while waiting for sockets to become available", e);
                 }
-                extracted();
                 List<Pair<InetAddress, Integer>> remainingPairs = new ArrayList<>(combination.keySet());
                 while (!remainingPairs.isEmpty()) {
                     Iterator<Pair<InetAddress, Integer>> iterator = remainingPairs.iterator();
@@ -229,7 +210,6 @@ public class OptimizedGameStarter extends Thread {
                             if (socket == null) {
                                 logger.error("Failed to create dummy socket");
                                 releaseSockets(sockets.keySet());
-                                clearSocketsAvailability(combination);
                                 break;
                             }
 
@@ -244,14 +224,14 @@ public class OptimizedGameStarter extends Thread {
                 if (sockets.size() != combination.size()) {
                     logger.warn("Failed to create all sockets.");
                     releaseSockets(sockets.keySet());
-                    clearSocketsAvailability(combination);
-                    continue;
+                    return;
                 }
                 OptimizedGameBuilder builder = new OptimizedGameBuilder(sockets, config);
-                builders.add(new Pair<>(combination, builder));
                 combinations.remove(combination);
                 builder.start();
                 logger.info("Started a new game with a group of sockets.");
+                builder.join();
+                appendFlagOptimizedCombinations(combination);
             } catch (Exception e) {
                 logger.error("Exception", e);
                 releaseSockets(sockets.keySet());
@@ -271,69 +251,13 @@ public class OptimizedGameStarter extends Thread {
         return null;
     }
 
-    private void extracted() {
-        builders.removeIf(builder -> {
-            if (!builder.value().isAlive()) {
-                appendFlagOptimizedCombinations(builder.key());
-                releaseSockets(builder.value().getSocketSet());
-                return true;
-            }
-            return false;
-        });
-    }
-
-    private boolean checkSocketsAvailability(Map<Pair<InetAddress, Integer>, Role> combination) {
-        lock.lock();
-        try {
-            for (Pair<InetAddress, Integer> socket : combination.keySet()) {
-                if (socketMap.get(socket)) {
-                    return false;
-                }
-            }
-            combination.keySet().forEach(socket -> socketMap.put(socket, true));
-            return true;
-        } finally {
-            lock.unlock();
-        }
-    }
-
-    private void clearSocketsAvailability(Map<Pair<InetAddress, Integer>, Role> combination) {
-        lock.lock();
-        try {
-            combination.keySet().forEach(socket -> socketMap.put(socket, false));
-        } finally {
-            lock.unlock();
-        }
-    }
-
     private void releaseSockets(Set<Socket> sockets) {
-        lock.lock();
-        try {
-            for (Socket socket : sockets) {
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    logger.error("Failed to close socket", e);
-                }
-                Pair<InetAddress, Integer> pair = new Pair<>(socket.getInetAddress(), socket.getPort());
-                if (socketMap.containsKey(pair))
-                    socketMap.put(pair, false);
+        for (Socket socket : sockets) {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                logger.error("Failed to close socket", e);
             }
-        } finally {
-            lock.unlock();
         }
-    }
-
-    private boolean canExecuteInParallel() {
-        return builders.size() < config.maxParallelExec();
-    }
-
-    @Override
-    public void interrupt() {
-        super.interrupt();
-        builders.forEach(builder -> {
-            builder.value().interrupt();
-            releaseSockets(builder.value().getSocketSet());
-        });
     }
 }

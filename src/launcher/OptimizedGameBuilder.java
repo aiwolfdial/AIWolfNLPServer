@@ -97,6 +97,10 @@ public class OptimizedGameBuilder extends Thread {
             logger.warn("Skip game.", e);
         } catch (IOException e) {
             logger.error("Exception", e);
+        } finally {
+            for (Connection connection : connections) {
+                connection.close();
+            }
         }
 
         logger.info("OptimizedGameBuilder finished.");

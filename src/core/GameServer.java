@@ -119,6 +119,7 @@ public class GameServer {
 				}
 				return convertRequestData(request, line);
 			} catch (TimeoutException e) {
+				logger.warn("Timeout: " + request);
 				// アクションのタイムアウトを超えた場合
 				if (responseTimeout > actionTimeout) {
 					try {
