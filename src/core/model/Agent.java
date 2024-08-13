@@ -34,6 +34,10 @@ final public class Agent implements Comparable<Agent> {
 				return agent;
 			}
 		}
+		if (name.matches("\\d+")) {
+			int idx = Integer.parseInt(name);
+			return getAgent(idx);
+		}
 		return null;
 	}
 
