@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 import core.model.Config;
 import core.model.Role;
 import libs.Pair;
-import utils.OptimizedAgentRoleGenerator;
+import utils.OptimizedAgentRole;
 
 public class OptimizedGameStarter extends Thread {
     private static final Logger logger = LogManager.getLogger(OptimizedGameStarter.class);
@@ -156,9 +156,10 @@ public class OptimizedGameStarter extends Thread {
                     logger.error(String.format("Failed to parse agent address %s", address), e);
                 }
             }
-            OptimizedAgentRoleGenerator generator = new OptimizedAgentRoleGenerator(
-                    agentPairs,
-                    config.gameNum(), config.battleAgentNum());
+            // OptimizedAgentRoleGenerator generator = new OptimizedAgentRoleGenerator(
+            // agentPairs,
+            // config.gameNum(), config.battleAgentNum());
+            OptimizedAgentRole generator = new OptimizedAgentRole(agentPairs);
             combinations = generator.toList();
             logger.info("Generated agent role combinations.");
             logger.info(generator);
