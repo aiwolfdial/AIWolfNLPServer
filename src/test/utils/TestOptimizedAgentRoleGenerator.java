@@ -18,12 +18,12 @@ public class TestOptimizedAgentRoleGenerator {
     @Test
     public void testGenerateAgentRoleCombinations() {
         List<Pair<InetAddress, Integer>> sockets = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             sockets.add(new Pair<>(InetAddress.getLoopbackAddress(), 10000 + i));
         }
 
         // Create an AgentRoleGenerator with 100 battles and 8 agents per battle
-        OptimizedAgentRoleGenerator generator = new OptimizedAgentRoleGenerator(sockets, 20, 5);
+        OptimizedAgentRoleGenerator generator = new OptimizedAgentRoleGenerator(sockets, 32, 5);
         System.out.println(generator);
 
         // Write the optimized combinations to a file
