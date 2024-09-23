@@ -64,15 +64,17 @@ public class OptimizedGameBuilder extends Thread {
 
         String agentsName = connections.stream().map(connection -> connection.getAgent().name)
                 .collect(Collectors.joining("-"));
-        String gameName = String.format("%s_[%03d]_%s",
-                DateTimeFormatter.ofPattern("yyyyMMddHHmmss").format(LocalDateTime.now()), 1,
-                agentsName);
+        String gameName = "Demo";
 
         try {
             logger.info(String.format("### START GAME ### %s", gameName));
             RawFileLogger rawFileLogger = null;
             if (config.saveLog()) {
                 File file = new File(config.logDir(), String.format("%s.log", gameName));
+                if (file.exists()) {
+                    file.renameTo(new File(config.logDir(),
+                            String.format("%s_%s.log", gameName, LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")))));
+                }
                 rawFileLogger = new RawFileLogger(file);
             }
             Game game = new Game(config, gameSetting, gameServer, gameData, agentRoleMap, rawFileLogger);
