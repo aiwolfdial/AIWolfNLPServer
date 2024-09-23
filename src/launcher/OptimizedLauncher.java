@@ -43,6 +43,10 @@ public class OptimizedLauncher {
             logger.fatal("Parallel execution is not supported in OptimizedLauncher.");
             return;
         }
+        if (config.continueCombinations()) {
+            logger.fatal("Continue combinations mode is not supported in OptimizedLauncher with demo.");
+            return;
+        }
         new OptimizedGameStarter(config, config.continueCombinations()).start();
     }
 }
