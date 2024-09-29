@@ -1,6 +1,9 @@
 package core.model;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -9,35 +12,18 @@ import utils.IniLoader;
 
 @JsonNaming(PropertyNamingStrategy.class)
 public record Config(
-        boolean saveLog,
-        String logDir,
-        boolean saveRoleCombination,
-        String combinationsLogFilename,
-        boolean isServer,
-        int serverPort,
-        boolean listenPort,
-        int connectAgentNum,
-        int idleConnectionTimeout,
+        boolean saveGameLog,
+        String gameLogDir,
+        String comboLogDir,
         String agentAddresses,
-        boolean continueCombinations,
-        int continueCombinationsNum,
-        int maxParallelExec,
-        boolean prioritizeCombinations,
-        boolean singleAgentPerIp,
-        boolean joinHuman,
-        String humanName,
-        HumanRole humanRole,
-        int humanAgentNum,
-        int allParticipantNum,
+        String resumeComboLogPath,
         int battleAgentNum,
-        int gameNum,
         int maxTalkNum,
         int maxTalkTurn,
         boolean talkOnFirstDay,
         int responseTimeout,
         int actionTimeout,
-        boolean ignoreAgentException,
-        String requiredAgentName) {
+        boolean ignoreAgentException) {
     public enum HumanRole {
         VILLAGER, SEER, POSSESSED, WEREWOLF, NULL,
     }
@@ -45,38 +31,30 @@ public record Config(
     public Config() {
         this(
                 true,
-                "./log/",
-                true,
-                "./log/combinations",
-                false,
-                10000,
-                false,
-                5,
-                1800000,
+                "./log/game/",
+                "./log/combo/",
                 "[127.0.0.1:50000, 127.0.0.1:50001, 127.0.0.1:50002, 127.0.0.1:50003, 127.0.0.1:50004]",
-                false,
-                3,
+                "",
                 5,
-                false,
-                false,
-                false,
-                "Human",
-                HumanRole.SEER,
-                1,
-                5,
-                5,
-                1,
                 5,
                 20,
                 true,
                 6000,
                 3000,
-                true,
-                "");
+                true);
     }
 
     public static Config load(String filename) throws IOException, ReflectiveOperationException {
-        return IniLoader.load(filename, Config.class);
+        Config config = IniLoader.load(filename, Config.class);
+        Path logDirPath = Paths.get(config.gameLogDir());
+        Path comboDirPath = Paths.get(config.comboLogDir());
+        if (!Files.exists(logDirPath)) {
+            Files.createDirectories(logDirPath);
+        }
+        if (!Files.exists(comboDirPath)) {
+            Files.createDirectories(comboDirPath);
+        }
+        return config;
     }
 
     @Override

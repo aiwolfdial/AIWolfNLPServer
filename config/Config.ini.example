@@ -1,67 +1,25 @@
 [Config]
-; ### ログ出力設定 ###
+; ### 対戦ログ出力設定 ###
 ; true: 対戦ログを出力する
 ; false: 対戦ログを出力しない
-saveLog=true
+saveGameLog=true
 ; 対戦ログの出力先ディレクトリ
-logDir=./log/
-; true: ロールの組み合わせを出力する
-; false: ロールの組み合わせを出力しない (推奨)
-saveRoleCombination=false
-; ロールの組み合わせの出力先ファイル
-combinationsLogFilename=./log/combinations.log
+gameLogDir=./log/game/
+; ロールの組み合わせの出力先ディレクトリ
+comboLogDir=./log/combo/
 
 ; ### 接続設定 ###
-; true: サーバモード(エージェントからの接続を待つ)で起動
-; false: クライアントモード(エージェントに接続する)で起動 (推奨)
-isServer=false
-; サーバモードの場合、起動するポート番号
-; クライアントモードの場合かつlistenPort=trueの場合、エージェントの接続先ポート一覧を聞くポート番号
-serverPort=10000
-; true: クライアントモードで起動する場合にエージェントの接続先ポート一覧を聞く
-; false: クライアントモードで起動する場合にエージェントの接続先ポート一覧を聞かず、設定ファイルに記載されたポートに接続する (推奨)
-listenPort=false
-; 接続するエージェントの数
-connectAgentNum=5
-; 未使用のエージェントと切断するまでの時間 (ミリ秒)
-idleConnectionTimeout=1800000
 ; クライアントモードで起動する場合のエージェントの接続先ポート一覧
 agentAddresses=[127.0.0.1:50000, 127.0.0.1:50001, 127.0.0.1:50002, 127.0.0.1:50003, 127.0.0.1:50004]
 
 ; ### マッチング設定 ###
-; true: gameNum回のゲーム後に他のエージェントの組み合わせで実行する
-; false: gameNum回のゲーム後に終了する (推奨)
-; （仮） OptimizedLauncherの場合
-; true: 前回の組み合わせの続きを実行する
-; false: 新しい組み合わせを実行する (推奨)
-continueCombinations=false
-; continueCombinations=trueの場合、他のエージェントの組み合わせで実行する組み合わせの数
-continueCombinationsNum=3
-; 並列実行するゲームの最大数
-maxParallelExec=5
-; true: gameNum回数よりロールの組み合わせ回数を優先して対戦する
-; false: gameNum回数を優先して対戦する (推奨)
-prioritizeCombinations=false
-; true: 同一IPアドレスのエージェントを1つのエージェントとして扱う
-; false: 考慮しない (推奨)
-singleAgentPerIp=false
-; true: 人間エージェントを追加する
-; false: 人間エージェントを追加しない (推奨)
-joinHuman=false
-; joinHuman=trueの場合、人間エージェントの名前
-humanName=Human
-; joinHuman=trueの場合、人間エージェントのロール
-humanRole=SEER
-; joinHuman=trueの場合、人間エージェントのエージェント番号
-humanAgentNum=1
+; ロールの組み合わせを再開する場合のログファイル名
+; 新規ロールの組み合わせの場合は空白
+resumeComboLogPath=
 
 ; ### ゲーム設定 ###
-; 全体の参加するエージェントの数 (本戦用)
-allParticipantNum=5
 ; 対戦するエージェントの数
 battleAgentNum=5
-; 対戦するゲームの回数
-gameNum=1
 ; 1エージェントが1日に発話できる最大回数
 maxTalkNum=5
 ; 1日に発話できる最大ターン数
@@ -76,5 +34,3 @@ actionTimeout=60000
 ; true: エージェントで発生した例外を無視してゲームを続行する (推奨)
 ; false: エージェントで発生した例外を無視せず、ゲームを中断する
 ignoreAgentException=true
-; ゲームに強制参加させるエージェントの名前 空白の場合は無効 (推奨)
-requiredAgentName=

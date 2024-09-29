@@ -1,9 +1,5 @@
 package core;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,7 +20,6 @@ import core.exception.DuplicateCombinationException;
 import core.exception.IllegalPlayerNumberException;
 import core.exception.LostAgentConnectionException;
 import core.model.Agent;
-import core.model.Config;
 import core.model.GameSetting;
 import core.model.Guard;
 import core.model.Judge;
@@ -40,7 +35,6 @@ import libs.RawFileLogger;
 public class Game {
 	private static final Logger logger = LogManager.getLogger(Game.class);
 
-	private final Config config;
 	private final GameSetting gameSetting;
 	private final GameServer gameServer;
 	private GameData gameData;
@@ -48,10 +42,9 @@ public class Game {
 
 	private final Map<Integer, GameData> gameDataMap;
 
-	public Game(Config config, GameSetting gameSetting, GameServer gameServer, GameData gameData,
+	public Game(GameSetting gameSetting, GameServer gameServer, GameData gameData,
 			Map<Agent, Role> roleMap,
 			RawFileLogger rawFileLogger) throws IllegalPlayerNumberException, DuplicateCombinationException {
-		this.config = config;
 		this.gameSetting = gameSetting;
 		this.gameServer = gameServer;
 		this.gameData = gameData;
@@ -102,45 +95,11 @@ public class Game {
 			}
 		}
 
-		if (config.saveRoleCombination()) {
-			if (existsCombinationsText(config, getCombinationsText())) {
-				throw new DuplicateCombinationException(getCombinationsText());
-			}
-		}
-
 		gameServer.setAgents(agents);
 
 		gameDataMap.put(gameData.getDay(), gameData);
 		for (Agent agent : agents) {
 			gameServer.init(agent);
-		}
-	}
-
-	private boolean existsCombinationsText(Config config, String text) {
-		File file = new File(config.combinationsLogFilename());
-		if (!file.exists()) {
-			return false;
-		}
-		try (BufferedReader bufferReader = new BufferedReader(new FileReader(file))) {
-			String doneCombinationText;
-			while ((doneCombinationText = bufferReader.readLine()) != null) {
-				if (doneCombinationText.equals(text)) {
-					return true;
-				}
-			}
-		} catch (IOException e) {
-			logger.error("Exception", e);
-		}
-		return false;
-	}
-
-	private void appendCombinationsText(Config config, String text) {
-		File file = new File(config.combinationsLogFilename());
-		try (RawFileLogger rawFileLogger = new RawFileLogger(file)) {
-			rawFileLogger.log(text);
-			rawFileLogger.flush();
-		} catch (IOException e) {
-			logger.error("Exception", e);
 		}
 	}
 
@@ -157,8 +116,6 @@ public class Game {
 			}
 			logGameData();
 
-			appendCombinationsText(config, getCombinationsText());
-
 			finish();
 			logger.info("Finish game.");
 			logger.info(String.format("Winner: %s", getWinner()));
@@ -169,18 +126,6 @@ public class Game {
 			}
 			throw e;
 		}
-	}
-
-	private String getCombinationsText() {
-		List<String> combinationText = new ArrayList<>();
-		gameData.getAgents().stream()
-				.sorted()
-				.forEach(agent -> {
-					String agentName = agent.name.replaceAll("[0-9]", "");
-					combinationText.add(String.format("%s:%s", agentName, gameData.getRole(agent)));
-				});
-		Collections.sort(combinationText);
-		return String.join("-", combinationText);
 	}
 
 	private void finish() {

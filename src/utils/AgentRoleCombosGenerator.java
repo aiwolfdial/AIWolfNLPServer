@@ -12,47 +12,46 @@ import java.util.stream.Collectors;
 import core.model.Role;
 import libs.Pair;
 
-public class OptimizedAgentRoleGenerator {
+public class AgentRoleCombosGenerator {
     private final List<Pair<InetAddress, Integer>> globalSockets;
     private final int globalBattleNum;
     private final Map<Role, Integer> roleMap;
-    private final List<Map<Pair<InetAddress, Integer>, Role>> agentRoleCombinations;
+    private final List<Map<Pair<InetAddress, Integer>, Role>> agentRoleCombos;
 
-    public OptimizedAgentRoleGenerator(List<Pair<InetAddress, Integer>> globalSockets, int globalBattleNum,
+    public AgentRoleCombosGenerator(List<Pair<InetAddress, Integer>> globalSockets, int globalBattleNum,
             int battleAgentNum) {
         this.globalSockets = new ArrayList<>(globalSockets);
         Collections.shuffle(this.globalSockets);
         this.globalBattleNum = globalBattleNum;
         this.roleMap = Role.DefaultMap(battleAgentNum).entrySet().stream()
                 .filter(e -> e.getValue() != 0).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-        this.agentRoleCombinations = generateAgentRoleCombinations();
+        this.agentRoleCombos = generateAgentRoleCombos();
     }
 
     public List<Map<Pair<InetAddress, Integer>, Role>> toList() {
-        return new ArrayList<>(agentRoleCombinations);
+        return new ArrayList<>(agentRoleCombos);
     }
 
-    private List<Map<Pair<InetAddress, Integer>, Role>> generateAgentRoleCombinations() {
-        List<Map<Pair<InetAddress, Integer>, Role>> combinations = new ArrayList<>();
+    private List<Map<Pair<InetAddress, Integer>, Role>> generateAgentRoleCombos() {
+        List<Map<Pair<InetAddress, Integer>, Role>> combos = new ArrayList<>();
         Map<Pair<InetAddress, Integer>, Map<Role, Integer>> socketRoleCounts = initializeSocketRoleCounts();
         List<Role> allRoles = createAllRolesList();
 
         for (int i = 0; i < globalBattleNum; i++) {
-            Map<Pair<InetAddress, Integer>, Role> combination = new HashMap<>();
+            Map<Pair<InetAddress, Integer>, Role> combo = new HashMap<>();
             List<Pair<InetAddress, Integer>> availableSockets = new ArrayList<>(globalSockets);
             Collections.shuffle(availableSockets);
 
             for (Role role : allRoles) {
                 Pair<InetAddress, Integer> bestSocket = findBestSocket(availableSockets, role, socketRoleCounts);
-                combination.put(bestSocket, role);
+                combo.put(bestSocket, role);
                 availableSockets.remove(bestSocket);
                 socketRoleCounts.get(bestSocket).put(role, socketRoleCounts.get(bestSocket).get(role) + 1);
             }
 
-            combinations.add(combination);
+            combos.add(combo);
         }
-
-        return combinations;
+        return combos;
     }
 
     private Map<Pair<InetAddress, Integer>, Map<Role, Integer>> initializeSocketRoleCounts() {
@@ -98,8 +97,8 @@ public class OptimizedAgentRoleGenerator {
             }
         }
 
-        for (Map<Pair<InetAddress, Integer>, Role> combination : agentRoleCombinations) {
-            for (Map.Entry<Pair<InetAddress, Integer>, Role> entry : combination.entrySet()) {
+        for (Map<Pair<InetAddress, Integer>, Role> combo : agentRoleCombos) {
+            for (Map.Entry<Pair<InetAddress, Integer>, Role> entry : combo.entrySet()) {
                 Pair<InetAddress, Integer> socket = entry.getKey();
                 Role role = entry.getValue();
                 socketRoleCount.get(socket).put(role, socketRoleCount.get(socket).get(role) + 1);

@@ -3,16 +3,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "OptimizedLauncher",
-            "request": "launch",
-            "mainClass": "launcher.OptimizedLauncher",
-            "projectName": "AIWolfNLPServer_ff812536",
-            "vmArgs": [
-                "-Dlog4j.configurationFile=./config/log4j2.xml"
-            ]
-        },
-        {
-            "type": "java",
             "name": "Launcher",
             "request": "launch",
             "mainClass": "launcher.Launcher",

@@ -9,9 +9,9 @@ import java.util.Map;
 import core.model.Role;
 import libs.Pair;
 
-public class OptimizedAgentRole {
+public class DefaultAgentRoleCombos {
     private final List<Pair<InetAddress, Integer>> globalSockets;
-    private final List<Map<Pair<InetAddress, Integer>, Role>> agentRoleCombinations;
+    private final List<Map<Pair<InetAddress, Integer>, Role>> agentRoleCombos;
 
     private final Map<Integer, String> JP_TRACKS = new HashMap<Integer, String>() {
         {
@@ -130,24 +130,24 @@ public class OptimizedAgentRole {
         }
     };
 
-    public OptimizedAgentRole(List<Pair<InetAddress, Integer>> globalSockets) {
+    public DefaultAgentRoleCombos(List<Pair<InetAddress, Integer>> globalSockets) {
         this.globalSockets = new ArrayList<>(globalSockets);
-        this.agentRoleCombinations = new ArrayList<>();
+        this.agentRoleCombos = new ArrayList<>();
         for (String line : JP_TRACKS.get(globalSockets.size()).split("\n")) {
-            Map<Pair<InetAddress, Integer>, Role> combination = new HashMap<>();
+            Map<Pair<InetAddress, Integer>, Role> combo = new HashMap<>();
             String[] parts = line.trim().split(" ");
             for (String part : parts) {
                 String[] socketRole = part.split("-");
                 int index = Integer.parseInt(socketRole[0]);
                 Role role = Role.valueOf(socketRole[1]);
-                combination.put(new Pair<>(globalSockets.get(index).key(), globalSockets.get(index).value()), role);
+                combo.put(new Pair<>(globalSockets.get(index).key(), globalSockets.get(index).value()), role);
             }
-            agentRoleCombinations.add(combination);
+            agentRoleCombos.add(combo);
         }
     }
 
     public List<Map<Pair<InetAddress, Integer>, Role>> toList() {
-        return new ArrayList<>(agentRoleCombinations);
+        return new ArrayList<>(agentRoleCombos);
     }
 
     @Override
@@ -162,8 +162,8 @@ public class OptimizedAgentRole {
             }
         }
 
-        for (Map<Pair<InetAddress, Integer>, Role> combination : agentRoleCombinations) {
-            for (Map.Entry<Pair<InetAddress, Integer>, Role> entry : combination.entrySet()) {
+        for (Map<Pair<InetAddress, Integer>, Role> combo : agentRoleCombos) {
+            for (Map.Entry<Pair<InetAddress, Integer>, Role> entry : combo.entrySet()) {
                 Pair<InetAddress, Integer> socket = entry.getKey();
                 Role role = entry.getValue();
                 socketRoleCount.get(socket).put(role, socketRoleCount.get(socket).get(role) + 1);

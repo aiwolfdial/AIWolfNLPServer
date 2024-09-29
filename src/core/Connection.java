@@ -70,14 +70,9 @@ public class Connection {
 		bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 		int agentNum = 1;
-		int humanNum = config.joinHuman() ? config.humanAgentNum() : -1;
 		String name = requestName();
-		if (name != null && name.equals(config.humanName()) && config.joinHuman()) {
-			agentNum = humanNum;
-		} else {
-			while (usedNumberSet.contains(agentNum) || agentNum == humanNum)
-				agentNum++;
-		}
+		while (usedNumberSet.contains(agentNum))
+			agentNum++;
 		agent = Agent.setAgent(agentNum, name);
 		logger.info("Connection established: " + agent);
 	}
