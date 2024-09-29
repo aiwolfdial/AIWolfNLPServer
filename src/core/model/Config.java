@@ -46,13 +46,13 @@ public record Config(
 
     public static Config load(String filename) throws IOException, ReflectiveOperationException {
         Config config = IniLoader.load(filename, Config.class);
-        Path logDirPath = Paths.get(config.gameLogDir());
-        Path comboDirPath = Paths.get(config.comboLogDir());
-        if (!Files.exists(logDirPath)) {
-            Files.createDirectories(logDirPath);
+        Path gameLogDirPath = Paths.get(config.gameLogDir());
+        Path comboLogDirPath = Paths.get(config.comboLogDir());
+        if (!Files.exists(gameLogDirPath)) {
+            Files.createDirectories(gameLogDirPath);
         }
-        if (!Files.exists(comboDirPath)) {
-            Files.createDirectories(comboDirPath);
+        if (!Files.exists(comboLogDirPath)) {
+            Files.createDirectories(comboLogDirPath);
         }
         return config;
     }
